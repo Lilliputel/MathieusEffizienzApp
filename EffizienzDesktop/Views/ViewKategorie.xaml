@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="EffizienzNeu.Views.ViewKategorie"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:EffizienzNeu.Views"
+			 mc:Ignorable="d">
+	
+	<UserControl.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="Margin" Value="0,2"/>
+		</Style>
+	</UserControl.Resources>
+
+	<StackPanel>
+		<TextBlock Text="Titel:"/>
+		<TextBox x:Name="TextBox_Titel"/>
+
+		<TextBlock Text="Farbe:"/>
+		<ComboBox x:Name="ComboBox_Farbe">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal">
+						<Rectangle Fill="{Binding Name}" Width="16" Height="16" Margin="0,2,5,2" />
+						<TextBlock Text="{Binding Name}" />
+					</StackPanel>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
+
+		<Button x:Name="Button_SpeichernSchliessen"
+				Click="Button_SpeichernSchliessen_Click"
+				Content="Speichern + Schliessen!"
+				Margin="0,5"/>
+
+	</StackPanel>
+</UserControl>
