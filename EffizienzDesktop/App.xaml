@@ -20,11 +20,16 @@
 		<DataTemplate DataType="{x:Type ViewModels:ViewModelPomodoro}">
 			<Views:ViewPomodoro/>
 		</DataTemplate>
+		
 		<DataTemplate DataType="{x:Type ViewModels:ViewModelÜbersicht}">
 			<Views:ViewÜbersicht/>
 		</DataTemplate>
 		<DataTemplate DataType="{x:Type ViewModels:ViewModelStatistik}">
 			<Views:ViewStatistik/>
+		</DataTemplate>
+
+		<DataTemplate DataType="{x:Type ViewModels:ViewModelTEST}">
+			<Views:TEST/>
 		</DataTemplate>
 
 
