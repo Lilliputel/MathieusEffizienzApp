@@ -11,12 +11,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EffizienzNeu.Views {
+namespace EffizienzNeu.UserControls {
 	/// <summary>
-	/// Interaction logic for TEST.xaml
+	/// Interaction logic for ViewNavBar.xaml
 	/// </summary>
-	public partial class TEST : UserControl {
-		public TEST() {
+	public partial class ViewNavBar : UserControl {
+		public ViewNavBar() {
 			InitializeComponent();
 		}
 	}

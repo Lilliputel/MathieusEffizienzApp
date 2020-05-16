@@ -10,8 +10,7 @@ namespace EffizienzNeu.Enums {
 		Projekt,
 		Aufgabe,
 		Pomodoro,
-		Statistik,
-		TEST
+		Statistik
 
 	}
 }

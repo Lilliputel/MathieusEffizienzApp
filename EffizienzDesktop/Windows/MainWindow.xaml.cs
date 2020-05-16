@@ -31,6 +31,10 @@ namespace EffizienzNeu.Windows {
 			DataContext = new ViewModelMain();
 
 		}
-		
+
+		private void Button_Click( object sender, RoutedEventArgs e ) {
+			var test = (App)Application.Current;
+			test.SetTheme(true);
+		}
 	}
 }

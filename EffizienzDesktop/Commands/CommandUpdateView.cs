@@ -42,8 +42,6 @@ namespace EffizienzNeu.Commands {
 				break;
 
 			default:
-				viewModelMain.SelectedVMMain = new ViewModelTEST();
-				viewModelMain.SelectedVMEssential = new ViewModelTEST();
 				break;
 			}
 		}

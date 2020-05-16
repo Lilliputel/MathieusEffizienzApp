@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		
 		xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
-		
         xmlns:local="clr-namespace:EffizienzNeu"
 		xmlns:Views="clr-namespace:EffizienzNeu.Views"
 		xmlns:ViewModels="clr-namespace:EffizienzNeu.ViewModels"
@@ -14,7 +13,9 @@
 		
         Title="Prototype_Effizienz" 
 		MinWidth="350" MaxWidth="800"
-		MinHeight="350" MaxHeight="400">
+		MinHeight="350" MaxHeight="400"
+		
+		Background="{DynamicResource TestSCB}">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -55,9 +56,7 @@
 					Command="{Binding CommandUpdateView}" CommandParameter="Pomodoro"
 					HorizontalAlignment="Stretch" VerticalAlignment="Center"
 					Margin="0,5" />
-
-			<Button x:Name="Button_TEST" Content="TEST" 
-					Command="{Binding CommandUpdateView}"
+			<Button Click="Button_Click" Content="Test"
 					HorizontalAlignment="Stretch" VerticalAlignment="Center"
 					Margin="0,5" />
 
@@ -76,7 +75,8 @@
 
 		<Grid Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
 			<TextBox  Width="200"  VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="SearchTermTextBox" Margin="5"/>
-			<TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+			<TextBlock IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" 
+					   Text="Enter Search Term Here" Foreground="DarkGray" >
 				<TextBlock.Style>
 					<Style TargetType="{x:Type TextBlock}">
 						<Setter Property="Visibility" Value="Collapsed"/>
@@ -89,6 +89,7 @@
 				</TextBlock.Style>
 			</TextBlock>
 		</Grid>
+		
 
 	</Grid>
 
