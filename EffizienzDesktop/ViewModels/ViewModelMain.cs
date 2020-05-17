@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace EffizienzNeu.ViewModels {
+namespace EffizienzNeu.Views {
 	public class ViewModelMain : ViewModelBase {
 
 		private ViewModelBase selectedVMMain;

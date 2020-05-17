@@ -6,4 +6,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Page Update="Views\Main\ViewProjektÜbersicht.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Main\ViewPlanung.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Main\ViewOptionen.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>  
+  
 </Project>

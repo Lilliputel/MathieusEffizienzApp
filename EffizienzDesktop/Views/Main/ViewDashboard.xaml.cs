@@ -19,9 +19,9 @@ using System.Windows.Shapes;
 
 namespace EffizienzNeu.Views {
 
-	public partial class ViewÜbersicht : UserControl, IParsable {
+	public partial class ViewDashboard : UserControl, IParsable {
 
-		public ViewÜbersicht() {
+		public ViewDashboard() {
 			InitializeComponent();
 
 			this.ListView_Kategorien.ItemsSource = ListContainer.KategorienListe.Liste;
@@ -30,7 +30,7 @@ namespace EffizienzNeu.Views {
 
 		}
 
-		~ViewÜbersicht() { }
+		~ViewDashboard() { }
 		
 		private void Button_Kategorien_Speichern_Click( object sender, RoutedEventArgs e ) {
 			Speichern(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));

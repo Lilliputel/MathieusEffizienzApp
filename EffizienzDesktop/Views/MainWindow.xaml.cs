@@ -1,7 +1,7 @@
 ﻿using EffizienzNeu.Classes;
 using EffizienzNeu.Interfaces;
 using EffizienzNeu.Utility;
-using EffizienzNeu.ViewModels;
+using EffizienzNeu.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,16 +26,15 @@ namespace EffizienzNeu.Windows {
 	public partial class MainWindow : Window {
 
 		public MainWindow() {
-
 			InitializeComponent();
-
 			DataContext = new ViewModelMain();
-
 		}
 
-		private void Button_Click( object sender, RoutedEventArgs e ) {
-			var test = (App)Application.Current;
-			test.SetTheme(true);
+		private void ToggleTheme( object sender, RoutedEventArgs e ) {
+			ToggleButton toggleButton = (ToggleButton)e.Source;
+			bool isChecked = (bool)toggleButton.IsChecked;
+			toggleButton.Content = isChecked ? "Bright!" : "Dark!";
+			( (App)Application.Current ).SetTheme(isChecked);
 		}
 	}
 }

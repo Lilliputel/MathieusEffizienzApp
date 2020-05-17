@@ -2,7 +2,6 @@
 using EffizienzNeu.Enums;
 using EffizienzNeu.Interfaces;
 using EffizienzNeu.Utility;
-using EffizienzNeu.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

@@ -5,12 +5,17 @@ using System.Text;
 namespace EffizienzNeu.Enums {
 	public enum EnumViewModels {
 
-		Übersicht,
+		Dashboard,
+		Gantt,
+		Optionen,
+		Planung,
+		ProjektÜbersicht,
+		Statistik,
+
+		Pomodoro,
 		Kategorie,
 		Projekt,
 		Aufgabe,
-		Pomodoro,
-		Statistik
 
 	}
 }

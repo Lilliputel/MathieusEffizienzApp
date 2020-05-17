@@ -1,5 +1,5 @@
 ﻿using EffizienzNeu.Enums;
-using EffizienzNeu.ViewModels;
+using EffizienzNeu.Views;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,8 +21,20 @@ namespace EffizienzNeu.Commands {
 		public void Execute( object parameter ) {
 			switch( parameter ) {
 
-			case nameof(EnumViewModels.Übersicht):
-				viewModelMain.SelectedVMMain = new ViewModelÜbersicht();
+			case nameof(EnumViewModels.Dashboard):
+				viewModelMain.SelectedVMMain = new ViewModelDashboard();
+				break;
+			case nameof(EnumViewModels.Gantt):
+				viewModelMain.SelectedVMMain = new ViewModelGantt();
+				break;
+			case nameof(EnumViewModels.Optionen):
+				viewModelMain.SelectedVMMain = new ViewModelOptionen();
+				break;
+			case nameof(EnumViewModels.Planung):
+				viewModelMain.SelectedVMMain = new ViewModelPlanung();
+				break;
+			case nameof(EnumViewModels.ProjektÜbersicht):
+				viewModelMain.SelectedVMMain = new ViewModelProjektÜbersicht();
 				break;
 			case nameof(EnumViewModels.Statistik):
 				viewModelMain.SelectedVMMain = new ViewModelStatistik();

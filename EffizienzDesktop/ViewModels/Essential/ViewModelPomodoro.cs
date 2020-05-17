@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EffizienzNeu.ViewModels {
+namespace EffizienzNeu.Views {
 	public class ViewModelPomodoro : ViewModelBase {
 	}
 }

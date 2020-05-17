@@ -2,27 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:EffizienzNeu"
 					
-					xmlns:Views="clr-namespace:EffizienzNeu.Views"
-					xmlns:ViewModels="clr-namespace:EffizienzNeu.ViewModels"
-					>
+					xmlns:Views="clr-namespace:EffizienzNeu.Views">
 
-	<DataTemplate DataType="{x:Type ViewModels:ViewModelKategorie}">
+	<DataTemplate DataType="{x:Type Views:ViewModelKategorie}">
 		<Views:ViewKategorie/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:ViewModelProjekt}">
+	<DataTemplate DataType="{x:Type Views:ViewModelProjekt}">
 		<Views:ViewProjekt/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:ViewModelAufgabe}">
+	<DataTemplate DataType="{x:Type Views:ViewModelAufgabe}">
 		<Views:ViewAufgabe/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:ViewModelPomodoro}">
+	<DataTemplate DataType="{x:Type Views:ViewModelPomodoro}">
 		<Views:ViewPomodoro/>
 	</DataTemplate>
 
-	<DataTemplate DataType="{x:Type ViewModels:ViewModelÜbersicht}">
-		<Views:ViewÜbersicht/>
+	<DataTemplate DataType="{x:Type Views:ViewModelDashboard}">
+		<Views:ViewDashboard/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:ViewModelStatistik}">
+	<DataTemplate DataType="{x:Type Views:ViewModelGantt}">
+		<Views:ViewGantt/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelOptionen}">
+		<Views:ViewOptionen/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelPlanung}">
+		<Views:ViewPlanung/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelProjektÜbersicht}">
+		<Views:ViewProjektÜbersicht/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelStatistik}">
 		<Views:ViewStatistik/>
 	</DataTemplate>
 	

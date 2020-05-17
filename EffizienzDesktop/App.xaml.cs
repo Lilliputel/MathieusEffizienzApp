@@ -25,22 +25,16 @@ namespace EffizienzNeu {
 		}
 		private ResourceDictionary themeDark;
 		private ResourceDictionary themeBright;
+		private string themeDirectory = "/EffizienzNeu;component/Themes/";
 
 		public App() {
-			themeDark = new ResourceDictionary() { Source = new Uri("/EffizienzNeu;component/Themes/ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };
-			themeBright = new ResourceDictionary() { Source = new Uri("/EffizienzNeu;component/Themes/ThemeBright.xaml", UriKind.RelativeOrAbsolute) };
+			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };
+			themeBright = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeBright.xaml", UriKind.RelativeOrAbsolute) };
 		}
 
 		public void SetTheme( bool _DarkMode ) {
 			ThemeDictionary.MergedDictionaries.Clear();
-			switch( _DarkMode ) {
-			case true:
-				ThemeDictionary.MergedDictionaries.Add( themeDark );
-				break;
-			case false:
-				ThemeDictionary.MergedDictionaries.Add( themeBright);
-				break;
-			}
+			ThemeDictionary.MergedDictionaries.Add(	_DarkMode ? themeDark : themeBright );
 		}
 
 	}
