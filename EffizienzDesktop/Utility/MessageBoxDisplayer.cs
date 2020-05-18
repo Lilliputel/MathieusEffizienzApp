@@ -41,5 +41,13 @@ namespace EffizienzNeu.Utility {
 					MessageBoxButton.OK);
 		}
 
+		public static void FileNotFound(string _dateiName, string _dateiPfad) {
+			MessageBox.Show(
+				$"Datei {_dateiName} nicht gefunden! \n{_dateiPfad + _dateiName + ".xml"}",
+				"File Not Found!",
+				MessageBoxButton.OK,
+				MessageBoxImage.Exclamation);
+		}
+
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
@@ -22,43 +23,44 @@ namespace EffizienzNeu.Utility {
 			}
 		}
 
-		public static void Speichern<T>( ObservableCollection<T> SpeicherListe ) {
-			Speichern<T>(SpeicherListe, DateiName);
+		public static void Speichern<T>( List<T> _speicherListe ) {
+			Speichern<T>(_speicherListe, DateiName);
 		}
-		public static void Speichern<T>( ObservableCollection<T> SpeicherListe, string _DateiName ) {
-			Speichern<T>(SpeicherListe, _DateiName, SpeicherPfad);
+		public static void Speichern<T>( List<T> _speicherListe, string _DateiName ) {
+			Speichern<T>(_speicherListe, _DateiName, SpeicherPfad);
 		}
-		public static void Speichern<T>( ObservableCollection<T> SpeicherListe, string _DateiName, string _DateiPfad ) {
+		public static void Speichern<T>( List<T> _speicherListe, string _DateiName, string _DateiPfad ) {
 			DateiNameSetzen(_DateiName);
-			using(FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Create) ) {
-				try {
-					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					Serializer.Serialize(fileStream, SpeicherListe);
+			try {
+				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Create) ) {
+					XmlSerializer Serializer = new XmlSerializer(typeof(List<T>));
+					Serializer.Serialize(fileStream, _speicherListe);
 				}
-				catch( FileNotFoundException ) {
-					MessageBox.Show($"Datei {_DateiName} nicht gefunden! \n{_DateiPfad + DateiName}", "File Not Found!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-				}
+			}
+			catch( FileNotFoundException ) {
+				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
 			}
 		}
 
-		public static void Laden<T>( out ObservableCollection<T> LadeListe ) {
-			Laden<T>(out LadeListe, DateiName );
+		public static void Laden<T>( out List<T> _ladeListe ) {
+			Laden<T>(out _ladeListe, DateiName );
 		}
-		public static void Laden<T>( out ObservableCollection<T> LadeListe, string _DateiName ) {
-			Laden<T>(out LadeListe, _DateiName, SpeicherPfad);
+		public static void Laden<T>( out List<T> _ladeListe, string _DateiName ) {
+			Laden<T>(out _ladeListe, _DateiName, SpeicherPfad);
 		}
-		public static void Laden<T>( out ObservableCollection<T> LadeListe, string _DateiName, string _DateiPfad ) {
+		public static void Laden<T>( out List<T> _ladeListe, string _DateiName, string _DateiPfad ) {
 			DateiNameSetzen(_DateiName);
-			using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
-				try {
-					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					LadeListe = (ObservableCollection<T>)Serializer.Deserialize(fileStream);
-				}
-				catch( FileNotFoundException ) {
-					MessageBox.Show($"Datei {_DateiName} nicht gefunden! \n{_DateiPfad + DateiName}", "File Not Found!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-					LadeListe = new ObservableCollection<T>();				
+			try {
+				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
+					XmlSerializer Serializer = new XmlSerializer(typeof(List<T>));
+					_ladeListe = (List<T>)Serializer.Deserialize(fileStream);
 				}
 			}
+			catch( FileNotFoundException ) {
+				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
+				_ladeListe = new List<T>();
+			}
+			
 		}
 
 	}

@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:EffizienzNeu.Views"
              mc:Ignorable="d">
     <Grid>
-        
-    </Grid>
+		<ToggleButton Click="ToggleTheme" Content="Dark!"
+						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						  Margin="0,5" />
+	</Grid>
 </UserControl>

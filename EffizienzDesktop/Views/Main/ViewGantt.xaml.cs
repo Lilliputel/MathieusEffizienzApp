@@ -19,7 +19,6 @@ namespace EffizienzNeu.Views {
 		
 		public ViewGantt() {
 			InitializeComponent();
-			// this.Closing += ( object sender, System.ComponentModel.CancelEventArgs e ) => Application.Current.MainWindow.Show();
 		}
 
 		~ViewGantt() { }

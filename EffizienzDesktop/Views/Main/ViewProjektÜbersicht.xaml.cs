@@ -1,6 +1,9 @@
-﻿using EffizienzNeu.Interfaces;
+﻿using EffizienzNeu.Classes;
+using EffizienzNeu.Interfaces;
+using EffizienzNeu.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +19,14 @@ using System.Windows.Shapes;
 namespace EffizienzNeu.Views {
 
 	public partial class ViewProjektÜbersicht : UserControl, IParsable {
-		
+
 		public ViewProjektÜbersicht() {
 			InitializeComponent();
-			// this.Closing += ( object sender, System.ComponentModel.CancelEventArgs e ) => Application.Current.MainWindow.Show();
+			ObservableCollection<Classes.MenuItem> ProjektListe = new ObservableCollection<Classes.MenuItem>();
+			foreach( Projekt item in ListContainer.ProjektListe.Liste ) {
+				ProjektListe.Add(new Classes.MenuItem(item));
+			}
+			this.TreeView_Projekte.ItemsSource = ProjektListe;
 		}
 
 		~ViewProjektÜbersicht() { }

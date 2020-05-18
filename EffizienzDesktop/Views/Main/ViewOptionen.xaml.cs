@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -19,11 +20,18 @@ namespace EffizienzNeu.Views {
 		
 		public ViewOptionen() {
 			InitializeComponent();
-			// this.Closing += ( object sender, System.ComponentModel.CancelEventArgs e ) => Application.Current.MainWindow.Show();
 		}
 
 		~ViewOptionen() { }
 
+		private void ToggleTheme( object sender, RoutedEventArgs e ) {
+
+			ToggleButton toggleButton = (ToggleButton)e.Source;
+			bool isChecked = (bool)toggleButton.IsChecked;
+			toggleButton.Content = isChecked ? "Bright!" : "Dark!";
+			( (App)Application.Current ).SetTheme(isChecked);
+
+		}
 		public bool Parse() => throw new NotImplementedException();
 		public void Wipe() => throw new NotImplementedException();
 

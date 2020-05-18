@@ -1,5 +1,4 @@
 ﻿using EffizienzNeu.Classes;
-using EffizienzNeu.Enums;
 using EffizienzNeu.Interfaces;
 using EffizienzNeu.Utility;
 using System;
@@ -33,40 +32,19 @@ namespace EffizienzNeu.Views {
 		~ViewDashboard() { }
 		
 		private void Button_Kategorien_Speichern_Click( object sender, RoutedEventArgs e ) {
-			Speichern(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
+			( (App)Application.Current ).Speichern(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
 		}
 		private void Button_Projekte_Speichern_Click( object sender, RoutedEventArgs e ) {
-			Speichern(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
+			( (App)Application.Current ).Speichern(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
 		}
 		private void Button_Aufgaben_Speichern_Click( object sender, RoutedEventArgs e ) {
-			Speichern(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
-		}
-
-		private void Button_Kategorien_Laden_Click( object sender, RoutedEventArgs e ) {
-			Laden( ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
-		}
-		private void Button_Projekte_Laden_Click( object sender, RoutedEventArgs e ) {
-			Laden( ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
-		}
-		private void Button_Aufgaben_Laden_Click( object sender, RoutedEventArgs e ) {
-			Laden( ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
+			( (App)Application.Current ).Speichern(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
 		}
 
 		public bool Parse() => throw new NotImplementedException();
 		public void Wipe() => throw new NotImplementedException();
 
-		private void Laden<T>( ListeIIdentifizierbar<T> _inputListe, string _listenName ) where T : IIdentifizierbar {
-			ObservableCollection<T> neueListe = new ObservableCollection<T>();
-			XMLHandler.Laden( out neueListe, _listenName);
-			foreach( T item in neueListe ) {
-				_inputListe.AddMember(item);
-			}
-			MessageBoxDisplayer.ListeGeladen(_listenName);
-		}
-		private void Speichern<T>( ListeIIdentifizierbar<T> _liste, string _listenName ) where T : IIdentifizierbar {
-			XMLHandler.Speichern(_liste.Liste, _listenName);
-			MessageBoxDisplayer.ListeGespeichert(_listenName);
-		}
+		
 
 	}
 }

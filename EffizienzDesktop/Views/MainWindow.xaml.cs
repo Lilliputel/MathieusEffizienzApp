@@ -29,12 +29,5 @@ namespace EffizienzNeu.Windows {
 			InitializeComponent();
 			DataContext = new ViewModelMain();
 		}
-
-		private void ToggleTheme( object sender, RoutedEventArgs e ) {
-			ToggleButton toggleButton = (ToggleButton)e.Source;
-			bool isChecked = (bool)toggleButton.IsChecked;
-			toggleButton.Content = isChecked ? "Bright!" : "Dark!";
-			( (App)Application.Current ).SetTheme(isChecked);
-		}
 	}
 }

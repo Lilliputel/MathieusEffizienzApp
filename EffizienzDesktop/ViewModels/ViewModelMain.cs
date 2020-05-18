@@ -1,4 +1,5 @@
 ﻿using EffizienzNeu.Commands;
+using EffizienzNeu.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,13 +11,12 @@ namespace EffizienzNeu.Views {
 		private ViewModelBase selectedVMMain;
 		private ViewModelBase selectedVMEssential;
 
-
 		public ViewModelBase SelectedVMMain {
 			get { return selectedVMMain; }
 			set {
 				if( selectedVMMain != value ) {
 					selectedVMMain = value;
-					OnPropertyChanged(nameof(selectedVMMain));
+					OnPropertyChanged(nameof(SelectedVMMain));
 				}
 			}
 		}
@@ -25,16 +25,22 @@ namespace EffizienzNeu.Views {
 			set {
 				if( selectedVMEssential != value ) {
 					selectedVMEssential = value;
-					OnPropertyChanged(nameof(selectedVMEssential));
+					OnPropertyChanged(nameof(SelectedVMEssential));
 				}
 			}
 		}
 		
-		public ICommand CommandUpdateView { get; set; }
-
-		public ViewModelMain() {
-			this.CommandUpdateView = new CommandUpdateView(this);
-		}
+		private ICommand _commandUpdateView;
+		public ICommand CommandUpdateView => _commandUpdateView ?? 
+			( _commandUpdateView = new CommandRelay( parameter => {
+			if( parameter is string ) {
+					ViewModelBase viewModel = NameContainer.GetViewModel((string)parameter, out bool isMain);
+					if( isMain )
+						this.SelectedVMMain = viewModel;
+					else
+						this.SelectedVMEssential = viewModel;	
+			}
+		} ) );
 
 	}
 }

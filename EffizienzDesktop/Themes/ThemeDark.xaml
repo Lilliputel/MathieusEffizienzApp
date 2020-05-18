@@ -1,8 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:EffizienzNeu"
 					x:Name="ThemeDark">
+	
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="/EffizienzNeu;component/Dictionaries/DictionaryBase.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
 
-	<SolidColorBrush x:Key="TestSCB" Color="Black"/>
+	<SolidColorBrush x:Key="Background" Color="Black"/>
+	<SolidColorBrush x:Key="Foreground" Color="AliceBlue"/>
 
 </ResourceDictionary>

@@ -15,7 +15,6 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
 		<ListView x:Name="ListView_Kategorien"
@@ -61,16 +60,6 @@
 		<Button x:Name="Button_Aufgaben_Speichern" Content="Aufgaben speichern!"
 				Click="Button_Aufgaben_Speichern_Click"
 				Grid.Row="1" Grid.Column="2"/>
-
-		<Button x:Name="Button_Kategorien_Laden" Content="Kategorien laden!"
-				Click="Button_Kategorien_Laden_Click"
-				Grid.Row="2" Grid.Column="0"/>
-		<Button x:Name="Button_Projekte_Laden" Content="Projekte laden!"
-				Click="Button_Projekte_Laden_Click"
-				Grid.Row="2" Grid.Column="1"/>
-		<Button x:Name="Button_Aufgaben_Laden" Content="Aufgaben laden!"
-				Click="Button_Aufgaben_Laden_Click"
-				Grid.Row="2" Grid.Column="2"/>
 
 
 	</Grid>
