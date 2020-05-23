@@ -7,9 +7,10 @@
 	<TreeView x:Name="TreeView_Projekte">
 		<TreeView.Resources>
 			<HierarchicalDataTemplate DataType="{x:Type classes:MenuItem}" ItemsSource="{Binding Aufgaben}">
-				<StackPanel Orientation="Horizontal">
-					<TextBlock Text="{Binding ProjektItem.Titel}"/>
-				</StackPanel>
+				<DockPanel>
+					<TextBlock Text="{Binding ProjektItem.Titel}" DockPanel.Dock="Left"/>
+					<TextBlock Text="{Binding ProjektItem.ZeitGesamt}" DockPanel.Dock="Right"/>
+				</DockPanel>
 			</HierarchicalDataTemplate>
 			<DataTemplate DataType="{x:Type classes:Aufgabe}">
 				<StackPanel Orientation="Horizontal">
