@@ -39,6 +39,10 @@
     <Page Update="Views\Main\ViewOptionen.xaml">
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Classes\" />
   </ItemGroup>  
   
 </Project>

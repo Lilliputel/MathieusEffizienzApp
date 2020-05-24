@@ -25,11 +25,11 @@ namespace EffizienzNeu {
 
 		public App() {
 			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };
-			themeBright = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeBright.xaml", UriKind.RelativeOrAbsolute) };
+			themeBright = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeBright.xaml", UriKind.RelativeOrAbsolute) };			
 
-			Laden(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
-			Laden(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
-			Laden(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
+			//Laden(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
+			//Laden(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
+			//Laden(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
 		}
 
 		public void SetTheme( bool _DarkMode ) {
