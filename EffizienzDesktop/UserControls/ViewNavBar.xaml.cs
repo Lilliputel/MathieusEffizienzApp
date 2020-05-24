@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EffizienzNeu.UserControls {
+namespace Effizienz.UserControls {
 	/// <summary>
 	/// Interaction logic for ViewNavBar.xaml
 	/// </summary>

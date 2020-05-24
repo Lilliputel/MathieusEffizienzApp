@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 
-namespace EffizienzNeu.Utility {
+namespace Effizienz.Utility {
 	public static class MessageBoxDisplayer {
 
 		public static void ObjektErstellt( string _objektName, string _objektTitel ) {

@@ -1,14 +1,18 @@
-﻿<UserControl x:Class="EffizienzNeu.Views.ViewProjektÜbersicht"
+﻿<UserControl x:Class="Effizienz.Views.ViewProjektÜbersicht"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
-			 xmlns:classes="clr-namespace:EffizienzNeu.Classes">
+			 xmlns:classes="clr-namespace:Effizienz.Classes">
 
 	<TreeView x:Name="TreeView_Projekte">
 
 		<TreeView.Resources>
 			<HierarchicalDataTemplate DataType="{x:Type classes:MenuItem}" ItemsSource="{Binding Aufgaben}">
 				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="200"/>
+						<ColumnDefinition Width="60"/>
+					</Grid.ColumnDefinitions>
 					<TextBlock Text="{Binding ProjektItem.Titel}"
 							   Grid.Column="0"
 							   HorizontalAlignment="Left"/>

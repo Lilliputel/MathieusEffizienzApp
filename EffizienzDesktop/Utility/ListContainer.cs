@@ -1,9 +1,9 @@
-﻿using EffizienzNeu.Classes;
+﻿using Effizienz.Classes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EffizienzNeu.Utility {
+namespace Effizienz.Utility {
 	public static class ListContainer {
 
 		public static ListeIIdentifizierbar<Kategorie> KategorienListe { get; set; } = new ListeIIdentifizierbar<Kategorie>();

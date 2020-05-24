@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:EffizienzNeu"
-					xmlns:UserControls="clr-namespace:EffizienzNeu.UserControls">
+                    xmlns:local="clr-namespace:Effizienz"
+					xmlns:UserControls="clr-namespace:Effizienz.UserControls">
 	
 	<!-- The material design icons are based on a 24x24 unit grid -->
 	<Style x:Key="MaterialDesignIcon" TargetType="UserControls:VectorIcon">

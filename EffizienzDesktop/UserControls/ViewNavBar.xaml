@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="EffizienzNeu.UserControls.ViewNavBar"
+﻿<UserControl x:Class="Effizienz.UserControls.ViewNavBar"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:UserControls="clr-namespace:EffizienzNeu.UserControls"
-			 xmlns:Utility="clr-namespace:EffizienzNeu.Utility"
+			 xmlns:UserControls="clr-namespace:Effizienz.UserControls"
+			 xmlns:Utility="clr-namespace:Effizienz.Utility"
 			 
 			 Width="60"
 			 Height="Auto">

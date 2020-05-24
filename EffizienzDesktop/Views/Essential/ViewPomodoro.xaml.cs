@@ -1,7 +1,7 @@
-﻿ using EffizienzNeu.Classes;
-using EffizienzNeu.Interfaces;
-using EffizienzNeu.Utility;
-using EffizienzNeu.Windows;
+﻿ using Effizienz.Classes;
+using Effizienz.Interfaces;
+using Effizienz.Utility;
+using Effizienz.Windows;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -19,7 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace EffizienzNeu.Views {
+namespace Effizienz.Views {
 
 	public partial class ViewPomodoro : UserControl, IParsable {
 

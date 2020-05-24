@@ -1,11 +1,11 @@
-﻿using EffizienzNeu.Commands;
-using EffizienzNeu.Utility;
+﻿using Effizienz.Commands;
+using Effizienz.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace EffizienzNeu.Views {
+namespace Effizienz.Views {
 	public class ViewModelMain : ViewModelBase {
 
 		private ViewModelBase selectedVMMain;

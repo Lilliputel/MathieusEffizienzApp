@@ -1,6 +1,6 @@
-﻿using EffizienzNeu.Classes;
-using EffizienzNeu.Interfaces;
-using EffizienzNeu.Utility;
+﻿using Effizienz.Classes;
+using Effizienz.Interfaces;
+using Effizienz.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace EffizienzNeu {
+namespace Effizienz {
 
 	/// <summary>
 	/// Interaction logic for App.xaml
@@ -23,7 +23,7 @@ namespace EffizienzNeu {
 
 		private ResourceDictionary themeDark;
 		private ResourceDictionary themeBright;
-		private string themeDirectory = "/EffizienzNeu;component/Themes/";
+		private string themeDirectory = "/Effizienz;component/Themes/";
 
 		public App() {
 			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };

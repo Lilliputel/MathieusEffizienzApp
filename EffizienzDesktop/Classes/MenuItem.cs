@@ -1,10 +1,10 @@
-﻿using EffizienzNeu.Utility;
+﻿using Effizienz.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace EffizienzNeu.Classes {
+namespace Effizienz.Classes {
 	public class MenuItem : ObservableObject {
 
 		private Projekt projektItem;

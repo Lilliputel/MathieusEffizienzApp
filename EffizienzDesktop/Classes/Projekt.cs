@@ -1,11 +1,11 @@
-﻿using EffizienzNeu.Interfaces;
+﻿using Effizienz.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EffizienzNeu.Classes {
+namespace Effizienz.Classes {
 
 	public class Projekt : IIdentifizierbar {
 

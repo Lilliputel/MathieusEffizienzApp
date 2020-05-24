@@ -1,6 +1,6 @@
-﻿using EffizienzNeu.Classes;
-using EffizienzNeu.Interfaces;
-using EffizienzNeu.Utility;
+﻿using Effizienz.Classes;
+using Effizienz.Interfaces;
+using Effizienz.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace EffizienzNeu.Views {
+namespace Effizienz.Views {
 
 	public partial class ViewAufgabe : UserControl, IParsable {
 

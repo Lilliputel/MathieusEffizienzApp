@@ -1,7 +1,7 @@
-﻿using EffizienzNeu.Classes;
-using EffizienzNeu.Interfaces;
-using EffizienzNeu.Utility;
-using EffizienzNeu.Views;
+﻿using Effizienz.Classes;
+using Effizienz.Interfaces;
+using Effizienz.Utility;
+using Effizienz.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EffizienzNeu.Windows {
+namespace Effizienz.Windows {
 
 	/// <summary>
 	/// Interaktionslogik für MainWindow.xaml

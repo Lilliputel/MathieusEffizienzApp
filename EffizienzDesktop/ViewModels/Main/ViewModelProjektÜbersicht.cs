@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EffizienzNeu.Views{
+namespace Effizienz.Views{
 	public class ViewModelProjektÜbersicht : ViewModelBase {
 	}
 }

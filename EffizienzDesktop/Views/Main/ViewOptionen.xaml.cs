@@ -1,4 +1,4 @@
-﻿using EffizienzNeu.Interfaces;
+﻿using Effizienz.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace EffizienzNeu.Views {
+namespace Effizienz.Views {
 
 	public partial class ViewOptionen : UserControl, IParsable {
 		

@@ -4,7 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace EffizienzNeu.Utility {
+namespace Effizienz.Utility {
 
 	public static class XMLHandler {
 

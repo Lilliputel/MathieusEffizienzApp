@@ -3,7 +3,7 @@
 					x:Name="ThemeBright">
 	
 	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="/EffizienzNeu;component/Dictionaries/DictionaryBase.xaml"/>
+		<ResourceDictionary Source="/Effizienz;component/Dictionaries/DictionaryBase.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
 	<SolidColorBrush x:Key="Background" Color="AliceBlue"/>

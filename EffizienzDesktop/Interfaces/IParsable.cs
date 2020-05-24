@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EffizienzNeu.Interfaces {
+namespace Effizienz.Interfaces {
 	public interface IParsable {
 		bool Parse();
 		void Wipe();

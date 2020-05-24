@@ -1,4 +1,4 @@
-﻿using EffizienzNeu.Interfaces;
+﻿using Effizienz.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
-namespace EffizienzNeu.Classes {
+namespace Effizienz.Classes {
 
 	public class Kategorie : IIdentifizierbar {
 

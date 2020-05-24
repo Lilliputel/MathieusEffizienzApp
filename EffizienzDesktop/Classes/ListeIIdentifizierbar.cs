@@ -1,4 +1,4 @@
-﻿using EffizienzNeu.Interfaces;
+﻿using Effizienz.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace EffizienzNeu.Classes {
+namespace Effizienz.Classes {
 	public class ListeIIdentifizierbar<T> : INotifyPropertyChanged where T : IIdentifizierbar {
 
 		public ObservableCollection<T> Liste { get; private set; } = new ObservableCollection<T>();

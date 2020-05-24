@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace EffizienzNeu.Commands {
+namespace Effizienz.Commands {
     public class CommandRelay : ICommand {
         
         private readonly Action<object> _execute;

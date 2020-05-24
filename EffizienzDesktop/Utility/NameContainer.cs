@@ -1,10 +1,10 @@
-﻿using EffizienzNeu.Views;
+﻿using Effizienz.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EffizienzNeu.Utility {
+namespace Effizienz.Utility {
 
 	public enum EnumViewModels {
 
