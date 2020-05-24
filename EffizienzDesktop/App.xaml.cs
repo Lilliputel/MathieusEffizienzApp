@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,6 @@ using System.Windows;
 
 namespace EffizienzNeu {
 
-	/// <summary>
-	/// Interaction logic for App.xaml
-	/// </summary>
 	public partial class App : Application {
 
 		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
@@ -32,7 +30,6 @@ namespace EffizienzNeu {
 			Laden(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
 			Laden(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
 			Laden(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
-
 		}
 
 		public void SetTheme( bool _DarkMode ) {
@@ -46,7 +43,6 @@ namespace EffizienzNeu {
 			foreach( T item in neueListe ) {
 				_inputListe.AddMember(item);
 			}
-			//MessageBoxDisplayer.ListeGeladen(_listenName);
 		}
 		public void Speichern<T>( ListeIIdentifizierbar<T> _liste, string _listenName ) where T : IIdentifizierbar {
 			XMLHandler.Speichern( new List<T>(_liste.Liste), _listenName);

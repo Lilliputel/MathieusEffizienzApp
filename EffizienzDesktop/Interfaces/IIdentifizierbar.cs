@@ -6,8 +6,8 @@ namespace EffizienzNeu.Interfaces {
 
 	public interface IIdentifizierbar {
 
+		public static int IdCounter { get; set; }
 		int ID { get; }
-		void SetStartID( int _StartID );
 
 	}
 

@@ -1,4 +1,5 @@
 ﻿using EffizienzNeu.Interfaces;
+using EffizienzNeu.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace EffizienzNeu.Classes {
 	
-	public class Aufgabe : IIdentifizierbar {
-
-		private static int ID_Counter { get; set; }
+	public class Aufgabe : ObservableObject, IIdentifizierbar {
 
 		public int ID { get; set; }
 		public string Titel { get; set; }
@@ -20,14 +19,10 @@ namespace EffizienzNeu.Classes {
 		public DateTime EndDatum { get; set; }
 		public TimeSpan Zeit { get; set; }
 
-		static Aufgabe() {
-			ID_Counter = 101;
-		}
-
 		public Aufgabe() { }
 
 		public Aufgabe( string _Titel, string _Beschreibung, int _ProjektID, int _KategorieID, DateTime _EndDatum ) {
-			ID = ID_Counter++;
+			ID = IIdentifizierbar.IdCounter++;
 			Zeit = TimeSpan.Zero;
 
 			this.Titel = _Titel;
@@ -36,14 +31,6 @@ namespace EffizienzNeu.Classes {
 			this.KategorieID = _KategorieID;
 			this.EndDatum = _EndDatum;
 
-		}
-
-		~Aufgabe() {
-
-		}
-
-		public void SetStartID( int _StartID ) {
-			ID_Counter = _StartID;
 		}
 
 	}
