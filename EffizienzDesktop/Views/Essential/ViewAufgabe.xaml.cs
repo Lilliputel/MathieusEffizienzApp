@@ -24,6 +24,9 @@ namespace EffizienzNeu.Views {
 
 		public ViewAufgabe() {
 			InitializeComponent();
+
+			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe.Liste;
+			ComboBox_Projekt.ItemsSource = ListContainer.ProjektListe.Liste;
 		}
 
 		~ViewAufgabe() { }

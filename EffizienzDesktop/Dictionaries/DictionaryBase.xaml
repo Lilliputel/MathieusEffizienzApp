@@ -26,11 +26,18 @@
 		</Style.Setters>
 	</Style>
 
-
 	<Style TargetType="TreeView">
 		<Style.Setters>
 			<Setter Property="BorderBrush" Value="{x:Null}"/>
 		</Style.Setters>
+	</Style>
+
+	<Style TargetType="TreeViewItem">
+		<Style.Resources>
+			<Style TargetType="Border" BasedOn="{StaticResource BorderRounded}">
+				<Setter Property="Background" Value="{StaticResource Background}"/>
+			</Style>
+		</Style.Resources>
 	</Style>
 
 </ResourceDictionary>

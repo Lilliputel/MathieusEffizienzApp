@@ -22,7 +22,11 @@ namespace EffizienzNeu.Views {
 
 		public ViewProjektÜbersicht() {
 			InitializeComponent();
-			this.TreeView_Projekte.ItemsSource = ListContainer.ProjektListe.Liste;
+			ObservableCollection<Classes.MenuItem> ProjektListe = new ObservableCollection<Classes.MenuItem>();
+			foreach( Projekt item in ListContainer.ProjektListe.Liste ) {
+				ProjektListe.Add(new Classes.MenuItem(item));
+			}
+			this.TreeView_Projekte.ItemsSource = ProjektListe;
 		}
 
 		~ViewProjektÜbersicht() { }

@@ -7,29 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="App.xaml.cs~RF2b845d3a.TMP" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="DataBaseEffizienzDataSet.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>DataBaseEffizienzDataSet.xsd</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="DataBaseEffizienzDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataBaseEffizienzDataSet.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="Views\Main\ViewProjektÜbersicht.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -39,10 +16,6 @@
     <Page Update="Views\Main\ViewOptionen.xaml">
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Classes\" />
   </ItemGroup>  
   
 </Project>
