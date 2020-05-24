@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Gantt_Diagramm {
     public class TimeLine : ObservableObject {
+
         private TimeSpan _duration;
         public TimeSpan Duration {
             get {
@@ -15,7 +16,6 @@ namespace Gantt_Diagramm {
             }
         }
 
-
         private ObservableCollection<TimeLineEvent> _events = new ObservableCollection<TimeLineEvent>();
         public ObservableCollection<TimeLineEvent> Events {
             get {
@@ -25,5 +25,6 @@ namespace Gantt_Diagramm {
                 Set(() => Events, ref _events, value);
             }
         }
+
     }
 }

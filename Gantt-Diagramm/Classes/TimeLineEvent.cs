@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Gantt_Diagramm {
     public class TimeLineEvent : ObservableObject {
+
         private TimeSpan _start;
         public TimeSpan Start {
             get {
@@ -13,7 +14,6 @@ namespace Gantt_Diagramm {
                 Set(() => Start, ref _start, value);
             }
         }
-
 
         private TimeSpan _duration;
         public TimeSpan Duration {

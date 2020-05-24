@@ -6,6 +6,7 @@
 		<Style.Setters>
 			<Setter Property="CornerRadius" Value="8"/>
 			<Setter Property="BorderBrush" Value="{x:Null}"/>
+			<Setter Property="Padding" Value="2"/>
 		</Style.Setters>
 	</Style>
 
@@ -31,20 +32,12 @@
 		</Style.Setters>
 	</Style>
 
-	<!--<Style TargetType="TreeViewItem">
-		<Setter Property="OverridesDefaultStyle" Value="True"/>
-		<Setter Property="Background" Value="DarkGray"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="TreeViewItem">
-					<Border Background="{TemplateBinding Background}"  Style="{StaticResource BorderRounded}">
-						<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-
-	</Style>-->
-
+	<Style TargetType="TreeViewItem">
+		<Style.Resources>
+			<Style TargetType="Border" BasedOn="{StaticResource BorderRounded}">
+				<Setter Property="Background" Value="{StaticResource Background}"/>
+			</Style>
+		</Style.Resources>
+	</Style>
 
 </ResourceDictionary>
