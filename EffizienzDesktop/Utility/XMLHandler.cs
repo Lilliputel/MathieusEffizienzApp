@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Windows;
 using System.Xml.Serialization;
 
 namespace Effizienz.Utility {
@@ -15,7 +14,7 @@ namespace Effizienz.Utility {
 			SpeicherPfad = _SpeicherPfad;
 		}
 		public static void DateiNameSetzen( string _DateiName ) {
-			if( _DateiName.EndsWith(".xml")) {
+			if( _DateiName.EndsWith(".xml") ) {
 				DateiName = _DateiName;
 			}
 			else {
@@ -43,7 +42,7 @@ namespace Effizienz.Utility {
 		}
 
 		public static void Laden<T>( out ObservableCollection<T> _ladeListe ) {
-			Laden<T>(out _ladeListe, DateiName );
+			Laden<T>(out _ladeListe, DateiName);
 		}
 		public static void Laden<T>( out ObservableCollection<T> _ladeListe, string _DateiName ) {
 			Laden<T>(out _ladeListe, _DateiName, SpeicherPfad);
@@ -53,14 +52,14 @@ namespace Effizienz.Utility {
 			try {
 				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(List<T>));
-					_ladeListe = new ObservableCollection<T>( (List<T>)Serializer.Deserialize(fileStream) );
+					_ladeListe = new ObservableCollection<T>((List<T>)Serializer.Deserialize(fileStream));
 				}
 			}
 			catch( FileNotFoundException ) {
 				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
 				_ladeListe = new ObservableCollection<T>();
 			}
-			
+
 		}
 
 	}

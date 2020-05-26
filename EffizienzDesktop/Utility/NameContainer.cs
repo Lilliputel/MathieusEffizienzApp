@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Effizienz.Utility {
 
@@ -41,9 +40,9 @@ namespace Effizienz.Utility {
 			dictionaryViewModelsEssential.Add(nameof(EnumViewModels.Aufgabe), new ViewModelAufgabe());
 		}
 
-		public static ViewModelBase GetViewModel(string viewModelName, out bool isMain) {
+		public static ViewModelBase GetViewModel( string viewModelName, out bool isMain ) {
 			ViewModelBase returnedViewModel;
-			if ( dictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
+			if( dictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
 				isMain = true;
 				return returnedViewModel;
 			}
@@ -56,8 +55,8 @@ namespace Effizienz.Utility {
 			}
 		}
 
-		public static string GetName(ViewModelBase viewModel) {
-			return dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key ?? 
+		public static string GetName( ViewModelBase viewModel ) {
+			return dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key ??
 				dictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key;
 		}
 

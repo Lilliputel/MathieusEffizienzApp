@@ -1,9 +1,4 @@
-﻿using Effizienz.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Media;
 
 namespace Effizienz.Classes {
@@ -15,17 +10,16 @@ namespace Effizienz.Classes {
 		public string Titel { get; set; }
 
 
-		public Kategorie() { }
-
-		public Kategorie( string _Titel, Color _Farbe) {
+		public Kategorie() {
 			ID = Guid.NewGuid();
+		}
+
+		public Kategorie( string _Titel, Color _Farbe ) {
 			this.Titel = _Titel;
 			this.Farbe = _Farbe;
 		}
 
-		~Kategorie() {
-
-		}
+		~Kategorie() { }
 
 	}
 }

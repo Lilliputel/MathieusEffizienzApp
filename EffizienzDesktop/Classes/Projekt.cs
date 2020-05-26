@@ -1,9 +1,5 @@
-﻿using Effizienz.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace Effizienz.Classes {
 
@@ -14,23 +10,26 @@ namespace Effizienz.Classes {
 		public string Beschreibung { get; set; }
 
 		public Guid KategorieID { get; set; }
-		public DateTime EndDatum { get; set; }
+		public ObservableCollection<Aufgabe> Aufgaben { get; set; }
 		public TimeSpan ZeitGesamt { get; set; }
 
-		public Projekt() { }
+		public DateTime StartDatum { get; set; }
+		public DateTime EndDatum { get; set; }
 
-		public Projekt( string _Titel, string _Beschreibung, Guid _KategorieID, DateTime _EndDatum ) {
+
+		public Projekt() {
 			ID = Guid.NewGuid();
 			ZeitGesamt = TimeSpan.Zero;
+		}
+
+		public Projekt( string _Titel, string _Beschreibung, Guid _KategorieID, DateTime _EndDatum ) {
 			this.Titel = _Titel;
 			this.Beschreibung = _Beschreibung;
 			this.KategorieID = _KategorieID;
 			this.EndDatum = _EndDatum;
 		}
 
-		~Projekt() {
-
-		}
+		~Projekt() { }
 
 	}
 }

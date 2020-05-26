@@ -1,30 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Effizienz.Utility {
 	public static class MessageBoxDisplayer {
 
 		public static void ObjektErstellt( string _objektName, string _objektTitel ) {
 			MessageBox.Show(
-				$"Es wurde ein {_objektName} mit dem Titel {_objektTitel} erfolgreich erstellt!", 
-				"Objekt erstellt!", 
-				MessageBoxButton.OK );
+				$"Es wurde ein {_objektName} mit dem Titel {_objektTitel} erfolgreich erstellt!",
+				"Objekt erstellt!",
+				MessageBoxButton.OK);
 		}
 
 		public static void ZeitFormatInkorrekt() {
 			MessageBox.Show(
-				"Bitte ein korrektes Zeitformat verwenden! [hh:mm:ss]", 
-				"Format anpassen!", 
-				MessageBoxButton.OK );
+				"Bitte ein korrektes Zeitformat verwenden! [hh:mm:ss]",
+				"Format anpassen!",
+				MessageBoxButton.OK);
 		}
 
 		public static void InputInkorrekt( string _exceptionMessage ) {
 			MessageBox.Show(
 					$"Hier ist etwas Schiefgelaufen! Bitte überprüfe die korrekte Formatierung! \n{_exceptionMessage}",
-					"Fehler!", 
-					MessageBoxButton.OK, 
+					"Fehler!",
+					MessageBoxButton.OK,
 					MessageBoxImage.Error);
 		}
 
@@ -41,7 +38,7 @@ namespace Effizienz.Utility {
 					MessageBoxButton.OK);
 		}
 
-		public static void FileNotFound(string _dateiName, string _dateiPfad) {
+		public static void FileNotFound( string _dateiName, string _dateiPfad ) {
 			MessageBox.Show(
 				$"Datei {_dateiName} nicht gefunden! \n{_dateiPfad + _dateiName + ".xml"}",
 				"File Not Found!",

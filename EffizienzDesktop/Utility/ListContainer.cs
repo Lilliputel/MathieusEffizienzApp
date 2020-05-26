@@ -1,8 +1,5 @@
 ﻿using Effizienz.Classes;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Effizienz.Utility {
 	public static class ListContainer {

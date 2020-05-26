@@ -1,12 +1,7 @@
-﻿using Effizienz.Classes;
-using Effizienz.Utility;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using Effizienz.Utility;
 
 namespace Effizienz.Views {
-	public class ViewModelBase : ObservableObject { 
-	
+	public class ViewModelBase : ObservableObject {
+
 	}
 }

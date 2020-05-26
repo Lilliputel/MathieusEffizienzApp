@@ -1,8 +1,5 @@
 ﻿using Effizienz.Commands;
 using Effizienz.Utility;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace Effizienz.Views {
@@ -29,18 +26,18 @@ namespace Effizienz.Views {
 				}
 			}
 		}
-		
+
 		private ICommand _commandUpdateView;
-		public ICommand CommandUpdateView => _commandUpdateView ?? 
-			( _commandUpdateView = new CommandRelay( parameter => {
-			if( parameter is string ) {
+		public ICommand CommandUpdateView => _commandUpdateView ??
+			( _commandUpdateView = new CommandRelay(parameter => {
+				if( parameter is string ) {
 					ViewModelBase viewModel = NameContainer.GetViewModel((string)parameter, out bool isMain);
 					if( isMain )
 						this.SelectedVMMain = viewModel;
 					else
-						this.SelectedVMEssential = viewModel;	
-			}
-		} ) );
+						this.SelectedVMEssential = viewModel;
+				}
+			}) );
 
 	}
 }
