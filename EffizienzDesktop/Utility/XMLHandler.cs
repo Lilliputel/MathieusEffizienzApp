@@ -23,13 +23,13 @@ namespace Effizienz.Utility {
 			}
 		}
 
-		public static void Speichern<T>( List<T> _speicherListe ) {
+		public static void Speichern<T>( ObservableCollection<T> _speicherListe ) {
 			Speichern<T>(_speicherListe, DateiName);
 		}
-		public static void Speichern<T>( List<T> _speicherListe, string _DateiName ) {
+		public static void Speichern<T>( ObservableCollection<T> _speicherListe, string _DateiName ) {
 			Speichern<T>(_speicherListe, _DateiName, SpeicherPfad);
 		}
-		public static void Speichern<T>( List<T> _speicherListe, string _DateiName, string _DateiPfad ) {
+		public static void Speichern<T>( ObservableCollection<T> _speicherListe, string _DateiName, string _DateiPfad ) {
 			DateiNameSetzen(_DateiName);
 			try {
 				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Create) ) {
@@ -42,23 +42,23 @@ namespace Effizienz.Utility {
 			}
 		}
 
-		public static void Laden<T>( out List<T> _ladeListe ) {
+		public static void Laden<T>( out ObservableCollection<T> _ladeListe ) {
 			Laden<T>(out _ladeListe, DateiName );
 		}
-		public static void Laden<T>( out List<T> _ladeListe, string _DateiName ) {
+		public static void Laden<T>( out ObservableCollection<T> _ladeListe, string _DateiName ) {
 			Laden<T>(out _ladeListe, _DateiName, SpeicherPfad);
 		}
-		public static void Laden<T>( out List<T> _ladeListe, string _DateiName, string _DateiPfad ) {
+		public static void Laden<T>( out ObservableCollection<T> _ladeListe, string _DateiName, string _DateiPfad ) {
 			DateiNameSetzen(_DateiName);
 			try {
 				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(List<T>));
-					_ladeListe = (List<T>)Serializer.Deserialize(fileStream);
+					_ladeListe = new ObservableCollection<T>( (List<T>)Serializer.Deserialize(fileStream) );
 				}
 			}
 			catch( FileNotFoundException ) {
 				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
-				_ladeListe = new List<T>();
+				_ladeListe = new ObservableCollection<T>();
 			}
 			
 		}

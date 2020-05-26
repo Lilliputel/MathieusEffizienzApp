@@ -8,32 +8,23 @@ using System.Windows.Media;
 
 namespace Effizienz.Classes {
 
-	public class Kategorie : IIdentifizierbar {
+	public class Kategorie {
 
-		private static int ID_Counter { get; set; }
-
-		public int ID { get; set; }
+		public Guid ID { get; }
 		public Color Farbe { get; set; }
 		public string Titel { get; set; }
 
-		static Kategorie() {
-			ID_Counter = 201;
-		}
 
 		public Kategorie() { }
 
 		public Kategorie( string _Titel, Color _Farbe) {
-			ID = ID_Counter++;
+			ID = Guid.NewGuid();
 			this.Titel = _Titel;
 			this.Farbe = _Farbe;
 		}
 
 		~Kategorie() {
 
-		}
-
-		public void SetStartID( int _StartID ) {
-			ID_Counter = _StartID;
 		}
 
 	}

@@ -23,9 +23,9 @@ namespace Effizienz.Views {
 		public ViewDashboard() {
 			InitializeComponent();
 
-			this.ListView_Kategorien.ItemsSource = ListContainer.KategorienListe.Liste;
-			this.ListView_Projekte.ItemsSource = ListContainer.ProjektListe.Liste;
-			this.ListView_Aufgaben.ItemsSource = ListContainer.AufgabenListe.Liste;
+			this.ListView_Kategorien.ItemsSource = ListContainer.KategorienListe;
+			this.ListView_Projekte.ItemsSource = ListContainer.ProjektListe;
+			this.ListView_Aufgaben.ItemsSource = ListContainer.AufgabenListe;
 
 		}
 

@@ -29,7 +29,7 @@ namespace Effizienz {
 			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };
 			themeBright = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeBright.xaml", UriKind.RelativeOrAbsolute) };
 
-			Laden(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
+			Laden( ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
 			Laden(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
 			Laden(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
 
@@ -40,16 +40,15 @@ namespace Effizienz {
 			Resources.MergedDictionaries[0].MergedDictionaries.Add(	_DarkMode ? themeDark : themeBright );
 		}
 
-		private void Laden<T>( ListeIIdentifizierbar<T> _inputListe, string _listenName ) where T : IIdentifizierbar {
-			List<T> neueListe;
+		private void Laden<T>( ObservableCollection<T> _inputListe, string _listenName ) {
+			ObservableCollection<T> neueListe;
 			XMLHandler.Laden(out neueListe, _listenName);
 			foreach( T item in neueListe ) {
-				_inputListe.AddMember(item);
+				_inputListe.Add(item);
 			}
-			//MessageBoxDisplayer.ListeGeladen(_listenName);
 		}
-		public void Speichern<T>( ListeIIdentifizierbar<T> _liste, string _listenName ) where T : IIdentifizierbar {
-			XMLHandler.Speichern( new List<T>(_liste.Liste), _listenName);
+		public void Speichern<T>( ObservableCollection<T> _inputListe, string _listenName ) {
+			XMLHandler.Speichern(_inputListe, _listenName);
 			MessageBoxDisplayer.ListeGespeichert(_listenName);
 		}
 

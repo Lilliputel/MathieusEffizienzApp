@@ -25,8 +25,8 @@ namespace Effizienz.Views {
 		public ViewAufgabe() {
 			InitializeComponent();
 
-			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe.Liste;
-			ComboBox_Projekt.ItemsSource = ListContainer.ProjektListe.Liste;
+			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe;
+			ComboBox_Projekt.ItemsSource = ListContainer.ProjektListe;
 		}
 
 		~ViewAufgabe() { }
@@ -40,7 +40,7 @@ namespace Effizienz.Views {
 			Kategorie selectedKategorie = (Kategorie)ComboBox_Kategorie.SelectedItem;
 			Projekt selectedProjekt = (Projekt)ComboBox_Projekt.SelectedItem;
 			try {
-				ListContainer.AufgabenListe.AddMember(
+				ListContainer.AufgabenListe.Add(
 					new Aufgabe(
 						TextBox_Titel.Text,
 						TextBox_Beschreibung.Text,

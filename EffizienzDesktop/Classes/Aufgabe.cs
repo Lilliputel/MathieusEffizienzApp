@@ -7,27 +7,21 @@ using System.Threading.Tasks;
 
 namespace Effizienz.Classes {
 	
-	public class Aufgabe : IIdentifizierbar {
+	public class Aufgabe {
 
-		private static int ID_Counter { get; set; }
-
-		public int ID { get; set; }
+		public Guid ID { get; }
 		public string Titel { get; set; }
 		public string Beschreibung { get; set; }
 
-		public int ProjektID { get; set; }
-		public int KategorieID { get; set; }
+		public Guid ProjektID { get; set; }
+		public Guid KategorieID { get; set; }
 		public DateTime EndDatum { get; set; }
 		public TimeSpan Zeit { get; set; }
 
-		static Aufgabe() {
-			ID_Counter = 101;
-		}
-
 		public Aufgabe() { }
 
-		public Aufgabe( string _Titel, string _Beschreibung, int _ProjektID, int _KategorieID, DateTime _EndDatum ) {
-			ID = ID_Counter++;
+		public Aufgabe( string _Titel, string _Beschreibung, Guid _ProjektID, Guid _KategorieID, DateTime _EndDatum ) {
+			ID = Guid.NewGuid();
 			Zeit = TimeSpan.Zero;
 
 			this.Titel = _Titel;
@@ -40,10 +34,6 @@ namespace Effizienz.Classes {
 
 		~Aufgabe() {
 
-		}
-
-		public void SetStartID( int _StartID ) {
-			ID_Counter = _StartID;
 		}
 
 	}

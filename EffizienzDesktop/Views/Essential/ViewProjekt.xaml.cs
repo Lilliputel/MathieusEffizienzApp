@@ -23,7 +23,7 @@ namespace Effizienz.Views {
 		public ViewProjekt() {
 			InitializeComponent();
 			
-			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe.Liste;
+			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe;
 		}
 
 		~ViewProjekt() { }
@@ -36,7 +36,7 @@ namespace Effizienz.Views {
 		public bool Parse() {
 			Kategorie selectedKategorie = (Kategorie)ComboBox_Kategorie.SelectedItem;
 			try {
-				ListContainer.ProjektListe.AddMember(
+				ListContainer.ProjektListe.Add(
 					new Projekt(
 						TextBox_Titel.Text,
 						TextBox_Beschreibung.Text,

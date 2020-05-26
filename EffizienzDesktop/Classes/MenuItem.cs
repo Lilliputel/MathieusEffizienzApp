@@ -23,7 +23,7 @@ namespace Effizienz.Classes {
 		public MenuItem( Projekt _projekt) {
 			this.ProjektItem = _projekt;
 			this.Aufgaben = new ObservableCollection<Aufgabe>();
-			foreach( Aufgabe item in ListContainer.AufgabenListe.Liste ) {
+			foreach( Aufgabe item in ListContainer.AufgabenListe ) {
 				if( item.ProjektID == projektItem.ID ) {
 					Aufgaben.Add(item);
 				}
