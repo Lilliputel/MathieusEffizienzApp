@@ -8,8 +8,9 @@ namespace Effizienz.Classes {
 		public string Titel { get; set; }
 		public string Beschreibung { get; set; }
 
-		public Guid ProjektID { get; set; }
-		public Guid KategorieID { get; set; }
+		public Guid ParentID { get; set; }
+
+		public DateTime StartDatum { get; set; }
 		public DateTime EndDatum { get; set; }
 		public TimeSpan ArbeitsZeit { get; set; }
 
@@ -18,11 +19,10 @@ namespace Effizienz.Classes {
 			ArbeitsZeit = TimeSpan.Zero;
 		}
 
-		public Aufgabe( string _Titel, string _Beschreibung, Guid _ProjektID, Guid _KategorieID, DateTime _EndDatum ) {
+		public Aufgabe( string _Titel, string _Beschreibung, Guid _ParentID, DateTime _EndDatum ) {
 			this.Titel = _Titel;
 			this.Beschreibung = _Beschreibung;
-			this.ProjektID = _ProjektID;
-			this.KategorieID = _KategorieID;
+			this.ParentID = _ParentID;
 			this.EndDatum = _EndDatum;
 		}
 

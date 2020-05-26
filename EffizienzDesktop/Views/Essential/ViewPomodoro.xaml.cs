@@ -1,22 +1,8 @@
-﻿ using Effizienz.Classes;
-using Effizienz.Interfaces;
+﻿using Effizienz.Interfaces;
 using Effizienz.Utility;
-using Effizienz.Windows;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Effizienz.Views {
@@ -78,7 +64,7 @@ namespace Effizienz.Views {
 				Zähler_Zurücksetzen();
 			}
 			else {
-				MessageBox.Show( "Es kann nur Arbeitszeit gespeichert werden!", "Zeiterfassung", MessageBoxButton.OK);
+				MessageBox.Show("Es kann nur Arbeitszeit gespeichert werden!", "Zeiterfassung", MessageBoxButton.OK);
 			}
 		}
 

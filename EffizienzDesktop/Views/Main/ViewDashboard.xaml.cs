@@ -1,20 +1,8 @@
-﻿using Effizienz.Classes;
-using Effizienz.Interfaces;
+﻿using Effizienz.Interfaces;
 using Effizienz.Utility;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Effizienz.Views {
 
@@ -30,7 +18,7 @@ namespace Effizienz.Views {
 		}
 
 		~ViewDashboard() { }
-		
+
 		private void Button_Kategorien_Speichern_Click( object sender, RoutedEventArgs e ) {
 			( (App)Application.Current ).Speichern(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
 		}
@@ -44,7 +32,7 @@ namespace Effizienz.Views {
 		public bool Parse() => throw new NotImplementedException();
 		public void Wipe() => throw new NotImplementedException();
 
-		
+
 
 	}
 }

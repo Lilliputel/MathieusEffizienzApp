@@ -9,12 +9,13 @@ namespace Effizienz.Classes {
 		public string Titel { get; set; }
 		public string Beschreibung { get; set; }
 
-		public Guid KategorieID { get; set; }
-		public ObservableCollection<Aufgabe> Aufgaben { get; set; }
-		public TimeSpan ZeitGesamt { get; set; }
-
 		public DateTime StartDatum { get; set; }
 		public DateTime EndDatum { get; set; }
+
+		public Guid KategorieID { get; set; }
+
+		public ObservableCollection<Aufgabe> Aufgaben { get; set; }
+		public TimeSpan ZeitGesamt { get; set; }
 
 
 		public Projekt() {
