@@ -22,22 +22,33 @@ namespace Effizienz {
 		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
 
 		private ResourceDictionary themeDark;
-		private ResourceDictionary themeBright;
+		private ResourceDictionary themeLight;
 		private string themeDirectory = "/Effizienz;component/Themes/";
+		private bool DarkMode;
 
 		public App() {
 			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };
-			themeBright = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeBright.xaml", UriKind.RelativeOrAbsolute) };
+			themeLight = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute) };
 
-			Laden( ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
+			Laden(ListContainer.KategorienListe, nameof(ListContainer.KategorienListe));
 			Laden(ListContainer.ProjektListe, nameof(ListContainer.ProjektListe));
 			Laden(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
 
+			DarkMode = false;
 		}
 
-		public void SetTheme( bool _DarkMode ) {
+		public void SwitchTheme() {
+			DarkMode = !DarkMode;
+			SetDarkMode(DarkMode);
+		}
+
+		public void SetDarkMode( bool _DarkMode ) {
 			Resources.MergedDictionaries[0].MergedDictionaries.Clear();
-			Resources.MergedDictionaries[0].MergedDictionaries.Add(	_DarkMode ? themeDark : themeBright );
+			Resources.MergedDictionaries[0].MergedDictionaries.Add( _DarkMode ? themeDark : themeLight );
+		}
+
+		public bool GetDarkMode() {
+			return Resources.MergedDictionaries[0].MergedDictionaries.Contains(this.themeDark);
 		}
 
 		private void Laden<T>( ObservableCollection<T> _inputListe, string _listenName ) {
@@ -52,5 +63,6 @@ namespace Effizienz {
 			MessageBoxDisplayer.ListeGespeichert(_listenName);
 		}
 
+		
 	}
 }

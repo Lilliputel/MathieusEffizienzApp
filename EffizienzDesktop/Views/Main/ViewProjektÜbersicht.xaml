@@ -7,7 +7,7 @@
 	<TreeView x:Name="TreeView_Projekte">
 
 		<TreeView.Resources>
-			<HierarchicalDataTemplate DataType="{x:Type classes:MenuItem}" ItemsSource="{Binding Aufgaben}">
+			<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" ItemsSource="{Binding Aufgaben}">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="200"/>

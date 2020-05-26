@@ -24,6 +24,8 @@ namespace Effizienz.Views {
 
 			ComboBox_Farbe.ItemsSource = InputListe;
 			ComboBox_Farbe.SelectedItem = ItemWeiss;
+
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Kategorie);
 		}
 
 		~ViewKategorie() { }

@@ -7,7 +7,7 @@ using System.Windows.Threading;
 
 namespace Effizienz.Views {
 
-	public partial class ViewPomodoro : UserControl, IParsable {
+	public partial class ViewPomodoro : UserControl {
 
 		private DispatcherTimer zähler;
 		private TimeSpan zeit;
@@ -20,6 +20,7 @@ namespace Effizienz.Views {
 
 		public ViewPomodoro() {
 			InitializeComponent();
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Pomodoro);
 		}
 
 		~ViewPomodoro() { }
@@ -126,7 +127,5 @@ namespace Effizienz.Views {
 			Zähler_Starten();
 		}
 
-		public bool Parse() => throw new NotImplementedException();
-		public void Wipe() => throw new NotImplementedException();
 	}
 }

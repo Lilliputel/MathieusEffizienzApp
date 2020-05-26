@@ -1,12 +1,10 @@
-﻿using Effizienz.Interfaces;
-using Effizienz.Utility;
-using System;
+﻿using Effizienz.Utility;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Effizienz.Views {
 
-	public partial class ViewDashboard : UserControl, IParsable {
+	public partial class ViewDashboard : UserControl {
 
 		public ViewDashboard() {
 			InitializeComponent();
@@ -14,6 +12,8 @@ namespace Effizienz.Views {
 			this.ListView_Kategorien.ItemsSource = ListContainer.KategorienListe;
 			this.ListView_Projekte.ItemsSource = ListContainer.ProjektListe;
 			this.ListView_Aufgaben.ItemsSource = ListContainer.AufgabenListe;
+
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Dashboard);
 
 		}
 
@@ -28,11 +28,6 @@ namespace Effizienz.Views {
 		private void Button_Aufgaben_Speichern_Click( object sender, RoutedEventArgs e ) {
 			( (App)Application.Current ).Speichern(ListContainer.AufgabenListe, nameof(ListContainer.AufgabenListe));
 		}
-
-		public bool Parse() => throw new NotImplementedException();
-		public void Wipe() => throw new NotImplementedException();
-
-
 
 	}
 }

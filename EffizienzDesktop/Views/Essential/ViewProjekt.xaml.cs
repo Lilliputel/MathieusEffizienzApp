@@ -13,6 +13,7 @@ namespace Effizienz.Views {
 			InitializeComponent();
 
 			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe;
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Projekt);
 		}
 
 		~ViewProjekt() { }

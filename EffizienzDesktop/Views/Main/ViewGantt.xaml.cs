@@ -1,19 +1,15 @@
-﻿using Effizienz.Interfaces;
-using System;
+﻿using Effizienz.Utility;
 using System.Windows.Controls;
 
 namespace Effizienz.Views {
 
-	public partial class ViewGantt : UserControl, IParsable {
+	public partial class ViewGantt : UserControl {
 
 		public ViewGantt() {
 			InitializeComponent();
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Gantt);
 		}
 
 		~ViewGantt() { }
-
-		public bool Parse() => throw new NotImplementedException();
-		public void Wipe() => throw new NotImplementedException();
-
 	}
 }

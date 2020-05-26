@@ -32,7 +32,7 @@ namespace Effizienz.Utility {
 			DateiNameSetzen(_DateiName);
 			try {
 				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Create) ) {
-					XmlSerializer Serializer = new XmlSerializer(typeof(List<T>));
+					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
 					Serializer.Serialize(fileStream, _speicherListe);
 				}
 			}
@@ -51,8 +51,8 @@ namespace Effizienz.Utility {
 			DateiNameSetzen(_DateiName);
 			try {
 				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
-					XmlSerializer Serializer = new XmlSerializer(typeof(List<T>));
-					_ladeListe = new ObservableCollection<T>((List<T>)Serializer.Deserialize(fileStream));
+					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
+					_ladeListe = new ObservableCollection<T>((ObservableCollection<T>)Serializer.Deserialize(fileStream));
 				}
 			}
 			catch( FileNotFoundException ) {

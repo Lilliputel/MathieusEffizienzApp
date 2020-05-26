@@ -5,9 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:Effizienz.Views"
              mc:Ignorable="d">
-    <Grid>
-		<ToggleButton Click="ToggleTheme" Content="Dark!"
-						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-						  Margin="0,5" />
-	</Grid>
+    <StackPanel>
+		<ToggleButton x:Name="ToggleButton_Theme"
+					  Content="Dark!"
+					  Command="{Binding CommandChangeTheme}"
+					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+					  Margin="0,5" />
+	</StackPanel>
 </UserControl>

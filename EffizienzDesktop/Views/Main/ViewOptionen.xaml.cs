@@ -1,29 +1,16 @@
-﻿using Effizienz.Interfaces;
-using System;
-using System.Windows;
+﻿using Effizienz.Utility;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 namespace Effizienz.Views {
 
-	public partial class ViewOptionen : UserControl, IParsable {
+	public partial class ViewOptionen : UserControl {
 
 		public ViewOptionen() {
 			InitializeComponent();
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Optionen);
 		}
 
 		~ViewOptionen() { }
-
-		private void ToggleTheme( object sender, RoutedEventArgs e ) {
-
-			ToggleButton toggleButton = (ToggleButton)e.Source;
-			bool isChecked = (bool)toggleButton.IsChecked;
-			toggleButton.Content = isChecked ? "Bright!" : "Dark!";
-			( (App)Application.Current ).SetTheme(isChecked);
-
-		}
-		public bool Parse() => throw new NotImplementedException();
-		public void Wipe() => throw new NotImplementedException();
 
 	}
 }

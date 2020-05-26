@@ -1,4 +1,5 @@
-﻿using Effizienz.Commands;
+﻿using System;
+using Effizienz.Commands;
 using Effizienz.Utility;
 using System.Windows.Input;
 
@@ -31,7 +32,8 @@ namespace Effizienz.Views {
 		public ICommand CommandUpdateView => _commandUpdateView ??
 			( _commandUpdateView = new CommandRelay(parameter => {
 				if( parameter is string ) {
-					ViewModelBase viewModel = NameContainer.GetViewModel((string)parameter, out bool isMain);
+					EnumViewModels name = Enum.Parse<EnumViewModels>(parameter as string);
+					ViewModelBase viewModel = NameContainer.GetViewModel(name, out bool isMain);
 					if( isMain )
 						this.SelectedVMMain = viewModel;
 					else

@@ -14,6 +14,8 @@ namespace Effizienz.Views {
 
 			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe;
 			ComboBox_Projekt.ItemsSource = ListContainer.ProjektListe;
+
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Aufgabe);
 		}
 
 		~ViewAufgabe() { }

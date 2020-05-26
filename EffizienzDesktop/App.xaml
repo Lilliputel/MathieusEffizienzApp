@@ -8,18 +8,19 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				
-				<ResourceDictionary x:Name="ThemeDictionary">
+
+				<ResourceDictionary>
 					<ResourceDictionary.MergedDictionaries>
-						<ResourceDictionary Source="Themes/ThemeBright.xaml"/>
+						<ResourceDictionary Source="Themes/ThemeLight.xaml"/>
 					</ResourceDictionary.MergedDictionaries>
 				</ResourceDictionary>
 
 				<ResourceDictionary Source="Dictionaries/DictionaryBase.xaml"/>
 				<ResourceDictionary Source="Dictionaries/DictionaryDataTemplates.xaml"/>
 				<ResourceDictionary Source="Dictionaries/DictionaryIcons.xaml"/>
-				
+
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
+
 	</Application.Resources>
 </Application>

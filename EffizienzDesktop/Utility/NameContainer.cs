@@ -23,24 +23,29 @@ namespace Effizienz.Utility {
 
 	public static class NameContainer {
 
-		private static Dictionary<string, ViewModelBase> dictionaryViewModelsMain = new Dictionary<string, ViewModelBase>();
-		private static Dictionary<string, ViewModelBase> dictionaryViewModelsEssential = new Dictionary<string, ViewModelBase>();
+		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>();
+		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();
 
 		static NameContainer() {
-			dictionaryViewModelsMain.Add(nameof(EnumViewModels.Dashboard), new ViewModelDashboard());
-			dictionaryViewModelsMain.Add(nameof(EnumViewModels.Planung), new ViewModelPlanung());
-			dictionaryViewModelsMain.Add(nameof(EnumViewModels.ProjektÜbersicht), new ViewModelProjektÜbersicht());
-			dictionaryViewModelsMain.Add(nameof(EnumViewModels.Gantt), new ViewModelGantt());
-			dictionaryViewModelsMain.Add(nameof(EnumViewModels.Statistik), new ViewModelStatistik());
-			dictionaryViewModelsMain.Add(nameof(EnumViewModels.Optionen), new ViewModelOptionen());
+			dictionaryViewModelsMain.Add(EnumViewModels.Dashboard, new ViewModelDashboard());
+			dictionaryViewModelsMain.Add(EnumViewModels.Planung, new ViewModelPlanung());
+			dictionaryViewModelsMain.Add(EnumViewModels.ProjektÜbersicht, new ViewModelProjektÜbersicht());
+			dictionaryViewModelsMain.Add(EnumViewModels.Gantt, new ViewModelGantt());
+			dictionaryViewModelsMain.Add(EnumViewModels.Statistik, new ViewModelStatistik());
+			dictionaryViewModelsMain.Add(EnumViewModels.Optionen, new ViewModelOptionen());
 
-			dictionaryViewModelsEssential.Add(nameof(EnumViewModels.Pomodoro), new ViewModelPomodoro());
-			dictionaryViewModelsEssential.Add(nameof(EnumViewModels.Kategorie), new ViewModelKategorie());
-			dictionaryViewModelsEssential.Add(nameof(EnumViewModels.Projekt), new ViewModelProjekt());
-			dictionaryViewModelsEssential.Add(nameof(EnumViewModels.Aufgabe), new ViewModelAufgabe());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Pomodoro, new ViewModelPomodoro());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Kategorie, new ViewModelKategorie());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Projekt, new ViewModelProjekt());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Aufgabe, new ViewModelAufgabe());
 		}
 
-		public static ViewModelBase GetViewModel( string viewModelName, out bool isMain ) {
+		public static ViewModelBase GetViewModel( EnumViewModels viewModelName) {
+			ViewModelBase returnedViewModel = dictionaryViewModelsMain.GetValueOrDefault(viewModelName) ??	dictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
+			return returnedViewModel;
+		}
+
+		public static ViewModelBase GetViewModel( EnumViewModels viewModelName, out bool isMain ) {
 			ViewModelBase returnedViewModel;
 			if( dictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
 				isMain = true;
@@ -56,8 +61,8 @@ namespace Effizienz.Utility {
 		}
 
 		public static string GetName( ViewModelBase viewModel ) {
-			return dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key ??
-				dictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key;
+			return dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key.ToString() ??
+				dictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key.ToString();
 		}
 
 	}
