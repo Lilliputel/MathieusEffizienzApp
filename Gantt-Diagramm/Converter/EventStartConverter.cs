@@ -16,7 +16,6 @@ namespace Gantt_Diagramm {
             double factor = startTime.TotalSeconds / timelineDuration.TotalSeconds;
 
             double startValue = factor * containerWidth;
-
             return new Thickness(startValue, 0, 0, 0);
         }
 

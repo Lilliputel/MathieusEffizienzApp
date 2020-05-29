@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="4.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="Views\Main\ViewProjektÜbersicht.xaml">
       <SubType>Designer</SubType>
     </Page>

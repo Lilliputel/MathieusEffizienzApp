@@ -10,6 +10,8 @@ namespace Effizienz.Views {
 		public ICommand CommandChangeTheme => _commandChangeTheme ??
 			( _commandChangeTheme = new CommandRelay(parameter => {
 				( Application.Current as App ).SwitchTheme();
+
 			}) );
 	}
 }
+ 

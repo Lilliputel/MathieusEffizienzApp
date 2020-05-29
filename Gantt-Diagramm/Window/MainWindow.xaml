@@ -47,7 +47,7 @@
 						  ItemTemplate="{StaticResource TemplateEvents}">
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<Grid x:Name="EventContainer" 
+						<Grid x:Name="EventContainer"
 							  Height="20" 
 							  Margin="5" 
 							  Background="Gainsboro"/>
@@ -60,7 +60,8 @@
 
 	<Grid>
 		<ItemsControl ItemsSource="{Binding Path=TimeLines}" 
-					  ItemTemplate="{StaticResource TemplateTimeLine}"/>
+					  ItemTemplate="{StaticResource TemplateTimeLine}"
+					  Width="800"/>
 	</Grid>
 	
 </Window>

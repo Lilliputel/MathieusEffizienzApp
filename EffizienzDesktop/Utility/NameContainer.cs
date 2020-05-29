@@ -23,10 +23,20 @@ namespace Effizienz.Utility {
 
 	public static class NameContainer {
 
-		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>();
-		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();
+		#region fields
+
+		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsMain;
+		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsEssential;
+
+		#endregion
+
+		#region static constructor
 
 		static NameContainer() {
+
+			dictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>();
+			dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();
+
 			dictionaryViewModelsMain.Add(EnumViewModels.Dashboard, new ViewModelDashboard());
 			dictionaryViewModelsMain.Add(EnumViewModels.Planung, new ViewModelPlanung());
 			dictionaryViewModelsMain.Add(EnumViewModels.ProjektÜbersicht, new ViewModelProjektÜbersicht());
@@ -38,8 +48,13 @@ namespace Effizienz.Utility {
 			dictionaryViewModelsEssential.Add(EnumViewModels.Kategorie, new ViewModelKategorie());
 			dictionaryViewModelsEssential.Add(EnumViewModels.Projekt, new ViewModelProjekt());
 			dictionaryViewModelsEssential.Add(EnumViewModels.Aufgabe, new ViewModelAufgabe());
+
 		}
 
+		#endregion
+
+		#region methods
+		
 		public static ViewModelBase GetViewModel( EnumViewModels viewModelName) {
 			ViewModelBase returnedViewModel = dictionaryViewModelsMain.GetValueOrDefault(viewModelName) ??	dictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
 			return returnedViewModel;
@@ -65,5 +80,7 @@ namespace Effizienz.Utility {
 				dictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key.ToString();
 		}
 
+		#endregion
+		
 	}
 }

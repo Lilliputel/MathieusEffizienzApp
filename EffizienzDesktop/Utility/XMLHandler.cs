@@ -7,8 +7,14 @@ namespace Effizienz.Utility {
 
 	public static class XMLHandler {
 
+		#region fields
+
 		private static string SpeicherPfad { get; set; } = @"S:\TESTING\Effizienz\";
 		private static string DateiName { get; set; } = "Test.xml";
+
+		#endregion
+
+		#region methods
 
 		public static void PfadSetzen( string _SpeicherPfad ) {
 			SpeicherPfad = _SpeicherPfad;
@@ -21,6 +27,10 @@ namespace Effizienz.Utility {
 				DateiName = string.Concat(_DateiName, ".xml");
 			}
 		}
+
+		#endregion
+
+		#region speichern
 
 		public static void Speichern<T>( ObservableCollection<T> _speicherListe ) {
 			Speichern<T>(_speicherListe, DateiName);
@@ -40,6 +50,10 @@ namespace Effizienz.Utility {
 				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
 			}
 		}
+
+		#endregion
+
+		#region laden
 
 		public static void Laden<T>( out ObservableCollection<T> _ladeListe ) {
 			Laden<T>(out _ladeListe, DateiName);
@@ -62,5 +76,6 @@ namespace Effizienz.Utility {
 
 		}
 
+		#endregion
 	}
 }

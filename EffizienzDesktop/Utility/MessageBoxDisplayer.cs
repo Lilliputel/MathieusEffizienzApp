@@ -3,6 +3,8 @@
 namespace Effizienz.Utility {
 	public static class MessageBoxDisplayer {
 
+		#region static methods
+		
 		public static void ObjektErstellt( string _objektName, string _objektTitel ) {
 			MessageBox.Show(
 				$"Es wurde ein {_objektName} mit dem Titel {_objektTitel} erfolgreich erstellt!",
@@ -45,6 +47,9 @@ namespace Effizienz.Utility {
 				MessageBoxButton.OK,
 				MessageBoxImage.Exclamation);
 		}
+
+		#endregion
+		
 
 	}
 }

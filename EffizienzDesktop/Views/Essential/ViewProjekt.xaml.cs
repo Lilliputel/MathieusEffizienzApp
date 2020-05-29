@@ -12,7 +12,7 @@ namespace Effizienz.Views {
 		public ViewProjekt() {
 			InitializeComponent();
 
-			ComboBox_Kategorie.ItemsSource = ListContainer.KategorienListe;
+			ComboBox_Kategorie.ItemsSource = (Application.Current as App).KategorienListe;
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Projekt);
 		}
 
@@ -26,7 +26,7 @@ namespace Effizienz.Views {
 		public bool Parse() {
 			Kategorie selectedKategorie = (Kategorie)ComboBox_Kategorie.SelectedItem;
 			try {
-				ListContainer.ProjektListe.Add(
+				selectedKategorie.AddProjekt(
 					new Projekt(
 						TextBox_Titel.Text,
 						TextBox_Beschreibung.Text,

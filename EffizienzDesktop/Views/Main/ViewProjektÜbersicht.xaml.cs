@@ -7,7 +7,7 @@ namespace Effizienz.Views {
 
 		public ViewProjektÜbersicht() {
 			InitializeComponent();
-			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Statistik);
+			this.DataContext = NameContainer.GetViewModel(EnumViewModels.ProjektÜbersicht);
 		}
 
 		~ViewProjektÜbersicht() { }

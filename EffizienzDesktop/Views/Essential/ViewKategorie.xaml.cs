@@ -39,7 +39,7 @@ namespace Effizienz.Views {
 			PropertyInfo item = (PropertyInfo)ComboBox_Farbe.SelectedItem;
 
 			try {
-				ListContainer.KategorienListe.Add(
+				(Application.Current as App).KategorienListe.Add(
 					new Kategorie(
 						TextBox_Titel.Text,
 						(Color)item.GetValue(null, null)));

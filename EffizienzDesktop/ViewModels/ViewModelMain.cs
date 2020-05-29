@@ -6,9 +6,17 @@ using System.Windows.Input;
 namespace Effizienz.Views {
 	public class ViewModelMain : ViewModelBase {
 
+		#region fields
+
 		private ViewModelBase selectedVMMain;
 		private ViewModelBase selectedVMEssential;
+		
+		private ICommand _commandUpdateView;
 
+		#endregion
+
+		#region properties
+		
 		public ViewModelBase SelectedVMMain {
 			get { return selectedVMMain; }
 			set {
@@ -27,8 +35,7 @@ namespace Effizienz.Views {
 				}
 			}
 		}
-
-		private ICommand _commandUpdateView;
+		
 		public ICommand CommandUpdateView => _commandUpdateView ??
 			( _commandUpdateView = new CommandRelay(parameter => {
 				if( parameter is string ) {
@@ -40,6 +47,9 @@ namespace Effizienz.Views {
 						this.SelectedVMEssential = viewModel;
 				}
 			}) );
+
+		#endregion
+
 
 	}
 }
