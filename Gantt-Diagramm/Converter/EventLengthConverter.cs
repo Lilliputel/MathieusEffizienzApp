@@ -10,10 +10,10 @@ namespace Gantt_Diagramm {
         public object Convert( object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture ) {
             
             TimeSpan timelineDuration = (TimeSpan)values[0];
-            TimeSpan startTime = (TimeSpan)values[1];
+            TimeSpan länge = (TimeSpan)values[1];
 
             double containerWidth = (double)values[2];
-            double factor = startTime.TotalSeconds / timelineDuration.TotalSeconds;
+            double factor = länge.TotalSeconds / timelineDuration.TotalSeconds;
             
             double rval = factor * containerWidth;
             return rval;
@@ -22,5 +22,5 @@ namespace Gantt_Diagramm {
         public object[] ConvertBack( object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture ) {
             throw new NotImplementedException();
         }
-    }
+    } 
 }
