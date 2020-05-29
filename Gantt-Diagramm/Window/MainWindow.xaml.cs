@@ -26,7 +26,18 @@ namespace Gantt_Diagramm {
 
 		}
 
-		private void CreateObjects() {
+        private void CreateObjects() {
+            TimeLine neuTimeLine = new TimeLine();
+            neuTimeLine.Duration = new TimeSpan(1,0,0);
+
+            TimeLineEvent neuEvent = new TimeLineEvent();
+            neuEvent.Start = new TimeSpan(0, 15, 0);
+            neuEvent.Duration = new TimeSpan(0, 10, 0);
+
+            neuTimeLine.Events.Add(neuEvent);
+            ViewModel.TimeLines.Add(neuTimeLine);
+		}
+		private void CreateObjects1() {
 
             TimeLine first = new TimeLine();
             first.Duration = new TimeSpan(1, 0, 0);

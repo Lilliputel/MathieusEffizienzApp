@@ -10,62 +10,60 @@
 	<Window.Resources>
 		<local:EventLengthConverter x:Key="mEventLengthConverter"/>
 		<local:EventStartConverter x:Key="mEventStartConverter"/>
-
-		<DataTemplate x:Key="DataTemplateTimeLine">
-			<ItemsControl x:Name="ItemsControlTimeLine"
-						  ItemsSource="{Binding Path=Events}">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<Rectangle Grid.Column="1" 
-					   Fill="Green" 
-					   VerticalAlignment="Stretch" 
-					   HorizontalAlignment="Left">
-							<Rectangle.Margin>
-								
-								<MultiBinding Converter="{StaticResource mEventStartConverter}">
-									<Binding ElementName="ItemsControlTimeLine" 
-											 Path="DataContext.Duration"/>
-									<Binding Path="Start"/>
-									<Binding ElementName="EventContainer" 
-											 Path="ActualWidth"/>
-
-								</MultiBinding>
-							</Rectangle.Margin>
-							<Rectangle.Width>
-								
-								<MultiBinding Converter="{StaticResource mEventLengthConverter}">
-									<Binding ElementName="ItemsControlTimeLine" 
-											 Path="DataContext.Duration"/>
-									<Binding Path="Duration"/>
-									<Binding ElementName="EventContainer" 
-											 Path="ActualWidth"/>
-
-								</MultiBinding>
-							</Rectangle.Width>
-						</Rectangle>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						
-						<Grid x:Name="EventContainer"
-							  Height="20" 
-							  Margin="5" 
-							  Background="Gainsboro"/>
-						
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-			</ItemsControl>
-		</DataTemplate>
-
 		
-
 	</Window.Resources>
 
 	<Grid>
 		<ItemsControl ItemsSource="{Binding Path=TimeLines}" 
-					  ItemTemplate="{StaticResource DataTemplateTimeLine}"
-					  Width="800"/>
+					  Width="800">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<ItemsControl x:Name="ItemsControlTimeLine"
+								  ItemsSource="{Binding Path=Events}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Rectangle Fill="Green" 
+										   VerticalAlignment="Stretch" 
+										   HorizontalAlignment="Left">
+									<Rectangle.Margin>
+
+										<MultiBinding Converter="{StaticResource mEventStartConverter}">
+											<Binding ElementName="ItemsControlTimeLine" 
+													 Path="DataContext.Duration"/>
+											<Binding Path="Start"/>
+											<Binding ElementName="EventContainer" 
+													 Path="ActualWidth"/>
+
+										</MultiBinding>
+									</Rectangle.Margin>
+									<Rectangle.Width>
+
+										<MultiBinding Converter="{StaticResource mEventLengthConverter}">
+											<Binding ElementName="ItemsControlTimeLine" 
+													 Path="DataContext.Duration"/>
+											<Binding Path="Duration"/>
+											<Binding ElementName="EventContainer" 
+													 Path="ActualWidth"/>
+
+										</MultiBinding>
+									</Rectangle.Width>
+								</Rectangle>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+
+								<Grid x:Name="EventContainer"
+									  Height="20" 
+									  Margin="5" 
+									  Background="Gainsboro"/>
+
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
 	</Grid>
 	
 </Window>

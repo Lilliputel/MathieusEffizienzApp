@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
-using System.Text;
 using System.Windows;
 using System.Windows.Data;
 
@@ -9,10 +8,11 @@ namespace Effizienz.Converters {
 	public class ConverterAufgabe : IMultiValueConverter {
 
 		public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
+
 			DateTime projektStart = (DateTime)values[0];
 			DateTime projektEnde = (DateTime)values[1];
 			DateTime datum = (DateTime)values[2];
-			double gesamtLänge = (double)values[3];
+			double gesamtLänge = ((GridLength)values[3]).Value;
 
 			double faktor;
 			// setzt den faktor zu einem Bruch der gesamtlänge

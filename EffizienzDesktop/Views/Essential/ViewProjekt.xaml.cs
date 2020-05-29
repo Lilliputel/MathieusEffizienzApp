@@ -31,12 +31,13 @@ namespace Effizienz.Views {
 				Guid selectedKategorieID = (ComboBox_Kategorie.SelectedItem as Kategorie).ID;
 
 				( Application.Current as App ).KategorienListe.Where(
-					k => k.ID == selectedKategorieID).First().AddProjekt(
+					k => k.ID == selectedKategorieID).First().Projekte.Add(
 					new Projekt(
 						TextBox_Titel.Text,
-						TextBox_Beschreibung.Text,
 						selectedKategorieID,
-						(DateTime)DatePicker_EndDatum.SelectedDate));
+						(DateTime)DatePicker_EndDatum.SelectedDate) { 
+						Beschreibung = TextBox_Beschreibung.Text
+					});
 				return true;
 			}
 			catch( Exception e ) {

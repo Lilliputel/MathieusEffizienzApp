@@ -19,7 +19,10 @@ namespace Effizienz.Classes {
 		#endregion
 
 		#region Constructors
-		
+		/// <summary>
+		/// Default constructor for serialisation!
+		/// instance of Kategorie must have a Titel and a Color!
+		/// </summary>
 		public Kategorie() {
 			ID = Guid.NewGuid();
 			Aufgaben = new ObservableCollection<Aufgabe>();
@@ -36,14 +39,6 @@ namespace Effizienz.Classes {
 		#endregion
 
 		#region Methods
-
-		public void AddAufgabe( Aufgabe _neueAufgabe ) {
-			Aufgaben.Add(_neueAufgabe);
-		}
-
-		public void AddProjekt( Projekt _neuesProjekt ) {
-			Projekte.Add(_neuesProjekt);
-		}
 
 		#endregion
 
