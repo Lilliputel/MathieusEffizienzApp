@@ -16,10 +16,10 @@ namespace Effizienz.Views {
 			InitializeComponent();
 
 			ComboBox_Kategorie.ItemsSource = ( Application.Current as App ).KategorienListe;
-			ComboBox_Projekt.ItemsSource = from Kategorie item in ( Application.Current as App ).KategorienListe
-										   select item.Projekte into itemL
-										   from itemP in itemL
-										   select itemP;
+			ComboBox_Projekt.ItemsSource = from Kategorie in ( Application.Current as App ).KategorienListe
+										   select Kategorie.Projekte into ProjektListe
+										   from Projekt in ProjektListe
+										   select Projekt;
 
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Aufgabe);
 		}
@@ -32,31 +32,38 @@ namespace Effizienz.Views {
 		}
 
 		public bool Parse() {
-			Kategorie selectedKategorie = (Kategorie)ComboBox_Kategorie.SelectedItem;
-			Projekt selectedProjekt = (Projekt)ComboBox_Projekt.SelectedItem;
-			try {
-				if( selectedProjekt != null ) {
-					selectedProjekt.AddAufgabe(
+			
+				if( ComboBox_Projekt.SelectedIndex > -1 ) {
+					Guid selectedProjektID = (ComboBox_Projekt.SelectedItem as Projekt).ID;
+
+
+				(( from Kat in ( Application.Current as App ).KategorienListe
+				  from Proj in Kat.Projekte
+				  where Proj.ID == selectedProjektID
+				  select Proj )
+				  .First()).AddAufgabe(
 					new Aufgabe(
 						TextBox_Titel.Text,
 						TextBox_Beschreibung.Text,
-						selectedProjekt.ID,
+						selectedProjektID,
 						(DateTime)DatePicker_EndDatum.SelectedDate));
-				}
-				else if( selectedKategorie != null ) {
-					selectedKategorie.AddAufgabe(
-					new Aufgabe(
-						TextBox_Titel.Text,
-						TextBox_Beschreibung.Text,
-						selectedKategorie.ID,
-						(DateTime)DatePicker_EndDatum.SelectedDate));
-				}
+
 				return true;
-			}
-			catch( Exception e ) {
-				MessageBoxDisplayer.InputInkorrekt(e.Message);
-				return false;
-			}
+				}
+				else if( ComboBox_Kategorie.SelectedIndex > -1 ) {
+				Guid selectedKategorieID = (ComboBox_Kategorie.SelectedItem as Kategorie).ID;
+
+					( Application.Current as App ).KategorienListe.Where(
+						k => k.ID == selectedKategorieID).First().AddAufgabe(
+					new Aufgabe(
+						TextBox_Titel.Text,
+						TextBox_Beschreibung.Text,
+						selectedKategorieID,
+						(DateTime)DatePicker_EndDatum.SelectedDate));
+
+				return true;
+				}
+			return false;
 		}
 		public void Wipe() {
 			TextBox_Titel.Clear();

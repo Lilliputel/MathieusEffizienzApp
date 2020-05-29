@@ -11,7 +11,7 @@
 				<TextBlock Text="{Binding Titel}"/>
 			</HierarchicalDataTemplate>
 			<DataTemplate DataType="{x:Type classes:Aufgabe}">
-				<TextBlock Text="{Binding Aufgaben.Titel}"/>
+				<TextBlock Text="{Binding Titel}"/>
 			</DataTemplate>
 		</TreeView.Resources>
 	</TreeView>

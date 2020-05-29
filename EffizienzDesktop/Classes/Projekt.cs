@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Effizienz.Utility;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Effizienz.Classes {
 
-	public class Projekt {
+	public class Projekt : ObservableObject {
 
 		#region Properties
 
@@ -26,7 +27,7 @@ namespace Effizienz.Classes {
 		public Projekt() {
 			ID = Guid.NewGuid();
 			ZeitGesamt = TimeSpan.Zero;
-			Aufgaben = new ObservableCollection<Aufgabe>();
+			//Aufgaben = new ObservableCollection<Aufgabe>();
 		}
 
 		public Projekt(string _Titel, Guid _KategorieID, DateTime _EndDatum)
@@ -50,7 +51,8 @@ namespace Effizienz.Classes {
 		#region Methods
 
 		public void AddAufgabe( Aufgabe _neueAufgabe ) {
-			Aufgaben.Add(_neueAufgabe);
+			this.Aufgaben.Add(_neueAufgabe);
+			OnPropertyChanged( nameof(Aufgaben) );
 		}
 
 		#endregion

@@ -1,11 +1,13 @@
 ﻿using Effizienz.Classes;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Data;
+using DynamicData.Binding;
+using DynamicData.Alias;
+using System.Runtime.CompilerServices;
+using System.Reactive.Linq;
 
 namespace Effizienz.Views {
 
@@ -15,7 +17,7 @@ namespace Effizienz.Views {
 
 		public ICollectionView KategorienListe { get; }
 		public ICollectionView ProjektListe { get; }
-		public ICollectionView AufgabenListe { get; }
+		public ICollectionView AufgabenListe { get;  }
 
 		#endregion
 
@@ -23,16 +25,18 @@ namespace Effizienz.Views {
 
 		public ViewModelDashboard() {
 
+			var observable = ( Application.Current as App ).KategorienListe.ToObservableChangeSet();
+			var linq = observable.Select(Kat => Kat.Projekte);
+			var neu = linq.ToListObservable();
+
 			KategorienListe = CollectionViewSource.GetDefaultView(
 				( Application.Current as App ).KategorienListe);
-
 			ProjektListe = CollectionViewSource.GetDefaultView(
 					from Kat in ( Application.Current as App ).KategorienListe
 					select Kat.Projekte into Projekte
 					from Item in Projekte
 					select Item
 					);
-
 			AufgabenListe = CollectionViewSource.GetDefaultView((
 				// Alle Aufgaben, die direkt in den Kategorien gespeichert sind.
 				from Kat in ( Application.Current as App ).KategorienListe
@@ -50,5 +54,8 @@ namespace Effizienz.Views {
 
 		#endregion
 
+		#region methods
+
+		#endregion
 	}
 }

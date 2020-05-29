@@ -2,6 +2,9 @@
 using Effizienz.Interfaces;
 using Effizienz.Utility;
 using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -24,13 +27,15 @@ namespace Effizienz.Views {
 		}
 
 		public bool Parse() {
-			Kategorie selectedKategorie = (Kategorie)ComboBox_Kategorie.SelectedItem;
 			try {
-				selectedKategorie.AddProjekt(
+				Guid selectedKategorieID = (ComboBox_Kategorie.SelectedItem as Kategorie).ID;
+
+				( Application.Current as App ).KategorienListe.Where(
+					k => k.ID == selectedKategorieID).First().AddProjekt(
 					new Projekt(
 						TextBox_Titel.Text,
 						TextBox_Beschreibung.Text,
-						selectedKategorie.ID,
+						selectedKategorieID,
 						(DateTime)DatePicker_EndDatum.SelectedDate));
 				return true;
 			}
