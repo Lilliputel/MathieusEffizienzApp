@@ -26,8 +26,11 @@ namespace Effizienz.Classes {
 			set {
 				try {
 					StartDatum = ( from aufgabe in value
-								   where aufgabe.StartDatum > StartDatum
-								   select aufgabe.StartDatum ).First();
+								   where aufgabe.StartDatum < StartDatum
+								   select aufgabe.StartDatum ).Min();
+					EndDatum = ( from aufgabe in value
+								 where aufgabe.EndDatum > EndDatum
+								 select aufgabe.EndDatum ).Max();
 				}
 				catch( InvalidOperationException ) {
 				}
@@ -50,11 +53,12 @@ namespace Effizienz.Classes {
 			this.Aufgaben = new ObservableCollection<Aufgabe>();
 		}
 
-		public Projekt( string _Titel, Guid _KategorieID, DateTime _EndDatum )
-			: this(_Titel, _KategorieID, DateTime.Today, _EndDatum) { }
-
-		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum )
-			: this(_Titel, _KategorieID, _StartDatum, _EndDatum, TimeSpan.Zero ) { }
+		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
+			this.Titel = _Titel;
+			this.KategorieID = _KategorieID;
+			this.StartDatum = _StartDatum;
+			this.EndDatum = _EndDatum;
+		}
 
 		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _GesamtZeit, string _Beschreibung = "Das ist ein neues Projekt!") : this() {
 			this.Titel = _Titel;

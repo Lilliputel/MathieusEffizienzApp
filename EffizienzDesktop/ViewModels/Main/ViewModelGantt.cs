@@ -10,22 +10,30 @@ namespace Effizienz.Views {
 
 		#region properties
 
-		public ObservableCollection<Kategorie> Kategorien { get; set; } = new ObservableCollection<Kategorie>(( Application.Current as App ).KategorienListe);
+		public ObservableCollection<Kategorie> Kategorien 
+			=> ( Application.Current as App ).KategorienListe;
 
 		#endregion
 
 		#region constructor
 
 		public ViewModelGantt() {
+			GenerateObjects();
+		}
+
+		#endregion
+
+		#region methods
+
+		private void GenerateObjects() {
 			Kategorie CBKategorie = new Kategorie("CodeBehind-Kategorie", Colors.Magenta);
 			Projekt CBProjekt = new Projekt("CodeBehind-Projekt", CBKategorie.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(10));
-			Aufgabe CBAufgabe = new Aufgabe("CodeBehind-Aufgabe", CBProjekt.ID,	DateTime.Today.AddDays(2),	DateTime.Today.AddDays(5));
+			Aufgabe CBAufgabe = new Aufgabe("CodeBehind-Aufgabe", CBProjekt.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5));
 
 			CBProjekt.Aufgaben.Add(CBAufgabe);
 			CBKategorie.Projekte.Add(CBProjekt);
 
 			( Application.Current as App ).KategorienListe.Add(CBKategorie);
-			Kategorien.Add(CBKategorie);
 		}
 
 		#endregion

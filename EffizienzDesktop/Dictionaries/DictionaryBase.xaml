@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					x:Name="DictionaryBase">
 
+	<Style TargetType="{x:Type TextBlock}">
+		<Setter Property="Margin" Value="0,2"/>
+	</Style>
+	
 	<Style x:Key="BorderRounded" TargetType="{x:Type Border}" >
 		<Style.Setters>
 			<Setter Property="CornerRadius" Value="8"/>
@@ -10,7 +14,7 @@
 		</Style.Setters>
 	</Style>
 
-	<Style TargetType="{x:Type Button}">
+	<Style TargetType="{x:Type Button}" x:Key="test">
 		<Style.Setters>
 			<Setter Property="Background" Value="DarkGray"/>
 			<Setter Property="Margin" Value="1"/>

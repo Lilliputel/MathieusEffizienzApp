@@ -1,5 +1,4 @@
 ﻿using Effizienz.Classes;
-using Effizienz.Interfaces;
 using Effizienz.Utility;
 using System;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Windows.Media;
 
 namespace Effizienz.Views {
 
-	public partial class ViewKategorie : UserControl, IParsable {
+	public partial class ViewKategorie : UserControl {
 
 		public ViewKategorie() {
 			InitializeComponent();

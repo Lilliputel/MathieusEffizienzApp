@@ -1,5 +1,4 @@
-﻿using Effizienz.Interfaces;
-using Effizienz.Utility;
+﻿using Effizienz.Utility;
 using System;
 using System.Windows;
 using System.Windows.Controls;

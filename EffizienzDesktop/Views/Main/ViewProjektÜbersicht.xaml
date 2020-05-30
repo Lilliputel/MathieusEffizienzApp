@@ -342,12 +342,9 @@
 
 		<TreeView.ItemTemplate>
 			<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" ItemsSource="{Binding Aufgaben}">
-				<Grid Background="Gainsboro">
+				<Grid>
 					<!-- Template für das Übergeordnete Element (Projekt) -->
-					<Border>
-						<TextBlock Text="{Binding Titel}"/>
-					</Border>
-					
+					<TextBlock Text="{Binding Titel}"/>
 
 				</Grid>
 				<HierarchicalDataTemplate.ItemTemplate>

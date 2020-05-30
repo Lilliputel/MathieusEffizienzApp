@@ -28,11 +28,12 @@ namespace Effizienz.Classes {
 			ArbeitsZeit = TimeSpan.Zero;
 		}
 
-		public Aufgabe( string _Titel, Guid _ParentID, DateTime _EndDatum )
-			: this(_Titel, _ParentID, DateTime.Today, _EndDatum) { }
-
-		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum )
-			: this(_Titel, _ParentID, _StartDatum, _EndDatum, TimeSpan.Zero ) { }
+		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
+			this.Titel = _Titel;
+			this.ParentID = _ParentID;
+			this.StartDatum = _StartDatum;
+			this.EndDatum = _EndDatum;
+		}
 
 		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _ArbeitsZeit, string _Beschreibung = "Das ist eine neue Aufgabe!" ) : this() {
 			this.Titel = _Titel;

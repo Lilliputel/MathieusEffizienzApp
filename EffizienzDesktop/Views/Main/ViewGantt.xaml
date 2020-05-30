@@ -10,7 +10,7 @@
 	</UserControl.Resources>
 
 	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl ItemsSource="{Binding Kategorien}" Grid.Row="0"
+	<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"
 				MinWidth="700"
 				x:Name="ControlRoot"
 				BorderBrush="{x:Null}" 
