@@ -6,14 +6,20 @@ using System.Windows;
 namespace Effizienz.Views {
 	public class ViewModelProjektÜbersicht : ViewModelBase {
 
-		public ViewModelProjektÜbersicht() {
-			Projekte = new ObservableCollection<Projekt>(from Kategorie in ( Application.Current as App ).KategorienListe
-														 select Kategorie.Projekte into ProjektListe
-														 from Projekt in ProjektListe
-														 select Projekt);
-		}
+		#region properties
+		public ObservableCollection<Projekt> Projekte => new ObservableCollection<Projekt>(from Kategorie in ( Application.Current as App ).KategorienListe
+																						   select Kategorie.Projekte into ProjektListe
+																						   from Projekt in ProjektListe
+																						   select Projekt);
 
-		public ObservableCollection<Projekt> Projekte { get; }
+		#endregion
 
+		#region constructor
+
+		#endregion
+
+		#region methods
+
+		#endregion
 	}
 }

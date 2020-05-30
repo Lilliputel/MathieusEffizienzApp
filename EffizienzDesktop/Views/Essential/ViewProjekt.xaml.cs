@@ -2,9 +2,7 @@
 using Effizienz.Interfaces;
 using Effizienz.Utility;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
 

@@ -14,13 +14,6 @@ namespace Effizienz.Views {
 
 		public ViewAufgabe() {
 			InitializeComponent();
-
-			ComboBox_Kategorie.ItemsSource = ( Application.Current as App ).KategorienListe;
-			ComboBox_Projekt.ItemsSource = from Kategorie in ( Application.Current as App ).KategorienListe
-										   select Kategorie.Projekte into ProjektListe
-										   from Projekt in ProjektListe
-										   select Projekt;
-
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Aufgabe);
 		}
 

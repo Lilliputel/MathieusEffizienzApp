@@ -9,117 +9,142 @@
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="5*" />
-			<RowDefinition Height="1*" />
-		</Grid.RowDefinitions>
+	<!-- TabControl mit den Kategorien als Tab -->
+	<TabControl ItemsSource="{Binding Kategorien}" Grid.Row="0"
+				MinWidth="700"
+				x:Name="ControlRoot"
+				BorderBrush="{x:Null}" 
+				Background="LightGray">
+		<TabControl.Resources>
+			<!-- Style für Tabs -->
+			<Style TargetType="{x:Type TabItem}">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type TabItem}">
+							<!-- Setzt ein Grid als HintergrundPanel -->
+							<Grid Name="Panel">
+								<ContentPresenter x:Name="ContentSite"
+												  VerticalAlignment="Center"
+												  HorizontalAlignment="Center"
+												  ContentSource="Header"
+												  Margin="10,2"/>
+							</Grid>
+							<!-- Stylt die verschiedene Anzeigezustände -->
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsSelected" Value="True">
+									<Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+								</Trigger>
+								<Trigger Property="IsSelected" Value="False">
+									<Setter TargetName="Panel" Property="Background" Value="White" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</TabControl.Resources>
+		
+		<!-- Template für Tab -->
+		<TabControl.ItemTemplate>
+			<DataTemplate>
+				<!-- Setzt ein Kreis und den Titel als TextBlock -->
+				<StackPanel Orientation="Horizontal">
+					<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" 
+							 Margin="2" Width="10" Height="10" 
+							 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<TextBlock Text="{Binding Titel}"/>
+				</StackPanel>
+			</DataTemplate>
+		</TabControl.ItemTemplate>
+		<TabControl.ContentTemplate>
+			<DataTemplate>
 
-		<!-- TabControl mit den Kategorien als Tab -->
-		<TabControl ItemsSource="{Binding Kategorien}" Grid.Row="0"
-					MinWidth="800"
-					x:Name="ControlRoot">
-			<!-- Template für Tab -->
-			<TabControl.ItemTemplate>
-				<DataTemplate>
-					<StackPanel Orientation="Horizontal">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" Margin="2" Width="10" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding Titel}"/>
-					</StackPanel>
-					
-				</DataTemplate>
-			</TabControl.ItemTemplate>
-			<TabControl.ContentTemplate>
-				<DataTemplate>
+				<!-- ItemControl mit Projekten als Expander -->
+				<ItemsControl ItemsSource="{Binding Projekte}" 
+							  x:Name="ProjektRoot">
+					<ItemsControl.Background>
+						<SolidColorBrush Color="{Binding Farbe}" Opacity="0"/>
+					</ItemsControl.Background>
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<Expander>
+								<!-- Template für Expander -->
+								<Expander.Header>
+									<TextBlock Text="{Binding Titel}"/>
+								</Expander.Header>
 
-					<!-- ItemControl mit Projekten als Expander -->
-					<ItemsControl ItemsSource="{Binding Projekte}" 
-								  x:Name="ProjektRoot">
-						<ItemsControl.Background>
-							<SolidColorBrush Color="{Binding Farbe}" Opacity="0"/>
-						</ItemsControl.Background>
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Expander>
-									<!-- Template für Expander -->
-									<Expander.Header>
-										<TextBlock Text="{Binding Titel}"/>
-									</Expander.Header>
+								<!-- itemsControl für Aufgaben -->
+								<ItemsControl ItemsSource="{Binding Aufgaben}" 
+											  x:Name="TimeLine">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
 
-									<!-- itemsControl für Aufgaben -->
-									<ItemsControl ItemsSource="{Binding Aufgaben}" 
-												  x:Name="TimeLine">
-										<ItemsControl.ItemTemplate>
-											<DataTemplate>
+											<!-- Linie zwischen Aufgaben -->
+											<Border BorderBrush="Black" BorderThickness="0,0,0,1">
 
-												<!-- Linie zwischen Aufgaben -->
-												<Border BorderBrush="Black" BorderThickness="0,0,0,1">
+												<!-- Grid um Spalten für Beschreibung & TimeLine zu erschaffen -->
+												<Grid x:Name="ColumnGrid"
+													  Height="20"
+													  Margin="2">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="120"/>
+														<ColumnDefinition Width="{Binding ElementName=ControlRoot, Path=MinWidth}" x:Name="TimeLineWidth"/>
+													</Grid.ColumnDefinitions>
 
-													<!-- Grid um Spalten für Beschreibung & TimeLine zu erschaffen -->
-													<Grid x:Name="ColumnGrid"
-														  Height="20"
-														  Margin="2">
-														<Grid.ColumnDefinitions>
-															<ColumnDefinition Width="120"/>
-															<ColumnDefinition Width="{Binding ElementName=ControlRoot, Path=MinWidth}" x:Name="TimeLineWidth"/>
-														</Grid.ColumnDefinitions>
+													<!-- Textblock mit Aufgabentitel für Spalte 1 -->
+													<TextBlock Grid.Column="0" VerticalAlignment="Center"
+															   Text="{Binding Titel}" />
 
-														<!-- Textblock mit Aufgabentitel für Spalte 1 -->
-														<TextBlock Grid.Column="0" VerticalAlignment="Center"
-																   Text="{Binding Titel}" />
+													<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
+													<Border Grid.Column="1" 
+															CornerRadius="5" 
+															VerticalAlignment="Stretch"
+															HorizontalAlignment="Left"
+															Background="{Binding Path=DataContext.Farbe, ElementName=ProjektRoot, Converter={StaticResource ColorConverter}}">
 
-														<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
-														<Border Grid.Column="1" 
-																CornerRadius="5" 
-																VerticalAlignment="Stretch"
-																HorizontalAlignment="Left"
-																Background="{Binding Path=DataContext.Farbe, ElementName=ProjektRoot, Converter={StaticResource ColorConverter}}">
-															
-															<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
-															<Border.Width>
-																<MultiBinding Converter="{StaticResource AufgabenConverter}">
-																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.StartDatum"/>
-																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.EndDatum"/>
+														<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
+														<Border.Width>
+															<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																<Binding ElementName="TimeLine" 
+																		 Path="DataContext.StartDatum"/>
+																<Binding ElementName="TimeLine" 
+																		 Path="DataContext.EndDatum"/>
 
-																	<Binding Path="EndDatum"/>
-																	<Binding ElementName="TimeLineWidth"
-																			 Path="Width"/>
-																</MultiBinding>
-															</Border.Width>
-															
-															<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
-															<Border.Margin>
-																<MultiBinding Converter="{StaticResource AufgabenConverter}">
-																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.StartDatum"/>
-																	<Binding ElementName="TimeLine"
-																			 Path="DataContext.EndDatum"/>
+																<Binding Path="EndDatum"/>
+																<Binding ElementName="TimeLineWidth"
+																		 Path="Width"/>
+															</MultiBinding>
+														</Border.Width>
 
-																	<Binding Path="StartDatum"/>
-																	<Binding ElementName="TimeLineWidth" 
-																			 Path="Width"/>
-																</MultiBinding>
-															</Border.Margin>
+														<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
+														<Border.Margin>
+															<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																<Binding ElementName="TimeLine" 
+																		 Path="DataContext.StartDatum"/>
+																<Binding ElementName="TimeLine"
+																		 Path="DataContext.EndDatum"/>
 
-														</Border>
-													</Grid>
-												</Border>
+																<Binding Path="StartDatum"/>
+																<Binding ElementName="TimeLineWidth"
+																		 Path="Width"/>
+															</MultiBinding>
+														</Border.Margin>
 
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
+													</Border>
+												</Grid>
+											</Border>
 
-								</Expander>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
 
-				</DataTemplate>
-			</TabControl.ContentTemplate>
-		</TabControl>
+							</Expander>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 
-	</Grid>
+			</DataTemplate>
+		</TabControl.ContentTemplate>
+	</TabControl>
 
 </UserControl>

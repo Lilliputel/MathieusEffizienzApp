@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					x:Name="DictionaryBase">
 
-	<Style x:Key="BorderRounded" TargetType="{x:Type Border}">
+	<Style x:Key="BorderRounded" TargetType="{x:Type Border}" >
 		<Style.Setters>
 			<Setter Property="CornerRadius" Value="8"/>
 			<Setter Property="BorderBrush" Value="{x:Null}"/>
@@ -41,19 +41,5 @@
 			</Setter>
 		</Style.Setters>
 	</Style>
-
-	<Style TargetType="{x:Type TreeView}">
-		<Style.Setters>
-			<Setter Property="BorderBrush" Value="{x:Null}"/>
-		</Style.Setters>
-	</Style>
-
-	<Style TargetType="{x:Type TreeViewItem}">
-		<Style.Resources>
-			<Style TargetType="Border" BasedOn="{StaticResource BorderRounded}">
-				<Setter Property="Background" Value="{StaticResource Background}"/>
-			</Style>
-		</Style.Resources>
-	</Style>
-
+	
 </ResourceDictionary>

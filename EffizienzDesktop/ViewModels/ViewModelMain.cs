@@ -10,7 +10,6 @@ namespace Effizienz.Views {
 
 		private ViewModelBase selectedVMMain;
 		private ViewModelBase selectedVMEssential;
-		
 		private ICommand _commandUpdateView;
 
 		#endregion
