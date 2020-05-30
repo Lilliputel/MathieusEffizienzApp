@@ -35,6 +35,9 @@
 					<!-- ItemControl mit Projekten als Expander -->
 					<ItemsControl ItemsSource="{Binding Projekte}" 
 								  x:Name="ProjektRoot">
+						<ItemsControl.Background>
+							<SolidColorBrush Color="{Binding Farbe}" Opacity="0"/>
+						</ItemsControl.Background>
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
 								<Expander>
@@ -65,18 +68,29 @@
 														<TextBlock Grid.Column="0" VerticalAlignment="Center"
 																   Text="{Binding Titel}" />
 
-														<!-- Ein Rechteck, um die Verwendete Zeit in der ListView anzuzeigen -->
-														<Rectangle Fill="Green"
-																   VerticalAlignment="Stretch"
-																   HorizontalAlignment="Left"
-																   Height="20"
-																   Grid.Column="1">
-															<!--
-															Fill="{Binding ElementName=ControlRoot, Path=Farbe, Converter={StaticResource ColorConverter}}"
-															-->
+														<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
+														<Border Grid.Column="1" 
+																CornerRadius="5" 
+																VerticalAlignment="Stretch"
+																HorizontalAlignment="Left"
+																Background="{Binding Path=DataContext.Farbe, ElementName=ProjektRoot, Converter={StaticResource ColorConverter}}">
+															
+															<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
+															<Border.Width>
+																<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																	<Binding ElementName="TimeLine" 
+																			 Path="DataContext.StartDatum"/>
+																	<Binding ElementName="TimeLine" 
+																			 Path="DataContext.EndDatum"/>
+
+																	<Binding Path="EndDatum"/>
+																	<Binding ElementName="TimeLineWidth"
+																			 Path="Width"/>
+																</MultiBinding>
+															</Border.Width>
 															
 															<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
-															<Rectangle.Margin>
+															<Border.Margin>
 																<MultiBinding Converter="{StaticResource AufgabenConverter}">
 																	<Binding ElementName="TimeLine" 
 																			 Path="DataContext.StartDatum"/>
@@ -87,22 +101,9 @@
 																	<Binding ElementName="TimeLineWidth" 
 																			 Path="Width"/>
 																</MultiBinding>
-															</Rectangle.Margin>
-															<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
-															<Rectangle.Width>
-																<MultiBinding Converter="{StaticResource AufgabenConverter}">
-																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.StartDatum"/>
-																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.EndDatum"/>
+															</Border.Margin>
 
-																	<Binding Path="EndDatum"/>
-																	<Binding ElementName="TimeLineWidth" 
-																			 Path="Width"/>
-																</MultiBinding>
-															</Rectangle.Width>
-														</Rectangle>
-
+														</Border>
 													</Grid>
 												</Border>
 
