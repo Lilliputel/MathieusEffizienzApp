@@ -22,8 +22,7 @@ namespace Effizienz.Views {
 
 		#region properties
 
-		public ObservableCollection<Kategorie> KategorienListe 
-			=> ( Application.Current as App ).KategorienListe;
+		public ObservableCollection<Kategorie> KategorienListe { get; set; }
 		
 		public Kategorie SelectedKategorie {
 			get {
@@ -61,7 +60,9 @@ namespace Effizienz.Views {
 
 		public ICommand CommandSaveProjekt => commandSaveProjekt ??
 			( commandSaveProjekt = new CommandRelay(parameter => {
-				SelectedKategorie.Projekte.Add(
+				(from kat in (Application.Current as App).KategorienListe
+				where kat == SelectedKategorie
+				select kat).First().Projekte.Add(
 					new Projekt(
 						this.Titel,
 						this.SelectedKategorie.ID,
@@ -72,7 +73,13 @@ namespace Effizienz.Views {
 				MessageBoxDisplayer.ObjektErstellt(nameof(Aufgabe), Titel);
 			}) );
 
+		#endregion
 
+		#region constructor
+
+		public ViewModelProjekt() {
+			KategorienListe = ( Application.Current as App ).KategorienListe;
+		}
 		#endregion
 	}
 }

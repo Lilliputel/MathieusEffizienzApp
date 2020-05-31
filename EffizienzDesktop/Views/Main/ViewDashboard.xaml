@@ -1,6 +1,8 @@
 ﻿<UserControl x:Class="Effizienz.Views.ViewDashboard"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
+			 xmlns:classes="clr-namespace:Effizienz.Classes">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -15,6 +17,7 @@
 		</Grid.RowDefinitions>
 
 		<ListView Grid.Row="0" Grid.Column="0"
+				  x:Name="ListView_Kategorien"
 				  ItemsSource="{Binding KategorienListe}">
 			<ListView.ItemTemplate>
 				<DataTemplate>
@@ -25,13 +28,17 @@
 			</ListView.ItemTemplate>
 		</ListView>
 		<ListView Grid.Row="0" Grid.Column="1"
-				  ItemsSource="{Binding ProjektListe}">
+				  ItemsSource="{Binding KategorienListe}">
 			<ListView.ItemTemplate>
-				<DataTemplate>
-					<WrapPanel Orientation="Horizontal">
-						<TextBlock Text="{Binding Titel}"/>
-					</WrapPanel>
-				</DataTemplate>
+				<HierarchicalDataTemplate DataType="{x:Type classes:Kategorie}" ItemsSource="{Binding Path=Projekte}" >
+					<Border Height="Auto">
+						<ContentPresenter ContentSource="{Binding Projekte}">
+							<ContentPresenter.Content>
+								<TextBlock Text="{Binding Titel}"/>
+							</ContentPresenter.Content>
+						</ContentPresenter>
+					</Border>
+				</HierarchicalDataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
 		<ListView Grid.Row="0" Grid.Column="2"

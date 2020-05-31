@@ -59,6 +59,7 @@
 				<MultiBinding Converter="{StaticResource ElementsToFalseConverter}">
 					<Binding ElementName="TextBox_Titel" Path="Text"/>
 					<Binding ElementName="ComboBox_Kategorie" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
+					<Binding ElementName="DatePicker_StartDatum" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
 					<Binding ElementName="DatePicker_EndDatum" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
 				</MultiBinding>
 			</Button.IsEnabled>

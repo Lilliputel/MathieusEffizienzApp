@@ -17,18 +17,33 @@ namespace Effizienz.Views {
 
 		#region properties
 
-		public ObservableCollection<Kategorie> KategorienListe { get; private set; }
-		public ObservableCollection<Projekt> ProjektListe { get; private set; }
-		public ObservableCollection<Aufgabe> AufgabenListe { get; private set; }
+		public ICollectionView KategorienListe { get; private set; }
+		public ICollectionView ProjektListe { get; private set; }
+		public ICollectionView AufgabenListe { get; private set; }
 
 		#endregion
 
 		#region constructor
 		public ViewModelDashboard() {
-			KategorienListe = new ObservableCollection<Kategorie>();
-			ProjektListe = new ObservableCollection<Projekt>();
-			AufgabenListe = new ObservableCollection<Aufgabe>();
 			( Application.Current as App ).KategorienListe.CollectionChanged += UpdateListen;
+
+			KategorienListe = CollectionViewSource.GetDefaultView(( Application.Current as App ).KategorienListe);
+			ProjektListe = CollectionViewSource.GetDefaultView(from Kat in ( Application.Current as App ).KategorienListe
+															   where Kat != null
+															   select Kat.Projekte into Projekte
+															   from Item in Projekte
+															   select Item);
+			AufgabenListe = CollectionViewSource.GetDefaultView(( from Kat in ( Application.Current as App ).KategorienListe
+																  where Kat != null
+																  from Aufgaben in Kat.Aufgaben
+																  select Aufgaben )
+																  .Concat(from Kat in ( Application.Current as App ).KategorienListe
+																		  where Kat != null
+																		  select Kat.Projekte into ProjektListen
+																		  from Projekt in ProjektListen
+																		  select Projekt into Projekt
+																		  from Aufgaben in Projekt.Aufgaben
+																		  select Aufgaben));
 		}
 
 
@@ -36,35 +51,9 @@ namespace Effizienz.Views {
 
 		#region methods
 		private void UpdateListen( object sender, NotifyCollectionChangedEventArgs e ) {
-			KategorienListe.Clear();
-			foreach( var item in ( Application.Current as App ).KategorienListe ) {
-				KategorienListe.Add(item);
-			}
-			ProjektListe.Clear();
-			var updateProjekte = (from Kat in ( Application.Current as App ).KategorienListe
-								  where Kat != null
-								  select Kat.Projekte into Projekte
-								  from Item in Projekte
-								  select Item);
-			foreach( Projekt item in updateProjekte ) {
-				ProjektListe.Add(item);
-			}
-
-			AufgabenListe.Clear();
-			var updateAufgaben = ( from Kat in ( Application.Current as App ).KategorienListe
-								   where Kat != null
-								   from Aufgaben in Kat.Aufgaben
-								   select Aufgaben )
-								   .Concat(from Kat in ( Application.Current as App ).KategorienListe
-										   where Kat != null
-										   select Kat.Projekte into ProjektListen
-										   from Projekt in ProjektListen
-										   select Projekt into Projekt
-										   from Aufgaben in Projekt.Aufgaben
-										   select Aufgaben);
-			foreach( Aufgabe item in updateAufgaben ) {
-				AufgabenListe.Add(item);
-			}
+			KategorienListe.Refresh();
+			ProjektListe.Refresh();
+			AufgabenListe.Refresh();
 		}
 
 		#endregion
