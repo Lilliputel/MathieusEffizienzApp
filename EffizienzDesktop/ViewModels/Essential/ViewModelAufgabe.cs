@@ -73,9 +73,12 @@ namespace Effizienz.Views {
 
 		public ICommand CommandSaveAufgabe => commandSaveAufgabe ??
 			( commandSaveAufgabe = new CommandRelay(parameter => {
-				( from item in ( Application.Current as App ).KategorienListe
-				  where item == SelectedKategorie
-				  select item ).First().Aufgaben.Add(
+				( from kat in ( Application.Current as App ).KategorienListe
+				  where kat == SelectedKategorie
+				  select kat.Projekte into proje
+				  from proj in proje
+				  where proj == SelectedProjekt
+				  select proj).First().Aufgaben.Add(
 					new Aufgabe(
 						Titel,
 						SelectedProjekt == null ? SelectedKategorie.ID : SelectedProjekt.ID,

@@ -13,7 +13,6 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />
-			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 
 		<ListView Grid.Row="0" Grid.Column="0"
@@ -28,19 +27,17 @@
 			</ListView.ItemTemplate>
 		</ListView>
 		<ListView Grid.Row="0" Grid.Column="1"
-				  ItemsSource="{Binding KategorienListe}">
+				  x:Name="ListView_Projekte"
+				  ItemsSource="{Binding ProjektListe}">
 			<ListView.ItemTemplate>
-				<HierarchicalDataTemplate DataType="{x:Type classes:Kategorie}" ItemsSource="{Binding Path=Projekte}" >
-					<Border Height="Auto">
-						<ContentPresenter ContentSource="{Binding Projekte}">
-							<ContentPresenter.Content>
-								<TextBlock Text="{Binding Titel}"/>
-							</ContentPresenter.Content>
-						</ContentPresenter>
-					</Border>
-				</HierarchicalDataTemplate>
+				<DataTemplate>
+					<WrapPanel Orientation="Horizontal">
+						<TextBlock Text="{Binding Titel}"/>
+					</WrapPanel>
+				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
+		
 		<ListView Grid.Row="0" Grid.Column="2"
 				  ItemsSource="{Binding AufgabenListe}">
 			<ListView.ItemTemplate>
@@ -54,7 +51,7 @@
 
 		<Button x:Name="Button_Kategorien_Speichern" Content="Kategorien speichern!"
 				Click="Button_Kategorien_Speichern_Click"
-				Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"/>
+				Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1"/>
 
 
 	</Grid>

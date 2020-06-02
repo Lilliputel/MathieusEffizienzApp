@@ -7,18 +7,41 @@ namespace Effizienz.Classes {
 
 	public class Projekt : ObservableObject {
 
+		#region fields
+
+		private DateTime startDatum;
+		private DateTime endDatum;
+		private ObservableCollection<Aufgabe> aufgaben;
+		private ObservableCollection<Meilenstein> meilensteine;
+
+		#endregion
+
 		#region Properties
 
 		public Guid ID { get; }
 		public string Titel { get; set; }
 		public string Beschreibung { get; set; }
-
-		public DateTime StartDatum { get; set; }
-		public DateTime EndDatum { get; set; }
-
 		public Guid KategorieID { get; set; }
 
-		private ObservableCollection<Aufgabe> aufgaben;
+		public DateTime StartDatum {
+			get {
+				return startDatum;
+			}
+			set {
+				startDatum = value;
+				OnPropertyChanged(nameof(StartDatum));
+			}
+		}
+		public DateTime EndDatum {
+			get {
+				return endDatum;
+			}
+			set {
+				endDatum = value;
+				OnPropertyChanged(nameof(EndDatum));
+			}
+		}
+
 		public ObservableCollection<Aufgabe> Aufgaben {
 			get {
 				return aufgaben;
@@ -32,10 +55,20 @@ namespace Effizienz.Classes {
 								 where aufgabe.EndDatum > EndDatum
 								 select aufgabe.EndDatum ).Max();
 				}
-				catch( InvalidOperationException ) {
+				catch( InvalidOperationException e ) {
 				}
+				
 				aufgaben = value;
 				OnPropertyChanged(nameof(Aufgaben));
+			}
+		}
+		public ObservableCollection<Meilenstein> Meilensteine {
+			get {
+				return meilensteine;
+			}
+			set {
+				meilensteine = value;
+				OnPropertyChanged(nameof(Meilensteine));
 			}
 		}
 

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Effizienz.Utility;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 namespace Effizienz.Classes {
 
-	public class Kategorie {
+	public class Kategorie : ObservableObject {
 
 		#region Properties
 		
