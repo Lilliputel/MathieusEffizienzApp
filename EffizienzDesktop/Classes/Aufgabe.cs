@@ -7,20 +7,62 @@ namespace Effizienz.Classes {
 
 		#region fields
 
+		private string titel;
+		private string beschreibung;
+
+		private Guid parentID;
+		private EnumStatus status;
+
 		private DateTime startDatum;
 		private DateTime endDatum;
+		private TimeSpan arbeitsZeit;
 
 		#endregion
 
 		#region Properties
 
-		public Guid ID { get; }
-		public string Titel { get; set; }
-		public string Beschreibung { get; set; }
+		public Guid ID { 
+			get; 
+		}
 
-		public Guid ParentID { get; set; }
+		public string Titel {
+			get {
+				return titel;
+			}
+			set {
+				titel = value;
+				OnPropertyChanged(nameof(Titel));
+			}
+		}
+		public string Beschreibung {
+			get {
+				return beschreibung;
+			}
+			set {
+				beschreibung = value;
+				OnPropertyChanged(nameof(Beschreibung));
+			}
+		}
 
-		public EnumStatus Status { get; set; }
+		public Guid ParentID {
+			get {
+				return parentID;
+			}
+			set {
+				parentID = value;
+				OnPropertyChanged(nameof(ParentID));
+			}
+		}
+		public EnumStatus Status {
+			get {
+				return status;
+			}
+			set {
+				status = value;
+				OnPropertyChanged(nameof(Status));
+			}
+		}
+
 		public DateTime StartDatum {
 			get {
 				return startDatum;
@@ -39,8 +81,15 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(EndDatum));
 			}
 		}
-
-		public TimeSpan ArbeitsZeit { get; set; }
+		public TimeSpan ArbeitsZeit {
+			get {
+				return arbeitsZeit;
+			}
+			set {
+				arbeitsZeit = value;
+				OnPropertyChanged(nameof(ArbeitsZeit));
+			}
+		}
 
 		#endregion
 

@@ -7,12 +7,37 @@ namespace Effizienz.Classes {
 
 	public class Kategorie : ObservableObject {
 
-		#region Properties
-		
-		public Guid ID { get; }
+		#region fields
 
-		public Color Farbe { get; set; }
-		public string Titel { get; set; }
+		private Color farbe;
+		private string titel;
+
+		#endregion
+
+		#region Properties
+
+		public Guid ID { 
+			get; 
+		}
+
+		public Color Farbe {
+			get {
+				return farbe;
+			}
+			set {
+				farbe = value;
+				OnPropertyChanged(nameof(Farbe));
+			}
+		}
+		public string Titel {
+			get {
+				return titel;
+			}
+			set {
+				titel = value;
+				OnPropertyChanged(nameof(Titel));
+			}
+		}
 
 		public ObservableCollection<Aufgabe> Aufgaben { get; set; }
 		public ObservableCollection<Projekt> Projekte { get; set; }
@@ -20,6 +45,7 @@ namespace Effizienz.Classes {
 		#endregion
 
 		#region Constructors
+
 		/// <summary>
 		/// Default constructor for serialisation!
 		/// instance of Kategorie must have a Titel and a Color!
