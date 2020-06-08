@@ -48,8 +48,16 @@ namespace Effizienz.Utility {
 				MessageBoxImage.Exclamation);
 		}
 
+		public static void NullReferenceException( string _exceptionText ) {
+			MessageBox.Show(
+				$"Das Programm hat den Fehler \n{_exceptionText} \ngeworfen",
+				"Fehler!",
+				MessageBoxButton.OK,
+				MessageBoxImage.Error);
+		}
+
 		#endregion
-		
+
 
 	}
 }

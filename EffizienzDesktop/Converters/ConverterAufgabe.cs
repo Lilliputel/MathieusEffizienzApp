@@ -13,16 +13,20 @@ namespace Effizienz.Converters {
 			DateTime projektEnde = (DateTime)values[1];
 			DateTime datum = (DateTime)values[2];
 			double gesamtLänge = ((GridLength)values[3]).Value;
+			double offset = ((double)values[4]);
 
 			double faktor;
 			// setzt den faktor zu einem Bruch der gesamtlänge
-			try { faktor = datum.Date.Subtract(projektStart.Date).TotalDays / projektEnde.Date.Subtract(projektStart.Date).TotalDays;
+			try { 
+				faktor = 
+					datum.Date.Subtract(projektStart.Date).TotalDays 
+						/ projektEnde.Date.Subtract(projektStart.Date).TotalDays;
 			}
 			catch( DivideByZeroException ) {
 				faktor = 0;
 			}
 			
-			double position = faktor * gesamtLänge;
+			double position = (faktor * gesamtLänge) + offset;
 
 			if( targetType == typeof(Thickness) ) {
 				return new Thickness(position, 0, 0, 0);

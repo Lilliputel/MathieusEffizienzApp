@@ -1,7 +1,10 @@
 ﻿using Effizienz.Utility;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 
 namespace Effizienz.Classes {
 
@@ -13,6 +16,8 @@ namespace Effizienz.Classes {
 		private DateTime endDatum;
 		private ObservableCollection<Aufgabe> aufgaben;
 		private ObservableCollection<Meilenstein> meilensteine;
+
+		private TimeSpan gesamteZeit;
 
 		#endregion
 
@@ -47,17 +52,6 @@ namespace Effizienz.Classes {
 				return aufgaben;
 			}
 			set {
-				try {
-					StartDatum = ( from aufgabe in value
-								   where aufgabe.StartDatum < StartDatum
-								   select aufgabe.StartDatum ).Min();
-					EndDatum = ( from aufgabe in value
-								 where aufgabe.EndDatum > EndDatum
-								 select aufgabe.EndDatum ).Max();
-				}
-				catch( InvalidOperationException e ) {
-				}
-				
 				aufgaben = value;
 				OnPropertyChanged(nameof(Aufgaben));
 			}
@@ -72,7 +66,15 @@ namespace Effizienz.Classes {
 			}
 		}
 
-		public TimeSpan GesamtZeit { get; set; }
+		public TimeSpan GesamtZeit { 
+			get {
+				return gesamteZeit;
+			}
+			set {
+				gesamteZeit = value;
+				OnPropertyChanged(nameof(GesamtZeit));
+			} 
+		}
 
 		#endregion
 
@@ -84,6 +86,8 @@ namespace Effizienz.Classes {
 		public Projekt() {
 			this.ID = Guid.NewGuid();
 			this.Aufgaben = new ObservableCollection<Aufgabe>();
+
+			Aufgaben.CollectionChanged += Aufgaben_CollectionChanged;
 		}
 
 		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
@@ -107,6 +111,19 @@ namespace Effizienz.Classes {
 		#endregion
 
 		#region Methods
+
+		private void Aufgaben_CollectionChanged( object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e ) {
+			try {
+				StartDatum = ( from aufgabe in Aufgaben
+							   where aufgabe.StartDatum < this.StartDatum
+							   select aufgabe.StartDatum ).Min();
+				EndDatum = ( from aufgabe in Aufgaben
+							 where aufgabe.EndDatum > this.EndDatum
+							 select aufgabe.EndDatum ).Max();
+			}
+			catch( InvalidOperationException iE ) {
+			}
+		}
 
 		#endregion
 	}

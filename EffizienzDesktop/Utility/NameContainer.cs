@@ -57,27 +57,26 @@ namespace Effizienz.Utility {
 		#region methods
 		
 		public static ViewModelBase GetViewModel( EnumViewModels viewModelName) {
-			ViewModelBase returnedViewModel = dictionaryViewModelsMain.GetValueOrDefault(viewModelName) ??	dictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
-			return returnedViewModel;
+			return 
+				dictionaryViewModelsMain.GetValueOrDefault(viewModelName) ?? 
+				dictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
 		}
 
 		public static ViewModelBase GetViewModel( EnumViewModels viewModelName, out bool isMain ) {
 			ViewModelBase returnedViewModel;
 			if( dictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
 				isMain = true;
-				return returnedViewModel;
-			}
-			else if( dictionaryViewModelsEssential.TryGetValue(viewModelName, out returnedViewModel) ) {
-				isMain = false;
-				return returnedViewModel;
 			}
 			else {
-				throw new NotImplementedException();
+				dictionaryViewModelsEssential.TryGetValue(viewModelName, out returnedViewModel);
+				isMain = false;
 			}
+			return returnedViewModel;
 		}
 
 		public static string GetName( ViewModelBase viewModel ) {
-			return dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key.ToString() ??
+			return 
+				dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key.ToString() ??
 				dictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key.ToString();
 		}
 
