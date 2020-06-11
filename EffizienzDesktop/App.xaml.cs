@@ -4,6 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Effizienz {
 
@@ -19,16 +20,16 @@ namespace Effizienz {
 		#endregion
 
 		#region properties
-		
+
 		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
-		public ObservableCollection<Kategorie> KategorienListe { get; set; } 
+		public ObservableCollection<Kategorie> KategorienListe { get; set; }
 
 		#endregion
 
 		#region constructor
 
 		public App() {
-			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute ) };
+			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute) };
 			themeLight = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute) };
 			DarkMode = false;
 
@@ -39,7 +40,9 @@ namespace Effizienz {
 			foreach( Kategorie item in transferListe ) {
 				KategorienListe.Add(item);
 			}
-			
+
+			GenerateObjects();
+
 		}
 
 		#endregion
@@ -54,7 +57,7 @@ namespace Effizienz {
 		private void SetDarkMode( bool _DarkMode ) {
 
 			Resources.MergedDictionaries[0].MergedDictionaries.Clear();
-			Resources.MergedDictionaries[0].MergedDictionaries.Add( _DarkMode ? themeDark : themeLight );
+			Resources.MergedDictionaries[0].MergedDictionaries.Add(_DarkMode ? themeDark : themeLight);
 		}
 
 		public bool GetDarkMode() {
@@ -66,7 +69,17 @@ namespace Effizienz {
 			MessageBoxDisplayer.ListeGespeichert(nameof(KategorienListe));
 		}
 
+		private void GenerateObjects() {
+			Kategorie CBKategorie = new Kategorie("CodeBehind-Kategorie", Colors.Magenta);
+			Projekt CBProjekt = new Projekt("CodeBehind-Projekt", CBKategorie.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(10));
+			Aufgabe CBAufgabe = new Aufgabe("CodeBehind-Aufgabe", CBProjekt.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5));
+
+			CBProjekt.Aufgaben.Add(CBAufgabe);
+			CBKategorie.Projekte.Add(CBProjekt);
+			this.KategorienListe.Add(CBKategorie);
+		}
+
 		#endregion
-		
+
 	}
 }

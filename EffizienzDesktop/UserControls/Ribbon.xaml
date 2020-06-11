@@ -27,6 +27,12 @@
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconAufgabe2}"/>
 			</Button.Content>
 		</Button>
+		<Button x:Name="Button_Settings"
+				Command="{Binding}" CommandParameter="Aufgabe">
+			<Button.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconOptionen}"/>
+			</Button.Content>
+		</Button>
 
 	</StackPanel>
 </UserControl>
