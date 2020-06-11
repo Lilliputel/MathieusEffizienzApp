@@ -11,8 +11,6 @@ namespace Effizienz {
 
 		#region fields
 
-		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
-
 		private ResourceDictionary themeDark;
 		private ResourceDictionary themeLight;
 		private string themeDirectory = "/Effizienz;component/Themes/";
@@ -21,7 +19,8 @@ namespace Effizienz {
 		#endregion
 
 		#region properties
-
+		
+		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
 		public ObservableCollection<Kategorie> KategorienListe { get; set; } 
 
 		#endregion
