@@ -3,11 +3,12 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
 		xmlns:UserControls="clr-namespace:Effizienz.UserControls"
+		xmlns:Themes="clr-namespace:Effizienz.Themes"
 		
 		Title="Prototype_Effizienz" 
 		x:Name="Fenster"
 		MinWidth="1200" Width="{Binding ElementName=Fenster, Path=MinWidth}"
-		MinHeight="660" Height="{Binding ElementName=Fenster, Path=MinHeight}"
+		MinHeight="680" Height="{Binding ElementName=Fenster, Path=MinHeight}"
 		
 		Background="{DynamicResource Background}">
 
@@ -21,26 +22,23 @@
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
 		</Grid.RowDefinitions>
 		<!-- #endregion -->
 
-		<UserControls:ViewNavBar Grid.Column="0" Grid.Row="0"/>
+		<UserControls:Ribbon Grid.Column="1" Grid.Row="0"/>
 
-		<ContentControl	Grid.Column="1" Grid.Row="0"
+		<UserControls:NavBar Grid.Column="0" Grid.Row="1"/>
+
+		<ContentControl	Grid.Column="1" Grid.Row="1"
 						Content="{Binding SelectedVMMain}"
 						Margin="5" Width="860"/>
 
-		<ContentControl Grid.Column="2" Grid.Row="0"
+		<ContentControl Grid.Column="2" Grid.Row="1"
 						Content="{Binding SelectedVMEssential}"						
 						Margin="5" Width="220"/>
 
-		<UserControls:ThemeDisplay Grid.Row="1" Grid.Column="1"/>
-
-		<StackPanel Grid.Row="1" Grid.Column="2">
-			<Button Content="Kategorie!" Command="{Binding CommandUpdateView}" CommandParameter="Kategorie"/>
-			<Button Content="Projekt!" Command="{Binding CommandUpdateView}" CommandParameter="Projekt"/>
-			<Button Content="Aufgabe!" Command="{Binding CommandUpdateView}" CommandParameter="Aufgabe"/>
-		</StackPanel>
+		<Themes:ThemeDisplay Grid.Row="2" Grid.Column="1"/>
 
 	</Grid>
 

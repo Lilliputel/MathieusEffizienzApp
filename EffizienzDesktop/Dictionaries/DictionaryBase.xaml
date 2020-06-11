@@ -3,17 +3,33 @@
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 					mc:Ignorable="d"
+					
+					xmlns:DTSelectors="clr-namespace:Effizienz.DataTemplateSelectors"
 					x:Name="DictionaryBase">
-	
+
 	<ResourceDictionary.MergedDictionaries>
+		<d:ResourceDictionary Source="DictionaryDataTemplates.xaml"/>
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
+	<!--#region DataTemplate Selectors -->
+	
+	<DTSelectors:DTSelector_String x:Key="DTSelectorString"
+								   TextBlock="{StaticResource TextBlock_Template}"/>
+	
+	<!--#endregion-->
+	
+	<!--#region TextBlock Styles -->
+
 	<Style TargetType="{x:Type TextBlock}">
 		<Setter Property="Margin" Value="0,2"/>
-		<Setter Property="Foreground" Value="{DynamicResource Fore_1}"/>
-		<Setter Property="Background" Value="{DynamicResource Back_1}"/>
+		<Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
+		<Setter Property="Background" Value="{DynamicResource Background}"/>
 	</Style>
+
+	<!--#endregion-->
+
+	<!--#region Border Styles -->
 	
 	<Style x:Key="BorderRounded" TargetType="{x:Type Border}" >
 		<Style.Setters>
@@ -22,17 +38,21 @@
 			<Setter Property="Padding" Value="2"/>
 		</Style.Setters>
 	</Style>
+	
+	<!--#endregion-->
 
+	<!--#region Button Styles -->
+	
 	<Style TargetType="{x:Type Button}">
 		<Style.Setters>
 			<Setter Property="Margin" Value="1"/>
-			<Setter Property="Foreground" Value="{DynamicResource Fore_1}"/>
+			<Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
 			<Setter Property="Background" Value="{DynamicResource Back_1}"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
 						<Border Background="{TemplateBinding Background}" Style="{StaticResource BorderRounded}">
-							<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+							<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentTemplateSelector="{StaticResource DTSelectorString}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
@@ -40,16 +60,20 @@
 		</Style.Setters>
 	</Style>
 
+	<!--#endregion-->
+	
+	<!--#region ToggleButton Styles -->
+	
 	<Style TargetType="{x:Type ToggleButton}">
 		<Style.Setters>
 			<Setter Property="Margin" Value="1"/>
-			<Setter Property="Foreground" Value="{DynamicResource Fore_1}"/>
+			<Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
 			<Setter Property="Background" Value="{DynamicResource Back_1}"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ToggleButton}">
 						<Border Background="{TemplateBinding Background}" Style="{StaticResource BorderRounded}">
-							<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+							<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" ContentTemplateSelector="{StaticResource DTSelectorString}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
@@ -57,4 +81,8 @@
 		</Style.Setters>
 	</Style>
 	
+	<!--#endregion-->
+
+
+
 </ResourceDictionary>

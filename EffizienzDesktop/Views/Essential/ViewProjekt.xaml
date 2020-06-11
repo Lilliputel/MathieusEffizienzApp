@@ -3,11 +3,8 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
 			 xmlns:converter="clr-namespace:Effizienz.Converters">
-	
+
 	<UserControl.Resources>
-		<Style TargetType="TextBlock">
-			<Setter Property="Margin" Value="0,2"/>
-		</Style>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
 	</UserControl.Resources>

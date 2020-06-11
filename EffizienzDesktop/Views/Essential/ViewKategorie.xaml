@@ -3,11 +3,8 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
 			 xmlns:converter="clr-namespace:Effizienz.Converters">
-	
+
 	<UserControl.Resources>
-		<Style TargetType="TextBlock">
-			<Setter Property="Margin" Value="0,2"/>
-		</Style>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
 	</UserControl.Resources>
@@ -25,8 +22,8 @@
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
-						<Rectangle Fill="{Binding Name}" Width="40" Height="30" Margin="0,2,5,2" />
-						<TextBlock Text="{Binding Name}" />
+						<Rectangle Fill="{Binding Name}" Width="40" Height="30"/>
+						<TextBlock Text="{Binding Name}"/>
 					</StackPanel>
 				</DataTemplate>
 			</ComboBox.ItemTemplate>

@@ -38,7 +38,7 @@
 				  IsEnabled="{Binding SelectedItem, ElementName=ComboBox_Kategorie, Converter={StaticResource NullToFalseConverter}, Mode=OneWay}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
-					<TextBlock Text="{Binding Titel}"/>
+					<TextBlock Text="{Binding Titel}" Background="{StaticResource Back_1}"/>
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>

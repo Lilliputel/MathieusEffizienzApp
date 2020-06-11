@@ -15,10 +15,12 @@
 					</ResourceDictionary.MergedDictionaries>
 				</ResourceDictionary>
 
-				<ResourceDictionary Source="Dictionaries/DictionaryBase.xaml"/>
+				
 				<ResourceDictionary Source="Dictionaries/DictionaryDataTemplates.xaml"/>
 				<ResourceDictionary Source="Dictionaries/DictionaryIcons.xaml"/>
 
+				<ResourceDictionary Source="Dictionaries/DictionaryBase.xaml"/>
+				
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 

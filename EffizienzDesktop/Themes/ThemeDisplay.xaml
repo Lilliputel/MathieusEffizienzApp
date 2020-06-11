@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="Effizienz.UserControls.ThemeDisplay"
+﻿<UserControl x:Class="Effizienz.Themes.ThemeDisplay"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:UserControls="clr-namespace:Effizienz.UserControls">
+			 xmlns:UserControls="clr-namespace:Effizienz.Themes">
 
 	<StackPanel Grid.Row="0" 
 					x:Name="Theme_Preview">

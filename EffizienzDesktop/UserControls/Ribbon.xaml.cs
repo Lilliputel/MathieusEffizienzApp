@@ -2,8 +2,8 @@
 
 namespace Effizienz.UserControls {
 
-	public partial class ViewNavBar : UserControl {
-		public ViewNavBar() {
+	public partial class Ribbon : UserControl {
+		public Ribbon() {
 			InitializeComponent();
 		}
 	}
