@@ -24,7 +24,7 @@
 	<Style TargetType="{x:Type TextBlock}">
 		<Setter Property="Margin" Value="0,2"/>
 		<Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
-		<Setter Property="Background" Value="{DynamicResource Background}"/>
+		<Setter Property="Background" Value="Transparent"/>
 	</Style>
 
 	<!--#endregion-->
