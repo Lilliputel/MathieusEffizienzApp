@@ -84,20 +84,28 @@
 			
 			<TabControl.ContentTemplate>
 				<DataTemplate>
-					<TreeView ItemsSource="{Binding Path=Projekte}" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+					<DataTemplate.Resources>
+						<ResourceDictionary Source="/Effizienz;component/Dictionaries/Test1.xaml"/>
+					</DataTemplate.Resources>
 
-						<TreeView.Resources>
-							<ResourceDictionary Source="/Effizienz;component/Dictionaries/DictionaryTreeView.xaml"/>
-						</TreeView.Resources>
+					<TreeView ItemsSource="{Binding Path=Projekte}" 
+							  Background="Transparent" 
+							  ItemContainerStyle="{StaticResource TreeViewItemStyle1}"
+							  HorizontalContentAlignment="Stretch">
 
 						<TreeView.ItemTemplate>
 							<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" ItemsSource="{Binding Aufgaben}">
 
 								<!-- Template für das Übergeordnete Element (Projekt) -->
-								<DockPanel>
-									<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="Auto"/>
+									</Grid.ColumnDefinitions>
+										<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
 
-									<StackPanel DockPanel.Dock="Right">
+									<StackPanel Grid.Column="2">
 										<TextBlock>
 											<Run Text="Fälllig am:"/>
 											<Run FontWeight="Bold" Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}"/>
@@ -114,7 +122,7 @@
 											</Run>
 										</TextBlock>
 									</StackPanel>
-								</DockPanel>
+								</Grid>
 								
 								<HierarchicalDataTemplate.ItemTemplate>
 									<DataTemplate DataType="{x:Type classes:Aufgabe}">
