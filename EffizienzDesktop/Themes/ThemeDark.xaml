@@ -29,5 +29,12 @@
 	<SolidColorBrush x:Key="BackHigh_2" Color="#ffb3ba"/>
 	<!--#endregion-->
 	
-	
+
+	<!--#region Selection Colors -->
+
+	<SolidColorBrush x:Key="Selected_Focused_SCB" Color="LawnGreen"/>
+	<SolidColorBrush x:Key="Selected_UnFocused_SCB" Color="LightGreen"/>
+
+	<!--#endregion-->
+
 </ResourceDictionary>

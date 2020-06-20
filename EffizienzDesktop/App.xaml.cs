@@ -71,8 +71,12 @@ namespace Effizienz {
 
 		private void GenerateObjects() {
 			Kategorie CBKategorie = new Kategorie("CodeBehind-Kategorie", Colors.Magenta);
-			Projekt CBProjekt = new Projekt("CodeBehind-Projekt", CBKategorie.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(10));
-			Aufgabe CBAufgabe = new Aufgabe("CodeBehind-Aufgabe", CBProjekt.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5));
+			Projekt CBProjekt = new Projekt("CodeBehind-Projekt", CBKategorie.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(10)){
+				GesamtZeit = new TimeSpan(1, 2, 3)
+			};
+			Aufgabe CBAufgabe = new Aufgabe("CodeBehind-Aufgabe", CBProjekt.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)){
+				ArbeitsZeit = new TimeSpan(3, 12, 20)
+			};
 
 			CBProjekt.Aufgaben.Add(CBAufgabe);
 			CBKategorie.Projekte.Add(CBProjekt);

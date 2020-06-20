@@ -11,6 +11,12 @@
 		<d:ResourceDictionary Source="DictionaryDataTemplates.xaml"/>
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
+	
+	<!--#region General Resources -->
+	<CornerRadius x:Key="StandardRadius" TopLeft="8" TopRight="8" BottomRight="8" BottomLeft="8"/>
+	<Color x:Key="Selected_Focused" >#87CEFA</Color>
+	<Color x:Key="Selected_UnFocused">#b8e2fc</Color>
+	<!--#endregion-->
 
 	<!--#region DataTemplate Selectors -->
 	
@@ -33,7 +39,7 @@
 	
 	<Style x:Key="BorderRounded" TargetType="{x:Type Border}" >
 		<Style.Setters>
-			<Setter Property="CornerRadius" Value="8"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource StandardRadius}"/>
 			<Setter Property="BorderBrush" Value="{x:Null}"/>
 			<Setter Property="Padding" Value="2"/>
 		</Style.Setters>

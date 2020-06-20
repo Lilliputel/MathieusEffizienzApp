@@ -9,88 +9,129 @@
 		<converter:ConverterAufgabe x:Key="AufgabenConverter"/>
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
-
+	
+	<!-- Backgroundcolor -->	
 	<Border Background="{DynamicResource Back_1}">
-
+		
 	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"
-				MinWidth="700"
-				x:Name="ControlRoot"
-				BorderBrush="{x:Null}" 
-				Background="Transparent">
+		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}"
+					BorderBrush="{x:Null}" 
+					Background="Transparent">
 
-		<TabControl.Resources>
-			<!-- Style für Tabs -->
-			<Style TargetType="{x:Type TabItem}">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="{x:Type TabItem}">
-							<!-- Setzt ein Grid als HintergrundPanel -->
-							<Grid Name="Panel" Background="Transparent">
-								<ContentPresenter x:Name="ContentSite"
-												  VerticalAlignment="Center"
-												  HorizontalAlignment="Center"
-												  ContentSource="Header"
-												  Margin="10,2"/>
-							</Grid>
-							<!-- Stylt die verschiedene Anzeigezustände -->
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsSelected" Value="True">
-									<Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
-								</Trigger>
-								<Trigger Property="IsSelected" Value="False">
-									<Setter TargetName="Panel" Property="Background" Value="Transparent" />
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-		</TabControl.Resources>
+			<!--#region Resources -->
+			
+			<TabControl.Resources>
+				<!-- Style für Tabs -->
+				<Style TargetType="{x:Type TabItem}">
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="{x:Type TabItem}">
+								<!-- Setzt ein Grid als HintergrundPanel -->
+								<Border Name="Bd" 
+										Background="{DynamicResource Back_2}" 
+										CornerRadius="{DynamicResource StandardRadius}"
+										Padding="8,2">
+									<ContentPresenter VerticalAlignment="Center"
+													  HorizontalAlignment="Center"
+													  ContentSource="Header"/>
 
-		<!-- Template für Tab -->
-		<TabControl.ItemTemplate>
-			<DataTemplate>
-				<!-- Setzt ein Kreis und den Titel als TextBlock -->
-				<StackPanel Orientation="Horizontal" Background="Transparent">
-					<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" 
-							 Margin="2" Width="10" Height="10" 
-							 HorizontalAlignment="Center" VerticalAlignment="Center"/>
-					<TextBlock Text="{Binding Titel}"/>
-				</StackPanel>
-			</DataTemplate>
-		</TabControl.ItemTemplate>
+									<!--#region VisualStates -->
+									<VisualStateManager.VisualStateGroups>
 
-		<TabControl.ContentTemplate>
-			<DataTemplate>
-				<TreeView ItemsSource="{Binding Path=Projekte}" Grid.Column="0" Background="Transparent">
+										<VisualStateGroup x:Name="SelectionStates">
+											<VisualState x:Name="Selected">
+												<Storyboard>
+													<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
+														To="{StaticResource Selected_Focused}" Duration="0"/>
+												</Storyboard>
+											</VisualState>
+											<VisualState x:Name="Unselected"/>
+											<VisualState x:Name="SelectedInactive">
+												<Storyboard>
+													<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
+														To="{StaticResource Selected_UnFocused}" Duration="0"/>
+												</Storyboard>
+											</VisualState>
+										</VisualStateGroup>
 
-					<TreeView.Resources>
-						<ResourceDictionary Source="/Effizienz;component/Dictionaries/DictionaryTreeView.xaml"/>
-					</TreeView.Resources>
+									</VisualStateManager.VisualStateGroups>
+									<!--#endregion-->
+								</Border>
 
-					<TreeView.ItemTemplate>
-						<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" ItemsSource="{Binding Aufgaben}">
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</TabControl.Resources>
+			<!--#endregion-->
 
-							<!-- Template für das Übergeordnete Element (Projekt) -->
-							<TextBlock Text="{Binding Titel}"/>
+			<!--#region Template für Tab -->
 
-							<HierarchicalDataTemplate.ItemTemplate>
-								<DataTemplate DataType="{x:Type classes:Aufgabe}">
+			<TabControl.ItemTemplate>
+				<DataTemplate>
+					<!-- Setzt ein Kreis und den Titel als TextBlock -->
+					<StackPanel Orientation="Horizontal" Background="Transparent">
+						<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" 
+							 Margin="0,0,5,0" Width="8" Height="8" 
+							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Text="{Binding Titel}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+					</StackPanel>
+				</DataTemplate>
+			</TabControl.ItemTemplate>
+			<!--#endregion-->
 
-									<!-- Template für das Untergeordnete Element (Aufgabe) -->
-									<TextBlock Text="{Binding Titel}"/>
+			<!--#region ContentTemplate -->
+			
+			<TabControl.ContentTemplate>
+				<DataTemplate>
+					<TreeView ItemsSource="{Binding Path=Projekte}" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 
-								</DataTemplate>
-							</HierarchicalDataTemplate.ItemTemplate>
-						</HierarchicalDataTemplate>
-					</TreeView.ItemTemplate>
-				</TreeView>
-			</DataTemplate>
-		</TabControl.ContentTemplate>
+						<TreeView.Resources>
+							<ResourceDictionary Source="/Effizienz;component/Dictionaries/DictionaryTreeView.xaml"/>
+						</TreeView.Resources>
 
-	</TabControl>
+						<TreeView.ItemTemplate>
+							<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" ItemsSource="{Binding Aufgaben}">
 
+								<!-- Template für das Übergeordnete Element (Projekt) -->
+								<DockPanel>
+									<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" DockPanel.Dock="Left"/>
+
+									<StackPanel DockPanel.Dock="Right">
+										<TextBlock>
+											<Run Text="Fälllig am:"/>
+											<Run FontWeight="Bold" Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}"/>
+										</TextBlock>
+										<TextBlock>
+											<Run Text="Gesamte Zeit:"/>
+											<Run FontWeight="Bold">
+												<Run.Text>
+													<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
+														<Binding Path="GesamtZeit.Hours" />
+														<Binding Path="GesamtZeit.Minutes" />
+													</MultiBinding>
+												</Run.Text>
+											</Run>
+										</TextBlock>
+									</StackPanel>
+								</DockPanel>
+								
+								<HierarchicalDataTemplate.ItemTemplate>
+									<DataTemplate DataType="{x:Type classes:Aufgabe}">
+
+										<!-- Template für das Untergeordnete Element (Aufgabe) -->
+										<TextBlock Text="{Binding Titel}"/>
+
+									</DataTemplate>
+								</HierarchicalDataTemplate.ItemTemplate>
+							</HierarchicalDataTemplate>
+						</TreeView.ItemTemplate>
+					</TreeView>
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+			<!--#endregion-->
+
+		</TabControl>
 	</Border>
 
 </UserControl>
