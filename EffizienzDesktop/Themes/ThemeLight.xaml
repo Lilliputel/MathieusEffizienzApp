@@ -3,8 +3,9 @@
 					x:Name="ThemeLight">
 
 	<!--#region Vordergründe -->
-	
+
 	<SolidColorBrush x:Key="Foreground" Color="Black"/>
+	<Color x:Key="ForegroundColor">#000000</Color>
 	<SolidColorBrush x:Key="Fore_1" Color="DarkSlateGray"/>
 	<SolidColorBrush x:Key="Fore_2" Color="LightSlateGray"/>
 	<SolidColorBrush x:Key="Fore_3" Color="DarkGray"/>

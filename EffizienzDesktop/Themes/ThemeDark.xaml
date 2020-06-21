@@ -5,6 +5,7 @@
 	<!--#region Vordergründe -->
 
 	<SolidColorBrush x:Key="Foreground" Color="White"/>
+	<Color x:Key="ForegroundColor">#FFFFFF</Color>
 	<SolidColorBrush x:Key="Fore_1" Color="WhiteSmoke"/>
 	<SolidColorBrush x:Key="Fore_2" Color="DarkGray"/>
 	<SolidColorBrush x:Key="Fore_3" Color="SlateGray"/>

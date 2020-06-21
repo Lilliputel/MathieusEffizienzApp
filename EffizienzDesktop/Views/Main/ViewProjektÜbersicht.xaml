@@ -14,56 +14,7 @@
 	<Border Background="{DynamicResource Back_1}">
 		
 	<!-- TabControl mit den Kategorien als Tab -->
-		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}"
-					BorderBrush="{x:Null}" 
-					Background="Transparent">
-
-			<!--#region Resources -->
-			
-			<TabControl.Resources>
-				<!-- Style für Tabs -->
-				<Style TargetType="{x:Type TabItem}">
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="{x:Type TabItem}">
-								<!-- Setzt ein Grid als HintergrundPanel -->
-								<Border Name="Bd" 
-										Background="{DynamicResource Back_2}" 
-										CornerRadius="{DynamicResource StandardRadius}"
-										Padding="8,2">
-									<ContentPresenter VerticalAlignment="Center"
-													  HorizontalAlignment="Center"
-													  ContentSource="Header"/>
-
-									<!--#region VisualStates -->
-									<VisualStateManager.VisualStateGroups>
-
-										<VisualStateGroup x:Name="SelectionStates">
-											<VisualState x:Name="Selected">
-												<Storyboard>
-													<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
-														To="{StaticResource Selected_Focused}" Duration="0"/>
-												</Storyboard>
-											</VisualState>
-											<VisualState x:Name="Unselected"/>
-											<VisualState x:Name="SelectedInactive">
-												<Storyboard>
-													<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
-														To="{StaticResource Selected_UnFocused}" Duration="0"/>
-												</Storyboard>
-											</VisualState>
-										</VisualStateGroup>
-
-									</VisualStateManager.VisualStateGroups>
-									<!--#endregion-->
-								</Border>
-
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</TabControl.Resources>
-			<!--#endregion-->
+		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}">
 
 			<!--#region Template für Tab -->
 
@@ -80,21 +31,17 @@
 			</TabControl.ItemTemplate>
 			<!--#endregion-->
 
-			<!--#region ContentTemplate -->
-			
-			<TabControl.ContentTemplate>
-				<DataTemplate>
-					<DataTemplate.Resources>
-						<ResourceDictionary Source="/Effizienz;component/Dictionaries/Test1.xaml"/>
-					</DataTemplate.Resources>
 
-					<TreeView ItemsSource="{Binding Path=Projekte}" 
-							  Background="Transparent" 
-							  ItemContainerStyle="{StaticResource TreeViewItemStyle1}"
-							  HorizontalContentAlignment="Stretch">
+			<TabControl.ContentTemplate>
+				<DataTemplate DataType="{x:Type classes:Kategorie}">
+
+					<TreeView ItemsSource="{Binding Path=Projekte}"
+							  HorizontalContentAlignment="Stretch"
+							  VerticalContentAlignment="Stretch">
 
 						<TreeView.ItemTemplate>
-							<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" ItemsSource="{Binding Aufgaben}">
+							<HierarchicalDataTemplate DataType="{x:Type classes:Projekt}" 
+													  ItemsSource="{Binding Aufgaben}">
 
 								<!-- Template für das Übergeordnete Element (Projekt) -->
 								<Grid>
@@ -103,9 +50,10 @@
 										<ColumnDefinition Width="*"/>
 										<ColumnDefinition Width="Auto"/>
 									</Grid.ColumnDefinitions>
-										<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
 
-									<StackPanel Grid.Column="2">
+									<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
+
+									<StackPanel VerticalAlignment="Center" Grid.Column="2">
 										<TextBlock>
 											<Run Text="Fälllig am:"/>
 											<Run FontWeight="Bold" Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}"/>
@@ -123,13 +71,39 @@
 										</TextBlock>
 									</StackPanel>
 								</Grid>
-								
+
 								<HierarchicalDataTemplate.ItemTemplate>
 									<DataTemplate DataType="{x:Type classes:Aufgabe}">
 
-										<!-- Template für das Untergeordnete Element (Aufgabe) -->
-										<TextBlock Text="{Binding Titel}"/>
+										<Grid>
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="Auto"/>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="Auto"/>
+											</Grid.ColumnDefinitions>
 
+											<!-- Template für das Untergeordnete Element (Aufgabe) -->
+											<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
+
+											<StackPanel VerticalAlignment="Center" Grid.Column="2">
+												<TextBlock>
+													<Run Text="Fälllig am:"/>
+													<Run FontWeight="Bold" Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}"/>
+												</TextBlock>
+
+												<TextBlock>
+													<Run Text="Gesamte Zeit:"/>
+													<Run FontWeight="Bold">
+														<Run.Text>
+															<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
+																<Binding Path="ArbeitsZeit.Hours" />
+																<Binding Path="ArbeitsZeit.Minutes" />
+															</MultiBinding>
+														</Run.Text>
+													</Run>
+												</TextBlock>
+											</StackPanel>
+										</Grid>
 									</DataTemplate>
 								</HierarchicalDataTemplate.ItemTemplate>
 							</HierarchicalDataTemplate>
@@ -137,7 +111,6 @@
 					</TreeView>
 				</DataTemplate>
 			</TabControl.ContentTemplate>
-			<!--#endregion-->
 
 		</TabControl>
 	</Border>

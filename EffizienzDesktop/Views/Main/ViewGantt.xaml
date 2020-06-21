@@ -9,155 +9,129 @@
 		<converter:ConverterAufgabe x:Key="AufgabenConverter"/>
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
-	
+
 	<Border Background="{DynamicResource Back_1}">
 
-	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"
-				MinWidth="700"
-				x:Name="ControlRoot"
-				BorderBrush="{x:Null}" 
-				Background="Transparent">
-		<TabControl.Resources>
-			<!-- Style für Tabs -->
-			<Style TargetType="{x:Type TabItem}">
-				<Setter Property="Template">
-					<Setter.Value>
-						<ControlTemplate TargetType="{x:Type TabItem}">
-							<!-- Setzt ein Grid als HintergrundPanel -->
-							<Grid Name="Panel" Background="Transparent">
-								<ContentPresenter x:Name="ContentSite"
-												  VerticalAlignment="Center"
-												  HorizontalAlignment="Center"
-												  ContentSource="Header"
-												  Margin="10,2"/>
-							</Grid>
-							<!-- Stylt die verschiedene Anzeigezustände -->
-							<ControlTemplate.Triggers>
-								<Trigger Property="IsSelected" Value="True">
-									<Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
-								</Trigger>
-								<Trigger Property="IsSelected" Value="False">
-									<Setter TargetName="Panel" Property="Background" Value="Transparent" />
-								</Trigger>
-							</ControlTemplate.Triggers>
-						</ControlTemplate>
-					</Setter.Value>
-				</Setter>
-			</Style>
-		</TabControl.Resources>
-		
-		<!-- Template für Tab -->
-		<TabControl.ItemTemplate>
-			<DataTemplate>
-				<!-- Setzt ein Kreis und den Titel als TextBlock -->
-				<StackPanel Orientation="Horizontal" Background="Transparent">
-					<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" 
-							 Margin="2" Width="10" Height="10" 
-							 HorizontalAlignment="Center" VerticalAlignment="Center"/>
-					<TextBlock Text="{Binding Titel}"/>
-				</StackPanel>
-			</DataTemplate>
-		</TabControl.ItemTemplate>
-		<TabControl.ContentTemplate>
-			<DataTemplate DataType="{x:Type classes:Kategorie}">
+		<!-- TabControl mit den Kategorien als Tab -->
+		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"
+					MinWidth="700"
+					x:Name="ControlRoot">
 
-				<!-- ItemControl mit Projekten als Expander -->
-				<ItemsControl ItemsSource="{Binding Projekte, UpdateSourceTrigger=PropertyChanged}"
-							  Background="Transparent"
-							  x:Name="ProjektRoot">
-					<ItemsControl.ItemTemplate>
-						<DataTemplate DataType="{x:Type classes:Projekt}">
-							<Expander Background="Transparent">
-								<!-- Template für Expander -->
-								<Expander.Header>
-									<TextBlock Text="{Binding Titel}"/>
-								</Expander.Header>
+			<!--#region Template für Tab -->
 
-								<!-- itemsControl für Aufgaben -->
-								<ItemsControl ItemsSource="{Binding Aufgaben, UpdateSourceTrigger=PropertyChanged}"
-											  Background="Transparent"
-											  x:Name="TimeLine">
-									<ItemsControl.ItemTemplate>
-										<DataTemplate DataType="{x:Type classes:Aufgabe}">
+			<TabControl.ItemTemplate>
+				<DataTemplate>
+					<!-- Setzt ein Kreis und den Titel als TextBlock -->
+					<StackPanel Orientation="Horizontal" Background="Transparent">
+						<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" 
+							 Margin="0,0,5,0" Width="8" Height="8" 
+							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
+						<TextBlock Text="{Binding Titel}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+					</StackPanel>
+				</DataTemplate>
+			</TabControl.ItemTemplate>
+			<!--#endregion-->
+			
+			<TabControl.ContentTemplate>
+				<DataTemplate DataType="{x:Type classes:Kategorie}">
 
-											<!-- Linie zwischen Aufgaben -->
-											<Border BorderBrush="Black" BorderThickness="0,0,0,1" Background="Transparent">
+					<!-- ItemControl mit Projekten als Expander -->
+					<ItemsControl ItemsSource="{Binding Projekte, UpdateSourceTrigger=PropertyChanged}"
+								  Background="Transparent"
+								  x:Name="ProjektRoot">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type classes:Projekt}">
+								<Expander Background="Transparent">
+									<!-- Template für Expander -->
+									<Expander.Header>
+										<TextBlock Text="{Binding Titel}"/>
+									</Expander.Header>
 
-												<!-- Grid um Spalten für Beschreibung & TimeLine zu erschaffen -->
-												<Grid x:Name="ColumnGrid"
-													  Height="20"
-													  Margin="2"
-													  Background="Transparent">
-													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="120"
-																		  x:Name="TimeLineOffset"/>
-														<ColumnDefinition Width="{Binding ElementName=ControlRoot, Path=MinWidth}" 
+									<!-- itemsControl für Aufgaben -->
+									<ItemsControl ItemsSource="{Binding Aufgaben, UpdateSourceTrigger=PropertyChanged}"
+												  Background="Transparent"
+												  x:Name="TimeLine">
+										<ItemsControl.ItemTemplate>
+											<DataTemplate DataType="{x:Type classes:Aufgabe}">
+
+												<!-- Linie zwischen Aufgaben -->
+												<Border BorderBrush="Black" BorderThickness="0,0,0,1" Background="Transparent">
+
+													<!-- Grid um Spalten für Beschreibung & TimeLine zu erschaffen -->
+													<Grid x:Name="ColumnGrid"
+														  Height="20"
+														  Margin="2"
+														  Background="Transparent">
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="120"
+																			  x:Name="TimeLineOffset"/>
+															<ColumnDefinition Width="{Binding ElementName=ControlRoot, Path=MinWidth}"
+																			  
 																		  x:Name="TimeLineWidth"/>
-													</Grid.ColumnDefinitions>
+														</Grid.ColumnDefinitions>
 
-													<!-- Textblock mit Aufgabentitel für Spalte 1 -->
-													<Border BorderBrush="Black" BorderThickness="0,0,1,0" Background="Transparent">
-														<TextBlock Grid.Column="0" VerticalAlignment="Center"
+														<!-- Textblock mit Aufgabentitel für Spalte 1 -->
+														<Border BorderBrush="Black" BorderThickness="0,0,1,0" Background="Transparent">
+															<TextBlock Grid.Column="0" VerticalAlignment="Center"
 															   Text="{Binding Titel}" />
-													</Border>
-													
+														</Border>
 
-													<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
-													<Border Grid.Column="1" 
-															CornerRadius="5" 
-															VerticalAlignment="Stretch"
-															HorizontalAlignment="Left"
-															Background="{Binding ElementName=ProjektRoot, Path=DataContext.Farbe, Converter={StaticResource ColorConverter}}">
-														
-														<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
-														<Border.Margin>
-															<MultiBinding Converter="{StaticResource AufgabenConverter}">
-																<Binding ElementName="TimeLine" 
-																		 Path="DataContext.StartDatum"/>
-																<Binding ElementName="TimeLine"
-																		 Path="DataContext.EndDatum"/>
 
-																<Binding Path="StartDatum"/>
-																<Binding ElementName="TimeLineWidth"
-																		 Path="Width"/>
-																<Binding ElementName="TimeLineOffset"
-																		 Path="ActualWidth"/>
-															</MultiBinding>
-														</Border.Margin>
-														
-														<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
-														<Border.Width>
-															<MultiBinding Converter="{StaticResource AufgabenConverter}">
-																<Binding ElementName="TimeLine" 
-																		 Path="DataContext.StartDatum"/>
-																<Binding ElementName="TimeLine" 
-																		 Path="DataContext.EndDatum"/>
+														<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
+														<Border Grid.Column="1" 
+																CornerRadius="5" 
+																VerticalAlignment="Stretch"
+																HorizontalAlignment="Left"
+																Background="{Binding ElementName=ProjektRoot, Path=DataContext.Farbe, Converter={StaticResource ColorConverter}}">
 
-																<Binding Path="EndDatum"/>
-																<Binding ElementName="TimeLineWidth"
-																		 Path="Width"/>
-																<Binding ElementName="TimeLineOffset"
-																		 Path="ActualWidth"/>
-															</MultiBinding>
-														</Border.Width>
+															<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
+															<Border.Margin>
+																<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																	<Binding ElementName="TimeLine" 
+																			 Path="DataContext.StartDatum"/>
+																	<Binding ElementName="TimeLine"
+																			 Path="DataContext.EndDatum"/>
 
-													</Border>
-												</Grid>
-											</Border>
+																	<Binding Path="StartDatum"/>
+																	<Binding ElementName="TimeLineWidth"
+																			 Path="Width"/>
+																	<Binding ElementName="TimeLineOffset"
+																			 Path="ActualWidth"/>
+																</MultiBinding>
+															</Border.Margin>
 
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
+															<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
+															<Border.Width>
+																<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																	<Binding ElementName="TimeLine" 
+																			 Path="DataContext.StartDatum"/>
+																	<Binding ElementName="TimeLine" 
+																			 Path="DataContext.EndDatum"/>
 
-							</Expander>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+																	<Binding Path="EndDatum"/>
+																	<Binding ElementName="TimeLineWidth"
+																			 Path="Width"/>
+																	<Binding ElementName="TimeLineOffset"
+																			 Path="ActualWidth"/>
+																</MultiBinding>
+															</Border.Width>
 
-			</DataTemplate>
-		</TabControl.ContentTemplate>
-	</TabControl>
+														</Border>
+													</Grid>
+												</Border>
+
+											</DataTemplate>
+										</ItemsControl.ItemTemplate>
+									</ItemsControl>
+
+								</Expander>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+		</TabControl>
 
 	</Border>
 
