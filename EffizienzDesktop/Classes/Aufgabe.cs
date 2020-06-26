@@ -15,7 +15,7 @@ namespace Effizienz.Classes {
 
 		private DateTime startDatum;
 		private DateTime endDatum;
-		private TimeSpan arbeitsZeit;
+		private TimeSpan zeit;
 
 		#endregion
 
@@ -81,13 +81,13 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(EndDatum));
 			}
 		}
-		public TimeSpan ArbeitsZeit {
+		public TimeSpan Zeit {
 			get {
-				return arbeitsZeit;
+				return zeit;
 			}
 			set {
-				arbeitsZeit = value;
-				OnPropertyChanged(nameof(ArbeitsZeit));
+				zeit = value;
+				OnPropertyChanged(nameof(Zeit));
 			}
 		}
 
@@ -101,7 +101,7 @@ namespace Effizienz.Classes {
 		/// </summary>
 		public Aufgabe() {
 			ID = Guid.NewGuid();
-			ArbeitsZeit = TimeSpan.Zero;
+			Zeit = TimeSpan.Zero;
 			Status = EnumStatus.ToDo;
 		}
 
@@ -117,7 +117,7 @@ namespace Effizienz.Classes {
 			this.ParentID = _ParentID;
 			this.StartDatum = _StartDatum;
 			this.EndDatum = _EndDatum;
-			this.ArbeitsZeit = _ArbeitsZeit;
+			this.Zeit = _ArbeitsZeit;
 			this.Status = _Status;
 			this.Beschreibung = _Beschreibung;
 		}

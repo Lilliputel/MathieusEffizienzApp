@@ -21,7 +21,7 @@ namespace Effizienz.Classes {
 
 		private DateTime startDatum;
 		private DateTime endDatum;
-		private TimeSpan gesamteZeit;
+		private TimeSpan zeit;
 
 		#endregion
 
@@ -87,13 +87,13 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(EndDatum));
 			}
 		}
-		public TimeSpan GesamtZeit { 
+		public TimeSpan Zeit { 
 			get {
-				return gesamteZeit;
+				return zeit;
 			}
 			set {
-				gesamteZeit = value;
-				OnPropertyChanged(nameof(GesamtZeit));
+				zeit = value;
+				OnPropertyChanged(nameof(Zeit));
 			} 
 		}
 
@@ -128,7 +128,7 @@ namespace Effizienz.Classes {
 			this.ParentID = _KategorieID;
 			this.StartDatum = _StartDatum.Date;
 			this.EndDatum = _EndDatum.Date;
-			this.GesamtZeit = _GesamtZeit;
+			this.Zeit = _GesamtZeit;
 		}
 
 		~Projekt() { }

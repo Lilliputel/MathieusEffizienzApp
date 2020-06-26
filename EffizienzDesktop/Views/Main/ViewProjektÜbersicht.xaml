@@ -8,6 +8,52 @@
 	<UserControl.Resources>
 		<converter:ConverterAufgabe x:Key="AufgabenConverter"/>
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
+
+		<DataTemplate x:Key="Stretchpanel">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+
+				<!-- Template für das Untergeordnete Element (Aufgabe) -->
+				<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
+
+				<Grid VerticalAlignment="Center" Grid.Column="2">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+
+					<TextBlock Text="Fälllig am:" HorizontalAlignment="Left"
+								   Grid.Row="0" Grid.Column="0"/>
+					<TextBlock Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}" 
+								   FontWeight="Bold"
+								   HorizontalAlignment="Right"
+								   Grid.Row="0" Grid.Column="1"/>
+
+					<TextBlock Text="Gesamte Zeit:"
+								   HorizontalAlignment="Left"
+								   Grid.Row="1" Grid.Column="0"/>
+					<TextBlock FontWeight="Bold"
+								   HorizontalAlignment="Right" 
+								   Grid.Row="1" Grid.Column="1">
+						<TextBlock.Text>
+							<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
+								<Binding Path="Zeit.Hours" />
+								<Binding Path="Zeit.Minutes" />
+							</MultiBinding>
+						</TextBlock.Text>
+					</TextBlock>
+
+				</Grid>
+			</Grid>
+		</DataTemplate>
 	</UserControl.Resources>
 	
 	<!-- Backgroundcolor -->	
@@ -30,8 +76,7 @@
 				</DataTemplate>
 			</TabControl.ItemTemplate>
 			<!--#endregion-->
-
-
+			
 			<TabControl.ContentTemplate>
 				<DataTemplate DataType="{x:Type classes:Kategorie}">
 
@@ -44,66 +89,14 @@
 													  ItemsSource="{Binding Aufgaben}">
 
 								<!-- Template für das Übergeordnete Element (Projekt) -->
-								<Grid>
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto"/>
-										<ColumnDefinition Width="*"/>
-										<ColumnDefinition Width="Auto"/>
-									</Grid.ColumnDefinitions>
-
-									<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
-
-									<StackPanel VerticalAlignment="Center" Grid.Column="2">
-										<TextBlock>
-											<Run Text="Fälllig am:"/>
-											<Run FontWeight="Bold" Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}"/>
-										</TextBlock>
-										<TextBlock>
-											<Run Text="Gesamte Zeit:"/>
-											<Run FontWeight="Bold">
-												<Run.Text>
-													<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
-														<Binding Path="GesamtZeit.Hours" />
-														<Binding Path="GesamtZeit.Minutes" />
-													</MultiBinding>
-												</Run.Text>
-											</Run>
-										</TextBlock>
-									</StackPanel>
-								</Grid>
+								<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
 
 								<HierarchicalDataTemplate.ItemTemplate>
 									<DataTemplate DataType="{x:Type classes:Aufgabe}">
+										
+										<!-- Template für das untergeordnete Element (Aufgabe) -->
+										<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
 
-										<Grid>
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="Auto"/>
-												<ColumnDefinition Width="*"/>
-												<ColumnDefinition Width="Auto"/>
-											</Grid.ColumnDefinitions>
-
-											<!-- Template für das Untergeordnete Element (Aufgabe) -->
-											<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
-
-											<StackPanel VerticalAlignment="Center" Grid.Column="2">
-												<TextBlock>
-													<Run Text="Fälllig am:"/>
-													<Run FontWeight="Bold" Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}"/>
-												</TextBlock>
-
-												<TextBlock>
-													<Run Text="Gesamte Zeit:"/>
-													<Run FontWeight="Bold">
-														<Run.Text>
-															<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
-																<Binding Path="ArbeitsZeit.Hours" />
-																<Binding Path="ArbeitsZeit.Minutes" />
-															</MultiBinding>
-														</Run.Text>
-													</Run>
-												</TextBlock>
-											</StackPanel>
-										</Grid>
 									</DataTemplate>
 								</HierarchicalDataTemplate.ItemTemplate>
 							</HierarchicalDataTemplate>
