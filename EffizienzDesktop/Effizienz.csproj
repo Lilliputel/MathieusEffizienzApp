@@ -1,14 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Converters\WPFConverter.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <Page Update="Views\Main\ViewProjektÜbersicht.xaml">
@@ -23,7 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <Reference Include="MathieusCharts">
+      <HintPath>..\..\ChartsByMathieu\CustomCharts\bin\Debug\netcoreapp3.1\MathieusCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="MathieusCustomControls">
+      <HintPath>..\..\ChartsByMathieu\CustomCharts\bin\Debug\netcoreapp3.1\MathieusCustomControls.dll</HintPath>
+    </Reference>
   </ItemGroup>  
   
 </Project>

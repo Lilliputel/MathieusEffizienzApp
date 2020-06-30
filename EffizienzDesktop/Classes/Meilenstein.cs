@@ -1,5 +1,4 @@
-﻿using Effizienz.Utility;
-using System;
+﻿using System;
 
 namespace Effizienz.Classes {
 	public class Meilenstein : ObservableObject {
@@ -16,8 +15,8 @@ namespace Effizienz.Classes {
 
 		#region properties
 
-		public Guid ID { 
-			get; 
+		public Guid ID {
+			get;
 		}
 
 		public DateTime StartDatum {

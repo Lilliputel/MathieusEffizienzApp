@@ -1,11 +1,6 @@
-﻿using Effizienz.Utility;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Linq;
-using System.Windows;
 
 namespace Effizienz.Classes {
 
@@ -87,17 +82,17 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(EndDatum));
 			}
 		}
-		public TimeSpan Zeit { 
+		public TimeSpan Zeit {
 			get {
 				return zeit;
 			}
 			set {
 				zeit = value;
 				OnPropertyChanged(nameof(Zeit));
-			} 
+			}
 		}
 
-		public ObservableCollection<Aufgabe> Aufgaben {	get; set; }
+		public ObservableCollection<Aufgabe> Aufgaben { get; set; }
 		public ObservableCollection<Meilenstein> Meilensteine { get; set; }
 
 		#endregion
@@ -122,7 +117,7 @@ namespace Effizienz.Classes {
 			this.EndDatum = _EndDatum;
 		}
 
-		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _GesamtZeit, string _Beschreibung = "Das ist ein neues Projekt!") : this() {
+		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _GesamtZeit, string _Beschreibung = "Das ist ein neues Projekt!" ) : this() {
 			this.Titel = _Titel;
 			this.Beschreibung = _Beschreibung;
 			this.ParentID = _KategorieID;
@@ -142,8 +137,8 @@ namespace Effizienz.Classes {
 			var minDat = ( from aufgabe in Aufgaben
 						   where aufgabe.StartDatum < this.StartDatum
 						   select aufgabe.StartDatum );
-			StartDatum = minDat.Any() ? minDat.Min() : StartDatum;			
-			
+			StartDatum = minDat.Any() ? minDat.Min() : StartDatum;
+
 			var maxDat = ( from aufgabe in Aufgaben
 						   where aufgabe.EndDatum > this.EndDatum
 						   select aufgabe.EndDatum );

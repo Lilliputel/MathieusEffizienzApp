@@ -1,0 +1,56 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					
+					xmlns:Views="clr-namespace:UiLayer.Views">
+
+	<!--#region ViewModels Essential  -->
+	
+	<DataTemplate DataType="{x:Type Views:ViewModelKategorie}">
+		<Views:ViewKategorie/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelProjekt}">
+		<Views:ViewProjekt/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelAufgabe}">
+		<Views:ViewAufgabe/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelPomodoro}">
+		<Views:ViewPomodoro/>
+	</DataTemplate>
+	
+	<!--#endregion-->
+
+	<!--#region ViewModels Main -->
+
+	<DataTemplate DataType="{x:Type Views:ViewModelDashboard}">
+		<Views:ViewDashboard/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelGantt}">
+		<Views:ViewGantt/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelPlanung}">
+		<Views:ViewPlanung/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelProjektÜbersicht}">
+		<Views:ViewProjektÜbersicht/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelStatistik}">
+		<Views:ViewStatistik/>
+	</DataTemplate>
+	<DataTemplate DataType="{x:Type Views:ViewModelOptionen}">
+		<Views:ViewOptionen/>
+	</DataTemplate>
+	
+	<!--#endregion-->
+
+	<!--#region ContentTemplates -->
+
+	<DataTemplate x:Key="TextBlock_Template">
+		<TextBlock Background="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Background}"
+				   Text="{Binding}"/>
+	</DataTemplate>
+
+	<!--#endregion-->
+
+
+</ResourceDictionary>

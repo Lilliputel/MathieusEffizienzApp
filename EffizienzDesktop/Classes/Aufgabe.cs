@@ -1,9 +1,8 @@
-﻿using Effizienz.Utility;
-using System;
+﻿using System;
 
 namespace Effizienz.Classes {
 
-	public class Aufgabe : ObservableObject{
+	public class Aufgabe : ObservableObject {
 
 		#region fields
 
@@ -21,8 +20,8 @@ namespace Effizienz.Classes {
 
 		#region Properties
 
-		public Guid ID { 
-			get; 
+		public Guid ID {
+			get;
 		}
 
 		public string Titel {

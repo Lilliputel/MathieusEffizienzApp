@@ -1,5 +1,4 @@
-﻿using Effizienz.Utility;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
@@ -12,12 +11,14 @@ namespace Effizienz.Classes {
 		private Color farbe;
 		private string titel;
 
+		private EnumStatus status;
+
 		#endregion
 
 		#region Properties
 
-		public Guid ID { 
-			get; 
+		public Guid ID {
+			get;
 		}
 
 		public Color Farbe {
@@ -36,6 +37,16 @@ namespace Effizienz.Classes {
 			set {
 				titel = value;
 				OnPropertyChanged(nameof(Titel));
+			}
+		}
+
+		public EnumStatus Status {
+			get {
+				return status;
+			}
+			set {
+				status = value;
+				OnPropertyChanged(nameof(Status));
 			}
 		}
 
