@@ -1,12 +1,12 @@
-﻿using UiLayer.Classes;
-using UiLayer.Commands;
-using UiLayer.Utility;
+﻿using Effizienz.Classes;
+using Effizienz.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using UiLayer.Commands;
 
 namespace UiLayer.Views {
 	public class KategorieViewModel : ViewModelBase {

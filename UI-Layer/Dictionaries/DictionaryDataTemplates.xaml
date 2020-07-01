@@ -5,40 +5,40 @@
 
 	<!--#region ViewModels Essential  -->
 	
-	<DataTemplate DataType="{x:Type Views:ViewModelKategorie}">
-		<Views:ViewKategorie/>
+	<DataTemplate DataType="{x:Type Views:KategorieViewModel}">
+		<Views:KategorieView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelProjekt}">
-		<Views:ViewProjekt/>
+	<DataTemplate DataType="{x:Type Views:ProjektViewModel}">
+		<Views:ProjektView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelAufgabe}">
-		<Views:ViewAufgabe/>
+	<DataTemplate DataType="{x:Type Views:AufgabeViewModel}">
+		<Views:AufgabeView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelPomodoro}">
-		<Views:ViewPomodoro/>
+	<DataTemplate DataType="{x:Type Views:PomodoroViewModel}">
+		<Views:PomodoroView/>
 	</DataTemplate>
 	
 	<!--#endregion-->
 
 	<!--#region ViewModels Main -->
 
-	<DataTemplate DataType="{x:Type Views:ViewModelDashboard}">
-		<Views:ViewDashboard/>
+	<DataTemplate DataType="{x:Type Views:DashboardViewModel}">
+		<Views:DashboardView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelGantt}">
-		<Views:ViewGantt/>
+	<DataTemplate DataType="{x:Type Views:GanttViewModel}">
+		<Views:GanttView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelPlanung}">
-		<Views:ViewPlanung/>
+	<DataTemplate DataType="{x:Type Views:PlanungViewModel}">
+		<Views:PlanungView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelProjektÜbersicht}">
-		<Views:ViewProjektÜbersicht/>
+	<DataTemplate DataType="{x:Type Views:ProjektÜbersichtViewModel}">
+		<Views:ProjektÜbersichtView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelStatistik}">
-		<Views:ViewStatistik/>
+	<DataTemplate DataType="{x:Type Views:StatistikViewModel}">
+		<Views:StatistikView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type Views:ViewModelOptionen}">
-		<Views:ViewOptionen/>
+	<DataTemplate DataType="{x:Type Views:OptionenViewModel}">
+		<Views:OptionenView/>
 	</DataTemplate>
 	
 	<!--#endregion-->

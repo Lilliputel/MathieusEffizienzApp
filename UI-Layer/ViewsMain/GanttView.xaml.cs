@@ -1,15 +1,15 @@
-﻿using UiLayer.Utility;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using UiLayer.Utility;
 
 namespace UiLayer.Views {
 
-	public partial class ViewGantt : UserControl {
+	public partial class GanttView : UserControl {
 
-		public ViewGantt() {
+		public GanttView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Gantt);
 		}
 
-		~ViewGantt() { }
+		~GanttView() { }
 	}
 }

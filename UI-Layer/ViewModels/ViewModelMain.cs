@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Windows.Input;
 using UiLayer.Commands;
 using UiLayer.Utility;
-using System.Windows.Input;
 
 namespace UiLayer.Views {
 	public class ViewModelMain : ViewModelBase {
@@ -15,7 +15,7 @@ namespace UiLayer.Views {
 		#endregion
 
 		#region properties
-		
+
 		public ViewModelBase SelectedVMMain {
 			get { return selectedVMMain; }
 			set {
@@ -34,7 +34,7 @@ namespace UiLayer.Views {
 				}
 			}
 		}
-		
+
 		public ICommand CommandUpdateView => _commandUpdateView ??
 			( _commandUpdateView = new CommandRelay(parameter => {
 				if( parameter is string ) {

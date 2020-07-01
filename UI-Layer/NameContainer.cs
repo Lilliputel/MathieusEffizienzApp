@@ -37,17 +37,17 @@ namespace UiLayer.Utility {
 			dictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>();
 			dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();
 
-			dictionaryViewModelsMain.Add(EnumViewModels.Dashboard, new ViewModelDashboard());
-			dictionaryViewModelsMain.Add(EnumViewModels.Planung, new ViewModelPlanung());
-			dictionaryViewModelsMain.Add(EnumViewModels.ProjektÜbersicht, new ViewModelProjektÜbersicht());
-			dictionaryViewModelsMain.Add(EnumViewModels.Gantt, new ViewModelGantt());
-			dictionaryViewModelsMain.Add(EnumViewModels.Statistik, new ViewModelStatistik());
-			dictionaryViewModelsMain.Add(EnumViewModels.Optionen, new ViewModelOptionen());
+			dictionaryViewModelsMain.Add(EnumViewModels.Dashboard, new DashboardViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Planung, new PlanungViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.ProjektÜbersicht, new ProjektÜbersichtViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Gantt, new GanttViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Statistik, new StatistikViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Optionen, new OptionenViewModel());
 
-			dictionaryViewModelsEssential.Add(EnumViewModels.Pomodoro, new ViewModelPomodoro());
-			dictionaryViewModelsEssential.Add(EnumViewModels.Kategorie, new ViewModelKategorie());
-			dictionaryViewModelsEssential.Add(EnumViewModels.Projekt, new ViewModelProjekt());
-			dictionaryViewModelsEssential.Add(EnumViewModels.Aufgabe, new ViewModelAufgabe());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Pomodoro, new PomodoroViewModel());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Kategorie, new KategorieViewModel());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Projekt, new ProjektViewModel());
+			dictionaryViewModelsEssential.Add(EnumViewModels.Aufgabe, new AufgabeViewModel());
 
 		}
 

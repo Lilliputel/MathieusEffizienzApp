@@ -3,14 +3,14 @@ using System.Windows.Controls;
 
 namespace UiLayer.Views {
 
-	public partial class ViewOptionen : UserControl {
+	public partial class OptionenView : UserControl {
 
-		public ViewOptionen() {
+		public OptionenView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Optionen);
 		}
 
-		~ViewOptionen() { }
+		~OptionenView() { }
 
 	}
 }

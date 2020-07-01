@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UiLayer.Views.ViewPomodoro"
+﻿<UserControl x:Class="UiLayer.Views.PomodoroView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 

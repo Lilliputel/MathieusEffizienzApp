@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Effizienz.Utility;
+using System;
 
 namespace Effizienz.Classes {
 	public class Meilenstein : ObservableObject {

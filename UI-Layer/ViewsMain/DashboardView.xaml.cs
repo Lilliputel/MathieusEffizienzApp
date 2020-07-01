@@ -1,18 +1,18 @@
-﻿using UiLayer.Utility;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using UiLayer.Utility;
 
 namespace UiLayer.Views {
 
-	public partial class ViewDashboard : UserControl {
+	public partial class DashboardView : UserControl {
 
-		public ViewDashboard() {
+		public DashboardView() {
 			InitializeComponent();
 
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Dashboard);
 
 		}
 
-		~ViewDashboard() { }
+		~DashboardView() { }
 
 	}
 }

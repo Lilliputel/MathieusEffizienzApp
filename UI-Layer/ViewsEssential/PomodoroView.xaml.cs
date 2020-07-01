@@ -1,12 +1,13 @@
-﻿using UiLayer.Utility;
+﻿using Effizienz.Utility;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using UiLayer.Utility;
 
 namespace UiLayer.Views {
 
-	public partial class ViewPomodoro : UserControl {
+	public partial class PomodoroView : UserControl {
 
 		private DispatcherTimer zähler;
 		private TimeSpan zeit;
@@ -17,12 +18,12 @@ namespace UiLayer.Views {
 		private bool isStarted = false;
 
 
-		public ViewPomodoro() {
+		public PomodoroView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Pomodoro);
 		}
 
-		~ViewPomodoro() { }
+		~PomodoroView() { }
 
 
 		private void Button_ZeitStart_Click( object sender, RoutedEventArgs e ) {

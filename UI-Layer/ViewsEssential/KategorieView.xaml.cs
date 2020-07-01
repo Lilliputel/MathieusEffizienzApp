@@ -1,21 +1,15 @@
-﻿using UiLayer.Classes;
+﻿using System.Windows.Controls;
 using UiLayer.Utility;
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace UiLayer.Views {
 
-	public partial class ViewKategorie : UserControl {
+	public partial class KategorieView : UserControl {
 
-		public ViewKategorie() {
+		public KategorieView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Kategorie);
 		}
 
-		~ViewKategorie() { }
+		~KategorieView() { }
 	}
 }

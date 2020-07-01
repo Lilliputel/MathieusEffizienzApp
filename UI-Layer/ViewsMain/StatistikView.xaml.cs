@@ -1,15 +1,15 @@
-﻿using UiLayer.Utility;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using UiLayer.Utility;
 
 namespace UiLayer.Views {
 
-	public partial class ViewStatistik : UserControl {
+	public partial class StatistikView : UserControl {
 
-		public ViewStatistik() {
+		public StatistikView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Statistik);
 		}
 
-		~ViewStatistik() { }
+		~StatistikView() { }
 	}
 }

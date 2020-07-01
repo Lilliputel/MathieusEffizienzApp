@@ -3,14 +3,14 @@ using System.Windows.Controls;
 
 namespace UiLayer.Views {
 
-	public partial class ViewPlanung : UserControl {
+	public partial class PlanungView : UserControl {
 
-		public ViewPlanung() {
+		public PlanungView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Planung);
 		}
 
-		~ViewPlanung() { }
+		~PlanungView() { }
 
 	}
 }

@@ -1,16 +1,16 @@
-﻿using UiLayer.Utility;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using UiLayer.Utility;
 
 namespace UiLayer.Views {
 
-	public partial class ViewProjektÜbersicht : UserControl {
+	public partial class ProjektÜbersichtView : UserControl {
 
-		public ViewProjektÜbersicht() {
+		public ProjektÜbersichtView() {
 			InitializeComponent();
 			this.DataContext = NameContainer.GetViewModel(EnumViewModels.ProjektÜbersicht);
 		}
 
-		~ViewProjektÜbersicht() { }
+		~ProjektÜbersichtView() { }
 
 	}
 }

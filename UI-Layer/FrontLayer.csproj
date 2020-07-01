@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>FrontLayer</RootNamespace>
     <UseWPF>true</UseWPF>
-    <StartupObject>UI_Layer.App</StartupObject>
+    <StartupObject>UiLayer.App</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
