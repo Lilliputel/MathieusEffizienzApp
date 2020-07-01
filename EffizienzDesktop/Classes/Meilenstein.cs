@@ -16,8 +16,8 @@ namespace Effizienz.Classes {
 
 		#region properties
 
-		public Guid ID { 
-			get; 
+		public Guid ID {
+			get;
 		}
 
 		public DateTime StartDatum {
