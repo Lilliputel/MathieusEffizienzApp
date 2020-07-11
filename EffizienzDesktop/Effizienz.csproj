@@ -16,15 +16,6 @@
     <Page Update="Views\Main\ViewOptionen.xaml">
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="MathieusCharts">
-      <HintPath>..\..\ChartsByMathieu\CustomCharts\bin\Debug\netcoreapp3.1\MathieusCharts.dll</HintPath>
-    </Reference>
-    <Reference Include="MathieusCustomControls">
-      <HintPath>..\..\ChartsByMathieu\CustomCharts\bin\Debug\netcoreapp3.1\MathieusCustomControls.dll</HintPath>
-    </Reference>
   </ItemGroup>  
   
 </Project>
