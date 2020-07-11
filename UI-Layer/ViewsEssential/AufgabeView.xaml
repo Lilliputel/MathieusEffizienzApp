@@ -10,6 +10,9 @@
 	</UserControl.Resources>
 
 	<StackPanel>
+		<!-- ViewTitel -->
+		<TextBlock Text="Neue Aufgabe!" Style="{StaticResource Title}"/>
+
 		<!-- Gruppe Titel -->
 		<TextBlock Text="Titel:"/>
 		<TextBox x:Name="TextBox_Titel" Text="{Binding Mode=OneWayToSource, Path=Titel}"/>

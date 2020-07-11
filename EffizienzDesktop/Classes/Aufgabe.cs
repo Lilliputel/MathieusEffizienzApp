@@ -1,9 +1,10 @@
-﻿using Effizienz.Utility;
+﻿using Effizienz.Interfaces;
+using Effizienz.Utility;
 using System;
 
 namespace Effizienz.Classes {
 
-	public class Aufgabe : ObservableObject {
+	public class Aufgabe : ObservableObject, IGuid, ITitel, IBeschreibung, IChild, IStatus, IPlanbar, IAbrechenbar {
 
 		#region fields
 

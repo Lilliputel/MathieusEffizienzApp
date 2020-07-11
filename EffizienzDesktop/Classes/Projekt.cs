@@ -1,11 +1,12 @@
-﻿using Effizienz.Utility;
+﻿using Effizienz.Interfaces;
+using Effizienz.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Effizienz.Classes {
 
-	public class Projekt : ObservableObject {
+	public class Projekt : ObservableObject, IGuid, ITitel, IBeschreibung, IChild, IStatus, IPlanbar, IAbrechenbar {
 
 		#region fields
 
@@ -148,5 +149,6 @@ namespace Effizienz.Classes {
 		}
 
 		#endregion
+
 	}
 }

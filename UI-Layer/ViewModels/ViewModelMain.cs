@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using UiLayer.Commands;
 using UiLayer.Utility;
@@ -11,6 +12,7 @@ namespace UiLayer.Views {
 		private ViewModelBase selectedVMMain;
 		private ViewModelBase selectedVMEssential;
 		private ICommand _commandUpdateView;
+		private ICommand _commandCreateObjects;
 
 		#endregion
 
@@ -45,6 +47,11 @@ namespace UiLayer.Views {
 					else
 						this.SelectedVMEssential = viewModel;
 				}
+			}) );
+
+		public ICommand CommandCreateObjects => _commandCreateObjects ??
+			( _commandCreateObjects = new CommandRelay(parameter => {
+				( Application.Current as App ).GenerateObjects();
 			}) );
 
 		#endregion

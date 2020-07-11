@@ -9,5 +9,9 @@ namespace UiLayer.Windows {
 			InitializeComponent();
 			DataContext = new ViewModelMain();
 		}
+
+		~MainWindow() {
+			MessageBox.Show("Hello");
+		}
 	}
 }

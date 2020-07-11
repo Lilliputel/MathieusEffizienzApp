@@ -40,8 +40,6 @@ namespace UiLayer {
 				KategorienListe.Add(item);
 			}
 
-			GenerateObjects();
-
 		}
 
 		#endregion
@@ -68,7 +66,7 @@ namespace UiLayer {
 			MessageBoxDisplayer.ListeGespeichert(nameof(KategorienListe));
 		}
 
-		private void GenerateObjects() {
+		public void GenerateObjects() {
 			Kategorie CBKategorie = new Kategorie("CodeBehind-Kategorie", Colors.Magenta);
 			Projekt CBProjekt = new Projekt("CodeBehind-Projekt", CBKategorie.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(10)){
 				Zeit = new TimeSpan(1, 2, 3)

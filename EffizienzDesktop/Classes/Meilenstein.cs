@@ -1,16 +1,17 @@
-﻿using Effizienz.Utility;
+﻿using Effizienz.Interfaces;
+using Effizienz.Utility;
 using System;
 
 namespace Effizienz.Classes {
-	public class Meilenstein : ObservableObject {
+	public class Meilenstein : ObservableObject, IGuid, IChild, IStatus, IPlanbar {
 
 		#region fields
 
-		private DateTime startDatum;
-		private DateTime endDatum;
-
 		private Guid parentID;
 		private EnumStatus status;
+
+		private DateTime startDatum;
+		private DateTime endDatum;
 
 		#endregion
 
@@ -18,25 +19,6 @@ namespace Effizienz.Classes {
 
 		public Guid ID {
 			get;
-		}
-
-		public DateTime StartDatum {
-			get {
-				return startDatum;
-			}
-			set {
-				startDatum = value;
-				OnPropertyChanged(nameof(StartDatum));
-			}
-		}
-		public DateTime EndDatum {
-			get {
-				return endDatum;
-			}
-			set {
-				endDatum = value;
-				OnPropertyChanged(nameof(EndDatum));
-			}
 		}
 
 		public Guid ParentID {
@@ -55,6 +37,25 @@ namespace Effizienz.Classes {
 			set {
 				status = value;
 				OnPropertyChanged(nameof(Status));
+			}
+		}
+
+		public DateTime StartDatum {
+			get {
+				return startDatum;
+			}
+			set {
+				startDatum = value;
+				OnPropertyChanged(nameof(StartDatum));
+			}
+		}
+		public DateTime EndDatum {
+			get {
+				return endDatum;
+			}
+			set {
+				endDatum = value;
+				OnPropertyChanged(nameof(EndDatum));
 			}
 		}
 

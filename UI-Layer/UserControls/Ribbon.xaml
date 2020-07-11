@@ -27,10 +27,11 @@
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconAufgabe2}"/>
 			</Button.Content>
 		</Button>
-		<Button x:Name="Button_Settings"
-				Command="{Binding}" CommandParameter="Aufgabe">
+		<Button x:Name="Button_CreateObjects"
+				Command="{Binding CommandCreateObjects}">
 			<Button.Content>
-				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconOptionen}"/>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" 
+										 Style="{StaticResource IconAufgabe1}"/>
 			</Button.Content>
 		</Button>
 

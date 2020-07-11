@@ -1,11 +1,12 @@
-﻿using Effizienz.Utility;
+﻿using Effizienz.Interfaces;
+using Effizienz.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 namespace Effizienz.Classes {
 
-	public class Kategorie : ObservableObject {
+	public class Kategorie : ObservableObject, IGuid, ITitel, IStatus {
 
 		#region fields
 
