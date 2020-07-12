@@ -1,5 +1,6 @@
 ﻿using Effizienz.Interfaces;
 using Effizienz.Utility;
+using Effizienz.ValueTypes;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
@@ -64,9 +65,11 @@ namespace Effizienz.Classes {
 		/// instance of Kategorie must have a Titel and a Color!
 		/// </summary>
 		public Kategorie() {
-			ID = Guid.NewGuid();
-			Aufgaben = new ObservableCollection<Aufgabe>();
-			Projekte = new ObservableCollection<Projekt>();
+			this.ID = Guid.NewGuid();
+			this.Status = EnumStatus.ToDo;
+
+			this.Aufgaben = new ObservableCollection<Aufgabe>();
+			this.Projekte = new ObservableCollection<Projekt>();
 		}
 
 		public Kategorie( string _Titel, Color _Farbe ) : this() {

@@ -1,4 +1,4 @@
-﻿namespace Effizienz.Classes {
+﻿namespace Effizienz.ValueTypes {
 	public enum EnumStatus {
 
 		ToDo,

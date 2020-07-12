@@ -1,6 +1,7 @@
 ﻿using Effizienz.Classes;
 using Effizienz.Utility;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -11,34 +12,48 @@ namespace UiLayer {
 
 		#region fields
 
+		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
+
+		private string themeDirectory = "/FrontLayer;component/Themes/";
 		private ResourceDictionary themeDark;
 		private ResourceDictionary themeLight;
-		private string themeDirectory = "/FrontLayer;component/Themes/";
 		private bool DarkMode;
+
+		private ObservableCollection<Kategorie> kategorienListe;
 
 		#endregion
 
 		#region properties
 
-		public static CultureInfo zeitformat = new CultureInfo("ch-DE");
-		public ObservableCollection<Kategorie> KategorienListe { get; set; }
+		/// <summary>
+		/// Die Globale KategorienListe, welche gespeichert wird und alle Kategorien enthalten Sollte.
+		/// </summary>
+		public ObservableCollection<Kategorie> KategorienListe {
+			get { return kategorienListe; }
+			set { kategorienListe = value; }
+		}
+
+		/// <summary>
+		/// Das Globale Dictionary, in welchem alle Zeiten mit der zugehörigen Kategorie erfasst sind.
+		/// </summary>
+		public Dictionary<DateTime, Guid> Stundenplan { get; set; }
 
 		#endregion
 
 		#region constructor
 
 		public App() {
+			// Initialize the Themes
 			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute) };
 			themeLight = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute) };
 			DarkMode = false;
 
+			// Initialize KategorienListe and Stundenplan
 			KategorienListe = new ObservableCollection<Kategorie>();
+			Stundenplan = new Dictionary<DateTime, Guid>();
 
-			ObservableCollection<Kategorie> transferListe;
-			XMLHandler.Laden(out transferListe, nameof(KategorienListe));
-			foreach( Kategorie item in transferListe ) {
-				KategorienListe.Add(item);
-			}
+			// Load the saved KategorienListe from The XML-File
+			XMLHandler.Laden(out kategorienListe, nameof(KategorienListe));
 
 		}
 

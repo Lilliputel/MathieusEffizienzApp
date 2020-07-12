@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Effizienz.ValueTypes;
 
 namespace Effizienz.Interfaces {
 	public interface IPlanbar {
 
-		DateTime StartDatum { get; set; }
-		DateTime EndDatum { get; set; }
+		StructDaten Planung { get; set; }
 
 	}
 }

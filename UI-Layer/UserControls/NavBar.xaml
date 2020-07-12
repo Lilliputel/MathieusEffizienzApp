@@ -7,42 +7,42 @@
 			 Height="Auto">
 	<StackPanel>
 
-		<Button x:Name="Button_Dashboard"
-				Command="{Binding CommandUpdateView}" CommandParameter="Dashboard">
-			<Button.Content>
+		<ToggleButton x:Name="Button_Dashboard"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Dashboard">
+			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconDashboard}"/>
-			</Button.Content>
-		</Button>
-		<Button x:Name="Button_Planung"
-				Command="{Binding CommandUpdateView}" CommandParameter="Planung">
-			<Button.Content>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Planung"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Planung">
+			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconKalender}"/>
-			</Button.Content>
-		</Button>
-		<Button x:Name="Button_Projekte"
-				Command="{Binding CommandUpdateView}" CommandParameter="ProjektÜbersicht">
-			<Button.Content>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Projekte"
+					  Command="{Binding CommandUpdateView}" CommandParameter="ProjektÜbersicht">
+			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconProjekte}"/>
-			</Button.Content>
-		</Button>
-		<Button x:Name="Button_Gantt"
-				Command="{Binding CommandUpdateView}" CommandParameter="Gantt">
-			<Button.Content>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Gantt"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Gantt">
+			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconGantt}"/>
-			</Button.Content>
-		</Button>
-		<Button x:Name="Button_Statistik"
-				Command="{Binding CommandUpdateView}" CommandParameter="Statistik">
-			<Button.Content>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Statistik"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Statistik">
+			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconStatistik}"/>
-			</Button.Content>
-		</Button>
-		<Button x:Name="Button_Optionen"
-				Command="{Binding CommandUpdateView}" CommandParameter="Optionen">
-			<Button.Content>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Optionen"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Optionen">
+			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconOptionen}"/>
-			</Button.Content>
-		</Button>
+			</ToggleButton.Content>
+		</ToggleButton>
 		
 	</StackPanel>
 </UserControl>

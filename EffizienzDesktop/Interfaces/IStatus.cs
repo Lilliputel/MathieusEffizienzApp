@@ -1,4 +1,4 @@
-﻿using Effizienz.Classes;
+﻿using Effizienz.ValueTypes;
 
 namespace Effizienz.Interfaces {
 	public interface IStatus {

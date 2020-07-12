@@ -1,5 +1,6 @@
 ﻿using Effizienz.Interfaces;
 using Effizienz.Utility;
+using Effizienz.ValueTypes;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,8 +17,7 @@ namespace Effizienz.Classes {
 		private Guid parentID;
 		private EnumStatus status;
 
-		private DateTime startDatum;
-		private DateTime endDatum;
+		private StructDaten planung;
 		private TimeSpan zeit;
 
 		#endregion
@@ -65,23 +65,13 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(Status));
 			}
 		}
-
-		public DateTime StartDatum {
+		public StructDaten Planung {
 			get {
-				return startDatum;
+				return planung;
 			}
 			set {
-				startDatum = value;
-				OnPropertyChanged(nameof(StartDatum));
-			}
-		}
-		public DateTime EndDatum {
-			get {
-				return endDatum;
-			}
-			set {
-				endDatum = value;
-				OnPropertyChanged(nameof(EndDatum));
+				planung = value;
+				OnPropertyChanged(nameof(Planung));
 			}
 		}
 		public TimeSpan Zeit {
@@ -103,28 +93,25 @@ namespace Effizienz.Classes {
 
 		/// <summary>
 		/// Default constructor for serialisation!
-		/// instance of Project must have a Titel and a KategorieID
+		/// instance of Project must have a Titel, a ParentID, a Start and an EndDate
 		/// </summary>
 		public Projekt() {
 			this.ID = Guid.NewGuid();
+			this.Status = EnumStatus.ToDo;
+
 			this.Aufgaben = new ObservableCollection<Aufgabe>();
-
-			Aufgaben.CollectionChanged += Aufgaben_CollectionChanged;
+			// this.Aufgaben.CollectionChanged += Aufgaben_CollectionChanged;
 		}
 
-		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
+		public Projekt( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
 			this.Titel = _Titel;
-			this.ParentID = _KategorieID;
-			this.StartDatum = _StartDatum;
-			this.EndDatum = _EndDatum;
+			this.ParentID = _ParentID;
+			this.Planung = new StructDaten(_StartDatum, _EndDatum);
 		}
 
-		public Projekt( string _Titel, Guid _KategorieID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _GesamtZeit, string _Beschreibung = "Das ist ein neues Projekt!" ) : this() {
-			this.Titel = _Titel;
+		public Projekt( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _GesamtZeit, string _Beschreibung = "Das ist ein neues Projekt!" )
+			: this(_Titel, _ParentID, _StartDatum, _EndDatum) {
 			this.Beschreibung = _Beschreibung;
-			this.ParentID = _KategorieID;
-			this.StartDatum = _StartDatum.Date;
-			this.EndDatum = _EndDatum.Date;
 			this.Zeit = _GesamtZeit;
 		}
 
@@ -136,15 +123,20 @@ namespace Effizienz.Classes {
 
 		private void Aufgaben_CollectionChanged( object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e ) {
 
+			// selects the minimal StartDate in Aufgaben
 			var minDat = ( from aufgabe in Aufgaben
-						   where aufgabe.StartDatum < this.StartDatum
-						   select aufgabe.StartDatum );
-			StartDatum = minDat.Any() ? minDat.Min() : StartDatum;
+						   where aufgabe.Planung.Start < this.Planung.Start
+						   select aufgabe.Planung.Start );
 
+			// selects the minimal EndDate in Aufgaben
 			var maxDat = ( from aufgabe in Aufgaben
-						   where aufgabe.EndDatum > this.EndDatum
-						   select aufgabe.EndDatum );
-			EndDatum = maxDat.Any() ? maxDat.Max() : EndDatum;
+						   where aufgabe.Planung.Ende > this.Planung.Ende
+						   select aufgabe.Planung.Ende );
+
+			// Updates the Property Planung with the new Dates
+			Planung = new StructDaten(
+				start: minDat.Any() ? minDat.Min() : this.Planung.Start,
+				ende: maxDat.Any() ? maxDat.Max() : this.Planung.Ende);
 
 		}
 

@@ -1,5 +1,6 @@
 ﻿using Effizienz.Interfaces;
 using Effizienz.Utility;
+using Effizienz.ValueTypes;
 using System;
 
 namespace Effizienz.Classes {
@@ -10,16 +11,13 @@ namespace Effizienz.Classes {
 		private Guid parentID;
 		private EnumStatus status;
 
-		private DateTime startDatum;
-		private DateTime endDatum;
+		private StructDaten planung;
 
 		#endregion
 
 		#region properties
 
-		public Guid ID {
-			get;
-		}
+		public Guid ID { get; }
 
 		public Guid ParentID {
 			get {
@@ -39,23 +37,13 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(Status));
 			}
 		}
-
-		public DateTime StartDatum {
+		public StructDaten Planung {
 			get {
-				return startDatum;
+				return planung;
 			}
 			set {
-				startDatum = value;
-				OnPropertyChanged(nameof(StartDatum));
-			}
-		}
-		public DateTime EndDatum {
-			get {
-				return endDatum;
-			}
-			set {
-				endDatum = value;
-				OnPropertyChanged(nameof(EndDatum));
+				planung = value;
+				OnPropertyChanged(nameof(Planung));
 			}
 		}
 
@@ -63,10 +51,19 @@ namespace Effizienz.Classes {
 
 		#region constructor
 
+		/// <summary>
+		/// Default constructor for serialisation!
+		/// instance of Meilenstein must have a ParentID and a Planung!
+		/// </summary>
 		public Meilenstein() {
-
+			this.ID = Guid.NewGuid();
+			this.Status = EnumStatus.ToDo;
 		}
 
+		public Meilenstein( Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
+			this.ParentID = _ParentID;
+			this.Planung = new StructDaten(_StartDatum, _EndDatum);
+		}
 		#endregion
 
 		#region methods

@@ -1,5 +1,6 @@
 ﻿using Effizienz.Interfaces;
 using Effizienz.Utility;
+using Effizienz.ValueTypes;
 using System;
 
 namespace Effizienz.Classes {
@@ -14,8 +15,7 @@ namespace Effizienz.Classes {
 		private Guid parentID;
 		private EnumStatus status;
 
-		private DateTime startDatum;
-		private DateTime endDatum;
+		private StructDaten planung;
 		private TimeSpan zeit;
 
 		#endregion
@@ -64,22 +64,13 @@ namespace Effizienz.Classes {
 			}
 		}
 
-		public DateTime StartDatum {
+		public StructDaten Planung {
 			get {
-				return startDatum;
+				return planung;
 			}
 			set {
-				startDatum = value;
-				OnPropertyChanged(nameof(StartDatum));
-			}
-		}
-		public DateTime EndDatum {
-			get {
-				return endDatum;
-			}
-			set {
-				endDatum = value;
-				OnPropertyChanged(nameof(EndDatum));
+				planung = value;
+				OnPropertyChanged(nameof(Planung));
 			}
 		}
 		public TimeSpan Zeit {
@@ -101,23 +92,20 @@ namespace Effizienz.Classes {
 		/// instance of Aufgabe must have a Titel and a ParentID
 		/// </summary>
 		public Aufgabe() {
-			ID = Guid.NewGuid();
-			Zeit = TimeSpan.Zero;
-			Status = EnumStatus.ToDo;
+			this.ID = Guid.NewGuid();
+			this.Zeit = TimeSpan.Zero;
+			this.Status = EnumStatus.ToDo;
 		}
 
-		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
+		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum )
+			: this() {
 			this.Titel = _Titel;
 			this.ParentID = _ParentID;
-			this.StartDatum = _StartDatum;
-			this.EndDatum = _EndDatum;
+			this.Planung = new StructDaten(_StartDatum, _EndDatum);
 		}
 
-		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _ArbeitsZeit, EnumStatus _Status, string _Beschreibung = "Das ist eine neue Aufgabe!" ) : this() {
-			this.Titel = _Titel;
-			this.ParentID = _ParentID;
-			this.StartDatum = _StartDatum;
-			this.EndDatum = _EndDatum;
+		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _ArbeitsZeit, EnumStatus _Status, string _Beschreibung = "Das ist eine neue Aufgabe!" )
+			: this(_Titel, _ParentID, _StartDatum, _EndDatum) {
 			this.Zeit = _ArbeitsZeit;
 			this.Status = _Status;
 			this.Beschreibung = _Beschreibung;
