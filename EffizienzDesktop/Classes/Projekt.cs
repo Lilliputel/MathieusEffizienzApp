@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Effizienz.Classes {
 
-	public class Projekt : ObservableObject, IGuid, ITitel, IBeschreibung, IChild, IStatus, IPlanbar, IAbrechenbar {
+	public class Projekt : ObservableObject, IEindeutig, IBeschreibung, IChild, IBearbeitbar {
 
 		#region fields
 
@@ -16,8 +16,7 @@ namespace Effizienz.Classes {
 
 		private Guid parentID;
 		private EnumStatus status;
-
-		private StructDaten planung;
+		private ZeitSpanne planung;
 		private TimeSpan zeit;
 
 		#endregion
@@ -27,7 +26,6 @@ namespace Effizienz.Classes {
 		public Guid ID {
 			get;
 		}
-
 		public string Titel {
 			get {
 				return titel;
@@ -65,7 +63,7 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(Status));
 			}
 		}
-		public StructDaten Planung {
+		public ZeitSpanne Planung {
 			get {
 				return planung;
 			}
@@ -106,7 +104,7 @@ namespace Effizienz.Classes {
 		public Projekt( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
 			this.Titel = _Titel;
 			this.ParentID = _ParentID;
-			this.Planung = new StructDaten(_StartDatum, _EndDatum);
+			this.Planung = new ZeitSpanne(_StartDatum, _EndDatum);
 		}
 
 		public Projekt( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _GesamtZeit, string _Beschreibung = "Das ist ein neues Projekt!" )
@@ -134,7 +132,7 @@ namespace Effizienz.Classes {
 						   select aufgabe.Planung.Ende );
 
 			// Updates the Property Planung with the new Dates
-			Planung = new StructDaten(
+			Planung = new ZeitSpanne(
 				start: minDat.Any() ? minDat.Min() : this.Planung.Start,
 				ende: maxDat.Any() ? maxDat.Max() : this.Planung.Ende);
 

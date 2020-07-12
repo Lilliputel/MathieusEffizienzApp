@@ -5,7 +5,7 @@ using System;
 
 namespace Effizienz.Classes {
 
-	public class Aufgabe : ObservableObject, IGuid, ITitel, IBeschreibung, IChild, IStatus, IPlanbar, IAbrechenbar {
+	public class Aufgabe : ObservableObject, IEindeutig, IBeschreibung, IChild, IBearbeitbar {
 
 		#region fields
 
@@ -14,8 +14,7 @@ namespace Effizienz.Classes {
 
 		private Guid parentID;
 		private EnumStatus status;
-
-		private StructDaten planung;
+		private ZeitSpanne planung;
 		private TimeSpan zeit;
 
 		#endregion
@@ -25,7 +24,6 @@ namespace Effizienz.Classes {
 		public Guid ID {
 			get;
 		}
-
 		public string Titel {
 			get {
 				return titel;
@@ -63,8 +61,7 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(Status));
 			}
 		}
-
-		public StructDaten Planung {
+		public ZeitSpanne Planung {
 			get {
 				return planung;
 			}
@@ -101,7 +98,7 @@ namespace Effizienz.Classes {
 			: this() {
 			this.Titel = _Titel;
 			this.ParentID = _ParentID;
-			this.Planung = new StructDaten(_StartDatum, _EndDatum);
+			this.Planung = new ZeitSpanne(_StartDatum, _EndDatum);
 		}
 
 		public Aufgabe( string _Titel, Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum, TimeSpan _ArbeitsZeit, EnumStatus _Status, string _Beschreibung = "Das ist eine neue Aufgabe!" )

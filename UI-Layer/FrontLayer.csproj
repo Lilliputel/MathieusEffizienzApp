@@ -6,7 +6,9 @@
     <RootNamespace>FrontLayer</RootNamespace>
     <UseWPF>true</UseWPF>
     <StartupObject>UiLayer.App</StartupObject>
+    <AssemblyName>FrontLayer</AssemblyName>
   </PropertyGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\EffizienzDesktop\Effizienz.csproj" />

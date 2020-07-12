@@ -1,9 +1,9 @@
-﻿using Effizienz.ValueTypes;
+﻿using Effizienz.Classes;
 
 namespace Effizienz.Interfaces {
 	public interface IPlanbar {
 
-		StructDaten Planung { get; set; }
+		ZeitSpanne Planung { get; set; }
 
 	}
 }

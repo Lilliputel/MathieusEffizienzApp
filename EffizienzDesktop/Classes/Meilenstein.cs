@@ -4,20 +4,31 @@ using Effizienz.ValueTypes;
 using System;
 
 namespace Effizienz.Classes {
-	public class Meilenstein : ObservableObject, IGuid, IChild, IStatus, IPlanbar {
+	public class Meilenstein : ObservableObject, IEindeutig, IChild, IBearbeitbar {
 
 		#region fields
 
+		private string titel;
+
 		private Guid parentID;
 		private EnumStatus status;
-
-		private StructDaten planung;
+		private ZeitSpanne planung;
+		private TimeSpan zeit;
 
 		#endregion
 
 		#region properties
 
 		public Guid ID { get; }
+		public string Titel {
+			get {
+				return titel;
+			}
+			set {
+				titel = value;
+				OnPropertyChanged(nameof(Titel));
+			}
+		}
 
 		public Guid ParentID {
 			get {
@@ -37,13 +48,22 @@ namespace Effizienz.Classes {
 				OnPropertyChanged(nameof(Status));
 			}
 		}
-		public StructDaten Planung {
+		public ZeitSpanne Planung {
 			get {
 				return planung;
 			}
 			set {
 				planung = value;
 				OnPropertyChanged(nameof(Planung));
+			}
+		}
+		public TimeSpan Zeit {
+			get {
+				return zeit;
+			}
+			set {
+				zeit = value;
+				OnPropertyChanged(nameof(Zeit));
 			}
 		}
 
@@ -62,7 +82,7 @@ namespace Effizienz.Classes {
 
 		public Meilenstein( Guid _ParentID, DateTime _StartDatum, DateTime _EndDatum ) : this() {
 			this.ParentID = _ParentID;
-			this.Planung = new StructDaten(_StartDatum, _EndDatum);
+			this.Planung = new ZeitSpanne(_StartDatum, _EndDatum);
 		}
 		#endregion
 

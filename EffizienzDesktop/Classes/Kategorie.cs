@@ -7,13 +7,13 @@ using System.Windows.Media;
 
 namespace Effizienz.Classes {
 
-	public class Kategorie : ObservableObject, IGuid, ITitel, IStatus {
+	public class Kategorie : ObservableObject, IEindeutig, IStatus {
 
 		#region fields
 
-		private Color farbe;
 		private string titel;
 
+		private Color farbe;
 		private EnumStatus status;
 
 		#endregion

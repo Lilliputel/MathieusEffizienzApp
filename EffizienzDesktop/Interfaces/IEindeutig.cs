@@ -2,9 +2,10 @@
 
 namespace Effizienz.Interfaces {
 
-	public interface IGuid {
+	public interface IEindeutig {
 
 		Guid ID { get; }
+		string Titel { get; set; }
 
 	}
 }
