@@ -16,6 +16,15 @@ namespace Effizienz.Classes {
 
 		#region constructor
 
+		/// <summary>
+		/// Default constructor for serialisation!
+		/// instance of Project must have a Titel, a ParentID, a Start and an EndDate
+		/// </summary>
+		public ZeitSpanne() { }
+
+		public ZeitSpanne( DateTime start_ende )
+			: this(start_ende, start_ende) { }
+
 		public ZeitSpanne( DateTime start, DateTime ende ) {
 			this.Start = start;
 			this.Ende = ende;

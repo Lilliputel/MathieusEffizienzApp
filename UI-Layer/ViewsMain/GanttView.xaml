@@ -88,11 +88,12 @@
 															<Border.Margin>
 																<MultiBinding Converter="{StaticResource AufgabenConverter}">
 																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.StartDatum"/>
+																			 Path="DataContext.Planung.Start"/>
 																	<Binding ElementName="TimeLine"
-																			 Path="DataContext.EndDatum"/>
+																			 Path="DataContext.Planung.Ende"/>
 
-																	<Binding Path="StartDatum"/>
+																	<Binding Path="Planung.Start"/>
+																	
 																	<Binding ElementName="TimeLineWidth"
 																			 Path="Width"/>
 																	<Binding ElementName="TimeLineOffset"
@@ -104,11 +105,12 @@
 															<Border.Width>
 																<MultiBinding Converter="{StaticResource AufgabenConverter}">
 																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.StartDatum"/>
+																			 Path="DataContext.Planung.Start"/>
 																	<Binding ElementName="TimeLine" 
-																			 Path="DataContext.EndDatum"/>
+																			 Path="DataContext.Planung.Ende"/>
 
-																	<Binding Path="EndDatum"/>
+																	<Binding Path="Planung.Ende"/>
+																	
 																	<Binding ElementName="TimeLineWidth"
 																			 Path="Width"/>
 																	<Binding ElementName="TimeLineOffset"

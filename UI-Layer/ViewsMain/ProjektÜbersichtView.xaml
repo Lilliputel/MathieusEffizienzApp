@@ -32,7 +32,7 @@
 
 					<TextBlock Text="Fälllig am:" HorizontalAlignment="Left"
 								   Grid.Row="0" Grid.Column="0"/>
-					<TextBlock Text="{Binding EndDatum, StringFormat={}{0:dd.MM.yyyy}}" 
+					<TextBlock Text="{Binding Planung.Ende, StringFormat={}{0:dd.MM.yyyy}}" 
 								   FontWeight="Bold"
 								   HorizontalAlignment="Right"
 								   Grid.Row="0" Grid.Column="1"/>
