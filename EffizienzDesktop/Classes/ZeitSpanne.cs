@@ -26,13 +26,40 @@ namespace Effizienz.Classes {
 			: this(start_ende, start_ende) { }
 
 		public ZeitSpanne( DateTime start, DateTime ende ) {
-			this.Start = start;
-			this.Ende = ende;
+			this.Start = roundDateTime(start);
+			this.Ende = roundDateTime(ende);
 		}
 
 		#endregion
 
 		#region methods
+
+		private DateTime roundDateTime( DateTime datum ) {
+			return new DateTime(
+				datum.Year,
+				datum.Month,
+				datum.Day,
+				datum.Hour,
+				roundViertel(datum.Minute),
+				0);
+		}
+		private int roundViertel( int wert ) {
+			if( wert <= 7 ) {
+				return 0;
+			}
+			else if( wert <= 22 ) {
+				return 15;
+			}
+			else if( wert <= 37 ) {
+				return 30;
+			}
+			else if( wert <= 52 ) {
+				return 45;
+			}
+			else {
+				return 60;
+			}
+		}
 
 		public TimeSpan GetTimeSpan() {
 			return Ende - Start;

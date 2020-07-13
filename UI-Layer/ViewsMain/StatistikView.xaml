@@ -2,10 +2,13 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<DockPanel>
-		<ItemsControl>
-		</ItemsControl>
+	<UserControl.Resources>
+	</UserControl.Resources>
 
-	</DockPanel>
+	<!-- Background-Color -->
+	<Border Background="{DynamicResource Back_1}"
+			Style="{StaticResource BorderRounded}">
+
+	</Border>
 	
 </UserControl>

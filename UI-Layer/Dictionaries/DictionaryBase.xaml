@@ -40,9 +40,9 @@
 	
 	<Style x:Key="BorderRounded" TargetType="{x:Type Border}" >
 		<Style.Setters>
-			<Setter Property="CornerRadius" Value="{DynamicResource StandardRadius}"/>
+			<Setter Property="CornerRadius" Value="{StaticResource StandardRadius}"/>
 			<Setter Property="BorderThickness" Value="0"/>
-			<Setter Property="Padding" Value="2"/>
+			<Setter Property="Padding" Value="{StaticResource StandardPadding}"/>
 		</Style.Setters>
 	</Style>
 	
@@ -311,9 +311,9 @@
 				<ControlTemplate TargetType="{x:Type TabItem}">
 					<!-- Setzt ein Grid als HintergrundPanel -->
 					<Border Name="Bd" 
-										Background="{DynamicResource Back_2}" 
-										CornerRadius="{DynamicResource StandardRadius}"
-										Padding="8,2">
+							Background="{DynamicResource Back_2}" 
+							CornerRadius="{StaticResource StandardRadius}"
+							Padding="8,2">
 						<ContentPresenter VerticalAlignment="Center"
 													  HorizontalAlignment="Center"
 													  ContentSource="Header"/>

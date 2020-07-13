@@ -9,7 +9,9 @@
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
-	<Border Background="{DynamicResource Back_1}">
+	<!-- Background-Color -->
+	<Border Background="{DynamicResource Back_1}"
+			Style="{StaticResource BorderRounded}">
 
 		<!-- TabControl mit den Kategorien als Tab -->
 		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}"

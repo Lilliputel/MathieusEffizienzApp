@@ -1,5 +1,5 @@
-﻿using UiLayer.Utility;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using UiLayer.Utility;
 
 namespace UiLayer.Views {
 
@@ -11,6 +11,5 @@ namespace UiLayer.Views {
 		}
 
 		~PlanungView() { }
-
 	}
 }

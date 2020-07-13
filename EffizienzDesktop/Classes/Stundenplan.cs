@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Effizienz.Classes {
 	public static class Stundenplan {
 
-		#region fields
+		#region properties
 
-		private static Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan;
+		public static Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan { get; set; }
 
 		#endregion
 
@@ -14,6 +14,7 @@ namespace Effizienz.Classes {
 
 		static Stundenplan() {
 			Plan = new Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>>();
+			CreateEntries();
 		}
 
 		#endregion
@@ -35,41 +36,27 @@ namespace Effizienz.Classes {
 				wochenTag <= zeitfenster.Ende.DayOfWeek;
 				wochenTag++ ) {
 
-				// wenn bereits ein Lexikon mit dem Wochentag besteht, geht es weiter
-				if( Plan.TryGetValue(wochenTag, out var zeitDictionary) ) {
+				// Setzt eine Referenz zu dem Lexikon passend zum Tag
+				var zeitDictionary = Plan[wochenTag];
 
-					// Es wird der Tag in 15min. abschnitten durchlaufen. 
-					// Beginnt bei dem StartZeitpunkt, falls es der StartTag ist oder bei 00h.
-					// Endet bei 24h, falls der EndTag nicht erreicht ist oder bei der EndZeit
-					for( TimeSpan
-						zeitStempel = ( ( wochenTag > zeitfenster.Start.DayOfWeek ) ? new TimeSpan(00, 00, 00) : zeitfenster.Start.TimeOfDay );
-						zeitStempel < ( ( wochenTag < zeitfenster.Ende.DayOfWeek ) ? new TimeSpan(24, 00, 00) : zeitfenster.Ende.TimeOfDay );
-						zeitStempel.Add(TimeSpan.FromMinutes(15)) ) {
+				// Es wird der Tag in 15min. abschnitten durchlaufen. 
+				// Beginnt bei dem StartZeitpunkt, falls es der StartTag ist oder bei 00h.
+				// Endet bei 24h, falls der EndTag nicht erreicht ist oder bei der EndZeit
+				for( TimeSpan
+					zeitStempel = ( ( wochenTag > zeitfenster.Start.DayOfWeek ) ? new TimeSpan(00, 00, 00) : zeitfenster.Start.TimeOfDay );
+					zeitStempel < ( ( wochenTag < zeitfenster.Ende.DayOfWeek ) ? new TimeSpan(24, 00, 00) : zeitfenster.Ende.TimeOfDay );
+					zeitStempel.Add(TimeSpan.FromMinutes(15)) ) {
 
-						// wenn Das Zeitlexikon bereits den Zeitstempel enthält
-						// und wenn nicht überschrieben werden soll, dann wird falsch zurückgegeben
-						if( zeitDictionary.ContainsKey(zeitStempel)
-							&& doOverride == false ) {
-							return false;
-						}
-						// Wenn überschrieben werden darf, 
-						// oder wenn das lexikon den ZeitStempel noch nicht enhält
-						// wird der ZeitStempel in der Cache-Liste gespeichert
-						cacheListe.Add((wochenTag, zeitStempel));
+					// wenn Das Zeitlexikon bereits den Zeitstempel enthält
+					// und wenn nicht überschrieben werden soll, dann wird falsch zurückgegeben
+					if( zeitDictionary.ContainsKey(zeitStempel)
+						&& doOverride == false ) {
+						return false;
 					}
-				}
-				// wenn noch kein Lexikon zu dem Wochentag existiert, wird eines erstellt.
-				else {
-					Plan.Add(wochenTag, new Dictionary<TimeSpan, Guid>());
-
-					// Es werden alle Zeitstempel an dem verlangten Tag in der Cache-Liste gespeichert
-					for( TimeSpan
-						zeitStempelNeu = ( ( wochenTag > zeitfenster.Start.DayOfWeek ) ? new TimeSpan(00, 00, 00) : zeitfenster.Start.TimeOfDay );
-						zeitStempelNeu < ( ( wochenTag < zeitfenster.Ende.DayOfWeek ) ? new TimeSpan(24, 00, 00) : zeitfenster.Ende.TimeOfDay );
-						zeitStempelNeu.Add(TimeSpan.FromMinutes(15)) ) {
-
-						cacheListe.Add((wochenTag, zeitStempelNeu));
-					}
+					// Wenn überschrieben werden darf, 
+					// oder wenn das lexikon den ZeitStempel noch nicht enhält
+					// wird der ZeitStempel in der Cache-Liste gespeichert
+					cacheListe.Add((wochenTag, zeitStempel));
 				}
 			}
 
@@ -125,6 +112,23 @@ namespace Effizienz.Classes {
 			}
 
 			return ZeitSpannen;
+		}
+
+		#endregion
+
+		#region helperMethods
+
+		private static void CreateEntries() {
+			CreateEntry(DayOfWeek.Monday);
+			CreateEntry(DayOfWeek.Tuesday);
+			CreateEntry(DayOfWeek.Wednesday);
+			CreateEntry(DayOfWeek.Thursday);
+			CreateEntry(DayOfWeek.Friday);
+			CreateEntry(DayOfWeek.Saturday);
+			CreateEntry(DayOfWeek.Sunday);
+		}
+		private static void CreateEntry( DayOfWeek wochenTag ) {
+			Plan.Add(wochenTag, new Dictionary<TimeSpan, Guid>());
 		}
 
 		#endregion

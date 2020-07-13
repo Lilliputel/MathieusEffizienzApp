@@ -57,7 +57,8 @@
 	</UserControl.Resources>
 	
 	<!-- Backgroundcolor -->	
-	<Border Background="{DynamicResource Back_1}">
+	<Border Background="{DynamicResource Back_1}"
+			Style="{StaticResource BorderRounded}">
 		
 	<!-- TabControl mit den Kategorien als Tab -->
 		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}">
