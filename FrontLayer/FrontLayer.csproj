@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>FrontLayer</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <StartupObject>FrontLayer.App</StartupObject>
+    <AssemblyName>FrontLayer</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="UserControls\ThemeBlock.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\ThemeDisplay.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="UserControls\ThemeBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ThemeDisplay.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\Ribbon.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewsMain\OptionenView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewsMain\PlanungView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewsMain\ProjektÜbersichtView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="FrontLayer.UserControls.Ribbon"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
+			 xmlns:UserControls="clr-namespace:FrontLayer.UserControls"
+
+			 Width="Auto"
+			 Height="60">
+	
+	<StackPanel Orientation="Horizontal">
+
+		<Button x:Name="Button_Neu_Kategorie"
+				Command="{Binding CommandUpdateView}" CommandParameter="Kategorie">
+			<Button.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconKategorie}"/>
+			</Button.Content>
+		</Button>
+		<Button x:Name="Button_Neu_Projekt"
+				Command="{Binding CommandUpdateView}" CommandParameter="Projekt">
+			<Button.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconProjekt1}"/>
+			</Button.Content>
+		</Button>
+		<Button x:Name="Button_Neu_Aufgabe"
+				Command="{Binding CommandUpdateView}" CommandParameter="Aufgabe">
+			<Button.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconAufgabe2}"/>
+			</Button.Content>
+		</Button>
+		<Button x:Name="Button_CreateObjects"
+				Command="{Binding CommandCreateObjects}">
+			<Button.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" 
+										 Style="{StaticResource IconAufgabe1}"/>
+			</Button.Content>
+		</Button>
+
+	</StackPanel>
+</UserControl>

@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="FrontLayer.UserControls.NavBar"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:UserControls="clr-namespace:FrontLayer.UserControls"
+
+			 Width="60"
+			 Height="Auto">
+	<StackPanel>
+
+		<ToggleButton x:Name="Button_Dashboard"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Dashboard">
+			<ToggleButton.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconDashboard}"/>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Planung"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Planung">
+			<ToggleButton.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconKalender}"/>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Projekte"
+					  Command="{Binding CommandUpdateView}" CommandParameter="ProjektÜbersicht">
+			<ToggleButton.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconProjekte}"/>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Gantt"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Gantt">
+			<ToggleButton.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconGantt}"/>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Statistik"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Statistik">
+			<ToggleButton.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconStatistik}"/>
+			</ToggleButton.Content>
+		</ToggleButton>
+		<ToggleButton x:Name="Button_Optionen"
+					  Command="{Binding CommandUpdateView}" CommandParameter="Optionen">
+			<ToggleButton.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconOptionen}"/>
+			</ToggleButton.Content>
+		</ToggleButton>
+		
+	</StackPanel>
+</UserControl>
