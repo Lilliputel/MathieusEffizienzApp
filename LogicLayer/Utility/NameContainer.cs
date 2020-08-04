@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using LogicLayer.ViewModels;
+using LogicLayer.Views;
+using System.Collections.Generic;
 using System.Linq;
-using FrontLayer.Views;
 
 
-namespace FrontLayer.Utility {
+namespace LogicLayer.Utility {
 
 	public enum EnumViewModels {
 

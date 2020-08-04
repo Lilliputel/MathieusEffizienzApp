@@ -1,9 +1,10 @@
-﻿using ModelLayer.Classes;
+﻿using LogicLayer.Manager;
+using LogicLayer.ViewModels;
+using ModelLayer.Classes;
 using System.Collections.ObjectModel;
-using System.Windows;
 
 
-namespace FrontLayer.Views {
+namespace LogicLayer.Views {
 
 	public class DashboardViewModel : ViewModelBase {
 
@@ -14,7 +15,7 @@ namespace FrontLayer.Views {
 		#region properties
 
 		public ObservableCollection<Kategorie> Kategorien
-			=> ( Application.Current as App ).KategorienListe;
+			=> ObjectManager.KategorienListe;
 
 		#endregion
 

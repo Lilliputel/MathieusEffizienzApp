@@ -1,5 +1,5 @@
-﻿using FrontLayer.Utility;
-using ModelLayer.Utility;
+﻿using LogicLayer.Manager;
+using LogicLayer.Utility;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,8 +29,8 @@ namespace FrontLayer.Views {
 		private void Button_ZeitStart_Click( object sender, RoutedEventArgs e ) {
 			this.Button_ZeitStopReset.Content = "Stoppen!";
 
-			if( TimeSpan.TryParse(TextBox_ZeitArbeit.Text, App.zeitformat, out this.zeitInput_Arbeit) &&
-			TimeSpan.TryParse(TextBox_ZeitPause.Text, App.zeitformat, out this.zeitInput_Pause) ) {
+			if( TimeSpan.TryParse(TextBox_ZeitArbeit.Text, CultureManager.zeitFormat, out this.zeitInput_Arbeit) &&
+			TimeSpan.TryParse(TextBox_ZeitPause.Text, CultureManager.zeitFormat, out this.zeitInput_Pause) ) {
 				if( zähler == null ) {
 					Zähler_Inizialisieren();
 				}
@@ -111,12 +111,12 @@ namespace FrontLayer.Views {
 			}
 		}
 		private void Zeit_Aktualisieren() {
-			TextBlock_ZeitAktuell.Text = zeit.ToString(@"hh\:mm\:ss", App.zeitformat);
+			TextBlock_ZeitAktuell.Text = zeit.ToString(@"hh\:mm\:ss", CultureManager.zeitFormat);
 		}
 		private void Zeit_Speichern() {
-			TimeSpan gesamteZeit = TimeSpan.ParseExact((string)TextBlock_ZeitGesamt.Text, @"hh\:mm\:ss", App.zeitformat);
+			TimeSpan gesamteZeit = TimeSpan.ParseExact((string)TextBlock_ZeitGesamt.Text, @"hh\:mm\:ss", CultureManager.zeitFormat);
 			TimeSpan arbeitsZeit = zeitInput_Arbeit.Subtract(zeit);
-			TextBlock_ZeitGesamt.Text = ( gesamteZeit.Add(arbeitsZeit) ).ToString(@"hh\:mm\:ss", App.zeitformat);
+			TextBlock_ZeitGesamt.Text = ( gesamteZeit.Add(arbeitsZeit) ).ToString(@"hh\:mm\:ss", CultureManager.zeitFormat);
 		}
 
 		private void Alarm_Auslösen() {

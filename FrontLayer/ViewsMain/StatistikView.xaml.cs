@@ -1,5 +1,5 @@
-﻿using System.Windows.Controls;
-using FrontLayer.Utility;
+﻿using LogicLayer.Utility;
+using System.Windows.Controls;
 
 namespace FrontLayer.Views {
 

@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="FrontLayer.Views.PomodoroView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<StackPanel>
+		<!-- ViewTitel -->
+		<TextBlock Text="Zeiterfassung!" Style="{StaticResource Title}"/>
+		
+		<!-- Zeit -->
+		<TextBlock x:Name="TextBlock_ZeitAktuell"
+				   Height="30" FontSize="20"
+				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition/>
+				<RowDefinition/>
+			</Grid.RowDefinitions>
+
+			<Button Grid.Row="0" Grid.Column="0"
+					x:Name="Button_ZeitStart"
+					Click="Button_ZeitStart_Click"
+					Content="Starten!"/>
+			<Button Grid.Row="0" Grid.Column="1"
+					x:Name="Button_ZeitStopReset"
+					Click="Button_ZeitStopReset_Click"
+					Content="Stoppen!"/>
+
+			<TextBlock Grid.Row="1" Grid.Column="0"
+					   Text="Arbeitszeit: " Margin="0,5"/>
+			<TextBlock Grid.Row="1" Grid.Column="1"
+					   Text="Pausenzeit: " Margin="0,5"/>
+
+			<TextBox Grid.Row="2" Grid.Column="0"
+					 x:Name="TextBox_ZeitArbeit"
+					 Text="00:45:00"/>
+			<TextBox Grid.Row="2" Grid.Column="1"
+					 x:Name="TextBox_ZeitPause"
+					 Text="00:10:00"/>
+			
+
+		</Grid>
+		<Button x:Name="Button_ArbeitPause"
+				Click="Button_ArbeitPause_Click"
+				Content="Pause!" Margin="0,5"/>
+		
+		<Button x:Name="Button_Speichern"
+				Click="Button_Speichern_Click"
+				Content="Speichern!" Margin="0,5"/>
+
+		<TextBlock Text="Gesamte Arbeitszeit: "
+				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<TextBlock x:Name="TextBlock_ZeitGesamt"
+				   Text="00:00:00"
+				   Height="30" FontSize="20"
+				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		
+
+	</StackPanel>
+</UserControl>

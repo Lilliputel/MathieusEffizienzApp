@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using LogicLayer.Utility;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -32,7 +33,7 @@ namespace ModelLayer.Utility {
 		#region speichern
 
 		public static void Speichern<T>( ObservableCollection<T> _speicherListe ) {
-			Speichern<T>(_speicherListe, DateiName);
+			Speichern<T>(_speicherListe, DateiName, SpeicherPfad);
 		}
 		public static void Speichern<T>( ObservableCollection<T> _speicherListe, string _DateiName ) {
 			Speichern<T>(_speicherListe, _DateiName, SpeicherPfad);
@@ -54,13 +55,13 @@ namespace ModelLayer.Utility {
 
 		#region laden
 
-		public static void Laden<T>( out ObservableCollection<T> _ladeListe ) {
-			Laden<T>(out _ladeListe, DateiName);
+		public static void Laden<T>( ObservableCollection<T> _ladeListe ) {
+			Laden<T>(_ladeListe, DateiName, SpeicherPfad);
 		}
-		public static void Laden<T>( out ObservableCollection<T> _ladeListe, string _DateiName ) {
-			Laden<T>(out _ladeListe, _DateiName, SpeicherPfad);
+		public static void Laden<T>( ObservableCollection<T> _ladeListe, string _DateiName ) {
+			Laden<T>(_ladeListe, _DateiName, SpeicherPfad);
 		}
-		public static void Laden<T>( out ObservableCollection<T> _ladeListe, string _DateiName, string _DateiPfad ) {
+		public static void Laden<T>( ObservableCollection<T> _ladeListe, string _DateiName, string _DateiPfad ) {
 			DateiNameSetzen(_DateiName);
 			try {
 				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
@@ -70,9 +71,7 @@ namespace ModelLayer.Utility {
 			}
 			catch( FileNotFoundException ) {
 				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
-				_ladeListe = new ObservableCollection<T>();
 			}
-
 		}
 
 		#endregion

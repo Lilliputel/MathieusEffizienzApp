@@ -1,14 +1,15 @@
-﻿using ModelLayer.Classes;
+﻿using LogicLayer.Manager;
+using LogicLayer.ViewModels;
+using ModelLayer.Classes;
 using System.Collections.ObjectModel;
-using System.Windows;
 
-namespace FrontLayer.Views {
-	public class ProjektÜbersichtViewModel : ViewModelBase {
+namespace LogicLayer.Views {
+	public class GanttViewModel : ViewModelBase {
 
 		#region properties
 
 		public ObservableCollection<Kategorie> Kategorien
-			=> ( Application.Current as App ).KategorienListe;
+			=> ObjectManager.KategorienListe;
 
 		#endregion
 
@@ -19,5 +20,6 @@ namespace FrontLayer.Views {
 		#region methods
 
 		#endregion
+
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ModelLayer.Utility {
+namespace LogicLayer.Utility {
 	public static class MessageBoxDisplayer {
 
 		#region static methods
@@ -57,7 +57,6 @@ namespace ModelLayer.Utility {
 		}
 
 		#endregion
-
 
 	}
 }

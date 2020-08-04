@@ -1,4 +1,4 @@
-﻿using FrontLayer.Views;
+﻿using LogicLayer.ViewModels;
 using System.Windows;
 
 namespace FrontLayer.Windows {

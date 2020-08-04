@@ -1,7 +1,8 @@
-﻿using ModelLayer.Classes;
+﻿using LogicLayer.ViewModels;
+using ModelLayer.Classes;
 using System.Data;
 
-namespace FrontLayer.Views {
+namespace LogicLayer.Views {
 	public class PlanungViewModel : ViewModelBase {
 
 		#region properties

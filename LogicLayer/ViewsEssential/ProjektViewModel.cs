@@ -1,13 +1,14 @@
-﻿using FrontLayer.Commands;
+﻿using LogicLayer.Commands;
+using LogicLayer.Manager;
+using LogicLayer.Utility;
+using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 
-namespace FrontLayer.Views {
+namespace LogicLayer.Views {
 	public class ProjektViewModel : ViewModelBase {
 
 		#region fields
@@ -22,7 +23,8 @@ namespace FrontLayer.Views {
 
 		#region properties
 
-		public ObservableCollection<Kategorie> KategorienListe { get; set; }
+		public ObservableCollection<Kategorie> Kategorien
+			=> ObjectManager.KategorienListe;
 
 		public Kategorie SelectedKategorie {
 			get {
@@ -60,7 +62,7 @@ namespace FrontLayer.Views {
 
 		public ICommand CommandSaveProjekt => commandSaveProjekt ??
 			( commandSaveProjekt = new CommandRelay(parameter => {
-				( from kat in ( Application.Current as App ).KategorienListe
+				( from kat in ObjectManager.KategorienListe
 				  where kat == SelectedKategorie
 				  select kat ).First().Projekte.Add(
 					new Projekt(
@@ -77,9 +79,6 @@ namespace FrontLayer.Views {
 
 		#region constructor
 
-		public ProjektViewModel() {
-			KategorienListe = ( Application.Current as App ).KategorienListe;
-		}
 		#endregion
 	}
 }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Windows;
+﻿using LogicLayer.Commands;
+using LogicLayer.Manager;
+using LogicLayer.Utility;
+using System;
 using System.Windows.Input;
-using FrontLayer.Commands;
-using FrontLayer.Utility;
 
-namespace FrontLayer.Views {
+namespace LogicLayer.ViewModels {
 	public class ViewModelMain : ViewModelBase {
 
 		#region fields
@@ -51,7 +51,7 @@ namespace FrontLayer.Views {
 
 		public ICommand CommandCreateObjects => _commandCreateObjects ??
 			( _commandCreateObjects = new CommandRelay(parameter => {
-				( Application.Current as App ).GenerateObjects();
+				ObjectManager.GenerateObjects();
 			}) );
 
 		#endregion

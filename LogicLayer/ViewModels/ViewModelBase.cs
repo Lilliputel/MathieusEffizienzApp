@@ -1,6 +1,6 @@
 ﻿using ModelLayer.Utility;
 
-namespace FrontLayer.Views {
+namespace LogicLayer.ViewModels {
 	public class ViewModelBase : ObservableObject {
 
 	}

@@ -1,14 +1,15 @@
-﻿using FrontLayer.Commands;
+﻿using LogicLayer.Commands;
+using LogicLayer.Manager;
+using LogicLayer.Utility;
+using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Utility;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace FrontLayer.Views {
+namespace LogicLayer.Views {
 	public class KategorieViewModel : ViewModelBase {
 
 		#region fields
@@ -29,7 +30,7 @@ namespace FrontLayer.Views {
 
 		public ICommand CommandSaveKategorie => commandSaveKategorie ??
 			( commandSaveKategorie = new CommandRelay(parameter => {
-				( Application.Current as App ).KategorienListe.Add(
+				ObjectManager.KategorienListe.Add(
 					new Kategorie(
 						Titel,
 						(Color)SelectedColor.GetValue(null, null)));
