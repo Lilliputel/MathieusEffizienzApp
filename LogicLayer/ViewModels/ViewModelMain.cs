@@ -39,8 +39,8 @@ namespace LogicLayer.ViewModels {
 
 		public ICommand CommandUpdateView => _commandUpdateView ??
 			( _commandUpdateView = new CommandRelay(parameter => {
-				if( parameter is string ) {
-					EnumViewModels name = Enum.Parse<EnumViewModels>(parameter as string);
+				if( parameter is string pString ) {
+					EnumViewModels name = Enum.Parse<EnumViewModels>(pString);
 					ViewModelBase viewModel = NameContainer.GetViewModel(name, out bool isMain);
 					if( isMain )
 						this.SelectedVMMain = viewModel;

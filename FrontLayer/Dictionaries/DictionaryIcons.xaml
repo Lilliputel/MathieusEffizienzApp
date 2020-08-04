@@ -2,21 +2,11 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:UserControls="clr-namespace:FrontLayer.UserControls">
 
-	
-	<!--#region MaterialDesign Icons Base -->
-	<Style x:Key="MaterialDesignIcon" TargetType="UserControls:VectorIcon">
-		<Style.Setters>
-			<Setter Property="PathHeight" Value="24"/>
-			<Setter Property="PathWidth" Value="24"/>
-		</Style.Setters>
-	</Style>
-	<!--#endregion-->
 
 	<!--#region Common Icons -->
-	
+
 	<Style x:Key="IconOptionen"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -28,10 +18,9 @@
 	<!--#endregion-->
 	
 	<!--#region	NavBar Icons -->
-	
+
 	<Style x:Key="IconDashboard"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -42,8 +31,7 @@
 	</Style>
 
 	<Style x:Key="IconKalender"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -52,10 +40,9 @@
 			</Setter>
 		</Style.Setters>
 	</Style>
-	
+
 	<Style x:Key="IconProjekte"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -64,10 +51,9 @@
 			</Setter>
 		</Style.Setters>
 	</Style>
-	
+
 	<Style x:Key="IconGantt"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -75,11 +61,10 @@
 				</Setter.Value>
 			</Setter>
 		</Style.Setters>
-	</Style>	
-	
+	</Style>
+
 	<Style x:Key="IconStatistik"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -94,8 +79,7 @@
 	<!--#region MenuBar Icons -->
 
 	<Style x:Key="IconKategorie"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -106,8 +90,7 @@
 	</Style>
 
 	<Style x:Key="IconProjekt1"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -117,8 +100,7 @@
 		</Style.Setters>
 	</Style>
 	<Style x:Key="IconProjekt2"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -129,8 +111,7 @@
 	</Style>
 
 	<Style x:Key="IconAufgabe1"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -140,8 +121,7 @@
 		</Style.Setters>
 	</Style>
 	<Style x:Key="IconAufgabe2"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -151,8 +131,7 @@
 		</Style.Setters>
 	</Style>
 	<Style x:Key="IconAufgabe3"
-		   TargetType="UserControls:VectorIcon"
-		   BasedOn="{StaticResource MaterialDesignIcon}">
+		   TargetType="UserControls:VectorIcon">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>

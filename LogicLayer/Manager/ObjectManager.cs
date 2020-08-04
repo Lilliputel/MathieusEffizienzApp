@@ -1,6 +1,5 @@
 ﻿using ModelLayer.Classes;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 
@@ -14,18 +13,13 @@ namespace LogicLayer.Manager {
 		/// </summary>
 		public static ObservableCollection<Kategorie> KategorienListe { get; set; }
 
-		/// <summary>
-		/// Das Globale Dictionary, in welchem alle Zeiten mit der zugehörigen Kategorie erfasst sind.
-		/// </summary>
-		public static Dictionary<DateTime, Guid> Stundenplan { get; set; }
-
 		#endregion
 
 		#region constructor
 		static ObjectManager() {
-			// Initialize KategorienListe and Stundenplan
+
 			KategorienListe = new ObservableCollection<Kategorie>();
-			Stundenplan = new Dictionary<DateTime, Guid>();
+
 		}
 
 		#endregion

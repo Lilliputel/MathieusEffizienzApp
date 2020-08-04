@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 
 namespace ModelLayer.Classes {
-	public static class Stundenplan {
+	public class Stundenplan {
 
 		#region properties
 
-		public static Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan { get; set; }
+		public Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan { get; set; }
 
 		#endregion
 
 		#region initializer
 
-		static Stundenplan() {
+		public Stundenplan() {
 			Plan = new Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>>();
 			CreateEntries();
 		}
@@ -27,7 +27,7 @@ namespace ModelLayer.Classes {
 		/// <param name="zeitfenster">Zeitfenster definiert StartZeit und endZeit (Automatisch auf 15min. gerundet)</param>
 		/// <param name="id">Die ID, die als wert in das Lexikon eingetragen werden muss</param>
 		/// <param name="doOverride">Ob bestehende einträge überschrieben werden sollen oder nicht, falls nein kann false zurückgegeben werden</param>
-		public static bool TryPlan( ZeitSpanne zeitfenster, Guid id, bool doOverride = false ) {
+		public bool TryPlan( ZeitSpanne zeitfenster, Guid id, bool doOverride = false ) {
 
 			List<(DayOfWeek wochenTag, TimeSpan zeitStempel)> cacheListe = new List<(DayOfWeek wochenTag, TimeSpan zeitStempel)>();
 
@@ -86,7 +86,7 @@ namespace ModelLayer.Classes {
 		/// Eine Methode, die eine Liste von WochenTagen und Zeitpunkten (TimeSpan) zurückgiebt
 		/// </summary>
 		/// <param name="id">ID, zu welcher die Passenden TimeSpans gefunden werden sollen</param>
-		public static List<(DayOfWeek wochentag, List<TimeSpan> zeitSpannen)> GetZeitSpannen( Guid id ) {
+		public List<(DayOfWeek wochentag, List<TimeSpan> zeitSpannen)> GetZeitSpannen( Guid id ) {
 
 			// erstellt eine Transferliste, welche zurückgegeben wird.
 			var ZeitSpannen = new List<(DayOfWeek, List<TimeSpan>)>();
@@ -118,7 +118,7 @@ namespace ModelLayer.Classes {
 
 		#region helperMethods
 
-		private static void CreateEntries() {
+		private void CreateEntries() {
 			CreateEntry(DayOfWeek.Monday);
 			CreateEntry(DayOfWeek.Tuesday);
 			CreateEntry(DayOfWeek.Wednesday);
@@ -127,7 +127,7 @@ namespace ModelLayer.Classes {
 			CreateEntry(DayOfWeek.Saturday);
 			CreateEntry(DayOfWeek.Sunday);
 		}
-		private static void CreateEntry( DayOfWeek wochenTag ) {
+		private void CreateEntry( DayOfWeek wochenTag ) {
 			Plan.Add(wochenTag, new Dictionary<TimeSpan, Guid>());
 		}
 

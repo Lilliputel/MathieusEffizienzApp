@@ -9,11 +9,14 @@ namespace LogicLayer.Views {
 
 		public DataTable DTStundenplan { get; set; }
 
+		public Stundenplan Stundenplan { get; set; }
+
 		#endregion
 
 		#region constructor
 
 		public PlanungViewModel() {
+			Stundenplan = new Stundenplan();
 			CreateDataTable();
 		}
 
