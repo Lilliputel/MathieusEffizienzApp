@@ -6,14 +6,11 @@
 
 	<!--#region ViewModels Essential  -->
 
-	<DataTemplate DataType="{x:Type ViewModels:KategorieViewModel}">
-		<Views:KategorieView/>
+	<DataTemplate DataType="{x:Type ViewModels:NewCategoryViewModel}">
+		<Views:NewCategoryView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:ProjektViewModel}">
-		<Views:ProjektView/>
-	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:AufgabeViewModel}">
-		<Views:AufgabeView/>
+	<DataTemplate DataType="{x:Type ViewModels:NewGoalViewModel}">
+		<Views:NewGoalView/>
 	</DataTemplate>
 	<DataTemplate DataType="{x:Type ViewModels:PomodoroViewModel}">
 		<Views:PomodoroView/>
@@ -26,20 +23,20 @@
 	<DataTemplate DataType="{x:Type ViewModels:DashboardViewModel}">
 		<Views:DashboardView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:GanttViewModel}">
-		<Views:GanttView/>
+	<DataTemplate DataType="{x:Type ViewModels:GanttDiagramViewModel}">
+		<Views:GanttDiagramView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:PlanungViewModel}">
-		<Views:PlanungView/>
+	<DataTemplate DataType="{x:Type ViewModels:PlanViewModel}">
+		<Views:PlanView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:ProjektÜbersichtViewModel}">
-		<Views:ProjektÜbersichtView/>
+	<DataTemplate DataType="{x:Type ViewModels:GoalOverviewViewModel}">
+		<Views:GoalOverviewView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:StatistikViewModel}">
-		<Views:StatistikView/>
+	<DataTemplate DataType="{x:Type ViewModels:StatisticsViewModel}">
+		<Views:StatisticsView/>
 	</DataTemplate>
-	<DataTemplate DataType="{x:Type ViewModels:OptionenViewModel}">
-		<Views:OptionenView/>
+	<DataTemplate DataType="{x:Type ViewModels:SettingsViewModel}">
+		<Views:SettingsView/>
 	</DataTemplate>
 	
 	<!--#endregion-->

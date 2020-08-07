@@ -9,16 +9,15 @@ namespace LogicLayer.Utility {
 	public enum EnumViewModels {
 
 		Dashboard,
-		Planung,
-		ProjektÜbersicht,
-		Gantt,
-		Statistik,
-		Optionen,
+		Plan,
+		GoalOverview,
+		GanttDiagram,
+		Statistics,
+		Settings,
 
 		Pomodoro,
-		Kategorie,
-		Projekt,
-		Aufgabe
+		NewCategory,
+		NewGoal
 
 	}
 
@@ -31,7 +30,7 @@ namespace LogicLayer.Utility {
 
 		#endregion
 
-		#region static constructor
+		#region initializer
 
 		static NameContainer() {
 
@@ -39,16 +38,15 @@ namespace LogicLayer.Utility {
 			dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();
 
 			dictionaryViewModelsMain.Add(EnumViewModels.Dashboard, new DashboardViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Planung, new PlanungViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.ProjektÜbersicht, new ProjektÜbersichtViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Gantt, new GanttViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Statistik, new StatistikViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Optionen, new OptionenViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Plan, new PlanViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.GoalOverview, new GoalOverviewViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.GanttDiagram, new GanttDiagramViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Statistics, new StatisticsViewModel());
+			dictionaryViewModelsMain.Add(EnumViewModels.Settings, new SettingsViewModel());
 
 			dictionaryViewModelsEssential.Add(EnumViewModels.Pomodoro, new PomodoroViewModel());
-			dictionaryViewModelsEssential.Add(EnumViewModels.Kategorie, new KategorieViewModel());
-			dictionaryViewModelsEssential.Add(EnumViewModels.Projekt, new ProjektViewModel());
-			dictionaryViewModelsEssential.Add(EnumViewModels.Aufgabe, new AufgabeViewModel());
+			dictionaryViewModelsEssential.Add(EnumViewModels.NewCategory, new NewCategoryViewModel());
+			dictionaryViewModelsEssential.Add(EnumViewModels.NewGoal, new NewGoalViewModel());
 
 		}
 

@@ -1,61 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>LogicLayer</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<OutputType>Library</OutputType>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>LogicLayer</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="ViewsEssential\AufgabeView.xaml" />
-    <None Remove="ViewsEssential\KategorieView.xaml" />
-    <None Remove="ViewsEssential\PomodoroView.xaml" />
-    <None Remove="ViewsEssential\ProjektView.xaml" />
-    <None Remove="ViewsMain\DashboardView.xaml" />
-    <None Remove="ViewsMain\GanttView.xaml" />
-    <None Remove="ViewsMain\OptionenView.xaml" />
-    <None Remove="ViewsMain\PlanungView.xaml" />
-    <None Remove="ViewsMain\ProjektÜbersichtView.xaml" />
-    <None Remove="ViewsMain\StatistikView.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Include="ViewsEssential\AufgabeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsEssential\KategorieView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsEssential\PomodoroView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsEssential\ProjektView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsMain\DashboardView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsMain\GanttView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsMain\OptionenView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsMain\PlanungView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsMain\ProjektÜbersichtView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ViewsMain\StatistikView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
+	</ItemGroup>
 
 </Project>

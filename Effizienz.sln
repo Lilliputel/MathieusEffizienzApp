@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontLayer", "FrontLayer\FrontLayer.csproj", "{9540DF27-B1EF-475A-8060-559F12A22AA2}"
 	ProjectSection(ProjectDependencies) = postProject
+		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1} = {DCB30605-CAE0-43E5-A6CB-C742A2C773B1}
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1} = {70865C11-C8A8-4325-A1E9-231187D9E4A1}
 	EndProjectSection
 EndProject

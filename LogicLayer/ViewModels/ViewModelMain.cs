@@ -38,7 +38,7 @@ namespace LogicLayer.ViewModels {
 		}
 
 		public ICommand CommandUpdateView => _commandUpdateView ??
-			( _commandUpdateView = new CommandRelay(parameter => {
+			( _commandUpdateView = new RelayCommand(parameter => {
 				if( parameter is string pString ) {
 					EnumViewModels name = Enum.Parse<EnumViewModels>(pString);
 					ViewModelBase viewModel = NameContainer.GetViewModel(name, out bool isMain);
@@ -50,7 +50,7 @@ namespace LogicLayer.ViewModels {
 			}) );
 
 		public ICommand CommandCreateObjects => _commandCreateObjects ??
-			( _commandCreateObjects = new CommandRelay(parameter => {
+			( _commandCreateObjects = new RelayCommand(parameter => {
 				ObjectManager.GenerateObjects();
 			}) );
 

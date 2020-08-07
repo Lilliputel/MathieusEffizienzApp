@@ -3,10 +3,8 @@ using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using System.Collections.ObjectModel;
 
-
 namespace LogicLayer.Views {
-
-	public class DashboardViewModel : ViewModelBase {
+	public class GoalOverviewViewModel : ViewModelBase {
 
 		#region fields
 
@@ -19,7 +17,7 @@ namespace LogicLayer.Views {
 
 		#endregion
 
-		#region constructor
+		#region constructors
 
 		#endregion
 

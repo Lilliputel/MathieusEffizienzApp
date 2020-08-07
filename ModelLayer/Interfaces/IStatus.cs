@@ -1,4 +1,4 @@
-﻿using ModelLayer.ValueTypes;
+﻿using ModelLayer.Enums;
 
 namespace ModelLayer.Interfaces {
 	public interface IStatus {

@@ -26,6 +26,7 @@ namespace LogicLayer.Manager {
 
 		#region methods
 
+#warning Theme-Problem
 		//public static void SwitchTheme() {
 		//	DarkMode = !DarkMode;
 		//	SetDarkMode(DarkMode);
@@ -42,8 +43,8 @@ namespace LogicLayer.Manager {
 		//}
 
 		//public static void Speichern() {
-		//	XMLHandler.Speichern(ObjectManager.KategorienListe, nameof(ObjectManager.KategorienListe));
-		//	MessageBoxDisplayer.ListeGespeichert(nameof(ObjectManager.KategorienListe));
+		//	XMLHandler.Speichern(ObjectManager.Categories, nameof(ObjectManager.Categories));
+		//	MessageBoxDisplayer.ListeGespeichert(nameof(ObjectManager.Categories));
 		//}
 
 		#endregion

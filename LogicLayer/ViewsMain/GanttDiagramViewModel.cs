@@ -3,14 +3,8 @@ using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using System.Collections.ObjectModel;
 
-
 namespace LogicLayer.Views {
-
-	public class DashboardViewModel : ViewModelBase {
-
-		#region fields
-
-		#endregion
+	public class GanttDiagramViewModel : ViewModelBase {
 
 		#region properties
 
@@ -26,5 +20,6 @@ namespace LogicLayer.Views {
 		#region methods
 
 		#endregion
+
 	}
 }

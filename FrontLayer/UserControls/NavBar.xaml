@@ -14,31 +14,31 @@
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Planung"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Planung">
+					  Command="{Binding CommandUpdateView}" CommandParameter="Plan">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconKalender}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Projekte"
-					  Command="{Binding CommandUpdateView}" CommandParameter="ProjektÜbersicht">
+					  Command="{Binding CommandUpdateView}" CommandParameter="GoalOverview">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconProjekte}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Gantt"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Gantt">
+					  Command="{Binding CommandUpdateView}" CommandParameter="GanttDiagram">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconGantt}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Statistik"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Statistik">
+					  Command="{Binding CommandUpdateView}" CommandParameter="Statistics">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconStatistik}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Optionen"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Optionen">
+					  Command="{Binding CommandUpdateView}" CommandParameter="Settings">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconOptionen}"/>
 			</ToggleButton.Content>

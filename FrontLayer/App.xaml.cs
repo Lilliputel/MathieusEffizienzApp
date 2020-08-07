@@ -9,8 +9,8 @@ namespace FrontLayer {
 
 		public App() {
 
-			// Load the saved KategorienListe from The XML-File
-			XMLHandler.Laden(ObjectManager.KategorienListe, nameof(ObjectManager.KategorienListe));
+			// Load the saved Categories from The XML-File
+			XMLHandler.Laden(ObjectManager.CategoryList, nameof(ObjectManager.CategoryList));
 
 		}
 

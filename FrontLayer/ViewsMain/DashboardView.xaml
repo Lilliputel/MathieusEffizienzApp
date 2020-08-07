@@ -14,19 +14,19 @@
 			Style="{StaticResource BorderRounded}">
 
 		<!-- TabControl mit den Kategorien als Tab -->
-		<TabControl ItemsSource="{Binding Kategorien, UpdateSourceTrigger=PropertyChanged}"
+		<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
 				MinWidth="700">
 
 			<!--#region Template für Tab -->
 
 			<TabControl.ItemTemplate>
-				<DataTemplate>
+				<DataTemplate DataType="{x:Type classes:Category}">
 					<!-- Setzt ein Kreis und den Titel als TextBlock -->
 					<StackPanel Orientation="Horizontal" Background="Transparent">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Farbe, Converter={StaticResource ColorConverter}}" 
+						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding Titel}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+						<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
 					</StackPanel>
 				</DataTemplate>
 			</TabControl.ItemTemplate>
@@ -35,8 +35,8 @@
 			<TabControl.ContentTemplate>
 
 				<!-- Template für Kategorie -->
-				<DataTemplate DataType="{x:Type classes:Kategorie}">
-					<ItemsControl ItemsSource="{Binding Projekte, UpdateSourceTrigger=PropertyChanged}">
+				<DataTemplate DataType="{x:Type classes:Category}">
+					<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}">
 						
 						<!-- Setzt die Orientierung des ItemsControl auf Horizontal-->
 						<ItemsControl.ItemsPanel>
@@ -47,18 +47,18 @@
 						<ItemsControl.ItemTemplate>
 
 							<!-- Template für Projekt -->
-							<DataTemplate DataType="{x:Type classes:Projekt}">
+							<DataTemplate DataType="{x:Type classes:Goal}">
 								<!-- Rahmen pro Projekt -->
-								<GroupBox Header="{Binding Titel}"
+								<GroupBox Header="{Binding Title}"
 										  BorderBrush="Black"
 										  Margin="5,2">
 									<!-- itemsControl für Aufgaben -->
-									<ItemsControl ItemsSource="{Binding Aufgaben, UpdateSourceTrigger=PropertyChanged}"
+									<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}"
 												  Margin="5,2">
 										<ItemsControl.ItemTemplate>
 											<!-- Template für Aufgabe -->
-											<DataTemplate DataType="{x:Type classes:Aufgabe}">
-												<TextBlock Text="{Binding Titel}"/>
+											<DataTemplate DataType="{x:Type classes:Goal}">
+												<TextBlock Text="{Binding Title}"/>
 											</DataTemplate>
 										</ItemsControl.ItemTemplate>
 									</ItemsControl>

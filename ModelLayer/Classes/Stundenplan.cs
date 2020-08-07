@@ -1,12 +1,15 @@
-﻿using System;
+﻿using ModelLayer.Structs;
+using System;
 using System.Collections.Generic;
 
 namespace ModelLayer.Classes {
 	public class Stundenplan {
 
+#warning ich muss dieses Konzept überarbeiten, es sollte ein Binding Direkt Möglich sein...
+
 		#region properties
 
-		public Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan { get; set; }
+		public Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan { get; private set; }
 
 		#endregion
 
@@ -27,7 +30,7 @@ namespace ModelLayer.Classes {
 		/// <param name="zeitfenster">Zeitfenster definiert StartZeit und endZeit (Automatisch auf 15min. gerundet)</param>
 		/// <param name="id">Die ID, die als wert in das Lexikon eingetragen werden muss</param>
 		/// <param name="doOverride">Ob bestehende einträge überschrieben werden sollen oder nicht, falls nein kann false zurückgegeben werden</param>
-		public bool TryPlan( ZeitSpanne zeitfenster, Guid id, bool doOverride = false ) {
+		public bool TryPlan( DateSpan zeitfenster, Guid id, bool doOverride = false ) {
 
 			List<(DayOfWeek wochenTag, TimeSpan zeitStempel)> cacheListe = new List<(DayOfWeek wochenTag, TimeSpan zeitStempel)>();
 
@@ -128,6 +131,13 @@ namespace ModelLayer.Classes {
 			CreateEntry(DayOfWeek.Sunday);
 		}
 		private void CreateEntry( DayOfWeek wochenTag ) {
+
+			for( int i = 0; i <= 24; i++ ) {
+				for( int j = 0; j <= 60; j += 15 ) {
+
+				}
+
+			}
 			Plan.Add(wochenTag, new Dictionary<TimeSpan, Guid>());
 		}
 

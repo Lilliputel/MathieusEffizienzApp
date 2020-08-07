@@ -1,21 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Page Update="Views\Main\ViewProjektÜbersicht.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\Main\ViewPlanung.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\Main\ViewOptionen.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>  
-  
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<OutputType>Library</OutputType>
+		<UseWPF>true</UseWPF>
+		<RootNamespace>ModelLayer</RootNamespace>
+	</PropertyGroup>
+	
 </Project>

@@ -9,16 +9,16 @@ namespace LogicLayer.Manager {
 		#region properties
 
 		/// <summary>
-		/// Die Globale KategorienListe, welche gespeichert wird und alle Kategorien enthalten Sollte.
+		/// Die Globale Categories, welche gespeichert wird und alle Categories enthalten Sollte.
 		/// </summary>
-		public static ObservableCollection<Kategorie> KategorienListe { get; set; }
+		public static ObservableCollection<Category> CategoryList { get; set; }
 
 		#endregion
 
 		#region constructor
 		static ObjectManager() {
 
-			KategorienListe = new ObservableCollection<Kategorie>();
+			CategoryList = new ObservableCollection<Category>();
 
 		}
 
@@ -27,17 +27,23 @@ namespace LogicLayer.Manager {
 		#region methods
 
 		public static void GenerateObjects() {
-			Kategorie CBKategorie = new Kategorie("CodeBehind-Kategorie", Colors.Magenta);
-			Projekt CBProjekt = new Projekt("CodeBehind-Projekt", CBKategorie.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(10)){
-				Zeit = new TimeSpan(1, 2, 3)
+			Category CBCategory1 = new Category("CodeBehind-NewCategory", Colors.Magenta);
+			Goal CBGoal1 = new Goal("CodeBehind-Projekt", CBCategory1.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
+				Time = new TimeSpan(1, 2, 3)
 			};
-			Aufgabe CBAufgabe = new Aufgabe("CodeBehind-Aufgabe", CBProjekt.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)){
-				Zeit = new TimeSpan(3, 12, 20)
+			Goal CBGoal1_1 = new Goal("CodeBehind-NewGoal", CBCategory1.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)){
+				Time = new TimeSpan(3, 12, 20)
+			};
+			Goal CBGoal2 = new Goal("CodeBehind-Projekt", CBCategory1.ID, DateTime.Today, DateTime.Today.AddDays(10)){
+				Time = new TimeSpan(10, 30, 0)
 			};
 
-			CBProjekt.Aufgaben.Add(CBAufgabe);
-			CBKategorie.Projekte.Add(CBProjekt);
-			KategorienListe.Add(CBKategorie);
+			CBGoal1.Children.Add(CBGoal1_1);
+
+			CBCategory1.Children.Add(CBGoal1);
+			CBCategory1.Children.Add(CBGoal2);
+
+			CategoryList.Add(CBCategory1);
 		}
 
 		#endregion

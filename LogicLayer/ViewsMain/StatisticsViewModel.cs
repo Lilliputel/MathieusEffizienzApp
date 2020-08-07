@@ -1,7 +1,8 @@
 ﻿using LogicLayer.ViewModels;
 
 namespace LogicLayer.Views {
-	public class PomodoroViewModel : ViewModelBase {
+	public class StatisticsViewModel : ViewModelBase {
+
 		#region fields
 
 		#endregion
@@ -17,5 +18,6 @@ namespace LogicLayer.Views {
 		#region methods
 
 		#endregion
+
 	}
 }
