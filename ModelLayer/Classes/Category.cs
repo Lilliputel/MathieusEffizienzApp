@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 
-	public class Category : ObservableObject, IIdentifyable, IParent<Goal>, IColorfull, IStatus {
+	public class Category : ObservableObject, IUnique, IParent<Goal>, IStatus {
 
 		#region fields
 
@@ -25,7 +25,7 @@ namespace ModelLayer.Classes {
 
 		#region Properties
 
-		// IIdentifyable
+		// IUnique
 		[XmlIgnore]
 		public Guid ID {
 			get;
@@ -105,9 +105,11 @@ namespace ModelLayer.Classes {
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 		}
 
-		public Category( string _Titel, Color _Farbe ) : this() {
+		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumStatus _Status = EnumStatus.ToDo ) : this() {
 			this.Title = _Titel;
+			this.Description = _Description;
 			this.Color = _Farbe;
+			this.Status = _Status;
 		}
 
 		~Category() { }
@@ -117,11 +119,33 @@ namespace ModelLayer.Classes {
 		#region Methods
 
 		protected virtual void CheckIfChildrenEmpty( object sender, NotifyCollectionChangedEventArgs e ) {
-			if( Children == new ObservableCollection<Goal>() ) {
+			if( Children.Count <= 0 ) {
 				this.IsParent = false;
 				return;
 			}
 			this.IsParent = true;
+		}
+
+		public Goal GetChild( Guid ID ) {
+			Goal placeholder;
+			foreach( Goal child in this.Children ) {
+				placeholder = child.GetChild(ID);
+				if( placeholder != null && ID == placeholder.ID ) {
+					return placeholder;
+				}
+			}
+			return null;
+		}
+		public void AddChild( Goal _Child ) {
+			_Child.ParentID = this.ID;
+			_Child.Color = this.Color;
+
+			this.Children.Add(_Child);
+		}
+		public void AddChildren( Collection<Goal> _Children ) {
+			foreach( Goal child in _Children ) {
+				AddChild(child);
+			}
 		}
 
 		#endregion

@@ -10,11 +10,11 @@ namespace ModelLayer.Structs {
 	public struct DateSpan {
 
 		#region properties
-		[XmlAttribute]
+		[XmlAttribute("Start")]
 		public DateTime Start { get; set; }
-		[XmlAttribute]
+		[XmlAttribute("Ende")]
 		public DateTime Ende { get; set; }
-		[XmlAttribute]
+		[XmlIgnore]
 		public TimeSpan TimeSpan { get; set; }
 
 

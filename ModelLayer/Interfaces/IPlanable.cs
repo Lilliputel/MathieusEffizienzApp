@@ -3,7 +3,7 @@
 namespace ModelLayer.Interfaces {
 	public interface IPlanable {
 
-		DateSpan Plan { get; set; }
+		public DateSpan Plan { get; set; }
 
 	}
 }

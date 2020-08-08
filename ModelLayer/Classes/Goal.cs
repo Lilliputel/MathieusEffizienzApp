@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 
-	public class Goal : ObservableObject, IIdentifyable, IChild, IParent<Goal>, IColorfull, IWorkable {
+	public class Goal : ObservableObject, IUnique, IParent<Goal>, IChild, IWorkable {
 
 		#region fields
 
@@ -32,7 +32,7 @@ namespace ModelLayer.Classes {
 
 		#region Properties
 
-		// IIdentifyable
+		// IUnique
 		[XmlIgnore]
 		public Guid ID { get; }
 		[XmlAttribute("Title")]
@@ -70,7 +70,6 @@ namespace ModelLayer.Classes {
 				IsChild = ParentID == null ? false : true;
 			}
 		}
-
 		[XmlIgnore]
 		public bool IsChild {
 			get {
@@ -150,23 +149,16 @@ namespace ModelLayer.Classes {
 		public Goal() {
 			this.ID = Guid.NewGuid();
 			this.Time = TimeSpan.Zero;
-			this.Status = EnumStatus.ToDo;
 
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 		}
 
-		public Goal( string _Title, Guid _ParentID, DateTime _StartDate, DateTime _EndDate )
+		public Goal( string _Title, DateTime _StartDate, DateTime _EndDate, EnumStatus _Status = EnumStatus.ToDo, string _Description = "New Goal!" )
 			: this() {
 			this.Title = _Title;
-			this.ParentID = _ParentID;
 			this.Plan = new DateSpan(_StartDate, _EndDate);
-		}
-
-		public Goal( string _Title, Guid _ParentID, DateTime _StartDate, DateTime _EndDate, TimeSpan _WorkTime, EnumStatus _Status, string _Description = "Das ist eine neue Goal!" )
-			: this(_Title, _ParentID, _StartDate, _EndDate) {
-			this.Time = _WorkTime;
 			this.Status = _Status;
 			this.Description = _Description;
 		}
@@ -178,11 +170,36 @@ namespace ModelLayer.Classes {
 		#region Methods
 
 		protected virtual void CheckIfChildrenEmpty( object sender, NotifyCollectionChangedEventArgs e ) {
-			if( Children == new ObservableCollection<Goal>() ) {
+			if( Children.Count <= 0 ) {
 				this.IsParent = false;
 				return;
 			}
 			this.IsParent = true;
+		}
+
+		public Goal GetChild( Guid ID ) {
+			if( ID == this.ID ) {
+				return this;
+			}
+			Goal placeholder;
+			foreach( Goal child in this.Children ) {
+				placeholder = child.GetChild(ID);
+				if( placeholder != null && ID == placeholder.ID ) {
+					return placeholder;
+				}
+			}
+			return null;
+		}
+		public void AddChild( Goal _Child ) {
+			_Child.ParentID = this.ID;
+			_Child.Color = this.Color;
+
+			this.Children.Add(_Child);
+		}
+		public void AddChildren( Collection<Goal> _Children ) {
+			foreach( Goal child in _Children ) {
+				AddChild(child);
+			}
 		}
 
 		#endregion

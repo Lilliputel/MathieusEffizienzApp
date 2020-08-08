@@ -3,7 +3,7 @@
 namespace ModelLayer.Interfaces {
 	public interface IStatus {
 
-		EnumStatus Status { get; set; }
+		public EnumStatus Status { get; set; }
 
 	}
 }

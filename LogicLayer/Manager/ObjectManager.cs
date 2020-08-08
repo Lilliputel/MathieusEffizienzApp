@@ -27,7 +27,7 @@ namespace LogicLayer.Manager {
 		#region methods
 
 		public static void GenerateObjects() {
-			Category CBCategory1 = new Category("CodeBehind-NewCategory", Colors.Magenta);
+			Category CBCategory1 = new Category("CodeBehind-NewCategory", Colors.DeepSkyBlue);
 			Goal CBGoal1 = new Goal("CodeBehind-Projekt", CBCategory1.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
 				Time = new TimeSpan(1, 2, 3)
 			};

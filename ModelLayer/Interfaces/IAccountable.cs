@@ -3,7 +3,7 @@
 namespace ModelLayer.Interfaces {
 	public interface IAccountable {
 
-		TimeSpan Time { get; set; }
+		public TimeSpan Time { get; set; }
 
 	}
 }

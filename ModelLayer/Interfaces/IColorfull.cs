@@ -3,6 +3,7 @@
 namespace ModelLayer.Interfaces {
 	public interface IColorfull {
 
-		Color Color { get; set; }
+		public Color Color { get; set; }
+
 	}
 }
