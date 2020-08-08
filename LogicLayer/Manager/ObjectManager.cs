@@ -28,20 +28,20 @@ namespace LogicLayer.Manager {
 
 		public static void GenerateObjects() {
 			Category CBCategory1 = new Category("CodeBehind-NewCategory", Colors.DeepSkyBlue);
-			Goal CBGoal1 = new Goal("CodeBehind-Projekt", CBCategory1.ID, DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
+			Goal CBGoal1 = new Goal("CodeBehind-NewGoal1", DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
 				Time = new TimeSpan(1, 2, 3)
 			};
-			Goal CBGoal1_1 = new Goal("CodeBehind-NewGoal", CBCategory1.ID, DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)){
+			Goal CBGoal1_1 = new Goal("CodeBehind-NewGoal1.1", DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)){
 				Time = new TimeSpan(3, 12, 20)
 			};
-			Goal CBGoal2 = new Goal("CodeBehind-Projekt", CBCategory1.ID, DateTime.Today, DateTime.Today.AddDays(10)){
+			Goal CBGoal2 = new Goal("CodeBehind-NewGoal2", DateTime.Today, DateTime.Today.AddDays(10)){
 				Time = new TimeSpan(10, 30, 0)
 			};
 
-			CBGoal1.Children.Add(CBGoal1_1);
+			CBGoal1.AddChild(CBGoal1_1);
 
-			CBCategory1.Children.Add(CBGoal1);
-			CBCategory1.Children.Add(CBGoal2);
+			CBCategory1.AddChild(CBGoal1);
+			CBCategory1.AddChild(CBGoal2);
 
 			CategoryList.Add(CBCategory1);
 		}

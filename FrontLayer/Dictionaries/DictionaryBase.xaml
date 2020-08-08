@@ -2,7 +2,9 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-					mc:Ignorable="d">
+					mc:Ignorable="d"
+					
+					xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer">
 
 	<ResourceDictionary.MergedDictionaries>
 		<d:ResourceDictionary Source="DictionaryDataTemplates.xaml"/>
@@ -315,8 +317,8 @@
 							CornerRadius="{StaticResource StandardRadius}"
 							Padding="8,2">
 						<ContentPresenter VerticalAlignment="Center"
-													  HorizontalAlignment="Center"
-													  ContentSource="Header"/>
+										  HorizontalAlignment="Center"
+										  ContentSource="Header"/>
 
 						<!--#region VisualStates -->
 						<VisualStateManager.VisualStateGroups>
@@ -345,7 +347,6 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
 
 	<!--#endregion-->
 

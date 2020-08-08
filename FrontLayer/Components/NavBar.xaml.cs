@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace FrontLayer.UserControls {
+namespace FrontLayer.Components {
 
 	public partial class NavBar : UserControl {
 		public NavBar() {

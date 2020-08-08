@@ -5,10 +5,10 @@
 	<UserControl.Resources>
 	</UserControl.Resources>
 
-	<!-- Background-Color -->
+	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
-
+		
 	</Border>
-	
+
 </UserControl>

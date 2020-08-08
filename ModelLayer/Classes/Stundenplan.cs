@@ -5,8 +5,6 @@ using System.Collections.Generic;
 namespace ModelLayer.Classes {
 	public class Stundenplan {
 
-#warning ich muss dieses Konzept überarbeiten, es sollte ein Binding Direkt Möglich sein...
-
 		#region properties
 
 		public Dictionary<DayOfWeek, Dictionary<TimeSpan, Guid>> Plan { get; private set; }
@@ -36,7 +34,7 @@ namespace ModelLayer.Classes {
 
 			// Es werden alle Tage durchlaufen, die im *zeitfenster* zwischen dem Start und Enddatum liegen.
 			for( DayOfWeek wochenTag = zeitfenster.Start.DayOfWeek;
-				wochenTag <= zeitfenster.Ende.DayOfWeek;
+				wochenTag <= zeitfenster.End.DayOfWeek;
 				wochenTag++ ) {
 
 				// Setzt eine Referenz zu dem Lexikon passend zum Tag
@@ -47,7 +45,7 @@ namespace ModelLayer.Classes {
 				// Endet bei 24h, falls der EndTag nicht erreicht ist oder bei der EndZeit
 				for( TimeSpan
 					zeitStempel = ( ( wochenTag > zeitfenster.Start.DayOfWeek ) ? new TimeSpan(00, 00, 00) : zeitfenster.Start.TimeOfDay );
-					zeitStempel < ( ( wochenTag < zeitfenster.Ende.DayOfWeek ) ? new TimeSpan(24, 00, 00) : zeitfenster.Ende.TimeOfDay );
+					zeitStempel < ( ( wochenTag < zeitfenster.End.DayOfWeek ) ? new TimeSpan(24, 00, 00) : zeitfenster.End.TimeOfDay );
 					zeitStempel.Add(TimeSpan.FromMinutes(15)) ) {
 
 					// wenn Das Zeitlexikon bereits den Zeitstempel enthält

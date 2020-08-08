@@ -12,8 +12,8 @@ namespace ModelLayer.Structs {
 		#region properties
 		[XmlAttribute("Start")]
 		public DateTime Start { get; set; }
-		[XmlAttribute("Ende")]
-		public DateTime Ende { get; set; }
+		[XmlAttribute("End")]
+		public DateTime End { get; set; }
 		[XmlIgnore]
 		public TimeSpan TimeSpan { get; set; }
 
@@ -24,26 +24,26 @@ namespace ModelLayer.Structs {
 		/// <summary>
 		/// Erzeugt ein DateSpan mit dem Standardformat ch-DE (01.01.00 / dd.MM.YY)
 		/// </summary>
-		public DateSpan( string start, string ende )
-			: this(start, ende, new CultureInfo("ch-DE")) { }
+		public DateSpan( string start, string end )
+			: this(start, end, new CultureInfo("ch-DE")) { }
 
-		public DateSpan( string start, string ende, IFormatProvider formatProvider )
-			: this(DateTime.ParseExact(start, @"dd.MM.yy", formatProvider), DateTime.ParseExact(ende, @"dd.MM.yy", formatProvider)) { }
+		public DateSpan( string start, string end, IFormatProvider formatProvider )
+			: this(DateTime.ParseExact(start, @"dd.MM.yy", formatProvider), DateTime.ParseExact(end, @"dd.MM.yy", formatProvider)) { }
 
-		public DateSpan( DateTime _start, DateTime _ende ) {
+		public DateSpan( DateTime _start, DateTime _end ) {
 			// reduziert die eingegebene Zeit auf Tag, Monat, Jahr
 			DateTime start = new DateTime(_start.Year, _start.Month, _start.Day);
-			DateTime ende = new DateTime(_ende.Year, _ende.Month, _ende.Day);
+			DateTime ende = new DateTime(_end.Year, _end.Month, _end.Day);
 
 			// setzt die Korrekte reihenfolge der beiden Daten
 			if( ende >= start ) {
 				this.Start = start;
-				this.Ende = ende;
+				this.End = ende;
 				this.TimeSpan = ende - start;
 			}
 			else {
 				this.Start = ende;
-				this.Ende = start;
+				this.End = start;
 				this.TimeSpan = start - ende;
 			}
 		}

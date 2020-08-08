@@ -5,9 +5,10 @@
 	<UserControl.Resources>
 	</UserControl.Resources>
 	
-	<!-- Background-Color -->
+	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"
-			Style="{StaticResource BorderRounded}">
+					Style="{StaticResource BorderRounded}">
+		
 		<StackPanel>
 			<ToggleButton x:Name="ToggleButton_Theme"
 						  Command="{Binding CommandChangeTheme}"

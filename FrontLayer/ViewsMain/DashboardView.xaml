@@ -9,16 +9,15 @@
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
-	<!-- Background-Color -->
+	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
 
 		<!-- TabControl mit den Kategorien als Tab -->
 		<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
-				MinWidth="700">
-
+					MinWidth="700">
+			
 			<!--#region Template für Tab -->
-
 			<TabControl.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<!-- Setzt ein Kreis und den Titel als TextBlock -->
@@ -31,13 +30,15 @@
 				</DataTemplate>
 			</TabControl.ItemTemplate>
 			<!--#endregion-->
-			
+
 			<TabControl.ContentTemplate>
 
 				<!-- Template für Kategorie -->
 				<DataTemplate DataType="{x:Type classes:Category}">
+
+					<!-- ItemControl -->
 					<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}">
-						
+
 						<!-- Setzt die Orientierung des ItemsControl auf Horizontal-->
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>

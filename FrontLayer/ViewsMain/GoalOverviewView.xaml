@@ -18,7 +18,7 @@
 				</Grid.ColumnDefinitions>
 
 				<!-- Template für das Untergeordnete Element (Aufgabe) -->
-				<TextBlock Text="{Binding Titel}" VerticalAlignment="Center" Grid.Column="0"/>
+				<TextBlock Text="{Binding Title}" VerticalAlignment="Center" Grid.Column="0"/>
 
 				<Grid VerticalAlignment="Center" Grid.Column="2">
 					<Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
 
 					<TextBlock Text="Fälllig am:" HorizontalAlignment="Left"
 								   Grid.Row="0" Grid.Column="0"/>
-					<TextBlock Text="{Binding Planung.Ende, StringFormat={}{0:dd.MM.yyyy}}" 
+					<TextBlock Text="{Binding Plan.End, StringFormat={}{0:dd.MM.yyyy}}" 
 								   FontWeight="Bold"
 								   HorizontalAlignment="Right"
 								   Grid.Row="0" Grid.Column="1"/>
@@ -45,8 +45,8 @@
 								   Grid.Row="1" Grid.Column="1">
 						<TextBlock.Text>
 							<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
-								<Binding Path="Zeit.Hours" />
-								<Binding Path="Zeit.Minutes" />
+								<Binding Path="Time.Hours" />
+								<Binding Path="Time.Minutes" />
 							</MultiBinding>
 						</TextBlock.Text>
 					</TextBlock>
@@ -55,16 +55,15 @@
 			</Grid>
 		</DataTemplate>
 	</UserControl.Resources>
-	
-	<!-- Backgroundcolor -->	
+
+	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
-		
-	<!-- TabControl mit den Kategorien als Tab -->
+
+		<!-- TabControl mit den Kategorien als Tab -->
 		<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
 
 			<!--#region Template für Tab -->
-
 			<TabControl.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<!-- Setzt ein Kreis und den Titel als TextBlock -->
@@ -77,14 +76,16 @@
 				</DataTemplate>
 			</TabControl.ItemTemplate>
 			<!--#endregion-->
-			
+
 			<TabControl.ContentTemplate>
+
+				<!-- Template für Kategorie -->
 				<DataTemplate DataType="{x:Type classes:Category}">
 
+					<!-- ItemControl als Expander -->
 					<TreeView ItemsSource="{Binding Path=Children}"
 							  HorizontalContentAlignment="Stretch"
 							  VerticalContentAlignment="Stretch">
-
 						<TreeView.ItemTemplate>
 							<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" 
 													  ItemsSource="{Binding Children}">
@@ -94,7 +95,7 @@
 
 								<HierarchicalDataTemplate.ItemTemplate>
 									<DataTemplate DataType="{x:Type classes:Goal}">
-										
+
 										<!-- Template für das untergeordnete Element (Aufgabe) -->
 										<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
 

@@ -5,7 +5,7 @@
 	<UserControl.Resources>
 	</UserControl.Resources>
 	
-	<!-- Backgrond-Color -->
+	<!-- Backgrond -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
 

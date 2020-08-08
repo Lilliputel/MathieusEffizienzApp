@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace FrontLayer.UserControls {
+namespace FrontLayer.Components {
 	public partial class VectorIcon : UserControl {
 
 		public VectorIcon() {

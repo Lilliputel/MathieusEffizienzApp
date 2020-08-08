@@ -3,12 +3,19 @@ using System.Windows;
 
 namespace LogicLayer.Manager {
 	public static class ThemeManager {
+
 		#region fields
 
 		private static string themeDirectory = "/FrontLayer;component/Themes/";
 		private static ResourceDictionary themeDark;
 		private static ResourceDictionary themeLight;
 		private static bool DarkMode;
+
+		#endregion
+
+		#region properties
+
+		public static ResourceDictionary SelectedTheme { get; set; }
 
 		#endregion
 
