@@ -9,6 +9,8 @@ namespace FrontLayer.Views {
 
 	public partial class PomodoroView : UserControl {
 
+		#region fields
+
 		private DispatcherTimer zähler;
 		private TimeSpan zeit;
 		private TimeSpan zeitInput_Arbeit;
@@ -17,6 +19,9 @@ namespace FrontLayer.Views {
 		private bool isPause = false;
 		private bool isStarted = false;
 
+		#endregion
+
+		#region constructor
 
 		public PomodoroView() {
 			InitializeComponent();
@@ -25,6 +30,9 @@ namespace FrontLayer.Views {
 
 		~PomodoroView() { }
 
+		#endregion
+
+		#region click-Events
 
 		private void Button_ZeitStart_Click( object sender, RoutedEventArgs e ) {
 			this.Button_ZeitStopReset.Content = "Stoppen!";
@@ -69,6 +77,9 @@ namespace FrontLayer.Views {
 			}
 		}
 
+		#endregion
+
+		#region zähler-methods
 
 		private void Zähler_Inizialisieren() {
 			zähler = new DispatcherTimer();
@@ -100,6 +111,10 @@ namespace FrontLayer.Views {
 			Zeit_Aktualisieren();
 		}
 
+		#endregion
+
+		#region zeit-methods
+
 		private void Zeit_ZyklusSwitch() {
 			if( isPause ) {
 				zeit = zeitInput_Pause;
@@ -126,6 +141,8 @@ namespace FrontLayer.Views {
 			Zeit_ZyklusSwitch();
 			Zähler_Starten();
 		}
+
+		#endregion
 
 	}
 }
