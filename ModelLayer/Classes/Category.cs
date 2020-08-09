@@ -126,8 +126,8 @@ namespace ModelLayer.Classes {
 			this.IsParent = true;
 		}
 
-		public Goal GetChild( Guid ID ) {
-			Goal placeholder;
+		public Goal? GetChild( Guid ID ) {
+			Goal? placeholder;
 			foreach( Goal child in this.Children ) {
 				placeholder = child.GetChild(ID);
 				if( placeholder != null && ID == placeholder.ID ) {

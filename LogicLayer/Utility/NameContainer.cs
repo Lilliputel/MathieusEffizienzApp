@@ -54,14 +54,14 @@ namespace LogicLayer.Utility {
 
 		#region methods
 
-		public static ViewModelBase GetViewModel( EnumViewModels viewModelName ) {
+		public static ViewModelBase? GetViewModel( EnumViewModels viewModelName ) {
 			return
 				dictionaryViewModelsMain.GetValueOrDefault(viewModelName) ??
 				dictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
 		}
 
-		public static ViewModelBase GetViewModel( EnumViewModels viewModelName, out bool isMain ) {
-			ViewModelBase returnedViewModel;
+		public static ViewModelBase? GetViewModel( EnumViewModels viewModelName, out bool isMain ) {
+			ViewModelBase? returnedViewModel;
 			if( dictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
 				isMain = true;
 			}

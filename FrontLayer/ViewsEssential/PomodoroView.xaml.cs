@@ -31,7 +31,7 @@ namespace FrontLayer.Views {
 
 			if( TimeSpan.TryParse(TextBox_ZeitArbeit.Text, CultureManager.zeitFormat, out this.zeitInput_Arbeit) &&
 			TimeSpan.TryParse(TextBox_ZeitPause.Text, CultureManager.zeitFormat, out this.zeitInput_Pause) ) {
-				if( zähler == null ) {
+				if( zähler is null ) {
 					Zähler_Inizialisieren();
 				}
 				else if( zeitInput_Arbeit <= TimeSpan.Zero || zeitInput_Pause <= TimeSpan.Zero ) {

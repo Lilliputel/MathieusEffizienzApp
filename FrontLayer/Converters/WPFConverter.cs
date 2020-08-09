@@ -9,7 +9,7 @@ namespace WPFConverter {
 	public class ColorToSCB : IValueConverter {
 
 		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			Color farbe = value == null ? Colors.White : (Color)value;
+			Color farbe = value is null ? Colors.White : (Color)value;
 			return new SolidColorBrush(farbe);
 		}
 
@@ -21,7 +21,7 @@ namespace WPFConverter {
 	public class StringToSCB : IValueConverter {
 
 		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			Color farbe = value == null ? Colors.White : (Color)ColorConverter.ConvertFromString(value.ToString());
+			Color farbe = value is null ? Colors.White : (Color)ColorConverter.ConvertFromString(value.ToString());
 			return new SolidColorBrush(farbe);
 		}
 
@@ -33,7 +33,7 @@ namespace WPFConverter {
 	public class StringToColor : IValueConverter {
 
 		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			Color farbe = value == null ? Colors.White : (Color)ColorConverter.ConvertFromString(value.ToString());
+			Color farbe = value is null ? Colors.White : (Color)ColorConverter.ConvertFromString(value.ToString());
 			return farbe;
 		}
 
@@ -47,11 +47,11 @@ namespace WPFConverter {
 
 		public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture ) {
 			DataGridCell cell = value as DataGridCell;
-			if( cell == null )
+			if( cell is null )
 				return null;
 
 			System.Data.DataRowView drv = cell.DataContext as System.Data.DataRowView;
-			if( drv == null )
+			if( drv is null )
 				return null;
 
 			return drv.Row[cell.Column.SortMemberPath];

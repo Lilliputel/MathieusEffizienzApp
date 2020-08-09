@@ -5,6 +5,7 @@
 		<OutputType>Library</OutputType>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>ModelLayer</RootNamespace>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	
 </Project>

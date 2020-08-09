@@ -57,17 +57,17 @@ namespace ModelLayer.Classes {
 		}
 
 		// IChild
-		[XmlAttribute("ParentID")]
-		public Guid ParentID {
+		[XmlElement("ParentID", IsNullable = true)]
+		public Guid? ParentID {
 			get {
 				return parentID;
 			}
 			set {
-				parentID = value;
+				parentID = (Guid)value;
 				OnPropertyChanged(nameof(ParentID));
 
 				// setzt den status IsChild auf true, wenn die ID gesetzt wird
-				IsChild = ParentID == null ? false : true;
+				IsChild = ( ParentID is null ) ? false : true;
 			}
 		}
 		[XmlIgnore]
@@ -177,11 +177,11 @@ namespace ModelLayer.Classes {
 			this.IsParent = true;
 		}
 
-		public Goal GetChild( Guid ID ) {
+		public Goal? GetChild( Guid ID ) {
 			if( ID == this.ID ) {
 				return this;
 			}
-			Goal placeholder;
+			Goal? placeholder;
 			foreach( Goal child in this.Children ) {
 				placeholder = child.GetChild(ID);
 				if( placeholder != null && ID == placeholder.ID ) {

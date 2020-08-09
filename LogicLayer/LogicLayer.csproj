@@ -5,6 +5,7 @@
 		<OutputType>Library</OutputType>
 		<UseWPF>true</UseWPF>
 		<RootNamespace>LogicLayer</RootNamespace>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
