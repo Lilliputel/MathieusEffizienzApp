@@ -17,6 +17,7 @@ namespace LogicLayer.Views {
 
 		public PlanViewModel() {
 			Stundenplan = new Stundenplan();
+			DTStundenplan = new DataTable();
 			CreateDataTable();
 		}
 
@@ -25,7 +26,6 @@ namespace LogicLayer.Views {
 		#region methods
 
 		private void CreateDataTable() {
-			DTStundenplan = new DataTable();
 			DTStundenplan.Columns.Add("Zeit");
 			foreach( var Tage in Stundenplan.Plan.Keys ) {
 				DTStundenplan.Columns.Add(Tage.ToString());

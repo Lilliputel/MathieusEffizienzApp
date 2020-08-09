@@ -20,7 +20,7 @@ namespace FrontLayer.Views {
 
 		public PomodoroView() {
 			InitializeComponent();
-			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Pomodoro);
+			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Pomodoro);
 		}
 
 		~PomodoroView() { }
@@ -90,7 +90,7 @@ namespace FrontLayer.Views {
 			zähler.Start();
 		}
 		private void Zähler_Stoppen() {
-			if( zähler != null ) {
+			if( zähler is { } ) {
 				zähler.Stop();
 				isStarted = false;
 			}

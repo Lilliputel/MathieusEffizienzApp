@@ -14,14 +14,14 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private ICommand commandSaveKategorie;
+		private ICommand? commandSaveKategorie;
 
 		#endregion
 
 		#region properties
 
 		public IEnumerable<PropertyInfo> FarbenListe
-			=> from property in typeof(Colors).GetProperties() orderby property.GetValue(null, null).ToString() select property;
+			=> from property in typeof(Colors).GetProperties() orderby property.GetValue(null, null)?.ToString() select property;
 
 
 		public PropertyInfo SelectedColor { get; set; }

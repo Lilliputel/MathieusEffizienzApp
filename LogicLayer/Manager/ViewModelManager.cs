@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace LogicLayer.Utility {
+namespace LogicLayer.Manager {
 
 	public enum EnumViewModels {
 
@@ -21,7 +21,7 @@ namespace LogicLayer.Utility {
 
 	}
 
-	public static class NameContainer {
+	public static class ViewModelManager {
 
 		#region fields
 
@@ -32,7 +32,7 @@ namespace LogicLayer.Utility {
 
 		#region initializer
 
-		static NameContainer() {
+		static ViewModelManager() {
 
 			dictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>();
 			dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();

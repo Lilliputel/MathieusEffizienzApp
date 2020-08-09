@@ -7,52 +7,51 @@ namespace LogicLayer.Manager {
 		#region fields
 
 		private static string themeDirectory = "/FrontLayer;component/Themes/";
-		private static ResourceDictionary themeDark;
-		private static ResourceDictionary themeLight;
-		private static bool DarkMode;
+		private static ResourceDictionary _themeDark;
+		private static ResourceDictionary _themeLight;
+		private static bool _darkMode;
 
 		#endregion
 
 		#region properties
 
 		public static ResourceDictionary SelectedTheme { get; set; }
+		public static bool DarkMode {
+			get {
+				return _darkMode;
+			}
+			set {
+				_darkMode = value;
+				SetTheme();
+			}
+		}
 
 		#endregion
 
 		#region constructor
 
 		static ThemeManager() {
+			_themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute) };
+			_themeLight = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute) };
 
-			// Initialize the Themes
-			themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute) };
-			themeLight = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute) };
-			DarkMode = false;
+			SelectedTheme = new ResourceDictionary();
+			DarkMode = true;
+
 		}
 
 		#endregion
 
 		#region methods
 
-#warning Theme-Problem
-		//public static void SwitchTheme() {
-		//	DarkMode = !DarkMode;
-		//	SetDarkMode(DarkMode);
-		//}
+		public static void SwitchTheme() {
+			DarkMode = !DarkMode;
+			SetTheme();
+		}
 
-		//private static void SetDarkMode( bool _DarkMode ) {
-
-		//	Resources.MergedDictionaries[0].MergedDictionaries.Clear();
-		//	Resources.MergedDictionaries[0].MergedDictionaries.Add(_DarkMode ? themeDark : themeLight);
-		//}
-
-		//public static bool GetDarkMode() {
-		//	return Resources.MergedDictionaries[0].MergedDictionaries.Contains(this.themeDark);
-		//}
-
-		//public static void Speichern() {
-		//	XMLHandler.Speichern(ObjectManager.Categories, nameof(ObjectManager.Categories));
-		//	MessageBoxDisplayer.ListeGespeichert(nameof(ObjectManager.Categories));
-		//}
+		private static void SetTheme() {
+			SelectedTheme.Clear();
+			SelectedTheme.MergedDictionaries.Add(DarkMode ? _themeDark : _themeLight);
+		}
 
 		#endregion
 	}

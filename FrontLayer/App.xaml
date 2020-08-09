@@ -7,12 +7,8 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 
-				<ResourceDictionary>
-					<ResourceDictionary.MergedDictionaries>
-						<ResourceDictionary Source="Themes/ThemeLight.xaml"/>
-					</ResourceDictionary.MergedDictionaries>
-				</ResourceDictionary>
-
+				<!-- This is the Theme-Dictionary and gets set in the Codebehind -->
+				<ResourceDictionary/>
 
 				<ResourceDictionary Source="Dictionaries/DictionaryDataTemplates.xaml"/>
 				<ResourceDictionary Source="Dictionaries/DictionaryIcons.xaml"/>

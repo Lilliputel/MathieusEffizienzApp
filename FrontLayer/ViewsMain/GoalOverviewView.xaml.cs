@@ -1,4 +1,4 @@
-﻿using LogicLayer.Utility;
+﻿using LogicLayer.Manager;
 using System.Windows.Controls;
 
 namespace FrontLayer.Views {
@@ -7,7 +7,7 @@ namespace FrontLayer.Views {
 
 		public GoalOverviewView() {
 			InitializeComponent();
-			this.DataContext = NameContainer.GetViewModel(EnumViewModels.GoalOverview);
+			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.GoalOverview);
 		}
 
 		~GoalOverviewView() { }

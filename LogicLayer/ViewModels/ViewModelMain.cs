@@ -41,7 +41,7 @@ namespace LogicLayer.ViewModels {
 			( _commandUpdateView = new RelayCommand(parameter => {
 				if( parameter is string pString ) {
 					EnumViewModels name = Enum.Parse<EnumViewModels>(pString);
-					ViewModelBase viewModel = NameContainer.GetViewModel(name, out bool isMain);
+					ViewModelBase viewModel = ViewModelManager.GetViewModel(name, out bool isMain);
 					if( isMain )
 						this.SelectedVMMain = viewModel;
 					else

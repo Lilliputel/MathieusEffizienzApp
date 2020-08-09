@@ -1,4 +1,4 @@
-﻿using LogicLayer.Utility;
+﻿using LogicLayer.Manager;
 using System.Windows.Controls;
 
 namespace FrontLayer.Views {
@@ -7,7 +7,7 @@ namespace FrontLayer.Views {
 
 		public GanttDiagramView() {
 			InitializeComponent();
-			this.DataContext = NameContainer.GetViewModel(EnumViewModels.GanttDiagram);
+			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.GanttDiagram);
 		}
 
 		~GanttDiagramView() { }

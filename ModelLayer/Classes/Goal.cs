@@ -10,14 +10,14 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 
-	public class Goal : ObservableObject, IUnique, IParent<Goal>, IChild, IWorkable {
+	public class Goal : ObservableObject, IUnique, IChild, IWorkable, IParent<Goal> {
 
 		#region fields
 
-		private string title;
-		private string description;
+		private string? title;
+		private string? description;
 
-		private Guid parentID;
+		private Guid? parentID;
 		private bool isChild;
 
 		private bool isParent;
@@ -38,7 +38,7 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Title")]
 		public string Title {
 			get {
-				return title;
+				return title ??= "New_Goal!";
 			}
 			set {
 				title = value;
@@ -48,7 +48,7 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Description")]
 		public string Description {
 			get {
-				return description;
+				return description ??= "This is a new standardGoal!";
 			}
 			set {
 				description = value;
@@ -63,7 +63,7 @@ namespace ModelLayer.Classes {
 				return parentID;
 			}
 			set {
-				parentID = (Guid)value;
+				parentID = (Guid?)value;
 				OnPropertyChanged(nameof(ParentID));
 
 				// setzt den status IsChild auf true, wenn die ID gesetzt wird
@@ -184,7 +184,7 @@ namespace ModelLayer.Classes {
 			Goal? placeholder;
 			foreach( Goal child in this.Children ) {
 				placeholder = child.GetChild(ID);
-				if( placeholder != null && ID == placeholder.ID ) {
+				if( placeholder is { ID: Guid phID } && ID == phID ) {
 					return placeholder;
 				}
 			}

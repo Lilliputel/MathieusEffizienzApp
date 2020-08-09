@@ -13,8 +13,8 @@ namespace WPFConverter {
 			return new SolidColorBrush(farbe);
 		}
 
-		public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( value as SolidColorBrush ).Color;
+		public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
+			return ( value as SolidColorBrush )?.Color;
 		}
 
 	}
@@ -25,8 +25,8 @@ namespace WPFConverter {
 			return new SolidColorBrush(farbe);
 		}
 
-		public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( value as SolidColorBrush ).Color.ToString();
+		public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
+			return ( value as SolidColorBrush )?.Color.ToString();
 		}
 
 	}
@@ -45,12 +45,12 @@ namespace WPFConverter {
 
 	public class DataRowViewConverter : IValueConverter {
 
-		public object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture ) {
-			DataGridCell cell = value as DataGridCell;
+		public object? Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture ) {
+			DataGridCell? cell = value as DataGridCell;
 			if( cell is null )
 				return null;
 
-			System.Data.DataRowView drv = cell.DataContext as System.Data.DataRowView;
+			System.Data.DataRowView? drv = cell.DataContext as System.Data.DataRowView;
 			if( drv is null )
 				return null;
 

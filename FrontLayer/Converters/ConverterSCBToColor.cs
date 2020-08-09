@@ -6,8 +6,8 @@ using System.Windows.Media;
 namespace FrontLayer.Converters {
 	public class ConverterSCBToColor : IValueConverter {
 
-		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( value as SolidColorBrush ).Color;
+		public object? Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
+			return ( value as SolidColorBrush )?.Color;
 		}
 
 		public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {

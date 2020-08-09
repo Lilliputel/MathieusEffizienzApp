@@ -15,8 +15,8 @@ namespace LogicLayer.Views {
 		private ICommand commandSaveAufgabe;
 		private Category selectedKategorie;
 
-		private DateTime startDatum;
-		private DateTime endDatum;
+		private DateTime? startDatum;
+		private DateTime? endDatum;
 
 		#endregion
 
@@ -40,21 +40,21 @@ namespace LogicLayer.Views {
 
 		public DateTime? StartDatum {
 			get {
-				return startDatum != null ? startDatum : DateTime.Today;
+				return startDatum ??= DateTime.Today;
 			}
 			set {
-				if( value != null ) {
-					startDatum = value.Value;
+				if( value is { } Value ) {
+					startDatum = Value;
 				}
 			}
 		}
 		public DateTime? EndDatum {
 			get {
-				return endDatum != null ? endDatum : DateTime.Today.AddDays(1);
+				return endDatum ??= DateTime.Today.AddDays(1);
 			}
 			set {
-				if( value != null ) {
-					endDatum = value.Value;
+				if( value is { } Value ) {
+					endDatum = Value;
 				}
 			}
 		}

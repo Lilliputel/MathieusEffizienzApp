@@ -10,8 +10,8 @@ namespace FrontLayer.Converters {
 			return new SolidColorBrush((Color)value);
 		}
 
-		public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( value as SolidColorBrush ).Color;
+		public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
+			return ( value as SolidColorBrush )?.Color;
 		}
 
 	}

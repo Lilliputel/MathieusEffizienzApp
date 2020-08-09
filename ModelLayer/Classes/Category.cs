@@ -9,12 +9,12 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 
-	public class Category : ObservableObject, IUnique, IParent<Goal>, IStatus {
+	public class Category : ObservableObject, IUnique, IStatus, IParent<Goal> {
 
 		#region fields
 
-		private string title;
-		private string description;
+		private string? title;
+		private string? description;
 
 		private bool isParent;
 
@@ -33,7 +33,7 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Title")]
 		public string Title {
 			get {
-				return title;
+				return title ??= "New_Category!";
 			}
 			set {
 				title = value;
@@ -43,7 +43,7 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Description")]
 		public string Description {
 			get {
-				return description;
+				return description ??= "This is a new standardCategory!";
 			}
 			set {
 				description = value;
@@ -130,7 +130,7 @@ namespace ModelLayer.Classes {
 			Goal? placeholder;
 			foreach( Goal child in this.Children ) {
 				placeholder = child.GetChild(ID);
-				if( placeholder != null && ID == placeholder.ID ) {
+				if( placeholder is { ID: Guid phID } && ID == phID ) {
 					return placeholder;
 				}
 			}

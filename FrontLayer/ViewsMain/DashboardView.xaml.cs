@@ -1,4 +1,4 @@
-﻿using LogicLayer.Utility;
+﻿using LogicLayer.Manager;
 using System.Windows.Controls;
 
 namespace FrontLayer.Views {
@@ -8,7 +8,7 @@ namespace FrontLayer.Views {
 		public DashboardView() {
 			InitializeComponent();
 
-			this.DataContext = NameContainer.GetViewModel(EnumViewModels.Dashboard);
+			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Dashboard);
 
 		}
 

@@ -1,4 +1,4 @@
-﻿using LogicLayer.Utility;
+﻿using LogicLayer.Manager;
 using System.Windows.Controls;
 
 namespace FrontLayer.Views {
@@ -7,7 +7,7 @@ namespace FrontLayer.Views {
 
 		public NewCategoryView() {
 			InitializeComponent();
-			this.DataContext = NameContainer.GetViewModel(EnumViewModels.NewCategory);
+			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.NewCategory);
 		}
 
 		~NewCategoryView() { }

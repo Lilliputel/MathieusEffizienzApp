@@ -10,13 +10,11 @@ namespace ModelLayer.Structs {
 	public struct DateSpan {
 
 		#region properties
+
 		[XmlAttribute("Start")]
 		public DateTime Start { get; set; }
 		[XmlAttribute("End")]
 		public DateTime End { get; set; }
-		[XmlIgnore]
-		public TimeSpan TimeSpan { get; set; }
-
 
 		#endregion
 
@@ -39,12 +37,10 @@ namespace ModelLayer.Structs {
 			if( ende >= start ) {
 				this.Start = start;
 				this.End = ende;
-				this.TimeSpan = ende - start;
 			}
 			else {
 				this.Start = ende;
 				this.End = start;
-				this.TimeSpan = start - ende;
 			}
 		}
 
@@ -52,6 +48,10 @@ namespace ModelLayer.Structs {
 		#endregion
 
 		#region methods
+
+		public readonly TimeSpan GetTimeSpan() {
+			return this.End - this.Start;
+		}
 
 		#endregion
 
