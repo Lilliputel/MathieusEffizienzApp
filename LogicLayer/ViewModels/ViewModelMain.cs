@@ -9,16 +9,16 @@ namespace LogicLayer.ViewModels {
 
 		#region fields
 
-		private ViewModelBase selectedVMMain;
-		private ViewModelBase selectedVMEssential;
-		private ICommand _commandUpdateView;
-		private ICommand _commandCreateObjects;
+		private ViewModelBase? selectedVMMain;
+		private ViewModelBase? selectedVMEssential;
+		private ICommand? _commandUpdateView;
+		private ICommand? _commandCreateObjects;
 
 		#endregion
 
 		#region properties
 
-		public ViewModelBase SelectedVMMain {
+		public ViewModelBase? SelectedVMMain {
 			get { return selectedVMMain; }
 			set {
 				if( selectedVMMain != value ) {
@@ -27,7 +27,7 @@ namespace LogicLayer.ViewModels {
 				}
 			}
 		}
-		public ViewModelBase SelectedVMEssential {
+		public ViewModelBase? SelectedVMEssential {
 			get { return selectedVMEssential; }
 			set {
 				if( selectedVMEssential != value ) {
@@ -41,7 +41,7 @@ namespace LogicLayer.ViewModels {
 			( _commandUpdateView = new RelayCommand(parameter => {
 				if( parameter is string pString ) {
 					EnumViewModels name = Enum.Parse<EnumViewModels>(pString);
-					ViewModelBase viewModel = ViewModelManager.GetViewModel(name, out bool isMain);
+					ViewModelBase? viewModel = ViewModelManager.GetViewModel(name, out bool isMain);
 					if( isMain )
 						this.SelectedVMMain = viewModel;
 					else

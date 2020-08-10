@@ -23,12 +23,8 @@
 			</Grid.RowDefinitions>
 
 			<Button Grid.Row="0" Grid.Column="0"
-					x:Name="Button_ZeitStart"
-					Click="Button_ZeitStart_Click"
-					Content="Starten!"/>
+					Content="{Binding DisplayNextMode}"/>
 			<Button Grid.Row="0" Grid.Column="1"
-					x:Name="Button_ZeitStopReset"
-					Click="Button_ZeitStopReset_Click"
 					Content="Stoppen!"/>
 
 			<TextBlock Grid.Row="1" Grid.Column="0"
@@ -37,26 +33,22 @@
 					   Text="Pausenzeit: " Margin="0,5"/>
 
 			<TextBox Grid.Row="2" Grid.Column="0"
-					 x:Name="TextBox_ZeitArbeit"
 					 Text="00:45:00"/>
 			<TextBox Grid.Row="2" Grid.Column="1"
-					 x:Name="TextBox_ZeitPause"
 					 Text="00:10:00"/>
 			
 
 		</Grid>
 		<Button x:Name="Button_ArbeitPause"
-				Click="Button_ArbeitPause_Click"
 				Content="Pause!" Margin="0,5"/>
 		
 		<Button x:Name="Button_Speichern"
-				Click="Button_Speichern_Click"
 				Content="Speichern!" Margin="0,5"/>
 
 		<TextBlock Text="Gesamte Arbeitszeit: "
 				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		<TextBlock x:Name="TextBlock_ZeitGesamt"
-				   Text="00:00:00"
+				   Text="{Binding TotalTime}"
 				   Height="30" FontSize="20"
 				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		

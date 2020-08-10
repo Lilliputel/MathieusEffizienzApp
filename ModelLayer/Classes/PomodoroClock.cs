@@ -18,6 +18,7 @@ namespace ModelLayer.Classes {
 		private TimeSpan _inputDelayTime;
 
 		private EnumWorkMode _workMode = EnumWorkMode.Stop;
+		private string _displayNextMode = "Start timer!";
 
 		// private Timers for the different WorkModes
 		private DispatcherTimer WorkTimer = new DispatcherTimer();
@@ -52,7 +53,7 @@ namespace ModelLayer.Classes {
 			get {
 				return _inputWorkTime;
 			}
-			private set {
+			set {
 				_inputWorkTime = value;
 				OnPropertyChanged(nameof(InputWorkTime));
 			}
@@ -61,7 +62,7 @@ namespace ModelLayer.Classes {
 			get {
 				return _inputBreakTime;
 			}
-			private set {
+			set {
 				_inputBreakTime = value;
 				OnPropertyChanged(nameof(InputBreakTime));
 			}
@@ -70,19 +71,28 @@ namespace ModelLayer.Classes {
 			get {
 				return _inputDelayTime;
 			}
-			private set {
+			set {
 				_inputDelayTime = value;
 				OnPropertyChanged(nameof(InputDelayTime));
 			}
 		}
 
-		public EnumWorkMode WorkMode {
+		public EnumWorkMode NextWorkMode {
 			get {
 				return _workMode;
 			}
 			set {
 				_workMode = value;
-				OnPropertyChanged(nameof(WorkMode));
+				OnPropertyChanged(nameof(NextWorkMode));
+			}
+		}
+		public string DisplayNextMode {
+			get {
+				return _displayNextMode;
+			}
+			set {
+				_displayNextMode = value;
+				OnPropertyChanged(nameof(DisplayNextMode));
 			}
 		}
 
@@ -91,11 +101,7 @@ namespace ModelLayer.Classes {
 		/// <summary>
 		/// Event gets Invoked, when a Timer is Elapsed and gets Passed the Elapsed Time and the WorkMode
 		/// </summary>
-		public event EventHandler Elapsed;
-
-		#endregion
-
-		#region initializer
+		public event EventHandler? Elapsed;
 
 		#endregion
 
@@ -117,13 +123,23 @@ namespace ModelLayer.Classes {
 		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
 		/// </summary>
 		protected virtual void OnElapsed( PomodoroEventArgs e ) {
-			EventHandler elapsed = Elapsed;
-			elapsed?.Invoke(this, e);
+			Elapsed?.Invoke(this, e);
+		}
+
+		public void ChangeWorkMode() {
+			StopAllTimers();
+			UpdateWorkMode();
+		}
+
+		public void DelayWorkMode() {
+			StopAllTimers();
+			NextWorkMode = EnumWorkMode.Delay;
+			UpdateWorkMode();
 		}
 
 		#endregion
 
-		#region private
+		#region private TimerMethods
 
 		/// <summary>
 		/// Sets all Timers with their respective intervalltime and the corresponding EventHandler
@@ -144,25 +160,117 @@ namespace ModelLayer.Classes {
 			this.DelayTimer.Interval = this.InputWorkTime;
 		}
 
-
 		private void Counter_Tick( object? sender, EventArgs e ) {
 			Time = Time.Add(TimeSpan.FromSeconds(1));
 		}
 
 		private void WorkTimer_Tick( object? sender, EventArgs e ) {
 			WorkTimer.Stop();
+			UpdateWorkMode();
 
-			TotalTime = TotalTime.Add(Time);
-			WorkMode = EnumWorkMode.Break;
-
+			OnElapsed(new PomodoroEventArgs() {
+				Time = Time,
+				WorkMode = CurrentWorkMode()
+			});
 		}
 		private void BreakTimer_Tick( object? sender, EventArgs e ) {
 			BreakTimer.Stop();
+			UpdateWorkMode();
 
+			OnElapsed(new PomodoroEventArgs() {
+				Time = Time,
+				WorkMode = CurrentWorkMode()
+			});
 		}
 		private void DelayTimer_Tick( object? sender, EventArgs e ) {
 			DelayTimer.Stop();
+			UpdateWorkMode();
 
+			OnElapsed(new PomodoroEventArgs() {
+				Time = Time,
+				WorkMode = CurrentWorkMode()
+			});
+		}
+
+		#endregion
+
+		#region private HelperMethods
+
+		private void UpdateWorkMode() {
+			switch( NextWorkMode ) {
+
+			// going to Stopmode, stopping all Timers
+			case EnumWorkMode.Stop:
+				NextWorkMode = EnumWorkMode.Work;
+				DisplayNextMode = "Start timer!";
+
+				// stop all timers (unnecessary, but more comfortable, than switch)
+				StopAllTimers();
+				break;
+
+			// going to Workmode
+			case EnumWorkMode.Work:
+				NextWorkMode = EnumWorkMode.Break;
+				WorkTimer.Start();
+				DisplayNextMode = "Make a pause!";
+				break;
+
+			// going to Breakmode
+			case EnumWorkMode.Break:
+				AddTimeToTotal();
+				NextWorkMode = EnumWorkMode.Work;
+				BreakTimer.Start();
+				DisplayNextMode = "Back to work!";
+				break;
+
+			// going to Delaymode
+			case EnumWorkMode.Delay:
+
+				// coming from Breakmode
+				if( DisplayNextMode == "Back to work!" ) {
+					NextWorkMode = EnumWorkMode.Work;
+					DelayTimer.Start();
+					DisplayNextMode = "Stop procrastinating!";
+				}
+
+				// coming from Workmode
+				else {
+					AddTimeToTotal();
+					NextWorkMode = EnumWorkMode.Break;
+					DelayTimer.Start();
+					DisplayNextMode = "Finished!";
+				}
+				break;
+
+			}
+		}
+
+		private void StopAllTimers() {
+			Counter.Stop();
+			WorkTimer.Stop();
+			BreakTimer.Stop();
+			DelayTimer.Stop();
+		}
+
+		private void AddTimeToTotal() {
+			TotalTime = TotalTime.Add(Time);
+		}
+
+		private EnumWorkMode CurrentWorkMode() {
+			switch( DisplayNextMode ) {
+			case "Start timer!":
+				return EnumWorkMode.Stop;
+			case "Make a pause!":
+				return EnumWorkMode.Work;
+			case "Back to work!":
+				return EnumWorkMode.Break;
+			case "Finished!":
+				return EnumWorkMode.Delay;
+			case "Stop procrastinating!":
+				return EnumWorkMode.Delay;
+			default:
+				return EnumWorkMode.Stop;
+			}
 		}
 
 		#endregion

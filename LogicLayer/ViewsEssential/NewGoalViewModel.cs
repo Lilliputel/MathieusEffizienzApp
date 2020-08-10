@@ -12,8 +12,8 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private ICommand commandSaveAufgabe;
-		private Category selectedKategorie;
+		private ICommand? _commandSaveAufgabe;
+		private Category? _selectedKategorie;
 
 		private DateTime? startDatum;
 		private DateTime? endDatum;
@@ -27,16 +27,16 @@ namespace LogicLayer.Views {
 
 		public Category SelectedKategorie {
 			get {
-				return selectedKategorie;
+				return _selectedKategorie;
 			}
 			set {
-				selectedKategorie = value;
+				_selectedKategorie = value;
 				OnPropertyChanged(nameof(SelectedKategorie));
 			}
 		}
 
-		public string Titel { get; set; }
-		public string Beschreibung { get; set; }
+		public string? Titel { get; set; }
+		public string? Beschreibung { get; set; }
 
 		public DateTime? StartDatum {
 			get {
@@ -59,11 +59,8 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public ICommand CommandSaveAufgabe => commandSaveAufgabe ??
-			( commandSaveAufgabe = new RelayCommand(parameter => {
-
-
-#warning speichermechanismus überarbeiten!
+		public ICommand CommandSaveAufgabe => _commandSaveAufgabe ??
+			( _commandSaveAufgabe = new RelayCommand(parameter => {
 
 				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Titel);
 			}) );
