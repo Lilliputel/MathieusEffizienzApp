@@ -7,48 +7,66 @@
 		<TextBlock Text="Zeiterfassung!" Style="{StaticResource Title}"/>
 		
 		<!-- Zeit -->
-		<TextBlock x:Name="TextBlock_ZeitAktuell"
+		<TextBlock Text="{Binding Clock.Time}"
 				   Height="30" FontSize="20"
 				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
+		<!-- Zwei Spalten für die Buttons, die die Uhren kontrollieren -->
 		<Grid>
 			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+
+			<!-- Buttons To Start/Stop Timer and Update WorkMode -->
+			<Button Grid.Row="0" Grid.Column="0"
+					Content="{Binding Clock.Running}"
+					Command="{Binding StartStopCommand}"/>
+			<Button Grid.Row="0" Grid.Column="1"
+					Content="{Binding Clock.DisplayNextMode}"
+					Command="{Binding ChangeModeCommand}"/>
+		</Grid>
+
+		<!-- Drei Spalten für die Zeiten -->
+		<Grid DataContext="{Binding Clock}">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
 				<ColumnDefinition/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
 			<Grid.RowDefinitions>
 				<RowDefinition/>
 				<RowDefinition/>
-				<RowDefinition/>
 			</Grid.RowDefinitions>
 
-			<Button Grid.Row="0" Grid.Column="0"
-					Content="{Binding DisplayNextMode}"/>
-			<Button Grid.Row="0" Grid.Column="1"
-					Content="Stoppen!"/>
-
-			<TextBlock Grid.Row="1" Grid.Column="0"
+			<!-- Arbeitszeit -->
+			<TextBlock Grid.Row="0" Grid.Column="0"
 					   Text="Arbeitszeit: " Margin="0,5"/>
-			<TextBlock Grid.Row="1" Grid.Column="1"
-					   Text="Pausenzeit: " Margin="0,5"/>
+			<TextBox Grid.Row="1" Grid.Column="0"
+					 Text="{Binding InputWorkTime}"/>
 
-			<TextBox Grid.Row="2" Grid.Column="0"
-					 Text="00:45:00"/>
-			<TextBox Grid.Row="2" Grid.Column="1"
-					 Text="00:10:00"/>
-			
+			<!-- Arbeitszeit -->
+			<TextBlock Grid.Row="0" Grid.Column="1"
+					   Text="Arbeitszeit: " Margin="0,5"/>
+			<TextBox Grid.Row="1" Grid.Column="1"
+					 Text="{Binding InputBreakTime}"/>
+
+			<!-- Verzögerungszeit -->
+			<TextBlock Grid.Row="0" Grid.Column="2"
+					   Text="Verzögerungszeit: " Margin="0,5"/>
+			<TextBox Grid.Row="1" Grid.Column="2"
+					 Text="{Binding InputDelayTime}"/>
 
 		</Grid>
-		<Button x:Name="Button_ArbeitPause"
-				Content="Pause!" Margin="0,5"/>
-		
-		<Button x:Name="Button_Speichern"
-				Content="Speichern!" Margin="0,5"/>
 
+		<!-- Button zum speichern -->
+		<Button Content="Speichern!" Margin="0,5"
+				Command="{Binding SaveTimeCommand}"/>
+
+		<!-- Gesamte Arbeitszeit -->
 		<TextBlock Text="Gesamte Arbeitszeit: "
 				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-		<TextBlock x:Name="TextBlock_ZeitGesamt"
-				   Text="{Binding TotalTime}"
+		<TextBlock Text="{Binding Clock.TotalTime}"
 				   Height="30" FontSize="20"
 				   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		

@@ -1,7 +1,6 @@
 ﻿using LogicLayer.Manager;
 using ModelLayer.Utility;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace FrontLayer {
 	public partial class App : Application {

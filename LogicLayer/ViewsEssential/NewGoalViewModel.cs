@@ -25,7 +25,7 @@ namespace LogicLayer.Views {
 		public ObservableCollection<Category> Categories
 			=> ObjectManager.CategoryList;
 
-		public Category SelectedKategorie {
+		public Category? SelectedKategorie {
 			get {
 				return _selectedKategorie;
 			}
@@ -62,7 +62,7 @@ namespace LogicLayer.Views {
 		public ICommand CommandSaveAufgabe => _commandSaveAufgabe ??
 			( _commandSaveAufgabe = new RelayCommand(parameter => {
 
-				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Titel);
+				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Titel ??= "unkown_Goal");
 			}) );
 
 		#endregion

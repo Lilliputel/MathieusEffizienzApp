@@ -10,7 +10,7 @@ namespace FrontLayer.Views {
 
 		public PomodoroView() {
 			InitializeComponent();
-			this.DataContext = ( ViewModelManager.GetViewModel(EnumViewModels.Pomodoro) as PomodoroViewModel )!.Clock;
+			this.DataContext = ( ViewModelManager.GetViewModel(EnumViewModels.Pomodoro) as PomodoroViewModel );
 		}
 
 		~PomodoroView() { }

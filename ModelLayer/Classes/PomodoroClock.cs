@@ -17,8 +17,9 @@ namespace ModelLayer.Classes {
 		private TimeSpan _inputBreakTime;
 		private TimeSpan _inputDelayTime;
 
-		private EnumWorkMode _workMode = EnumWorkMode.Stop;
-		private string _displayNextMode = "Start timer!";
+		private EnumWorkMode _nextWorkMode = EnumWorkMode.Stop;
+		private string _displayNextMode = "Start work!";
+		private string _running = "Start timer!";
 
 		// private Timers for the different WorkModes
 		private DispatcherTimer WorkTimer = new DispatcherTimer();
@@ -79,10 +80,10 @@ namespace ModelLayer.Classes {
 
 		public EnumWorkMode NextWorkMode {
 			get {
-				return _workMode;
+				return _nextWorkMode;
 			}
 			set {
-				_workMode = value;
+				_nextWorkMode = value;
 				OnPropertyChanged(nameof(NextWorkMode));
 			}
 		}
@@ -93,6 +94,15 @@ namespace ModelLayer.Classes {
 			set {
 				_displayNextMode = value;
 				OnPropertyChanged(nameof(DisplayNextMode));
+			}
+		}
+		public string Running {
+			get {
+				return _running;
+			}
+			set {
+				_running = value;
+				OnPropertyChanged(nameof(Running));
 			}
 		}
 
@@ -118,6 +128,16 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region methods
+
+		public void StartWork() {
+			if( NextWorkMode == EnumWorkMode.Stop ) {
+				NextWorkMode = EnumWorkMode.Work;
+			}
+			else {
+				NextWorkMode = EnumWorkMode.Stop;
+			}
+			UpdateWorkMode();
+		}
 
 		/// <summary>
 		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
@@ -196,13 +216,17 @@ namespace ModelLayer.Classes {
 
 		#region private HelperMethods
 
+#warning I have to update and Split this method... way too complex
 		private void UpdateWorkMode() {
+			Running = "Stop work!";
+
 			switch( NextWorkMode ) {
 
 			// going to Stopmode, stopping all Timers
 			case EnumWorkMode.Stop:
+				Running = "Start timer!";
 				NextWorkMode = EnumWorkMode.Work;
-				DisplayNextMode = "Start timer!";
+				DisplayNextMode = "Start work!";
 
 				// stop all timers (unnecessary, but more comfortable, than switch)
 				StopAllTimers();
@@ -258,7 +282,7 @@ namespace ModelLayer.Classes {
 
 		private EnumWorkMode CurrentWorkMode() {
 			switch( DisplayNextMode ) {
-			case "Start timer!":
+			case "Start work!":
 				return EnumWorkMode.Stop;
 			case "Make a pause!":
 				return EnumWorkMode.Work;

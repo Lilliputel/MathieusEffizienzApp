@@ -1,11 +1,34 @@
-﻿using LogicLayer.ViewModels;
+﻿using LogicLayer.Commands;
+using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using System;
+using System.Windows.Input;
 
 namespace LogicLayer.Views {
 	public class PomodoroViewModel : ViewModelBase {
 
 		#region fields
+
+		private ICommand? _StartStopCommand;
+		private ICommand? _ChangeModeCommand;
+		private ICommand? _SaveTimeCommand;
+
+		#endregion
+
+		#region commands
+
+		public ICommand StartStopCommand => _StartStopCommand
+			??= new RelayCommand(parameter => {
+				Clock.StartWork();
+			});
+		public ICommand ChangeModeCommand => _ChangeModeCommand
+			??= new RelayCommand(parameter => {
+				Clock.ChangeWorkMode();
+			});
+		public ICommand SaveTimeCommand => _SaveTimeCommand
+			??= new RelayCommand(parameter => {
+
+			});
 
 		#endregion
 
