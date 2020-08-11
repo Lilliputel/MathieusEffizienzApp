@@ -10,103 +10,135 @@ namespace ModelLayer.Classes {
 
 		#region fields
 
-		private TimeSpan _time = TimeSpan.Zero;
-		private TimeSpan _totalTime = TimeSpan.Zero;
+		private TimeSpan _Time = TimeSpan.Zero;
+		private TimeSpan _TotalTime = TimeSpan.Zero;
 
-		private TimeSpan _inputWorkTime;
-		private TimeSpan _inputBreakTime;
-		private TimeSpan _inputDelayTime;
+		private bool _CountDown = false;
 
-		private EnumWorkMode _nextWorkMode = EnumWorkMode.Stop;
-		private string _displayNextMode = "Start work!";
-		private string _running = "Start timer!";
+		private TimeSpan _InputWorkTime;
+		private TimeSpan _InputBreakTime;
+		private TimeSpan _InputDelayTime;
 
-		// private Timers for the different WorkModes
-		private DispatcherTimer WorkTimer = new DispatcherTimer();
-		private DispatcherTimer BreakTimer = new DispatcherTimer();
-		private DispatcherTimer DelayTimer = new DispatcherTimer();
+		private EnumWorkMode _CurrentWorkMode = EnumWorkMode.Stop;
+		private EnumWorkMode _NextWorkMode = EnumWorkMode.Work;
 
+		private string _DelayText = "Start work!";
+		private string _StartStopText = "Start timer!";
+
+		// private Timer to Update the Time
+		private DispatcherTimer _Counter = new DispatcherTimer(){ Interval = TimeSpan.FromSeconds(1) };
+		// TimeSpan to keep track when to elapse the Counter
+		private TimeSpan _DestinationTime;
 
 		#endregion
 
 		#region properties
 
+		// Time, to count
 		public TimeSpan Time {
 			get {
-				return _time;
+				return _Time;
 			}
 			private set {
-				_time = value;
+				_Time = value;
 				OnPropertyChanged(nameof(Time));
 			}
 		}
 		public TimeSpan TotalTime {
 			get {
-				return _totalTime;
+				return _TotalTime;
 			}
 			private set {
-				_totalTime = value;
+				_TotalTime = value;
 				OnPropertyChanged(nameof(TotalTime));
 			}
 		}
 
-		public TimeSpan InputWorkTime {
+		/// <summary>
+		/// If true, the Timer Counts down from the corresponding inputTime
+		/// </summary>
+		public bool CountDown {
 			get {
-				return _inputWorkTime;
+				return _CountDown;
 			}
 			set {
-				_inputWorkTime = value;
+				if( value == _CountDown )
+					return;
+				_CountDown = value;
+				OnPropertyChanged(nameof(CountDown));
+
+				UpdateCountDirection();
+			}
+		}
+
+		// Times, which get set externally and define the countTimes
+		public TimeSpan InputWorkTime {
+			get {
+				return _InputWorkTime;
+			}
+			set {
+				_InputWorkTime = value;
 				OnPropertyChanged(nameof(InputWorkTime));
 			}
 		}
 		public TimeSpan InputBreakTime {
 			get {
-				return _inputBreakTime;
+				return _InputBreakTime;
 			}
 			set {
-				_inputBreakTime = value;
+				_InputBreakTime = value;
 				OnPropertyChanged(nameof(InputBreakTime));
 			}
 		}
 		public TimeSpan InputDelayTime {
 			get {
-				return _inputDelayTime;
+				return _InputDelayTime;
 			}
 			set {
-				_inputDelayTime = value;
+				_InputDelayTime = value;
 				OnPropertyChanged(nameof(InputDelayTime));
 			}
 		}
 
-		public EnumWorkMode NextWorkMode {
+		// Workmodes, in which the Clock can be
+		public EnumWorkMode CurrentWorkMode {
 			get {
-				return _nextWorkMode;
+				return _CurrentWorkMode;
 			}
 			set {
-				_nextWorkMode = value;
+				_CurrentWorkMode = value;
+				OnPropertyChanged(nameof(CurrentWorkMode));
+			}
+		}
+		public EnumWorkMode NextWorkMode {
+			get {
+				return _NextWorkMode;
+			}
+			set {
+				_NextWorkMode = value;
 				OnPropertyChanged(nameof(NextWorkMode));
 			}
 		}
-		public string DisplayNextMode {
-			get {
-				return _displayNextMode;
-			}
-			set {
-				_displayNextMode = value;
-				OnPropertyChanged(nameof(DisplayNextMode));
-			}
-		}
-		public string Running {
-			get {
-				return _running;
-			}
-			set {
-				_running = value;
-				OnPropertyChanged(nameof(Running));
-			}
-		}
 
-		public DispatcherTimer Counter { get; private set; } = new DispatcherTimer();
+		// Text, to which a Button can be bound (shows the next action of that button)
+		public string DelayText {
+			get {
+				return _DelayText;
+			}
+			set {
+				_DelayText = value;
+				OnPropertyChanged(nameof(DelayText));
+			}
+		}
+		public string StartStopText {
+			get {
+				return _StartStopText;
+			}
+			set {
+				_StartStopText = value;
+				OnPropertyChanged(nameof(StartStopText));
+			}
+		}
 
 		/// <summary>
 		/// Event gets Invoked, when a Timer is Elapsed and gets Passed the Elapsed Time and the WorkMode
@@ -121,180 +153,182 @@ namespace ModelLayer.Classes {
 			this.InputWorkTime = inputWorkTime;
 			this.InputBreakTime = inputBreakTime;
 			this.InputDelayTime = inputDelayTime;
-
-			DefineAllTimers();
 		}
 
 		#endregion
 
 		#region methods
 
-		public void StartWork() {
-			if( NextWorkMode == EnumWorkMode.Stop ) {
+		public void StartStopClock() {
+			// Start new Timer
+			if( CurrentWorkMode == EnumWorkMode.Stop )
+				SetCounter();
+			// Stop the Timer
+			else {
+				AddTimeIfWork();
+
+				ResetCounter();
+
+				CurrentWorkMode = EnumWorkMode.Stop;
 				NextWorkMode = EnumWorkMode.Work;
 			}
-			else {
-				NextWorkMode = EnumWorkMode.Stop;
-			}
-			UpdateWorkMode();
-		}
 
-		/// <summary>
-		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
-		/// </summary>
-		protected virtual void OnElapsed( PomodoroEventArgs e ) {
-			Elapsed?.Invoke(this, e);
-		}
-
-		public void ChangeWorkMode() {
-			StopAllTimers();
-			UpdateWorkMode();
+			UpdateButtonText();
 		}
 
 		public void DelayWorkMode() {
-			StopAllTimers();
-			NextWorkMode = EnumWorkMode.Delay;
-			UpdateWorkMode();
-		}
 
-		#endregion
+			if( CurrentWorkMode == EnumWorkMode.Stop )
+				goto Finish;
 
-		#region private TimerMethods
+			AddTimeIfWork();
+			NextWorkMode = EnumWorkMode.DelayBreak;
 
-		/// <summary>
-		/// Sets all Timers with their respective intervalltime and the corresponding EventHandler
-		/// </summary>
-		private void DefineAllTimers() {
-			// initialize the Counter, which elapses every second to update the Time
-			this.Counter.Tick += this.Counter_Tick;
-			this.Counter.Interval = TimeSpan.FromSeconds(1);
+			if( CurrentWorkMode == EnumWorkMode.Break || CurrentWorkMode == EnumWorkMode.DelayBreak )
+				NextWorkMode = EnumWorkMode.DelayWork;
 
-			// initialize the Counter, which elapse at their corresponding Times
-			this.WorkTimer.Tick += this.WorkTimer_Tick;
-			this.WorkTimer.Interval = this.InputWorkTime;
-
-			this.BreakTimer.Tick += this.BreakTimer_Tick;
-			this.BreakTimer.Interval = this.InputWorkTime;
-
-			this.DelayTimer.Tick += this.DelayTimer_Tick;
-			this.DelayTimer.Interval = this.InputWorkTime;
-		}
-
-		private void Counter_Tick( object? sender, EventArgs e ) {
-			Time = Time.Add(TimeSpan.FromSeconds(1));
-		}
-
-		private void WorkTimer_Tick( object? sender, EventArgs e ) {
-			WorkTimer.Stop();
-			UpdateWorkMode();
-
-			OnElapsed(new PomodoroEventArgs() {
-				Time = Time,
-				WorkMode = CurrentWorkMode()
-			});
-		}
-		private void BreakTimer_Tick( object? sender, EventArgs e ) {
-			BreakTimer.Stop();
-			UpdateWorkMode();
-
-			OnElapsed(new PomodoroEventArgs() {
-				Time = Time,
-				WorkMode = CurrentWorkMode()
-			});
-		}
-		private void DelayTimer_Tick( object? sender, EventArgs e ) {
-			DelayTimer.Stop();
-			UpdateWorkMode();
-
-			OnElapsed(new PomodoroEventArgs() {
-				Time = Time,
-				WorkMode = CurrentWorkMode()
-			});
+Finish:
+			SetCounter();
+			UpdateButtonText();
 		}
 
 		#endregion
 
 		#region private HelperMethods
 
-#warning I have to update and Split this method... way too complex
-		private void UpdateWorkMode() {
-			Running = "Stop work!";
+		/// <summary>
+		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
+		/// </summary>
+		protected virtual void OnElapsed() {
+			PomodoroEventArgs e = new PomodoroEventArgs(){
+				Time = GetActualTime(),
+				WorkMode = CurrentWorkMode
+			};
+			Elapsed?.Invoke(this, e);
 
-			switch( NextWorkMode ) {
+			AddTimeIfWork();
+			SetCounter();
+			UpdateButtonText();
+		}
 
-			// going to Stopmode, stopping all Timers
+		private void UpCounter_Tick( object? sender, EventArgs e ) {
+			Time = Time.Add(TimeSpan.FromSeconds(1));
+			if( Time == _DestinationTime )
+				OnElapsed();
+		}
+		private void DownCounter_Tick( object? sender, EventArgs e ) {
+			Time = Time.Subtract(TimeSpan.FromSeconds(1));
+			if( Time == _DestinationTime )
+				OnElapsed();
+		}
+
+		private void UpdateCountDirection() {
+#warning I want to Implement an Option, to change the Countdirection
+			// Save the times and update accordingly, so i can switch even while counting
+		}
+
+		private void UpdateButtonText() {
+
+			switch( CurrentWorkMode ) {
 			case EnumWorkMode.Stop:
-				Running = "Start timer!";
-				NextWorkMode = EnumWorkMode.Work;
-				DisplayNextMode = "Start work!";
-
-				// stop all timers (unnecessary, but more comfortable, than switch)
-				StopAllTimers();
+				StartStopText = "Start timer!";
+				DelayText = "Start work!";
 				break;
-
-			// going to Workmode
 			case EnumWorkMode.Work:
-				NextWorkMode = EnumWorkMode.Break;
-				WorkTimer.Start();
-				DisplayNextMode = "Make a pause!";
+				StartStopText = "Stop timer!";
+				DelayText = "Delay break!";
 				break;
-
-			// going to Breakmode
 			case EnumWorkMode.Break:
-				AddTimeToTotal();
-				NextWorkMode = EnumWorkMode.Work;
-				BreakTimer.Start();
-				DisplayNextMode = "Back to work!";
+				StartStopText = "Stop timer!";
+				DelayText = "Delay work!";
 				break;
-
-			// going to Delaymode
-			case EnumWorkMode.Delay:
-
-				// coming from Breakmode
-				if( DisplayNextMode == "Back to work!" ) {
-					NextWorkMode = EnumWorkMode.Work;
-					DelayTimer.Start();
-					DisplayNextMode = "Stop procrastinating!";
-				}
-
-				// coming from Workmode
-				else {
-					AddTimeToTotal();
-					NextWorkMode = EnumWorkMode.Break;
-					DelayTimer.Start();
-					DisplayNextMode = "Finished!";
-				}
+			case EnumWorkMode.DelayWork:
+				StartStopText = "Stop timer!";
+				DelayText = "Back to work!";
 				break;
-
-			}
-		}
-
-		private void StopAllTimers() {
-			Counter.Stop();
-			WorkTimer.Stop();
-			BreakTimer.Stop();
-			DelayTimer.Stop();
-		}
-
-		private void AddTimeToTotal() {
-			TotalTime = TotalTime.Add(Time);
-		}
-
-		private EnumWorkMode CurrentWorkMode() {
-			switch( DisplayNextMode ) {
-			case "Start work!":
-				return EnumWorkMode.Stop;
-			case "Make a pause!":
-				return EnumWorkMode.Work;
-			case "Back to work!":
-				return EnumWorkMode.Break;
-			case "Finished!":
-				return EnumWorkMode.Delay;
-			case "Stop procrastinating!":
-				return EnumWorkMode.Delay;
+			case EnumWorkMode.DelayBreak:
+				StartStopText = "Stop timer!";
+				DelayText = "Take a break!";
+				break;
 			default:
-				return EnumWorkMode.Stop;
+				StartStopText = "Stop timer!";
+				DelayText = "Start work!";
+				break;
 			}
+
+		}
+
+		private void AddTimeIfWork() {
+			if( CurrentWorkMode == EnumWorkMode.DelayBreak || CurrentWorkMode == EnumWorkMode.Work )
+				AddTimeToTotal();
+		}
+		private void AddTimeToTotal() {
+			TotalTime = TotalTime.Add(GetActualTime());
+		}
+
+		private TimeSpan GetActualTime() {
+			if( CountDown == true )
+				return _DestinationTime - Time;
+			else
+				return Time;
+		}
+		private TimeSpan GetCountStart() => CurrentWorkMode switch
+		{
+			EnumWorkMode.Work => CountDown ? InputWorkTime : TimeSpan.Zero,
+			EnumWorkMode.Break => CountDown ? InputBreakTime : TimeSpan.Zero,
+			EnumWorkMode.DelayWork => CountDown ? InputDelayTime : TimeSpan.Zero,
+			EnumWorkMode.DelayBreak => CountDown ? InputDelayTime : TimeSpan.Zero,
+			_ => CountDown ? InputWorkTime : TimeSpan.Zero,
+		};
+		private TimeSpan GetCountGoal() => CurrentWorkMode switch
+		{
+			EnumWorkMode.Work => CountDown ? TimeSpan.Zero : InputWorkTime,
+			EnumWorkMode.Break => CountDown ? TimeSpan.Zero : InputBreakTime,
+			EnumWorkMode.DelayWork => CountDown ? TimeSpan.Zero : InputDelayTime,
+			EnumWorkMode.DelayBreak => CountDown ? TimeSpan.Zero : InputDelayTime,
+			_ => CountDown ? TimeSpan.Zero : InputWorkTime,
+		};
+		private EnumWorkMode GetNextWorkMode() => CurrentWorkMode switch
+		{
+			EnumWorkMode.Stop => EnumWorkMode.Work,
+			EnumWorkMode.Work => EnumWorkMode.Break,
+			EnumWorkMode.Break => EnumWorkMode.Work,
+			EnumWorkMode.DelayWork => EnumWorkMode.Work,
+			EnumWorkMode.DelayBreak => EnumWorkMode.Break,
+			_ => EnumWorkMode.Stop,
+		};
+
+		/// <summary>
+		/// Initiates a new Cicle, starts the Timer
+		/// </summary>
+		private void SetCounter() {
+			ResetCounter();
+			// Set the Next WorkMode to the new Cicle
+			CurrentWorkMode = NextWorkMode;
+			NextWorkMode = GetNextWorkMode();
+			// Update the destinationTime of the new Circle
+			_DestinationTime = GetCountGoal();
+			// Update the startTime for the new Circle
+			Time = GetCountStart();
+
+			// Attaches the Correct CounterTick
+			if( CountDown == true )
+				_Counter.Tick += DownCounter_Tick;
+			else
+				_Counter.Tick += UpCounter_Tick;
+
+			// Starts the new Counter
+			_Counter.Start();
+		}
+
+		private void ResetCounter() {
+			// removes all EventHandler for a bugfree experience
+			_Counter.Tick -= UpCounter_Tick;
+			_Counter.Tick -= DownCounter_Tick;
+
+			// Sets DestinationTime and Time to zero
+			_DestinationTime = TimeSpan.Zero;
+			Time = TimeSpan.Zero;
 		}
 
 		#endregion

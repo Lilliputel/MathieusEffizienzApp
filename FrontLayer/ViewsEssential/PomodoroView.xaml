@@ -20,11 +20,11 @@
 
 			<!-- Buttons To Start/Stop Timer and Update WorkMode -->
 			<Button Grid.Row="0" Grid.Column="0"
-					Content="{Binding Clock.Running}"
+					Content="{Binding Clock.StartStopText}"
 					Command="{Binding StartStopCommand}"/>
 			<Button Grid.Row="0" Grid.Column="1"
-					Content="{Binding Clock.DisplayNextMode}"
-					Command="{Binding ChangeModeCommand}"/>
+					Content="{Binding Clock.DelayText}"
+					Command="{Binding DelayCommand}"/>
 		</Grid>
 
 		<!-- Drei Spalten für die Zeiten -->

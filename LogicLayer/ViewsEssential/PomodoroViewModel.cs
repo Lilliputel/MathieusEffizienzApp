@@ -10,7 +10,7 @@ namespace LogicLayer.Views {
 		#region fields
 
 		private ICommand? _StartStopCommand;
-		private ICommand? _ChangeModeCommand;
+		private ICommand? _DelayCommand;
 		private ICommand? _SaveTimeCommand;
 
 		#endregion
@@ -19,11 +19,11 @@ namespace LogicLayer.Views {
 
 		public ICommand StartStopCommand => _StartStopCommand
 			??= new RelayCommand(parameter => {
-				Clock.StartWork();
+				Clock.StartStopClock();
 			});
-		public ICommand ChangeModeCommand => _ChangeModeCommand
+		public ICommand DelayCommand => _DelayCommand
 			??= new RelayCommand(parameter => {
-				Clock.ChangeWorkMode();
+				Clock.DelayWorkMode();
 			});
 		public ICommand SaveTimeCommand => _SaveTimeCommand
 			??= new RelayCommand(parameter => {

@@ -5,7 +5,8 @@
 		Stop,
 		Work,
 		Break,
-		Delay
+		DelayWork,
+		DelayBreak
 
 	}
 }
