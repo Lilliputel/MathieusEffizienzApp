@@ -1,5 +1,4 @@
-﻿using ModelLayer.Structs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ModelLayer.Classes {
@@ -28,7 +27,7 @@ namespace ModelLayer.Classes {
 		/// <param name="zeitfenster">Zeitfenster definiert StartZeit und endZeit (Automatisch auf 15min. gerundet)</param>
 		/// <param name="id">Die ID, die als wert in das Lexikon eingetragen werden muss</param>
 		/// <param name="doOverride">Ob bestehende einträge überschrieben werden sollen oder nicht, falls nein kann false zurückgegeben werden</param>
-		public bool TryPlan( DateSpan zeitfenster, Guid id, bool doOverride = false ) {
+		public Guid? TryPlan( DateSpan zeitfenster, Guid id, bool doOverride = false ) {
 
 			List<(DayOfWeek wochenTag, TimeSpan zeitStempel)> cacheListe = new List<(DayOfWeek wochenTag, TimeSpan zeitStempel)>();
 
@@ -52,7 +51,7 @@ namespace ModelLayer.Classes {
 					// und wenn nicht überschrieben werden soll, dann wird falsch zurückgegeben
 					if( zeitDictionary.ContainsKey(zeitStempel)
 						&& doOverride == false ) {
-						return false;
+						return zeitDictionary[zeitStempel];
 					}
 					// Wenn überschrieben werden darf, 
 					// oder wenn das lexikon den ZeitStempel noch nicht enhält
@@ -80,7 +79,7 @@ namespace ModelLayer.Classes {
 			}
 
 			// If the for-loop was successful
-			return true;
+			return null;
 		}
 
 		/// <summary>

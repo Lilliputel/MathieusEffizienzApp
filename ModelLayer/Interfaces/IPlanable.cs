@@ -1,4 +1,4 @@
-﻿using ModelLayer.Structs;
+﻿using ModelLayer.Classes;
 
 namespace ModelLayer.Interfaces {
 	public interface IPlanable {

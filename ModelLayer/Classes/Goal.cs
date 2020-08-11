@@ -1,6 +1,6 @@
 ﻿using ModelLayer.Enums;
 using ModelLayer.Interfaces;
-using ModelLayer.Structs;
+using ModelLayer.Classes;
 using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;

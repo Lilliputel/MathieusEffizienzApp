@@ -4,6 +4,7 @@ using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml.Serialization;
 
@@ -64,6 +65,9 @@ namespace ModelLayer.Classes {
 			}
 		}
 
+		// WeekPlan
+		public ObservableCollection<(DayOfWeek key, DayPlan plan)> WeekPlan { get; set; }
+
 		// IStatus
 		[XmlAttribute("Status")]
 		public EnumStatus Status {
@@ -103,6 +107,17 @@ namespace ModelLayer.Classes {
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
+
+			// initialize WeekPlan
+			this.WeekPlan = new ObservableCollection<(DayOfWeek key, DayPlan plan)>() {
+				(DayOfWeek.Monday, new DayPlan() ),
+				(DayOfWeek.Tuesday, new DayPlan() ),
+				(DayOfWeek.Wednesday, new DayPlan() ),
+				(DayOfWeek.Thursday, new DayPlan() ),
+				(DayOfWeek.Friday, new DayPlan() ),
+				(DayOfWeek.Saturday, new DayPlan() ),
+				(DayOfWeek.Sunday, new DayPlan() )
+			};
 		}
 
 		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumStatus _Status = EnumStatus.ToDo ) : this() {
@@ -146,6 +161,24 @@ namespace ModelLayer.Classes {
 			foreach( Goal child in _Children ) {
 				AddChild(child);
 			}
+		}
+
+		public async Task AddTimeAsync( DayOfWeek day, DayTime time ) {
+			DayTime? result = null;
+			await Task.Run(() => result = GetPlan(day)?.GetOverlappingAsync(time).Result);
+			if( result is { } ) {
+
+			}
+		}
+		public DayTime? GetOverlapping( DayOfWeek day, DayTime time )
+			=> Task.Run(() => GetPlan(day)?.GetOverlappingAsync(time).Result).Result;
+
+		private DayPlan? GetPlan( DayOfWeek day ) {
+			foreach( var pair in WeekPlan ) {
+				if( pair.key == day )
+					return pair.plan;
+			}
+			return null;
 		}
 
 		#endregion
