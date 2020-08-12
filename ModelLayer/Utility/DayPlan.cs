@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace ModelLayer.Classes {
+namespace ModelLayer.Utility {
 	public class DayPlan : ObservableCollection<DayTime> {
 
 		#region fields

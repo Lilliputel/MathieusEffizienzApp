@@ -1,5 +1,4 @@
 ﻿using LogicLayer.Manager;
-using ModelLayer.Utility;
 using System.Windows;
 
 namespace FrontLayer {
@@ -8,10 +7,6 @@ namespace FrontLayer {
 		#region constructor
 
 		public App() {
-
-			// Load the saved Categories from The XML-File
-			XMLHandler.Laden(ObjectManager.CategoryList, nameof(ObjectManager.CategoryList));
-
 		}
 
 		#endregion
@@ -19,17 +14,14 @@ namespace FrontLayer {
 		#region methods
 
 		protected override void OnStartup( StartupEventArgs e ) {
+			// Set the Theme to the standard-Theme
 			Resources.MergedDictionaries[0].Clear();
 			Resources.MergedDictionaries[0].MergedDictionaries.Add(ThemeManager.SelectedTheme);
+
+			// Load the saved Categories from The XML-File
+			FileManager.LoadCategories();
 			base.OnStartup(e);
 		}
-
-#warning Speicher-Funktion
-
-		//public static void Speichern() {
-		//	XMLHandler.Speichern(ObjectManager.Categories, nameof(ObjectManager.Categories));
-		//	MessageBoxDisplayer.ListeGespeichert(nameof(ObjectManager.Categories));
-		//}
 
 		#endregion
 

@@ -1,9 +1,8 @@
-﻿using ModelLayer.Utility;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace ModelLayer.Classes {
+namespace ModelLayer.Utility {
 	/// <summary>
 	/// Enthält eine StartZeit und eine EndZeit
 	/// </summary>

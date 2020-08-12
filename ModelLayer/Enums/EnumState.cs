@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Ein Enum, in dem alle möglichen Arbeitsschritte erfasst sind.
 	/// </summary>
-	public enum EnumStatus {
+	public enum EnumState {
 
 		ToDo,
 		InProgress,

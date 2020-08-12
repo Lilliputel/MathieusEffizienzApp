@@ -1,76 +1,74 @@
 ﻿using LogicLayer.Utility;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Utility {
 
-	public static class XMLHandler {
+	public class XMLHandler {
 
 		#region fields
 
-		private static string SpeicherPfad { get; set; } = @"S:\TESTING\Effizienz\";
-		private static string DateiName { get; set; } = "Test.xml";
+		private string _FilePath;
+
+		#endregion
+
+		#region constructor
+
+		public XMLHandler( string filePath ) {
+			this._FilePath = filePath;
+		}
 
 		#endregion
 
 		#region methods
 
-		public static void PfadSetzen( string _SpeicherPfad ) {
-			SpeicherPfad = _SpeicherPfad;
-		}
-		public static void DateiNameSetzen( string _DateiName ) {
-			if( _DateiName.EndsWith(".xml") ) {
-				DateiName = _DateiName;
-			}
-			else {
-				DateiName = string.Concat(_DateiName, ".xml");
-			}
+		public void SetFilePath( string filePath ) {
+			_FilePath = filePath;
 		}
 
 		#endregion
 
-		#region speichern
+		#region save
 
-		public static void Speichern<T>( ObservableCollection<T> _speicherListe ) {
-			Speichern<T>(_speicherListe, DateiName, SpeicherPfad);
-		}
-		public static void Speichern<T>( ObservableCollection<T> _speicherListe, string _DateiName ) {
-			Speichern<T>(_speicherListe, _DateiName, SpeicherPfad);
-		}
-		public static void Speichern<T>( ObservableCollection<T> _speicherListe, string _DateiName, string _DateiPfad ) {
-			DateiNameSetzen(_DateiName);
+		public void SaveCollection<T>( ObservableCollection<T> savingList, string fileName )
+			=> SaveCollection<T>(savingList, fileName, _FilePath);
+		public void SaveCollection<T>( ObservableCollection<T> savingList, string fileName, string filePath ) {
+			if( fileName.EndsWith(".xml") == false )
+				fileName = string.Concat(fileName, ".xml");
+
 			try {
-				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Create) ) {
+				using( FileStream fileStream = new FileStream(filePath + fileName, FileMode.Create) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					Serializer.Serialize(fileStream, _speicherListe);
+					Serializer.Serialize(fileStream, savingList);
 				}
 			}
 			catch( FileNotFoundException ) {
-				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
+				MessageBoxDisplayer.FileNotFound(fileName, filePath);
 			}
+
 		}
 
 		#endregion
 
-		#region laden
+		#region load
 
-		public static void Laden<T>( ObservableCollection<T> _ladeListe ) {
-			Laden<T>(_ladeListe, DateiName, SpeicherPfad);
-		}
-		public static void Laden<T>( ObservableCollection<T> _ladeListe, string _DateiName ) {
-			Laden<T>(_ladeListe, _DateiName, SpeicherPfad);
-		}
-		public static void Laden<T>( ObservableCollection<T> _ladeListe, string _DateiName, string _DateiPfad ) {
-			DateiNameSetzen(_DateiName);
+		public void LoadCollection<T>( ObservableCollection<T> loadingList, string fileName ) =>
+			LoadCollection<T>(loadingList, fileName, _FilePath);
+		public void LoadCollection<T>( ObservableCollection<T> loadingList, string fileName, string filePath ) {
+			if( loadingList is null )
+				loadingList = new ObservableCollection<T>();
+			if( fileName.EndsWith(".xml") == false )
+				fileName = string.Concat(fileName, ".xml");
 			try {
-				using( FileStream fileStream = new FileStream(_DateiPfad + DateiName, FileMode.Open) ) {
+				using( FileStream fileStream = new FileStream(filePath + fileName, FileMode.Open) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					_ladeListe = new ObservableCollection<T>((ObservableCollection<T>)Serializer.Deserialize(fileStream));
+					loadingList = new ObservableCollection<T>(loadingList.Concat(Serializer.Deserialize(fileStream) as ObservableCollection<T>));
 				}
 			}
 			catch( FileNotFoundException ) {
-				MessageBoxDisplayer.FileNotFound(_DateiName, _DateiPfad);
+				MessageBoxDisplayer.FileNotFound(fileName, filePath);
 			}
 		}
 

@@ -1,6 +1,5 @@
 ﻿using ModelLayer.Enums;
 using ModelLayer.Interfaces;
-using ModelLayer.Classes;
 using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
@@ -14,19 +13,19 @@ namespace ModelLayer.Classes {
 
 		#region fields
 
-		private string? title;
-		private string? description;
+		private string? _Title;
+		private string? _Description;
 
-		private Guid? parentID;
-		private bool isChild;
+		private Guid? _ParentID;
+		private bool _IsChild;
 
-		private bool isParent;
+		private bool _IsParent;
 
-		private Color color;
+		private Color _Color;
 
-		private EnumStatus status;
-		private DateSpan plan;
-		private TimeSpan time;
+		private EnumState _State = EnumState.ToDo;
+		private DateSpan _Plan;
+		private TimeSpan _Time;
 
 		#endregion
 
@@ -38,20 +37,20 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Title")]
 		public string Title {
 			get {
-				return title ??= "New_Goal!";
+				return _Title ??= "New_Goal!";
 			}
 			set {
-				title = value;
+				_Title = value;
 				OnPropertyChanged(nameof(Title));
 			}
 		}
 		[XmlAttribute("Description")]
 		public string Description {
 			get {
-				return description ??= "This is a new standardGoal!";
+				return _Description ??= "This is a new standardGoal!";
 			}
 			set {
-				description = value;
+				_Description = value;
 				OnPropertyChanged(nameof(Description));
 			}
 		}
@@ -60,10 +59,10 @@ namespace ModelLayer.Classes {
 		[XmlElement("ParentID", IsNullable = true)]
 		public Guid? ParentID {
 			get {
-				return parentID;
+				return _ParentID;
 			}
 			set {
-				parentID = (Guid?)value;
+				_ParentID = (Guid?)value;
 				OnPropertyChanged(nameof(ParentID));
 
 				// setzt den status IsChild auf true, wenn die ID gesetzt wird
@@ -73,10 +72,10 @@ namespace ModelLayer.Classes {
 		[XmlIgnore]
 		public bool IsChild {
 			get {
-				return isChild;
+				return _IsChild;
 			}
 			private set {
-				isChild = value;
+				_IsChild = value;
 				OnPropertyChanged(nameof(IsChild));
 			}
 		}
@@ -86,10 +85,10 @@ namespace ModelLayer.Classes {
 		[XmlIgnore]
 		public bool IsParent {
 			get {
-				return isParent;
+				return _IsParent;
 			}
 			private set {
-				isParent = value;
+				_IsParent = value;
 				OnPropertyChanged(nameof(IsParent));
 			}
 		}
@@ -98,42 +97,42 @@ namespace ModelLayer.Classes {
 		[XmlElement]
 		public Color Color {
 			get {
-				return color;
+				return _Color;
 			}
 			set {
-				color = value;
+				_Color = value;
 				OnPropertyChanged(nameof(Color));
 			}
 		}
 
 		// IWorkable
-		[XmlAttribute("Status")]
-		public EnumStatus Status {
+		[XmlAttribute("State")]
+		public EnumState State {
 			get {
-				return status;
+				return _State;
 			}
 			set {
-				status = value;
-				OnPropertyChanged(nameof(Status));
+				_State = value;
+				OnPropertyChanged(nameof(State));
 			}
 		}
 		[XmlElement]
 		public DateSpan Plan {
 			get {
-				return plan;
+				return _Plan;
 			}
 			set {
-				plan = value;
+				_Plan = value;
 				OnPropertyChanged(nameof(Plan));
 			}
 		}
 		[XmlAttribute("Time")]
 		public TimeSpan Time {
 			get {
-				return time;
+				return _Time;
 			}
 			set {
-				time = value;
+				_Time = value;
 				OnPropertyChanged(nameof(Time));
 			}
 		}
@@ -148,19 +147,20 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		public Goal() {
 			this.ID = Guid.NewGuid();
-			this.Time = TimeSpan.Zero;
+			this._Time = TimeSpan.Zero;
+			this._Plan = new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2));
 
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 		}
 
-		public Goal( string _Title, DateTime _StartDate, DateTime _EndDate, EnumStatus _Status = EnumStatus.ToDo, string _Description = "New Goal!" )
+		public Goal( string title, DateTime startDate, DateTime endDate, EnumState state = EnumState.ToDo, string description = "New Goal!" )
 			: this() {
-			this.Title = _Title;
-			this.Plan = new DateSpan(_StartDate, _EndDate);
-			this.Status = _Status;
-			this.Description = _Description;
+			this._Title = title;
+			this._Plan = new DateSpan(startDate, endDate);
+			this._State = state;
+			this._Description = description;
 		}
 
 		~Goal() { }

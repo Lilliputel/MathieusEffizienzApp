@@ -1,5 +1,4 @@
 ﻿using LogicLayer.ViewModels;
-using ModelLayer.Classes;
 using System.Data;
 
 namespace LogicLayer.Views {
@@ -9,14 +8,11 @@ namespace LogicLayer.Views {
 
 		public DataTable DTStundenplan { get; set; }
 
-		public Stundenplan Stundenplan { get; set; }
-
 		#endregion
 
 		#region constructor
 
 		public PlanViewModel() {
-			Stundenplan = new Stundenplan();
 			DTStundenplan = new DataTable();
 			CreateDataTable();
 		}
@@ -27,10 +23,6 @@ namespace LogicLayer.Views {
 
 		private void CreateDataTable() {
 			DTStundenplan.Columns.Add("Zeit");
-			foreach( var Tage in Stundenplan.Plan.Keys ) {
-				DTStundenplan.Columns.Add(Tage.ToString());
-
-			}
 			for( int stunde = 0; stunde < 24; stunde++ ) {
 				for( int minute = 0; minute <= 45; minute += 30 ) {
 					DTStundenplan.Rows.Add(

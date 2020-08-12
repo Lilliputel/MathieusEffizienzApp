@@ -4,7 +4,6 @@ using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Xml.Serialization;
 
@@ -20,7 +19,7 @@ namespace ModelLayer.Classes {
 		private bool isParent;
 
 		private Color color;
-		private EnumStatus status;
+		private EnumState status;
 
 		#endregion
 
@@ -66,17 +65,17 @@ namespace ModelLayer.Classes {
 		}
 
 		// WeekPlan
-		public ObservableCollection<(DayOfWeek key, DayPlan plan)> WeekPlan { get; set; }
+		public WeekPlan WeekPlan { get; set; }
 
 		// IStatus
 		[XmlAttribute("Status")]
-		public EnumStatus Status {
+		public EnumState State {
 			get {
 				return status;
 			}
 			set {
 				status = value;
-				OnPropertyChanged(nameof(Status));
+				OnPropertyChanged(nameof(State));
 			}
 		}
 
@@ -102,29 +101,21 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		public Category() {
 			this.ID = Guid.NewGuid();
-			this.Status = EnumStatus.ToDo;
+			this.State = EnumState.ToDo;
 
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 
 			// initialize WeekPlan
-			this.WeekPlan = new ObservableCollection<(DayOfWeek key, DayPlan plan)>() {
-				(DayOfWeek.Monday, new DayPlan() ),
-				(DayOfWeek.Tuesday, new DayPlan() ),
-				(DayOfWeek.Wednesday, new DayPlan() ),
-				(DayOfWeek.Thursday, new DayPlan() ),
-				(DayOfWeek.Friday, new DayPlan() ),
-				(DayOfWeek.Saturday, new DayPlan() ),
-				(DayOfWeek.Sunday, new DayPlan() )
-			};
+			this.WeekPlan = new WeekPlan();
 		}
 
-		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumStatus _Status = EnumStatus.ToDo ) : this() {
+		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumState _Status = EnumState.ToDo ) : this() {
 			this.Title = _Titel;
 			this.Description = _Description;
 			this.Color = _Farbe;
-			this.Status = _Status;
+			this.State = _Status;
 		}
 
 		~Category() { }
@@ -161,24 +152,6 @@ namespace ModelLayer.Classes {
 			foreach( Goal child in _Children ) {
 				AddChild(child);
 			}
-		}
-
-		public async Task AddTimeAsync( DayOfWeek day, DayTime time ) {
-			DayTime? result = null;
-			await Task.Run(() => result = GetPlan(day)?.GetOverlappingAsync(time).Result);
-			if( result is { } ) {
-
-			}
-		}
-		public DayTime? GetOverlapping( DayOfWeek day, DayTime time )
-			=> Task.Run(() => GetPlan(day)?.GetOverlappingAsync(time).Result).Result;
-
-		private DayPlan? GetPlan( DayOfWeek day ) {
-			foreach( var pair in WeekPlan ) {
-				if( pair.key == day )
-					return pair.plan;
-			}
-			return null;
 		}
 
 		#endregion
