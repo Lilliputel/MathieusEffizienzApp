@@ -224,7 +224,6 @@ Finish:
 
 		private void UpdateCountDirection() {
 #warning I want to Implement an Option, to change the Countdirection
-			// Save the times and update accordingly, so i can switch even while counting
 		}
 
 		private void UpdateButtonText() {

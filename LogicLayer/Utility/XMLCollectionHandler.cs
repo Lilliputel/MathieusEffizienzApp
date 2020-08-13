@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Utility {
 
-	public class XMLHandler {
+	public class XMLCollectionHandler {
 
 		#region fields
 
@@ -16,7 +16,7 @@ namespace ModelLayer.Utility {
 
 		#region constructor
 
-		public XMLHandler( string filePath ) {
+		public XMLCollectionHandler( string filePath ) {
 			this._FilePath = filePath;
 		}
 
