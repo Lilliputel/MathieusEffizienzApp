@@ -5,7 +5,7 @@
 			 xmlns:components="clr-namespace:FrontLayer.Components"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:converter="clr-namespace:FrontLayer.Converters"
-			 xmlns:Utility="clr-namespace:ModelLayer.Utility;assembly=ModelLayer">
+			 xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer">
 
 	<UserControl.Resources>
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>

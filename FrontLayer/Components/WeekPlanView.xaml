@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="FrontLayer.Components.WeekPlanView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
 			 xmlns:Components="clr-namespace:FrontLayer.Components"
 			 
 			 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" 

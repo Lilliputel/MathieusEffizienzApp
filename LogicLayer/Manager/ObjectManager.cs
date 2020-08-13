@@ -1,8 +1,9 @@
 ﻿using ModelLayer.Classes;
-using ModelLayer.Utility;
+using ModelLayer.Planning;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
@@ -17,6 +18,13 @@ namespace LogicLayer.Manager {
 		public static ObservableCollection<Category> CategoryList { get; set; }
 
 		/// <summary>
+		/// Der Globale WeekPlan, welche nicht gespeichert wird und alle DayTimes mit den Kategorien und Farben enthalten sollte.
+		/// </summary>
+		public static WeekPlan WeekPlan { get; set; }
+
+
+
+		/// <summary>
 		/// Die Globale SettingsList, welche gespeichert wird und alle Settings enthalten sollte.
 		/// </summary>
 		public static Dictionary<string, bool> Settings { get; set; }
@@ -29,8 +37,11 @@ namespace LogicLayer.Manager {
 		static ObjectManager() {
 
 			CategoryList = new ObservableCollection<Category>();
+			CategoryList.CollectionChanged += SubscribeWorkPlans;
+			WeekPlan = new WeekPlan();
 			Settings = new Dictionary<string, bool>();
 		}
+
 
 		#endregion
 
@@ -47,8 +58,6 @@ namespace LogicLayer.Manager {
 
 			// new Category
 			Category CBCategory1 = new Category($"Generated-Category{counter}", randomColor);
-
-			Task.Run(() => CBCategory1.WeekPlan.AddTimeAsync((DayOfWeek)randomGen.Next(7), new DayTime(TimeSpan.FromHours(0 + counter), TimeSpan.FromHours(1 + counter))));
 
 			Goal CBGoal1 = new Goal($"Generated-Goal{counter}_1", DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
 				Time = new TimeSpan(1, 2, 3)
@@ -67,8 +76,39 @@ namespace LogicLayer.Manager {
 
 			CategoryList.Add(CBCategory1);
 
+			CBCategory1.WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DayTime(TimeSpan.FromHours(0 + counter), TimeSpan.FromHours(1 + counter))));
 
 			counter++;
+		}
+
+		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
+			if( sender is Category cat )
+				cat.WorkTimes.CollectionChanged += UpdateWeekPlan;
+		}
+
+		private static void UpdateWeekPlan( object sender, NotifyCollectionChangedEventArgs e ) {
+			if( sender is Category cat )
+				switch( e.Action ) {
+				case NotifyCollectionChangedAction.Add:
+					foreach( var item in e.NewItems )
+						if( item is (DayOfWeek day, DayTime time) )
+							Task.Run(() => WeekPlan.AddItemToDayAsync(day, new PlanItem(time, cat.ID, cat.Color)));
+					break;
+				case NotifyCollectionChangedAction.Remove:
+					foreach( var item in e.OldItems )
+						if( item is (DayOfWeek day, DayTime time) )
+							WeekPlan.RemoveItemFromDay(day, new PlanItem(time, cat.ID, cat.Color));
+					break;
+				case NotifyCollectionChangedAction.Replace:
+					break;
+				case NotifyCollectionChangedAction.Move:
+					break;
+				case NotifyCollectionChangedAction.Reset:
+					break;
+				default:
+					break;
+				}
+
 		}
 
 		#endregion

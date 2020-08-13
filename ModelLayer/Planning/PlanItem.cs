@@ -53,6 +53,10 @@ namespace ModelLayer.Planning {
 
 		#region constructors
 
+		public PlanItem() {
+
+		}
+
 		public PlanItem( DayTime time, Guid id, Color color ) {
 			this._Time = time;
 			this._ID = id;

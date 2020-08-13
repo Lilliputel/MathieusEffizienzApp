@@ -1,6 +1,7 @@
 ﻿using LogicLayer.Manager;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
+using ModelLayer.Planning;
 using System.Collections.ObjectModel;
 
 namespace LogicLayer.Views {
@@ -10,6 +11,9 @@ namespace LogicLayer.Views {
 
 		public ObservableCollection<Category> Categories
 			=> ObjectManager.CategoryList;
+
+		public WeekPlan WeekPlan
+			=> ObjectManager.WeekPlan;
 
 		#endregion
 

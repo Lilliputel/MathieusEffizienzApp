@@ -13,6 +13,9 @@ namespace ModelLayer.Planning {
 		#endregion
 
 		#region constructors
+		public DayPlan() {
+
+		}
 
 		#endregion
 
@@ -43,7 +46,6 @@ namespace ModelLayer.Planning {
 				}
 				return result;
 			});
-
 
 		#endregion
 

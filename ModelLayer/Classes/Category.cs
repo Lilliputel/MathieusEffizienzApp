@@ -1,5 +1,6 @@
 ﻿using ModelLayer.Enums;
 using ModelLayer.Interfaces;
+using ModelLayer.Planning;
 using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
@@ -65,6 +66,7 @@ namespace ModelLayer.Classes {
 		}
 
 		// WeekPlan
+		public ObservableCollection<(DayOfWeek Day, DayTime Time)> WorkTimes { get; set; }
 		public WeekPlan WeekPlan { get; set; }
 
 		// IStatus
@@ -109,6 +111,7 @@ namespace ModelLayer.Classes {
 
 			// initialize WeekPlan
 			this.WeekPlan = new WeekPlan();
+			this.WorkTimes = new ObservableCollection<(DayOfWeek Day, DayTime Time)>();
 		}
 
 		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumState _Status = EnumState.ToDo ) : this() {

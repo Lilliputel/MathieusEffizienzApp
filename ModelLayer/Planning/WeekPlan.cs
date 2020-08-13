@@ -46,6 +46,13 @@ namespace ModelLayer.Planning {
 			else
 				dayPlan.Add(item);
 		}
+		public void RemoveItemFromDay( DayOfWeek day, PlanItem item ) {
+			DayPlan dayPlan = GetDayPlan(day);
+
+			dayPlan.Remove(item);
+
+		}
+
 		public async Task<DayTime?> GetWeekOverlappingAsync( DayOfWeek day, DayTime time ) {
 			DayTime? result = null;
 			await Task.Run(() => result = GetDayPlan(day).GetDayOverlappingAsync(time).Result);
