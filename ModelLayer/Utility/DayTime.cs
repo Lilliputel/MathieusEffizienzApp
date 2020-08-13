@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Utility {
@@ -62,15 +61,6 @@ namespace ModelLayer.Utility {
 		public DayTime() {
 
 		}
-
-		/// <summary>
-		/// Erzeugt ein DateSpan mit dem Standardformat ch-DE (01.01.00 / dd.MM.YY)
-		/// </summary>
-		public DayTime( string start, string end )
-			: this(start, end, new CultureInfo("ch-DE")) { }
-
-		public DayTime( string start, string end, IFormatProvider formatProvider )
-			: this(TimeSpan.ParseExact(start, @"hh:mm:ss", formatProvider), TimeSpan.ParseExact(end, @"hh:mm:ss", formatProvider)) { }
 
 		public DayTime( TimeSpan _start, TimeSpan _end ) {
 			// reduziert die eingegebene Zeit auf Tag, Monat, Jahr

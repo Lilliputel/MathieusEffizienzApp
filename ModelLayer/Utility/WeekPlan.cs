@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ModelLayer.Utility {
 	public class WeekPlan {
@@ -9,13 +10,19 @@ namespace ModelLayer.Utility {
 		#endregion
 
 		#region properties
-
+		[XmlElement("Monday")]
 		public DayPlan Monday { get; private set; } = new DayPlan();
+		[XmlElement("Tuesday")]
 		public DayPlan Tuesday { get; private set; } = new DayPlan();
+		[XmlElement("Wednesday")]
 		public DayPlan Wednesday { get; private set; } = new DayPlan();
+		[XmlElement("Thursday")]
 		public DayPlan Thursday { get; private set; } = new DayPlan();
+		[XmlElement("Friday")]
 		public DayPlan Friday { get; private set; } = new DayPlan();
+		[XmlElement("Saturday")]
 		public DayPlan Saturday { get; private set; } = new DayPlan();
+		[XmlElement("Sunday")]
 		public DayPlan Sunday { get; private set; } = new DayPlan();
 
 

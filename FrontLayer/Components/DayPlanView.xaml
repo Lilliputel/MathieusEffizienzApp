@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="FrontLayer.Components.DayPlanView"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
+			 xmlns:Utility="clr-namespace:ModelLayer.Utility;assembly=ModelLayer"
+			 xmlns:converter="clr-namespace:FrontLayer.Converters"
+			 x:Name="Root" MinWidth="70"
+			 Background="{x:Null}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+
+	<UserControl.Resources>
+		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
+	</UserControl.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<!-- Header -->
+		<ContentPresenter Content="{Binding ElementName=Root, Path=Header}" ContentTemplate="{Binding ElementName=Root, Path=HeaderTemplate}"
+						  x:Name="HeaderPresenter"/>
+
+		<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Root, Path=DayPlan}">
+
+			<!-- Setzt ein Grid als Panel, damit alle denselben startpunkt haben. -->
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Grid/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<!-- ItemTemplate mit den DayTimes -->
+			<ItemsControl.ItemTemplate>
+				<DataTemplate DataType="{x:Type Utility:DayTime}">
+
+					<!-- Ein Rechteck mit gerundeten Ecken, um die DayTime im ItemsControl anzuzeigen -->
+					<Border CornerRadius="5" 
+							VerticalAlignment="Top"
+							HorizontalAlignment="Stretch"
+							Background="{Binding ElementName=Root, Path=Color}">
+
+						<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
+						<Border.Margin>
+							<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="Start">
+								<Binding Path="Start"/>
+
+								<Binding Path="End"/>
+
+								<Binding ElementName="Root"
+										 Path="Height"/>
+								
+								<Binding ElementName="HeaderPresenter"
+										 Path="ActualHeight"/>
+							</MultiBinding>
+						</Border.Margin>
+
+						<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="End">
+								<Binding Path="Start"/>
+
+								<Binding Path="End"/>
+
+								<Binding ElementName="Root"
+										 Path="Height"/>
+
+								<Binding ElementName="HeaderPresenter"
+										 Path="ActualHeight"/>
+							</MultiBinding>
+						</Border.Height>
+
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+
+		</ItemsControl>
+	</Grid>
+</UserControl>

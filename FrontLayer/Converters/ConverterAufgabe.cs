@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -16,16 +15,19 @@ namespace FrontLayer.Converters {
 			double offset = ((double)values[4]);
 
 			double faktor;
-			// setzt den faktor zu einem Bruch der gesamtlänge
-			try { 
-				faktor = 
-					datum.Date.Subtract(projektStart.Date).TotalDays 
-						/ projektEnde.Date.Subtract(projektStart.Date).TotalDays;
+			// setzt den faktor zu einem Bruch der gesamtlänge 
+			// Datum - StartDatum = Reiner Tagesunterschied a
+			// EndDatum - StartDatum = Reiner Tagesunterschied b
+
+			try {
+				double start = datum.Date.Subtract(projektStart.Date).TotalDays;
+				double end = projektEnde.Date.Subtract(projektStart.Date).TotalDays;
+				faktor = start / end;
 			}
 			catch( DivideByZeroException ) {
 				faktor = 0;
 			}
-			
+
 			double position = (faktor * gesamtLänge) + offset;
 
 			if( targetType == typeof(Thickness) ) {
@@ -36,8 +38,9 @@ namespace FrontLayer.Converters {
 			}
 
 		}
-		public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) { 
-			throw new NotImplementedException(); 
+
+		public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) {
+			throw new NotImplementedException();
 		}
 	}
 }

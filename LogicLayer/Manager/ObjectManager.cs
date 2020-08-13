@@ -1,6 +1,8 @@
 ﻿using ModelLayer.Classes;
+using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace LogicLayer.Manager {
@@ -12,6 +14,8 @@ namespace LogicLayer.Manager {
 		/// Die Globale Categories, welche gespeichert wird und alle Categories enthalten Sollte.
 		/// </summary>
 		public static ObservableCollection<Category> CategoryList { get; set; }
+
+		private static int counter = 0;
 
 		#endregion
 
@@ -27,7 +31,19 @@ namespace LogicLayer.Manager {
 		#region methods
 
 		public static void GenerateObjects() {
-			Category CBCategory1 = new Category("CodeBehind-NewCategory", Colors.DeepSkyBlue);
+			Random randomGen = new Random();
+			Color randomColor =
+				Color.FromArgb(
+				(byte)randomGen.Next(255),
+				(byte)randomGen.Next(255),
+				(byte)randomGen.Next(255),
+				(byte)randomGen.Next(255));
+
+			// new Category
+			Category CBCategory1 = new Category("CodeBehind-NewCategory", randomColor);
+
+			Task.Run(() => CBCategory1.WeekPlan.AddTimeAsync((DayOfWeek)randomGen.Next(7), new DayTime(TimeSpan.FromHours(0 + counter), TimeSpan.FromHours(1 + counter))));
+
 			Goal CBGoal1 = new Goal("CodeBehind-NewGoal1", DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
 				Time = new TimeSpan(1, 2, 3)
 			};
@@ -44,6 +60,9 @@ namespace LogicLayer.Manager {
 			CBCategory1.AddChild(CBGoal2);
 
 			CategoryList.Add(CBCategory1);
+
+
+			counter++;
 		}
 
 		#endregion

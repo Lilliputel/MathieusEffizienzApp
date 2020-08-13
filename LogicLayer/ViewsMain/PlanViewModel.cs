@@ -1,36 +1,27 @@
-﻿using LogicLayer.ViewModels;
-using System.Data;
+﻿using LogicLayer.Manager;
+using LogicLayer.ViewModels;
+using ModelLayer.Classes;
+using System.Collections.ObjectModel;
 
 namespace LogicLayer.Views {
 	public class PlanViewModel : ViewModelBase {
 
 		#region properties
 
-		public DataTable DTStundenplan { get; set; }
+		public ObservableCollection<Category> Categories
+			=> ObjectManager.CategoryList;
 
 		#endregion
 
 		#region constructor
 
 		public PlanViewModel() {
-			DTStundenplan = new DataTable();
-			CreateDataTable();
+
 		}
 
 		#endregion
 
 		#region methods
-
-		private void CreateDataTable() {
-			DTStundenplan.Columns.Add("Zeit");
-			for( int stunde = 0; stunde < 24; stunde++ ) {
-				for( int minute = 0; minute <= 45; minute += 30 ) {
-					DTStundenplan.Rows.Add(
-						DTStundenplan.NewRow()["Zeit"]
-						= $"{stunde.ToString("00")}:{minute.ToString("00")}");
-				}
-			}
-		}
 
 		#endregion
 
