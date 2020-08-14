@@ -1,75 +1,81 @@
-﻿<UserControl x:Class="FrontLayer.Components.DayPlanView"
-			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 
-			 xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
-			 xmlns:converter="clr-namespace:FrontLayer.Converters"
-			 x:Name="Root" MinWidth="70"
-			 Background="{x:Null}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+﻿<HeaderedItemsControl x:Class="FrontLayer.Components.DayPlanView"
+					  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					  
+					  xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
+					  xmlns:converter="clr-namespace:FrontLayer.Converters"
+					  
+					  Background="Transparent" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch"
+					  x:Name="Root" MinWidth="70">
 
-	<UserControl.Resources>
+	<HeaderedItemsControl.Resources>
 		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
-	</UserControl.Resources>
+	</HeaderedItemsControl.Resources>
+	
+	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
+	<HeaderedItemsControl.Template>
+		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<ContentPresenter x:Name="HeaderPresenter" Grid.Row="0"
+								  Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
+								  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
+				<ItemsPresenter Grid.Row="1"/>
+			</Grid>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-		<!-- Header -->
-		<ContentPresenter Content="{Binding ElementName=Root, Path=Header}" ContentTemplate="{Binding ElementName=Root, Path=HeaderTemplate}"
-						  x:Name="HeaderPresenter"/>
+		</ControlTemplate>
+	</HeaderedItemsControl.Template>
 
-		<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Root, Path=DayPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}">
 
-			<!-- Setzt ein Grid als Panel, damit alle denselben startpunkt haben. -->
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<Grid/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+	<!-- Setzt ein Grid als Panel, damit alle denselben startpunkt haben. -->
+	<ItemsControl.ItemsPanel>
+		<ItemsPanelTemplate>
+			<Grid/>
+		</ItemsPanelTemplate>
+	</ItemsControl.ItemsPanel>
 
-			<!-- ItemTemplate mit den DayTimes -->
-			<ItemsControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type Planing:PlanItem}" x:Name="DataTemplate">
+	<!-- ItemTemplate mit den PlanItems -->
+	<ItemsControl.ItemTemplate>
+		<DataTemplate DataType="{x:Type Planing:PlanItem}" x:Name="DataTemplate">
 
-					<!-- Ein Rechteck mit gerundeten Ecken, um die DayTime im ItemsControl anzuzeigen -->
-					<Border CornerRadius="5" 
-							VerticalAlignment="Top"
-							HorizontalAlignment="Stretch"
-							Background="{Binding Path=Color, Converter={StaticResource ColorConverter}}">
+			<!-- Ein Rechteck mit gerundeten Ecken, um die DayTime im ItemsControl anzuzeigen -->
+			<Border CornerRadius="5" 
+					VerticalAlignment="Top"
+					HorizontalAlignment="Stretch"
+					Background="{Binding Path=Color, Converter={StaticResource ColorConverter}}">
 
-						<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
-						<Border.Margin>
-							<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="Start">
-								<Binding Path="Time"/>
+				<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
+				<Border.Margin>
+					<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="Start">
+						<Binding Path="Time"/>
+						
+						<Binding ElementName="Root"
+								 Path="Height"/>
+						
+						<Binding ElementName="HeaderPresenter"
+								 Path="ActualHeight"/>
+					</MultiBinding>
+				</Border.Margin>
 
-								<Binding ElementName="Root"
-										 Path="Height"/>
-								
-								<Binding ElementName="HeaderPresenter"
-										 Path="ActualHeight"/>
-							</MultiBinding>
-						</Border.Margin>
+				<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
+				<Border.Height>
+					<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="End">
+						<Binding Path="Time"/>
+						
+						<Binding ElementName="Root"
+								 Path="Height"/>
+						
+						<Binding ElementName="HeaderPresenter"
+								 Path="ActualHeight"/>
+					</MultiBinding>
+				</Border.Height>
 
-						<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
-						<Border.Height>
-							<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="End">
-								<Binding Path="Time"/>
+			</Border>
+		</DataTemplate>
+	</ItemsControl.ItemTemplate>
 
-								<Binding ElementName="Root"
-										 Path="Height"/>
-
-								<Binding ElementName="HeaderPresenter"
-										 Path="ActualHeight"/>
-							</MultiBinding>
-						</Border.Height>
-
-					</Border>
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-
-		</ItemsControl>
-	</Grid>
-</UserControl>
+</HeaderedItemsControl>
