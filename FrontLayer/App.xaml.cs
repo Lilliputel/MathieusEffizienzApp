@@ -20,6 +20,7 @@ namespace FrontLayer {
 
 			// Load the saved Categories from The XML-File
 			FileManager.LoadCategories();
+			FileManager.LoadSettings();
 			base.OnStartup(e);
 		}
 

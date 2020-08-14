@@ -9,6 +9,7 @@
 
 	<UserControl.Resources>
 		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
+		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<Grid>
@@ -20,7 +21,7 @@
 		<ContentPresenter Content="{Binding ElementName=Root, Path=Header}" ContentTemplate="{Binding ElementName=Root, Path=HeaderTemplate}"
 						  x:Name="HeaderPresenter"/>
 
-		<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Root, Path=DayPlan}">
+		<ItemsControl Grid.Row="1" ItemsSource="{Binding ElementName=Root, Path=DayPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}">
 
 			<!-- Setzt ein Grid als Panel, damit alle denselben startpunkt haben. -->
 			<ItemsControl.ItemsPanel>
@@ -31,20 +32,18 @@
 
 			<!-- ItemTemplate mit den DayTimes -->
 			<ItemsControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type Planing:DayTime}">
+				<DataTemplate DataType="{x:Type Planing:PlanItem}" x:Name="DataTemplate">
 
 					<!-- Ein Rechteck mit gerundeten Ecken, um die DayTime im ItemsControl anzuzeigen -->
 					<Border CornerRadius="5" 
 							VerticalAlignment="Top"
 							HorizontalAlignment="Stretch"
-							Background="{Binding ElementName=Root, Path=Color}">
+							Background="{Binding Path=Color, Converter={StaticResource ColorConverter}}">
 
 						<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 						<Border.Margin>
 							<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="Start">
-								<Binding Path="Start"/>
-
-								<Binding Path="End"/>
+								<Binding Path="Time"/>
 
 								<Binding ElementName="Root"
 										 Path="Height"/>
@@ -57,9 +56,7 @@
 						<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
 						<Border.Height>
 							<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="End">
-								<Binding Path="Start"/>
-
-								<Binding Path="End"/>
+								<Binding Path="Time"/>
 
 								<Binding ElementName="Root"
 										 Path="Height"/>

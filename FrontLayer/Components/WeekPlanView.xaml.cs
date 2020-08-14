@@ -1,7 +1,6 @@
 ﻿using ModelLayer.Planning;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace FrontLayer.Components {
 	/// <summary>
@@ -12,14 +11,6 @@ namespace FrontLayer.Components {
 		public WeekPlanView() {
 			InitializeComponent();
 		}
-
-		public SolidColorBrush Color {
-			get { return (SolidColorBrush)GetValue(ColorProperty); }
-			set { SetValue(ColorProperty, value); }
-		}
-
-		public static readonly DependencyProperty ColorProperty =
-			DependencyProperty.Register("Color", typeof(SolidColorBrush), typeof(WeekPlanView));
 
 		public WeekPlan WeekPlan {
 			get { return (WeekPlan)GetValue(WeekPlanProperty); }

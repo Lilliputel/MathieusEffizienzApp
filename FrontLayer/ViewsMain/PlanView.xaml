@@ -17,21 +17,7 @@
 			Style="{StaticResource BorderRounded}">
 
 		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-
-			<ItemsControl ItemsSource="{Binding Categories}">
-				<ItemsControl.ItemsPanel>
-					<ItemsPanelTemplate>
-						<Grid/>
-					</ItemsPanelTemplate>
-				</ItemsControl.ItemsPanel>
-				<ItemsControl.ItemTemplate>
-					<DataTemplate DataType="{x:Type classes:Category}">
-						<components:WeekPlanView WeekPlan="{Binding WeekPlan}" Color="{Binding Color, Converter={StaticResource ColorConverter}}"
-												 Height="400" Width="490"/>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-
+			<components:WeekPlanView WeekPlan="{Binding WeekPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" Height="400" Width="490"/>
 		</ScrollViewer>
 		
 	</Border>

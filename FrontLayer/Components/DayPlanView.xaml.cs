@@ -1,7 +1,6 @@
 ﻿using ModelLayer.Planning;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace FrontLayer.Components {
 
@@ -11,23 +10,13 @@ namespace FrontLayer.Components {
 			InitializeComponent();
 		}
 
-		public SolidColorBrush Color {
-			get { return (SolidColorBrush)GetValue(ColorProperty); }
-			set { SetValue(ColorProperty, value); }
+		public DayPlan DayPlan {
+			get { return (DayPlan)GetValue(DayPlanProperty); }
+			set { SetValue(DayPlanProperty, value); }
 		}
 
-		public static readonly DependencyProperty ColorProperty =
-			DependencyProperty.Register("Color", typeof(SolidColorBrush), typeof(DayPlanView), new PropertyMetadata(new SolidColorBrush(Colors.AliceBlue) ));
-
-
-		public object Header {
-			get { return (object)GetValue(HeaderProperty); }
-			set { SetValue(HeaderProperty, value); }
-		}
-
-		public static readonly DependencyProperty HeaderProperty =
-			DependencyProperty.Register("Header", typeof(object), typeof(DayPlanView), new PropertyMetadata(null));
-
+		public static readonly DependencyProperty DayPlanProperty =
+			DependencyProperty.Register("DayPlan", typeof(DayPlan), typeof(DayPlanView));
 
 		public DataTemplate HeaderTemplate {
 			get { return (DataTemplate)GetValue(HeaderTemplateProperty); }
@@ -35,23 +24,15 @@ namespace FrontLayer.Components {
 		}
 
 		public static readonly DependencyProperty HeaderTemplateProperty =
-			DependencyProperty.Register("HeaderTemplate", typeof(DataTemplate), typeof(DayPlanView), new PropertyMetadata( null ));
+			DependencyProperty.Register("HeaderTemplate", typeof(DataTemplate), typeof(DayPlanView));
 
-
-		public DayPlan DayPlan {
-			get { return (DayPlan)GetValue(DayPlanProperty); }
-			set { SetValue(DayPlanProperty, value); }
+		public object Header {
+			get { return (object)GetValue(HeaderProperty); }
+			set { SetValue(HeaderProperty, value); }
 		}
 
-		public static readonly DependencyProperty DayPlanProperty =
-			DependencyProperty.Register("DayPlan", typeof(DayPlan), typeof(DayPlanView), new PropertyMetadata( null ));
-
-
-
-
-
-
-
+		public static readonly DependencyProperty HeaderProperty =
+			DependencyProperty.Register("Header", typeof(object), typeof(DayPlanView));
 
 	}
 }

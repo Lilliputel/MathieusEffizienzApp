@@ -67,7 +67,7 @@ namespace ModelLayer.Classes {
 
 		// WeekPlan
 		public ObservableCollection<(DayOfWeek Day, DayTime Time)> WorkTimes { get; set; }
-		public WeekPlan WeekPlan { get; set; }
+		public event EventHandler<NotifyCollectionChangedEventArgs>? WeekPlanChanged;
 
 		// IStatus
 		[XmlAttribute("Status")]
@@ -110,8 +110,8 @@ namespace ModelLayer.Classes {
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 
 			// initialize WeekPlan
-			this.WeekPlan = new WeekPlan();
 			this.WorkTimes = new ObservableCollection<(DayOfWeek Day, DayTime Time)>();
+			this.WorkTimes.CollectionChanged += WorkTimes_CollectionChanged;
 		}
 
 		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumState _Status = EnumState.ToDo ) : this() {
@@ -126,6 +126,8 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region Methods
+
+		private void WorkTimes_CollectionChanged( object sender, NotifyCollectionChangedEventArgs e ) => WeekPlanChanged?.Invoke(this, e);
 
 		protected virtual void CheckIfChildrenEmpty( object sender, NotifyCollectionChangedEventArgs e ) {
 			if( Children.Count <= 0 ) {

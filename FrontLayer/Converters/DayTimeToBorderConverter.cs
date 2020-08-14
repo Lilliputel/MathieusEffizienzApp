@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelLayer.Planning;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -10,10 +11,11 @@ namespace FrontLayer.Converters {
 
 			#region input
 			// get all the Values from Input
-			TimeSpan start = (TimeSpan)values[0];
-			TimeSpan end = (TimeSpan)values[1];
-			double totalHeight = (double)values[2];
-			double headerHeight = (double)values[3];
+			DayTime time = (DayTime)values[0];
+			TimeSpan start = time.Start;
+			TimeSpan end = time.End;
+			double totalHeight = (double)values[1];
+			double headerHeight = (double)values[2];
 			string mode = (string)parameter;
 
 			double actualHeight = totalHeight - headerHeight;
