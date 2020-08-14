@@ -14,7 +14,7 @@
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
 
-		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
 			<components:WeekPlanView WeekPlan="{Binding WeekPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" Height="400" Width="490"/>
 		</ScrollViewer>
 		
