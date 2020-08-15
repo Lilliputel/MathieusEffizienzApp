@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Utility {
@@ -66,9 +65,6 @@ namespace ModelLayer.Utility {
 		/// <summary>
 		/// Erzeugt ein DateSpan mit dem Standardformat ch-DE (01.01.00 / dd.MM.YY)
 		/// </summary>
-		public DateSpan( string start, string end )
-			: this(start, end, new CultureInfo("ch-DE")) { }
-
 		public DateSpan( string start, string end, IFormatProvider formatProvider )
 			: this(DateTime.ParseExact(start, @"dd.MM.yy", formatProvider), DateTime.ParseExact(end, @"dd.MM.yy", formatProvider)) { }
 

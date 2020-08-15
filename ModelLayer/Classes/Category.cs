@@ -14,13 +14,13 @@ namespace ModelLayer.Classes {
 
 		#region fields
 
-		private string? title;
-		private string? description;
+		private string? _Title;
+		private string? _Description;
 
-		private bool isParent;
+		private bool _IsParent;
 
-		private Color color;
-		private EnumState status;
+		private Color _Color;
+		private EnumState _State;
 
 		#endregion
 
@@ -34,38 +34,40 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Title")]
 		public string Title {
 			get {
-				return title ??= "New_Category!";
+				return _Title ??= "New_Category!";
 			}
 			set {
-				title = value;
+				_Title = value;
 				OnPropertyChanged(nameof(Title));
 			}
 		}
 		[XmlAttribute("Description")]
 		public string Description {
 			get {
-				return description ??= "This is a new standardCategory!";
+				return _Description ??= "This is a new standardCategory!";
 			}
 			set {
-				description = value;
+				_Description = value;
 				OnPropertyChanged(nameof(Description));
 			}
 		}
 
 		// IParent
+		[XmlArray("Children")]
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
 		public bool IsParent {
 			get {
-				return isParent;
+				return _IsParent;
 			}
 			set {
-				isParent = value;
+				_IsParent = value;
 				OnPropertyChanged(nameof(IsParent));
 			}
 		}
 
 		// WeekPlan
+		[XmlArray("WorkTimes")]
 		public ObservableCollection<(DayOfWeek Day, DayTime Time)> WorkTimes { get; set; }
 		public event EventHandler<NotifyCollectionChangedEventArgs>? WeekPlanChanged;
 
@@ -73,22 +75,22 @@ namespace ModelLayer.Classes {
 		[XmlAttribute("Status")]
 		public EnumState State {
 			get {
-				return status;
+				return _State;
 			}
 			set {
-				status = value;
+				_State = value;
 				OnPropertyChanged(nameof(State));
 			}
 		}
 
 		// IColorfull
-		[XmlElement]
+		[XmlElement("Color")]
 		public Color Color {
 			get {
-				return color;
+				return _Color;
 			}
 			set {
-				color = value;
+				_Color = value;
 				OnPropertyChanged(nameof(Color));
 			}
 		}
@@ -114,11 +116,11 @@ namespace ModelLayer.Classes {
 			this.WorkTimes.CollectionChanged += WorkTimes_CollectionChanged;
 		}
 
-		public Category( string _Titel, Color _Farbe, string _Description = "New Category", EnumState _Status = EnumState.ToDo ) : this() {
-			this.Title = _Titel;
-			this.Description = _Description;
-			this.Color = _Farbe;
-			this.State = _Status;
+		public Category( string title, Color color, string description = "New Category", EnumState state = EnumState.ToDo ) : this() {
+			this.Title = title;
+			this.Description = description;
+			this.Color = color;
+			this.State = state;
 		}
 
 		~Category() { }

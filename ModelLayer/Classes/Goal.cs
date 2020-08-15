@@ -81,6 +81,7 @@ namespace ModelLayer.Classes {
 		}
 
 		// IParent
+		[XmlArray("Children")]
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
 		public bool IsParent {
@@ -94,7 +95,7 @@ namespace ModelLayer.Classes {
 		}
 
 		// IColorfull
-		[XmlElement]
+		[XmlElement("Color")]
 		public Color Color {
 			get {
 				return _Color;
@@ -116,7 +117,7 @@ namespace ModelLayer.Classes {
 				OnPropertyChanged(nameof(State));
 			}
 		}
-		[XmlElement]
+		[XmlElement("Plan")]
 		public DateSpan Plan {
 			get {
 				return _Plan;
@@ -155,12 +156,12 @@ namespace ModelLayer.Classes {
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 		}
 
-		public Goal( string title, DateTime startDate, DateTime endDate, EnumState state = EnumState.ToDo, string description = "New Goal!" )
+		public Goal( string title, DateSpan plan, string description = "New Goal!", EnumState state = EnumState.ToDo )
 			: this() {
 			this._Title = title;
-			this._Plan = new DateSpan(startDate, endDate);
-			this._State = state;
+			this._Plan = plan;
 			this._Description = description;
+			this._State = state;
 		}
 
 		~Goal() { }

@@ -3,6 +3,9 @@ using LogicLayer.Manager;
 using LogicLayer.Utility;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
+using ModelLayer.Enums;
+using ModelLayer.Interfaces;
+using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -12,21 +15,52 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private ICommand? _SaveGoalCommand;
+		private string? _Title;
+		private string? _Description;
+
 		private Category? _SelectedCategory;
 		private Goal? _SelectedGoal;
 
 		private DateTime? _StartDate;
 		private DateTime? _EndDate;
 
+		private EnumState _State = EnumState.ToDo;
+
+
+		private ICommand? _SaveGoalCommand;
+
 		#endregion
 
 		#region properties
 
-		public ObservableCollection<Category> Categories
+		public ObservableCollection<Category> CategoryList
 			=> ObjectManager.CategoryList;
 
-		public Category? SelectedCategory {
+
+		public string Title {
+			get {
+				return _Title;
+			}
+			set {
+				if( value == _Title )
+					return;
+				_Title = value;
+				OnPropertyChanged(nameof(Title));
+			}
+		}
+		public string Description {
+			get {
+				return _Description;
+			}
+			set {
+				if( value == _Description )
+					return;
+				_Description = value;
+				OnPropertyChanged(nameof(Description));
+			}
+		}
+
+		public Category SelectedCategory {
 			get {
 				return _SelectedCategory;
 			}
@@ -45,10 +79,7 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public string? Title { get; set; }
-		public string? Description { get; set; }
-
-		public DateTime? StartDate {
+		public DateTime StartDate {
 			get {
 				return _StartDate ??= DateTime.Today;
 			}
@@ -58,7 +89,7 @@ namespace LogicLayer.Views {
 				}
 			}
 		}
-		public DateTime? EndDate {
+		public DateTime EndDate {
 			get {
 				return _EndDate ??= DateTime.Today.AddDays(1);
 			}
@@ -69,10 +100,30 @@ namespace LogicLayer.Views {
 			}
 		}
 
+		public EnumState State {
+			get {
+				return _State;
+			}
+			set {
+				if( value == _State )
+					return;
+				_State = value;
+				OnPropertyChanged(nameof(State));
+			}
+		}
+
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??
 			( _SaveGoalCommand = new RelayCommand(parameter => {
+				IParent<Goal> parent = (IParent<Goal>?)SelectedGoal ?? SelectedCategory;
+				parent.AddChild(
+					new Goal(
+						Title,
+						new DateSpan(StartDate, EndDate),
+						Description,
+						State)
+					);
 
-				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title ??= "unkown_Goal");
+				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title);
 			}) );
 
 		#endregion

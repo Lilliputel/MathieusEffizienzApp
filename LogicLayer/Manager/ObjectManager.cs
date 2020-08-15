@@ -1,5 +1,6 @@
 ﻿using ModelLayer.Classes;
 using ModelLayer.Planning;
+using ModelLayer.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -59,13 +60,13 @@ namespace LogicLayer.Manager {
 			// new Category
 			Category CBCategory1 = new Category($"Generated-Category{counter}", randomColor);
 
-			Goal CBGoal1 = new Goal($"Generated-Goal{counter}_1", DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)){
+			Goal CBGoal1 = new Goal($"Generated-Goal{counter}_1", new DateSpan( DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)) ){
 				Time = new TimeSpan(1, 2, 3)
 			};
-			Goal CBGoal1_1 = new Goal($"Generated-Goal{counter}_1.1", DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)){
+			Goal CBGoal1_1 = new Goal($"Generated-Goal{counter}_1.1", new DateSpan( DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)) ){
 				Time = new TimeSpan(3, 12, 20)
 			};
-			Goal CBGoal2 = new Goal($"Generated-Goal{counter}_2", DateTime.Today, DateTime.Today.AddDays(10)){
+			Goal CBGoal2 = new Goal($"Generated-Goal{counter}_2", new DateSpan( DateTime.Today, DateTime.Today.AddDays(10)) ){
 				Time = new TimeSpan(10, 30, 0)
 			};
 
@@ -86,33 +87,34 @@ namespace LogicLayer.Manager {
 			if( sender is ObservableCollection<Category> ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
-						foreach( Category item in e.NewItems )
-							item.WeekPlanChanged += UpdateWeekPlan;
+						foreach( Category? item in e.NewItems! )
+							item!.WeekPlanChanged += UpdateWeekPlan;
 				}
 				else if( e.Action == NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
-						foreach( Category item in e.OldItems )
-							item.WeekPlanChanged -= UpdateWeekPlan;
+						foreach( Category? item in e.OldItems )
+							item!.WeekPlanChanged -= UpdateWeekPlan;
 				}
 				else if( e.Action == NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
-						foreach( Category item in e.OldItems )
-							item.WeekPlanChanged -= UpdateWeekPlan;
-						foreach( Category item in e.NewItems )
-							item.WeekPlanChanged += UpdateWeekPlan;
+						foreach( Category? item in e.OldItems )
+							item!.WeekPlanChanged -= UpdateWeekPlan;
+						foreach( Category? item in e.NewItems )
+							item!.WeekPlanChanged += UpdateWeekPlan;
 					}
 				}
 			}
 		}
 
-		private static void UpdateWeekPlan( object sender, NotifyCollectionChangedEventArgs e ) {
+		private static void UpdateWeekPlan( object? sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is Category category ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
-					if( e.NewStartingIndex >= 0 )
-						foreach( (DayOfWeek day, DayTime time) item in e.NewItems ) {
+					if( e.NewStartingIndex >= 0
+						&& e.NewItems is ICollection<(DayOfWeek, DayTime)> newItems )
+						foreach( (DayOfWeek day, DayTime time) in newItems ) {
 							Task.Run(() =>
-							WeekPlan.AddItemToDayAsync(item.day,
-								new PlanItem(item.time, category.ID, category.Color))
+							WeekPlan.AddItemToDayAsync(day,
+								new PlanItem(time, category.ID, category.Color))
 							);
 						}
 				}
