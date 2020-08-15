@@ -123,21 +123,17 @@ namespace ModelLayer.Planning {
 
 		#region methods
 
-		public async Task AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
+		public async Task<DayTime?> AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
 			DayPlan dayPlan = GetDayPlan(day);
 			DayTime? result = null;
 			await Task.Run(() => result = dayPlan.GetDayOverlappingAsync(item.Time).Result);
 			if( result is { } )
-				return;
+				return result;
 			else
 				dayPlan.Add(item);
+			return null;
 		}
-		public void RemoveItemFromDay( DayOfWeek day, PlanItem item ) {
-			DayPlan dayPlan = GetDayPlan(day);
-
-			dayPlan.Remove(item);
-
-		}
+		public void RemoveItemFromDay( DayOfWeek day, PlanItem item ) => GetDayPlan(day).Remove(item);
 
 		public async Task<DayTime?> GetWeekOverlappingAsync( DayOfWeek day, DayTime time ) {
 			DayTime? result = null;
@@ -156,7 +152,6 @@ namespace ModelLayer.Planning {
 			DayOfWeek.Sunday => this.Sunday,
 			_ => new DayPlan()
 		};
-
 
 		#endregion
 	}

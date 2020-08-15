@@ -17,17 +17,17 @@ namespace LogicLayer.Views {
 
 		#region commands
 
-		public ICommand StartStopCommand => _StartStopCommand
-			??= new RelayCommand(parameter => {
+		public ICommand StartStopCommand => _StartStopCommand ??=
+			new RelayCommand(parameter => {
 				Clock.StartStopClock();
 			});
-		public ICommand DelayCommand => _DelayCommand
-			??= new RelayCommand(parameter => {
+		public ICommand DelayCommand => _DelayCommand ??=
+			new RelayCommand(parameter => {
 				Clock.DelayWorkMode();
 			});
-		public ICommand SaveTimeCommand => _SaveTimeCommand
-			??= new RelayCommand(parameter => {
-
+		public ICommand SaveTimeCommand => _SaveTimeCommand ??=
+			new RelayCommand(parameter => {
+#warning i have to Implement the timesaving method
 			});
 
 		#endregion

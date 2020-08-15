@@ -1,6 +1,5 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
-using LogicLayer.Utility;
 using System;
 using System.Windows.Input;
 
@@ -37,8 +36,8 @@ namespace LogicLayer.ViewModels {
 			}
 		}
 
-		public ICommand CommandUpdateView => _commandUpdateView ??
-			( _commandUpdateView = new RelayCommand(parameter => {
+		public ICommand CommandUpdateView => _commandUpdateView ??=
+			new RelayCommand(parameter => {
 				if( parameter is string pString ) {
 					EnumViewModels name = Enum.Parse<EnumViewModels>(pString);
 					ViewModelBase? viewModel = ViewModelManager.GetViewModel(name, out bool isMain);
@@ -47,12 +46,12 @@ namespace LogicLayer.ViewModels {
 					else
 						this.SelectedVMEssential = viewModel;
 				}
-			}) );
+			});
 
-		public ICommand CommandCreateObjects => _commandCreateObjects ??
-			( _commandCreateObjects = new RelayCommand(parameter => {
+		public ICommand CommandCreateObjects => _commandCreateObjects ??=
+			new RelayCommand(parameter => {
 				ObjectManager.GenerateObjects();
-			}) );
+			});
 
 		#endregion
 

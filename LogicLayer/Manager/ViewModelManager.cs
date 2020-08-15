@@ -17,7 +17,8 @@ namespace LogicLayer.Manager {
 
 		Pomodoro,
 		NewCategory,
-		NewGoal
+		NewGoal,
+		NewDayTime
 
 	}
 
@@ -39,6 +40,7 @@ namespace LogicLayer.Manager {
 		private static PomodoroViewModel _Pomodoro;
 		private static NewCategoryViewModel _NewCategory;
 		private static NewGoalViewModel _NewGoal;
+		private static NewDayTimeViewModel _NewDayTime;
 
 		#endregion
 
@@ -65,11 +67,13 @@ namespace LogicLayer.Manager {
 			_Pomodoro = new PomodoroViewModel();
 			_NewCategory = new NewCategoryViewModel();
 			_NewGoal = new NewGoalViewModel();
+			_NewDayTime = new NewDayTimeViewModel();
 
 			_DictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>(){
 				{ EnumViewModels.Pomodoro, _Pomodoro },
 				{EnumViewModels.NewCategory, _NewCategory },
-				{EnumViewModels.NewGoal, _NewGoal }
+				{EnumViewModels.NewGoal, _NewGoal },
+				{EnumViewModels.NewDayTime, _NewDayTime }
 			};
 
 		}

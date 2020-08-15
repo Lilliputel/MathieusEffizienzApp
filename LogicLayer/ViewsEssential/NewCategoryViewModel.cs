@@ -75,8 +75,8 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public ICommand SaveCategoryCommand => _SaveCategoryCommand
-			??= new RelayCommand(parameter => {
+		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
+			new RelayCommand(parameter => {
 				ObjectManager.CategoryList.Add(
 					new Category(
 						Title,

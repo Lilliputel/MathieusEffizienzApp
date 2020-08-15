@@ -51,7 +51,7 @@
 			<Border CornerRadius="5" 
 					VerticalAlignment="Top"
 					HorizontalAlignment="Stretch"
-					Background="{Binding Path=Color, Converter={StaticResource ColorConverter}}">
+					Background="{Binding Color, Converter={StaticResource ColorConverter}}">
 
 				<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 				<Border.Margin>

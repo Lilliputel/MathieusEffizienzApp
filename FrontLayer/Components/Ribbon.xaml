@@ -27,6 +27,12 @@
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconProjekt1}"/>
 			</Button.Content>
 		</Button>
+		<Button x:Name="Button_DayTime"
+				Command="{Binding CommandUpdateView}" CommandParameter="NewDayTime">
+			<Button.Content>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconAufgabe3}"/>
+			</Button.Content>
+		</Button>
 		<Button x:Name="Button_CreateObjects"
 				Command="{Binding CommandCreateObjects}">
 			<Button.Content>

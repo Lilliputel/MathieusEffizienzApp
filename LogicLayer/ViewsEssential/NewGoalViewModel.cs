@@ -112,8 +112,8 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public ICommand SaveGoalCommand => _SaveGoalCommand ??
-			( _SaveGoalCommand = new RelayCommand(parameter => {
+		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
+			new RelayCommand(parameter => {
 				IParent<Goal> parent = (IParent<Goal>?)SelectedGoal ?? SelectedCategory;
 				parent.AddChild(
 					new Goal(
@@ -124,7 +124,7 @@ namespace LogicLayer.Views {
 					);
 
 				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title);
-			}) );
+			});
 
 		#endregion
 

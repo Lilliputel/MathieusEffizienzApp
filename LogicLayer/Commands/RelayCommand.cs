@@ -13,10 +13,7 @@ namespace LogicLayer.Commands {
 
 		#region properties
 
-		public event EventHandler CanExecuteChanged {
-			add { CommandManager.RequerySuggested += value; }
-			remove { CommandManager.RequerySuggested -= value; }
-		}
+		public event EventHandler? CanExecuteChanged;
 
 		#endregion
 

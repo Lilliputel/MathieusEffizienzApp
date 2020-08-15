@@ -16,11 +16,11 @@ namespace LogicLayer.Views {
 
 		#region properties
 
-		public ICommand CommandChangeTheme => _commandChangeTheme ??
-			( _commandChangeTheme = new RelayCommand(parameter => {
+		public ICommand CommandChangeTheme => _commandChangeTheme ??=
+			new RelayCommand(parameter => {
 				ThemeManager.SwitchTheme();
 				ThemeButton = UpdateThemeButton();
-			}) );
+			});
 
 		public string ThemeButton {
 			get {

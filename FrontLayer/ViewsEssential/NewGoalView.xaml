@@ -18,7 +18,7 @@
 
 		<!-- Gruppe Titel -->
 		<TextBlock Text="Titel:"/>
-		<TextBox x:Name="TextBox_Titel" Text="{Binding Title, Mode=TwoWay}"/>
+		<TextBox x:Name="TextBox_Title" Text="{Binding Title, Mode=TwoWay}"/>
 
 		<!-- Gruppe Beschreibung -->
 		<TextBlock Text="Beschreibung:"/>
@@ -66,11 +66,11 @@
 
 		<!-- Gruppe StartDatum DatePicker -->
 		<TextBlock Text="Startdatum:"/>
-		<DatePicker x:Name="DatePicker_StartDatum" SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
+		<DatePicker x:Name="DatePicker_StartDate" SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
 		
 		<!-- Gruppe EndDatum DatePicker -->
 		<TextBlock Text="Enddatum:"/>
-		<DatePicker x:Name="DatePicker_EndDatum" SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
+		<DatePicker x:Name="DatePicker_EndDate" SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
 
 		<!-- Gruppe Speichern Button -->
 		<Button Command="{Binding SaveGoalCommand}"
@@ -78,10 +78,10 @@
 				Margin="0,5">
 			<Button.IsEnabled>
 				<MultiBinding Converter="{StaticResource ElementsToFalseConverter}">
-					<Binding ElementName="TextBox_Titel" Path="Text"/>
-					<Binding ElementName="ComboBox_Kategorie" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
-					<Binding ElementName="DatePicker_StartDatum" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
-					<Binding ElementName="DatePicker_EndDatum" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
+					<Binding ElementName="TextBox_Title" Path="Text"/>
+					<Binding ElementName="ComboBox_Category" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
+					<Binding ElementName="DatePicker_StartDate" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
+					<Binding ElementName="DatePicker_EndDate" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
 				</MultiBinding>
 			</Button.IsEnabled>
 		</Button>

@@ -59,11 +59,18 @@ namespace ModelLayer.Planning {
 
 		#region constructor
 
-		public DayTime() {
+		public DayTime() { }
+
+		public DayTime( (double start, double end) doubles ) {
+			UpdateValues(RoundToQuarter(doubles.start), RoundToQuarter(doubles.end));
 		}
 
-		public DayTime( double start, double end ) {
-			UpdateValues(RoundToQuarter(start), RoundToQuarter(end));
+		public DayTime( TimeSpan start, TimeSpan end ) {
+			double startmins = start.Minutes / 60;
+			double endmins = end.Minutes / 60;
+			double realstart = start.Hours + startmins;
+			double realend = end.Hours + endmins;
+			UpdateValues(RoundToQuarter(realstart), RoundToQuarter(realend));
 		}
 
 		#endregion
@@ -99,6 +106,9 @@ namespace ModelLayer.Planning {
 			// setzt die Dauer
 			this._Duration = this._End - this._Start;
 		}
+
+		public override string ToString()
+			=> $"{Math.Floor(Start)}:{getMinutes(Start)} - {Math.Floor(End)}:{getMinutes(End)}";
 
 		#endregion
 	}

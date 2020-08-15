@@ -15,6 +15,9 @@
 	<DataTemplate DataType="{x:Type ViewModels:PomodoroViewModel}">
 		<Views:PomodoroView/>
 	</DataTemplate>
+	<DataTemplate DataType="{x:Type ViewModels:NewDayTimeViewModel}">
+		<Views:NewDayTimeView/>
+	</DataTemplate>
 	
 	<!--#endregion-->
 
