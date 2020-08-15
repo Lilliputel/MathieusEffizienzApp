@@ -20,6 +20,6 @@ namespace FrontLayer.Components {
 		private void Grid_MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
 
 		}
-
+		 
 	}
 }

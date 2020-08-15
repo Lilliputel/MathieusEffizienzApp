@@ -14,11 +14,10 @@ namespace FrontLayer.Converters {
 			DayTime time = (DayTime)values[0];
 			double start = time.Start;
 			double end = time.End;
-			double totalHeight = (double)values[1];
-			double headerHeight = (double)values[2];
+			double height = (double)values[1];
+
 			string mode = (string)parameter;
 
-			double actualHeight = totalHeight - headerHeight;
 			#endregion
 
 			#region conversion
@@ -31,10 +30,10 @@ namespace FrontLayer.Converters {
 			#endregion
 
 			if( mode == "Start" ) {
-				return new Thickness(0, startFactor * actualHeight, 0, 0);
+				return new Thickness(0, startFactor * height, 0, 0);
 			}
 			else if( mode == "End" ) {
-				return heightFactor * actualHeight;
+				return heightFactor * height;
 			}
 
 			return null;

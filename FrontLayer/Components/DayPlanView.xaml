@@ -18,15 +18,17 @@
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
 	<HeaderedItemsControl.Template>
 		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-			<Grid Background="Transparent" 
-				  MouseLeftButtonDown="Root_MouseDown" MouseMove="Grid_MouseMove" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
+			<Grid Background="Transparent">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
+					
+					<!-- Row Definition, which is used to handle Mouse Events and defines the actual height -->
+					<RowDefinition Height="*" x:Name="ContentHolder" 
+								   MouseLeftButtonDown="Root_MouseDown" MouseMove="Grid_MouseMove" MouseLeftButtonUp="Grid_MouseLeftButtonUp"/>
 				</Grid.RowDefinitions>
-				<ContentPresenter x:Name="HeaderPresenter" Grid.Row="0"
-								  Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
-								  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
+				
+				<!-- HeaderPresenter -->
+				<ContentPresenter Grid.Row="0" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
 				<ItemsPresenter Grid.Row="1"/>
 			</Grid>
 
@@ -42,7 +44,7 @@
 
 	<!-- ItemTemplate mit den PlanItems -->
 	<ItemsControl.ItemTemplate>
-		<DataTemplate DataType="{x:Type Planing:PlanItem}" x:Name="DataTemplate">
+		<DataTemplate DataType="{x:Type Planing:PlanItem}">
 
 			<!-- Ein Rechteck mit gerundeten Ecken, um die DayTime im ItemsControl anzuzeigen -->
 			<Border CornerRadius="5" 
@@ -54,11 +56,8 @@
 				<Border.Margin>
 					<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="Start">
 						<Binding Path="Time"/>
-						
-						<Binding ElementName="Root"
-								 Path="Height"/>
-						
-						<Binding ElementName="HeaderPresenter"
+
+						<Binding ElementName="ContentHolder"
 								 Path="ActualHeight"/>
 					</MultiBinding>
 				</Border.Margin>
@@ -67,11 +66,8 @@
 				<Border.Height>
 					<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="End">
 						<Binding Path="Time"/>
-						
-						<Binding ElementName="Root"
-								 Path="Height"/>
-						
-						<Binding ElementName="HeaderPresenter"
+
+						<Binding ElementName="ContentHolder"
 								 Path="ActualHeight"/>
 					</MultiBinding>
 				</Border.Height>
