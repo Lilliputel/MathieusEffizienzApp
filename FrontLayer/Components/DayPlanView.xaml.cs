@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace FrontLayer.Components {
 
@@ -8,8 +9,17 @@ namespace FrontLayer.Components {
 			InitializeComponent();
 		}
 
-		private void Root_MouseDown( object sender, System.Windows.Input.MouseButtonEventArgs e ) {
+		private void Root_MouseDown( object sender, MouseButtonEventArgs e ) {
 			double y = e.GetPosition(this).Y;
 		}
+
+		private void Grid_MouseMove( object sender, MouseEventArgs e ) {
+
+		}
+
+		private void Grid_MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
+
+		}
+
 	}
 }

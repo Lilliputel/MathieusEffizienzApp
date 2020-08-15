@@ -12,23 +12,20 @@ namespace FrontLayer.Converters {
 			#region input
 			// get all the Values from Input
 			DayTime time = (DayTime)values[0];
-			TimeSpan start = time.Start;
-			TimeSpan end = time.End;
+			double start = time.Start;
+			double end = time.End;
 			double totalHeight = (double)values[1];
 			double headerHeight = (double)values[2];
 			string mode = (string)parameter;
 
 			double actualHeight = totalHeight - headerHeight;
-			// remove Days
-			start = new TimeSpan(start.Hours, start.Minutes, start.Seconds);
-			end = new TimeSpan(end.Hours, end.Minutes, end.Seconds);
 			#endregion
 
 			#region conversion
 
-			double maxSeconds = TimeSpan.FromHours(24).TotalSeconds;
-			double startFactor = start.TotalSeconds / maxSeconds;
-			double endFactor = end.TotalSeconds / maxSeconds;
+			double maxValue = 24;
+			double startFactor = start / maxValue;
+			double endFactor = end / maxValue;
 			double heightFactor = endFactor - startFactor;
 
 			#endregion

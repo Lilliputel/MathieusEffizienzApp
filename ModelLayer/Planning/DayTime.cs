@@ -10,47 +10,47 @@ namespace ModelLayer.Planning {
 
 		#region fields
 
-		private TimeSpan _Start;
-		private TimeSpan _End;
-		private TimeSpan _Duration;
+		private double _Start;
+		private double _End;
+		private double _Duration;
 
 		#endregion
 
 		#region properties
 
 		[XmlAttribute("Start")]
-		public TimeSpan Start {
+		public double Start {
 			get {
 				return _Start;
 			}
 			set {
 				if( value == _Start )
 					return;
-				UpdateValues(value, this._End);
+				UpdateValues(RoundToQuarter(value), this._End);
 				OnPropertyChanged(nameof(Start));
 			}
 		}
 		[XmlAttribute("End")]
-		public TimeSpan End {
+		public double End {
 			get {
 				return _End;
 			}
 			set {
 				if( value == _End )
 					return;
-				UpdateValues(this._Start, value);
+				UpdateValues(this._Start, RoundToQuarter(value));
 				OnPropertyChanged(nameof(End));
 			}
 		}
 		[XmlAttribute("Duration")]
-		public TimeSpan Duration {
+		public double Duration {
 			get {
 				return _Duration;
 			}
 			set {
 				if( value == _Duration )
 					return;
-				UpdateValues(this._Start, this._End - this._Duration + value);
+				UpdateValues(this._Start, this._End - this._Duration + RoundToQuarter(value));
 				OnPropertyChanged(nameof(Duration));
 			}
 		}
@@ -60,23 +60,31 @@ namespace ModelLayer.Planning {
 		#region constructor
 
 		public DayTime() {
-
 		}
 
-		public DayTime( TimeSpan _start, TimeSpan _end ) {
-			// reduziert die eingegebene Zeit auf Tag, Monat, Jahr
-			TimeSpan start = new TimeSpan(_start.Hours, _start.Minutes, _start.Seconds);
-			TimeSpan end = new TimeSpan(_end.Hours, _end.Minutes, _end.Seconds);
-
-			UpdateValues(start, end);
-
+		public DayTime( double start, double end ) {
+			UpdateValues(RoundToQuarter(start), RoundToQuarter(end));
 		}
 
 		#endregion
 
 		#region methods
 
-		private void UpdateValues( TimeSpan start, TimeSpan end ) {
+		public (TimeSpan Start, TimeSpan End, TimeSpan Duration) GetTimeSpans() {
+			TimeSpan _start = new TimeSpan( (int)Math.Floor(Start), (int)getMinutes(Start), 0 );
+			TimeSpan _end = new TimeSpan( (int)Math.Floor(End), (int)getMinutes(End), 0 );
+			TimeSpan _duration = new TimeSpan( (int)Math.Floor(Duration), (int)getMinutes(Duration), 0 );
+
+			return (_start, _end, _duration);
+		}
+
+		private double RoundToQuarter( double val )
+			=> Math.Round(val * 4, MidpointRounding.ToEven) / 4;
+
+		private double getMinutes( double number )
+			=> ( number - Math.Floor(number) ) * 60;
+
+		private void UpdateValues( double start, double end ) {
 
 			// setzt die Korrekte reihenfolge der beiden Daten
 			if( end >= start ) {

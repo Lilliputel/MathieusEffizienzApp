@@ -18,7 +18,8 @@
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
 	<HeaderedItemsControl.Template>
 		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-			<Grid MouseDown="Root_MouseDown" Background="Transparent">
+			<Grid Background="Transparent" 
+				  MouseLeftButtonDown="Root_MouseDown" MouseMove="Grid_MouseMove" MouseLeftButtonUp="Grid_MouseLeftButtonUp">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>

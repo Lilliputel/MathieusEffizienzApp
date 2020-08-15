@@ -75,9 +75,11 @@ namespace LogicLayer.Manager {
 			CBCategory1.AddChild(CBGoal2);
 
 			CategoryList.Add(CBCategory1);
-			CategoryList[CategoryList.IndexOf(CBCategory1)].WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DayTime(TimeSpan.FromHours(0 + counter), TimeSpan.FromHours(1 + counter))));
+			CategoryList[CategoryList.IndexOf(CBCategory1)].WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DayTime(0.0 + counter, 1.0 + counter)));
 
 			counter++;
+			if( counter > 23 )
+				counter = 0;
 		}
 
 		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
