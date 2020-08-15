@@ -5,14 +5,16 @@ namespace FrontLayer.Converters {
 	public class ConverterElementsToFalse : IMultiValueConverter {
 
 		public object Convert( object[] values, Type targetTypes, object parameter, System.Globalization.CultureInfo culture ) {
-			bool titel = (string)values[0] != String.Empty;
-			bool isSelectedComboBox = (bool)values[1];
-			if( values.Length > 2 ) {
-				bool isSelectedEndDatum = (bool)values[2];
-				bool isSelectedStartDatum = (bool)values[3];
-				return titel && isSelectedComboBox && isSelectedStartDatum && isSelectedEndDatum;
+			foreach( var item in values ) {
+				if( item is string s && s == string.Empty )
+					return false;
+				if( item is bool b && b == false )
+					return false;
+				if( item is object o && o == null )
+					return false;
+
 			}
-			return titel && isSelectedComboBox;
+			return true;
 		}
 
 		public object[] ConvertBack( object values, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture ) {

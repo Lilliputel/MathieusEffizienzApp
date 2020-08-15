@@ -12,11 +12,12 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private ICommand? _commandSaveAufgabe;
-		private Category? _selectedKategorie;
+		private ICommand? _SaveGoalCommand;
+		private Category? _SelectedCategory;
+		private Goal? _SelectedGoal;
 
-		private DateTime? startDatum;
-		private DateTime? endDatum;
+		private DateTime? _StartDate;
+		private DateTime? _EndDate;
 
 		#endregion
 
@@ -25,44 +26,53 @@ namespace LogicLayer.Views {
 		public ObservableCollection<Category> Categories
 			=> ObjectManager.CategoryList;
 
-		public Category? SelectedKategorie {
+		public Category? SelectedCategory {
 			get {
-				return _selectedKategorie;
+				return _SelectedCategory;
 			}
 			set {
-				_selectedKategorie = value;
-				OnPropertyChanged(nameof(SelectedKategorie));
+				_SelectedCategory = value;
+				OnPropertyChanged(nameof(SelectedCategory));
+			}
+		}
+		public Goal? SelectedGoal {
+			get {
+				return _SelectedGoal;
+			}
+			set {
+				_SelectedGoal = value;
+				OnPropertyChanged(nameof(SelectedGoal));
 			}
 		}
 
-		public string? Titel { get; set; }
-		public string? Beschreibung { get; set; }
+		public string? Title { get; set; }
+		public string? Description { get; set; }
 
-		public DateTime? StartDatum {
+		public DateTime? StartDate {
 			get {
-				return startDatum ??= DateTime.Today;
+				return _StartDate ??= DateTime.Today;
 			}
 			set {
 				if( value is { } Value ) {
-					startDatum = Value;
+					_StartDate = Value;
 				}
 			}
 		}
-		public DateTime? EndDatum {
+		public DateTime? EndDate {
 			get {
-				return endDatum ??= DateTime.Today.AddDays(1);
+				return _EndDate ??= DateTime.Today.AddDays(1);
 			}
 			set {
 				if( value is { } Value ) {
-					endDatum = Value;
+					_EndDate = Value;
 				}
 			}
 		}
 
-		public ICommand CommandSaveAufgabe => _commandSaveAufgabe ??
-			( _commandSaveAufgabe = new RelayCommand(parameter => {
+		public ICommand SaveGoalCommand => _SaveGoalCommand ??
+			( _SaveGoalCommand = new RelayCommand(parameter => {
 
-				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Titel ??= "unkown_Goal");
+				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title ??= "unkown_Goal");
 			}) );
 
 		#endregion

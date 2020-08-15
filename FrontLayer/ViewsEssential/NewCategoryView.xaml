@@ -15,13 +15,13 @@
 		
 		<!-- Gruppe Titel -->
 		<TextBlock Text="Titel:"/>
-		<TextBox x:Name="TextBox_Titel" Text="{Binding Mode=OneWayToSource, Path=Titel}"/>
+		<TextBox x:Name="TextBox_Titel" Text="{Binding Title, Mode=TwoWay}"/>
 
 		<!-- Gruppe Farbe ComboBox -->
 		<TextBlock Text="Farbe:"/>
 		<ComboBox x:Name="ComboBox_Farbe"
-				  ItemsSource="{Binding Mode=OneTime, Path=FarbenListe}"
-				  SelectedItem="{Binding Path=SelectedColor}">
+				  ItemsSource="{Binding ColorList, Mode=OneTime}"
+				  SelectedItem="{Binding SelectedColor, Mode=TwoWay}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
@@ -33,7 +33,7 @@
 		</ComboBox>
 
 		<!-- Gruppe Speichern Button -->
-		<Button Command="{Binding CommandSaveKategorie}"
+		<Button Command="{Binding SaveCategoryCommand}"
 				Content="Speichern!"
 				Margin="0,5">
 			<Button.IsEnabled>

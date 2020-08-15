@@ -14,27 +14,27 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private ICommand? _commandSaveKategorie;
+		private ICommand? _SaveCategoryCommand;
 
 		#endregion
 
 		#region properties
 
-		public IEnumerable<PropertyInfo> FarbenListe
+		public IEnumerable<PropertyInfo> ColorList
 			=> from property in typeof(Colors).GetProperties() orderby property.GetValue(null, null)?.ToString() select property;
 
 
 		public PropertyInfo? SelectedColor { get; set; }
 
-		public string? Titel { get; set; }
+		public string? Title { get; set; }
 
-		public ICommand CommandSaveKategorie => _commandSaveKategorie
+		public ICommand SaveCategoryCommand => _SaveCategoryCommand
 			??= new RelayCommand(parameter => {
 				ObjectManager.CategoryList.Add(
 					new Category(
-						Titel ??= "New_Category",
+						Title ??= "New_Category",
 						(Color)SelectedColor?.GetValue(null, null)!));
-				MessageBoxDisplayer.ObjektErstellt(nameof(Category), Titel);
+				MessageBoxDisplayer.ObjektErstellt(nameof(Category), Title);
 			});
 
 		#endregion

@@ -2,11 +2,13 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
+			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:converter="clr-namespace:FrontLayer.Converters">
 	
 	<UserControl.Resources>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
+		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<StackPanel>
@@ -15,47 +17,56 @@
 
 		<!-- Gruppe Titel -->
 		<TextBlock Text="Titel:"/>
-		<TextBox x:Name="TextBox_Titel" Text="{Binding Mode=OneWayToSource, Path=Titel}"/>
+		<TextBox x:Name="TextBox_Titel" Text="{Binding Title, Mode=TwoWay}"/>
 
 		<!-- Gruppe Beschreibung -->
 		<TextBlock Text="Beschreibung:"/>
-		<TextBox x:Name="TextBox_Beschreibung" Text="{Binding Mode=OneWayToSource, Path=Beschreibung}"/>
+		<TextBox x:Name="TextBox_Beschreibung" Text="{Binding Description, Mode=TwoWay}"/>
 		
 		<!-- Gruppe Kategorie ComboBox -->
 		<TextBlock Text="Kategorie:"/>
-		<ComboBox x:Name="ComboBox_Kategorie" 
-				  ItemsSource="{Binding KategorienListe}"
-				  SelectedItem="{Binding Mode=OneWayToSource, Path=SelectedKategorie}">
+		<ComboBox x:Name="ComboBox_Category" 
+				  ItemsSource="{Binding CategoryList}"
+				  SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
 			<ComboBox.ItemTemplate>
-				<DataTemplate>
-					<TextBlock Text="{Binding Titel}"/>
+				<DataTemplate DataType="{x:Type classes:Category}">
+					<StackPanel Orientation="Horizontal">
+						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+						<TextBlock Text="{Binding Title}"/>
+					</StackPanel>
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
 		
 		<!-- Gruppe Projekt ComboBox -->
 		<TextBlock Text="Projekt:"/>
-		<ComboBox x:Name="ComboBox_Projekt" 
-				  SelectedItem="{Binding Mode=OneWayToSource, Path=SelectedProjekt}"
-				  ItemsSource="{Binding ElementName=ComboBox_Kategorie, Path=SelectedItem.Projekte}"
-				  IsEnabled="{Binding SelectedItem, ElementName=ComboBox_Kategorie, Converter={StaticResource NullToFalseConverter}, Mode=OneWay}">
+		<ComboBox x:Name="Combobox_Child" 
+				  SelectedItem="{Binding SelectedGoal, Mode=TwoWay}"
+				  ItemsSource="{Binding SelectedCategory.Children}"
+				  IsEnabled="{Binding SelectedCategory, Converter={StaticResource NullToFalseConverter}, Mode=OneWay}">
 			<ComboBox.ItemTemplate>
-				<DataTemplate>
-					<TextBlock Text="{Binding Titel}"/>
-				</DataTemplate>
+				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
+										  ItemsSource="{Binding Children}">
+					<TextBlock Text="{Binding Title}"/>
+					<HierarchicalDataTemplate.ItemTemplate>
+						<DataTemplate DataType="{x:Type classes:Goal}">
+							<TextBlock Text="{Binding Title}"/>
+						</DataTemplate>
+					</HierarchicalDataTemplate.ItemTemplate>
+				</HierarchicalDataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
 
 		<!-- Gruppe StartDatum DatePicker -->
 		<TextBlock Text="Startdatum:"/>
-		<DatePicker x:Name="DatePicker_StartDatum" SelectedDate="{Binding Mode=OneWayToSource, Path=StartDatum}"/>
+		<DatePicker x:Name="DatePicker_StartDatum" SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
 		
 		<!-- Gruppe EndDatum DatePicker -->
 		<TextBlock Text="Enddatum:"/>
-		<DatePicker x:Name="DatePicker_EndDatum" SelectedDate="{Binding Mode=OneWayToSource, Path=EndDatum}"/>
+		<DatePicker x:Name="DatePicker_EndDatum" SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
 
 		<!-- Gruppe Speichern Button -->
-		<Button Command="{Binding CommandSaveAufgabe}"
+		<Button Command="{Binding SaveGoalCommand}"
 				Content="Speichern!"
 				Margin="0,5">
 			<Button.IsEnabled>

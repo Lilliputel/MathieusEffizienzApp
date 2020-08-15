@@ -25,8 +25,20 @@ namespace LogicLayer.Manager {
 
 		#region fields
 
-		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsMain;
-		private static Dictionary<EnumViewModels, ViewModelBase> dictionaryViewModelsEssential;
+		private static Dictionary<EnumViewModels, ViewModelBase> _DictionaryViewModelsMain;
+
+		private static DashboardViewModel _Dashboard;
+		private static PlanViewModel _Plan;
+		private static GoalOverviewViewModel _GoalOverview;
+		private static GanttDiagramViewModel _GanttDiagram;
+		private static StatisticsViewModel _Statistics;
+		private static SettingsViewModel _Settings;
+
+		private static Dictionary<EnumViewModels, ViewModelBase> _DictionaryViewModelsEssential;
+
+		private static PomodoroViewModel _Pomodoro;
+		private static NewCategoryViewModel _NewCategory;
+		private static NewGoalViewModel _NewGoal;
 
 		#endregion
 
@@ -34,19 +46,31 @@ namespace LogicLayer.Manager {
 
 		static ViewModelManager() {
 
-			dictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>();
-			dictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>();
+			_Dashboard = new DashboardViewModel();
+			_Plan = new PlanViewModel();
+			_GoalOverview = new GoalOverviewViewModel();
+			_GanttDiagram = new GanttDiagramViewModel();
+			_Statistics = new StatisticsViewModel();
+			_Settings = new SettingsViewModel();
 
-			dictionaryViewModelsMain.Add(EnumViewModels.Dashboard, new DashboardViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Plan, new PlanViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.GoalOverview, new GoalOverviewViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.GanttDiagram, new GanttDiagramViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Statistics, new StatisticsViewModel());
-			dictionaryViewModelsMain.Add(EnumViewModels.Settings, new SettingsViewModel());
+			_DictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>() {
+				{EnumViewModels.Dashboard, _Dashboard },
+				{EnumViewModels.Plan, _Plan },
+				{EnumViewModels.GoalOverview, _GoalOverview },
+				{EnumViewModels.GanttDiagram, _GanttDiagram },
+				{EnumViewModels.Statistics, _Statistics },
+				{ EnumViewModels.Settings, _Settings }
+			};
 
-			dictionaryViewModelsEssential.Add(EnumViewModels.Pomodoro, new PomodoroViewModel());
-			dictionaryViewModelsEssential.Add(EnumViewModels.NewCategory, new NewCategoryViewModel());
-			dictionaryViewModelsEssential.Add(EnumViewModels.NewGoal, new NewGoalViewModel());
+			_Pomodoro = new PomodoroViewModel();
+			_NewCategory = new NewCategoryViewModel();
+			_NewGoal = new NewGoalViewModel();
+
+			_DictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>(){
+				{ EnumViewModels.Pomodoro, _Pomodoro },
+				{EnumViewModels.NewCategory, _NewCategory },
+				{EnumViewModels.NewGoal, _NewGoal }
+			};
 
 		}
 
@@ -54,29 +78,24 @@ namespace LogicLayer.Manager {
 
 		#region methods
 
-		public static ViewModelBase? GetViewModel( EnumViewModels viewModelName ) {
-			return
-				dictionaryViewModelsMain.GetValueOrDefault(viewModelName) ??
-				dictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
-		}
-
+		public static ViewModelBase? GetViewModel( EnumViewModels viewModelName ) =>
+				_DictionaryViewModelsMain.GetValueOrDefault(viewModelName) ??
+				_DictionaryViewModelsEssential.GetValueOrDefault(viewModelName);
 		public static ViewModelBase? GetViewModel( EnumViewModels viewModelName, out bool isMain ) {
 			ViewModelBase? returnedViewModel;
-			if( dictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
+			if( _DictionaryViewModelsMain.TryGetValue(viewModelName, out returnedViewModel) ) {
 				isMain = true;
 			}
 			else {
-				dictionaryViewModelsEssential.TryGetValue(viewModelName, out returnedViewModel);
+				_DictionaryViewModelsEssential.TryGetValue(viewModelName, out returnedViewModel);
 				isMain = false;
 			}
 			return returnedViewModel;
 		}
 
-		public static string GetName( ViewModelBase viewModel ) {
-			return
-				dictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key.ToString() ??
-				dictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key.ToString();
-		}
+		public static string GetName( ViewModelBase viewModel ) =>
+				_DictionaryViewModelsMain.FirstOrDefault(x => x.Value == viewModel).Key.ToString() ??
+				_DictionaryViewModelsEssential.FirstOrDefault(x => x.Value == viewModel).Key.ToString();
 
 		#endregion
 
