@@ -5,7 +5,9 @@
 					  xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
 					  xmlns:converter="clr-namespace:FrontLayer.Converters"
 					  
-					  Background="Transparent" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch"
+					  Background="{x:Null}"
+					  HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"
+					  VerticalContentAlignment="Stretch" VerticalAlignment="Top"
 					  x:Name="Root" MinWidth="70">
 
 	<HeaderedItemsControl.Resources>
@@ -16,7 +18,7 @@
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
 	<HeaderedItemsControl.Template>
 		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-			<Grid>
+			<Grid MouseDown="Root_MouseDown" Background="Transparent">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
@@ -29,7 +31,6 @@
 
 		</ControlTemplate>
 	</HeaderedItemsControl.Template>
-
 
 	<!-- Setzt ein Grid als Panel, damit alle denselben startpunkt haben. -->
 	<ItemsControl.ItemsPanel>

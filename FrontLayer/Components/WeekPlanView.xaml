@@ -4,10 +4,9 @@
 			  
 			  xmlns:Components="clr-namespace:FrontLayer.Components"
 			  
-			  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Top" 
 			  HorizontalAlignment="Center" VerticalAlignment="Top"
 			  x:Name="Root" MinWidth="550" MinHeight="600">
-	<Grid>
+	<Grid DataContext="{Binding WeekPlan}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>
 			<ColumnDefinition Width="Auto"/>
@@ -19,29 +18,29 @@
 			<ColumnDefinition Width="Auto"/>
 		</Grid.ColumnDefinitions>
 
-		<ItemsControl Grid.Column="0" Margin="0,15,0,0" ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"/>
+		<ItemsControl Grid.Column="0" Margin="0,15,0,0" ItemsSource="{Binding BindsDirectlyToSource=True}"/>
 
 		<Components:DayPlanView Grid.Column="1" Header="Montag"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Monday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Monday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 		<Components:DayPlanView Grid.Column="2" Header="Dienstag"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Tuesday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Tuesday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 		<Components:DayPlanView Grid.Column="3" Header="Mittwoch"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Wednesday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Wednesday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 		<Components:DayPlanView Grid.Column="4" Header="Donnerstag"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Thursday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Thursday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 		<Components:DayPlanView Grid.Column="5" Header="Freitag"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Friday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Friday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 		<Components:DayPlanView Grid.Column="6" Header="Samstag"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Saturday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Saturday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 		<Components:DayPlanView Grid.Column="7" Header="Sonntag"
-								ItemsSource="{Binding ElementName=Root, Path=WeekPlan.Sunday, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}"
-								Height="{Binding ElementName=Root, Path=Height}"/>
+								ItemsSource="{Binding Sunday, BindsDirectlyToSource=True}"
+								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 
 	</Grid>
 </UserControl>
