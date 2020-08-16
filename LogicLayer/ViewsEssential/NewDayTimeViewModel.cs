@@ -1,5 +1,6 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
+using LogicLayer.Utility;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Planning;
@@ -89,7 +90,7 @@ namespace LogicLayer.Views {
 
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			 new AsyncRelayCommand(GetIfPossible, ( ex ) => {
-
+				 MessageBoxDisplayer.InputInkorrekt(ex.Message);
 			 });
 
 		#endregion
@@ -101,7 +102,7 @@ namespace LogicLayer.Views {
 		#region methods
 
 		private async Task GetIfPossible() {
-			await Task.Run(() => Overlapping = ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DayTime(StartTime, EndTime), SelectedCategory!.ID, SelectedCategory.Color)).Result);
+			await Task.Run(() => Overlapping = ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DayTime(StartTime, EndTime), SelectedCategory!.ID, SelectedCategory.Color, SelectedCategory.Title)).Result);
 		}
 
 		#endregion

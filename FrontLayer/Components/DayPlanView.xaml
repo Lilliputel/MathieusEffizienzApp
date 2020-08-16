@@ -4,13 +4,17 @@
 					  
 					  xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
 					  xmlns:converter="clr-namespace:FrontLayer.Converters"
+					  xmlns:viewModels="clr-namespace:LogicLayer.ViewsEssential;assembly=LogicLayer"
+					  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 					  
 					  Background="{x:Null}"
+					  ItemsSource="{Binding BindsDirectlyToSource=True}"
 					  HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"
 					  VerticalContentAlignment="Stretch" VerticalAlignment="Top"
 					  x:Name="Root" MinWidth="70">
 
 	<HeaderedItemsControl.Resources>
+		<viewModels:DayPlanViewModel x:Key="ViewModel"/>
 		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
 		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
 	</HeaderedItemsControl.Resources>
@@ -18,10 +22,28 @@
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
 	<HeaderedItemsControl.Template>
 		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-			<!-- Grid which defines the Layout and handles the Events -->
 			
-			<Grid Background="Transparent"
-				  MouseLeftButtonDown="MouseDown" MouseMove="MouseMove" MouseLeftButtonUp="MouseLeftButtonUp">
+			<!-- Grid which defines the Layout and handles the Events -->
+			<Grid Background="Transparent" Tag="{Binding ElementName=Root, Path=Tag}"
+				  MouseLeftButtonDown="MouseLeftButtonDown"
+				  MouseMove="MouseMove"
+				  MouseLeftButtonUp="MouseLeftButtonUp">
+				
+				<!-- Interaction-Triggers, which handle the events-->
+				<!--
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="MouseLeftButtonDown">
+						<i:InvokeCommandAction Command="{Binding LeftMouseDownCommand}"/>
+					</i:EventTrigger>
+					<i:EventTrigger EventName="MouseMove">
+						<i:InvokeCommandAction Command="{Binding MouseMoveCommand}"/>
+					</i:EventTrigger>
+					<i:EventTrigger EventName="MouseLeftButtonUp">
+						<i:InvokeCommandAction Command="{Binding LeftMouseUpCommand}"/>
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+				-->
+				
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<!-- Row Definition, which defines the actual height -->
@@ -59,7 +81,7 @@
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"
-								 Path="ActualHeight"/>
+								 Path="ActualHeight" Mode="OneTime"/>
 					</MultiBinding>
 				</Border.Margin>
 
@@ -69,9 +91,11 @@
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"
-								 Path="ActualHeight"/>
+								 Path="ActualHeight" Mode="OneTime" />
 					</MultiBinding>
 				</Border.Height>
+
+				<TextBlock Text="{Binding Title}" IsHitTestVisible="False"/>
 
 			</Border>
 		</DataTemplate>

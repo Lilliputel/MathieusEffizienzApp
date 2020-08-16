@@ -20,26 +20,26 @@
 
 		<ItemsControl Grid.Column="0" Margin="0,15,0,0" ItemsSource="{Binding BindsDirectlyToSource=True}"/>
 
-		<Components:DayPlanView Grid.Column="1" Header="Montag"
-								ItemsSource="{Binding Monday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="1" Header="Montag" Tag="Monday"
+								DataContext="{Binding Monday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
-		<Components:DayPlanView Grid.Column="2" Header="Dienstag"
-								ItemsSource="{Binding Tuesday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="2" Header="Dienstag" Tag="Tuesday"
+								DataContext="{Binding Tuesday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
-		<Components:DayPlanView Grid.Column="3" Header="Mittwoch"
-								ItemsSource="{Binding Wednesday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="3" Header="Mittwoch" Tag="Wednesday"
+								DataContext="{Binding Wednesday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
-		<Components:DayPlanView Grid.Column="4" Header="Donnerstag"
-								ItemsSource="{Binding Thursday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="4" Header="Donnerstag" Tag="Thursday"
+								DataContext="{Binding Thursday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
-		<Components:DayPlanView Grid.Column="5" Header="Freitag"
-								ItemsSource="{Binding Friday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="5" Header="Freitag" Tag="Friday"
+								DataContext="{Binding Friday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
-		<Components:DayPlanView Grid.Column="6" Header="Samstag"
-								ItemsSource="{Binding Saturday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="6" Header="Samstag" Tag="Saturday"
+								DataContext="{Binding Saturday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
-		<Components:DayPlanView Grid.Column="7" Header="Sonntag"
-								ItemsSource="{Binding Sunday, BindsDirectlyToSource=True}"
+		<Components:DayPlanView Grid.Column="7" Header="Sonntag" Tag="Sunday"
+								DataContext="{Binding Sunday, BindsDirectlyToSource=True}"
 								Height="{Binding ElementName=Root, Path=ActualHeight}"/>
 
 	</Grid>

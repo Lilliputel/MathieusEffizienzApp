@@ -2,6 +2,7 @@
 using ModelLayer.Planning;
 using ModelLayer.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -9,35 +10,65 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace LogicLayer.Manager {
-	public static class ObjectManager {
+	public sealed class SingletonObjectManager : ObservableObject {
+
+		#region fields
+
+		private static readonly SingletonObjectManager _Instance = new SingletonObjectManager();
+
+		private WeekPlan _WeekPlan;
+
+		#endregion
 
 		#region properties
 
 		/// <summary>
+		/// Singleton-Instance
+		/// </summary>
+		public static SingletonObjectManager Instance {
+			get {
+				return _Instance;
+			}
+		}
+
+		/// <summary>
 		/// Die Globale CategoryList, welche gespeichert wird und alle Categories enthalten sollte.
 		/// </summary>
-		public static ObservableCollection<Category> CategoryList { get; set; }
+		public ObservableCollection<Category> CategoryList { get; set; }
 
 		/// <summary>
 		/// Der Globale WeekPlan, welche nicht gespeichert wird und alle DayTimes mit den Kategorien und Farben enthalten sollte.
 		/// </summary>
-		public static WeekPlan WeekPlan { get; set; }
+		public WeekPlan WeekPlan {
+			get {
+				return _WeekPlan;
+			}
+			set {
+				if( value == _WeekPlan )
+					return;
+				_WeekPlan = value;
+				OnPropertyChanged(nameof(WeekPlan));
+			}
+		}
 
 		/// <summary>
 		/// Die Globale SettingsList, welche gespeichert wird und alle Settings enthalten sollte.
 		/// </summary>
-		public static Dictionary<string, bool> Settings { get; set; }
+		public Dictionary<string, bool> Settings { get; set; }
 
-		private static int counter = 0;
+		private int counter = 0;
 
 		#endregion
 
 		#region constructor
 
-		static ObjectManager() {
+		static SingletonObjectManager() {
+		}
+
+		private SingletonObjectManager() {
 			CategoryList = new ObservableCollection<Category>();
 			CategoryList.CollectionChanged += SubscribeWorkPlans;
-			WeekPlan = new WeekPlan();
+			_WeekPlan = new WeekPlan();
 			Settings = new Dictionary<string, bool>();
 		}
 
@@ -45,7 +76,7 @@ namespace LogicLayer.Manager {
 
 		#region methods
 
-		public static void GenerateObjects() {
+		public void GenerateObjects() {
 			Random randomGen = new Random();
 			Color randomColor =
 				Color.FromArgb(
@@ -80,7 +111,7 @@ namespace LogicLayer.Manager {
 				counter = 0;
 		}
 
-		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
+		private void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is ObservableCollection<Category> ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
@@ -103,18 +134,17 @@ namespace LogicLayer.Manager {
 			}
 		}
 
-		private static void UpdateWeekPlan( object? sender, NotifyCollectionChangedEventArgs e ) {
+		private void UpdateWeekPlan( object? sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is Category category ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
-					if( e.NewStartingIndex >= 0 ) {
-						//&& e.NewItems is IList newItems ) {
-						foreach( (DayOfWeek day, DayTime time) item in e.NewItems ) {
+					if( e.NewStartingIndex >= 0
+						&& e.NewItems is IList newItems )
+						foreach( (DayOfWeek day, DayTime time) item in newItems ) {
 							Task.Run(() =>
 							WeekPlan.AddItemToDayAsync(item.day,
 								new PlanItem(item.time, category.ID, category.Color, category.Title))
 							);
 						}
-					}
 				}
 				else if( e.Action == NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
@@ -144,13 +174,6 @@ namespace LogicLayer.Manager {
 			}
 		}
 
-		public static Category? GetCategory( Guid ID ) {
-			foreach( Category category in CategoryList ) {
-				if( category.ID == ID )
-					return category;
-			}
-			return null;
-		}
 		#endregion
 	}
 }

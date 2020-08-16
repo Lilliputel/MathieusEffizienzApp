@@ -11,6 +11,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Expression.Interaction" Version="3.0.40218" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
 	</ItemGroup>
 

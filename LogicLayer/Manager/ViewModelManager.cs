@@ -44,6 +44,13 @@ namespace LogicLayer.Manager {
 
 		#endregion
 
+		#region properties
+
+		public static ViewModelBase? SelectedMainViewModel { get; private set; }
+		public static ViewModelBase? SelectedEssentialViewModel { get; private set; }
+
+		#endregion
+
 		#region initializer
 
 		static ViewModelManager() {
@@ -95,6 +102,14 @@ namespace LogicLayer.Manager {
 				isMain = false;
 			}
 			return returnedViewModel;
+		}
+
+		public static void SetViewModel( EnumViewModels viewModelName ) {
+			ViewModelBase? viewModel = GetViewModel(viewModelName, out bool isMain);
+			if( isMain is true )
+				SelectedMainViewModel = viewModel;
+			else
+				SelectedEssentialViewModel = viewModel;
 		}
 
 		public static string GetName( ViewModelBase viewModel ) =>

@@ -129,8 +129,10 @@ namespace ModelLayer.Planning {
 			await Task.Run(() => result = dayPlan.GetDayOverlappingAsync(item.Time).Result);
 			if( result is { } )
 				return result;
-			else
+			else {
 				dayPlan.Add(item);
+				OnPropertyChanged(day.ToString());
+			}
 			return null;
 		}
 		public void RemoveItemFromDay( DayOfWeek day, PlanItem item ) => GetDayPlan(day).Remove(item);

@@ -1,5 +1,9 @@
-﻿using ModelLayer.Planning;
+﻿using LogicLayer.Manager;
+using LogicLayer.Views;
+using ModelLayer.Planning;
+using System;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -11,15 +15,21 @@ namespace FrontLayer.Components {
 			InitializeComponent();
 		}
 
-		private void MouseDown( object sender, MouseButtonEventArgs e ) {
-			double y = e.GetPosition(this).Y;
+		private new void MouseLeftButtonDown( object sender, MouseButtonEventArgs e ) {
+			double y = e.GetPosition((IInputElement)sender).Y;
+			DayOfWeek day = Enum.Parse<DayOfWeek>((sender as FrameworkElement)!.Tag.ToString()!);
 
 			if( e.OriginalSource is Border border ) {
 				Debug.WriteLine("The origin is a Border!");
 				if( border.DataContext is PlanItem planItem ) {
-
-
-
+					ViewModelManager.SetViewModel(EnumViewModels.NewDayTime);
+					NewDayTimeViewModel viewModel = (ViewModelManager.SelectedEssentialViewModel as NewDayTimeViewModel)!;
+					viewModel.DayOfWeek = day;
+					var timespans = planItem.Time.GetTimeSpans();
+					viewModel.StartTime = timespans.Start;
+					viewModel.EndTime = timespans.End;
+					viewModel.SelectedCategory = ObjectManager.GetCategory(planItem.ID);
+					viewModel.Overlapping = null;
 				}
 			}
 			else if( e.OriginalSource is Grid grid ) {
@@ -30,11 +40,11 @@ namespace FrontLayer.Components {
 			}
 		}
 
-		private void MouseMove( object sender, MouseEventArgs e ) {
+		private new void MouseMove( object sender, MouseEventArgs e ) {
 
 		}
 
-		private void MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
+		private new void MouseLeftButtonUp( object sender, MouseButtonEventArgs e ) {
 
 		}
 
