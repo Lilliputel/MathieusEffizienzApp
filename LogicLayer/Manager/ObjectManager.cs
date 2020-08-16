@@ -2,6 +2,7 @@
 using ModelLayer.Planning;
 using ModelLayer.Utility;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -110,36 +111,36 @@ namespace LogicLayer.Manager {
 			if( sender is Category category ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0
-						&& e.NewItems is ICollection<(DayOfWeek, DayTime)> newItems )
-						foreach( (DayOfWeek day, DayTime time) in newItems ) {
+						&& e.NewItems is IList newItems )
+						foreach( (DayOfWeek day, DayTime time) item in newItems ) {
 							Task.Run(() =>
-							WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.Color))
+							WeekPlan.AddItemToDayAsync(item.day,
+								new PlanItem(item.time, category.ID, category.Color))
 							);
 						}
 				}
 				else if( e.Action == NotifyCollectionChangedAction.Remove ) {
-					if( e.OldStartingIndex >= 0
-						&& e.OldItems is ICollection<(DayOfWeek, DayTime)> oldItems )
-						foreach( (DayOfWeek day, DayTime time) in oldItems )
+					if( e.OldStartingIndex >= 0 )
+						// && e.OldItems is ICollection<(DayOfWeek, DayTime)> oldItems )
+						foreach( (DayOfWeek day, DayTime time) item in e.OldItems )
 							Task.Run(() =>
-							WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.Color))
+							WeekPlan.RemoveItemFromDay(item.day,
+								new PlanItem(item.time, category.ID, category.Color))
 							);
 				}
 				else if( e.Action == NotifyCollectionChangedAction.Replace ) {
-					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0
-						&& e.NewItems is ICollection<(DayOfWeek, DayTime)> newItems
-						&& e.OldItems is ICollection<(DayOfWeek, DayTime)> oldItems ) {
-						foreach( (DayOfWeek day, DayTime time) in oldItems )
+					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
+						//&& e.NewItems is ICollection<(DayOfWeek, DayTime)> newItems
+						//&& e.OldItems is ICollection<(DayOfWeek, DayTime)> oldItems ) {
+						foreach( (DayOfWeek day, DayTime time) item in e.OldItems )
 							Task.Run(() =>
-							WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.Color))
+							WeekPlan.RemoveItemFromDay(item.day,
+								new PlanItem(item.time, category.ID, category.Color))
 							);
-						foreach( (DayOfWeek day, DayTime time) in newItems )
+						foreach( (DayOfWeek day, DayTime time) item in e.NewItems )
 							Task.Run(() =>
-							WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.Color))
+							WeekPlan.AddItemToDayAsync(item.day,
+								new PlanItem(item.time, category.ID, category.Color))
 							);
 					}
 				}
