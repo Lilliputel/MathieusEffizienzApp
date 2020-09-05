@@ -6,33 +6,38 @@ namespace LogicLayer.Commands {
 
 		#region fields
 
-		private readonly Action<object> _execute;
-		private readonly Func<object, bool>? _canExecute;
+		private readonly Action<object> _Execute;
+		private readonly Func<object, bool>? _CanExecute;
 
 		#endregion
 
 		#region properties
 
-		public event EventHandler? CanExecuteChanged;
+		public event EventHandler CanExecuteChanged{
+			add{ CommandManager.RequerySuggested += value; }
+			remove{ CommandManager.RequerySuggested -= value; }
+		}
 
 		#endregion
 
 		#region constructor
 
 		public RelayCommand( Action<object> execute, Func<object, bool>? canExecute = null ) {
-			_execute = execute;
-			_canExecute = canExecute;
+			if( execute == null )
+				throw new NullReferenceException("execute");
+
+			_Execute = execute;
+			_CanExecute = canExecute;
 		}
 
 		#endregion
 
 		#region Methods
 
-		public bool CanExecute( object parameter ) => _canExecute is null || _canExecute(parameter);
-		public void Execute( object parameter ) => _execute(parameter);
+		public bool CanExecute( object parameter ) => _CanExecute is null || _CanExecute(parameter);
+		public void Execute( object parameter ) => _Execute.Invoke(parameter);
 
 		#endregion
-
 
 	}
 }

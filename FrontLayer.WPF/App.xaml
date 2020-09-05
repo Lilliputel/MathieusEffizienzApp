@@ -1,0 +1,22 @@
+﻿<Application x:Class="FrontLayer.WPF.App"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 StartupUri="MainWindow.xaml">
+	
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+
+				<!-- This is the Theme-Dictionary and gets set in the Codebehind -->
+				<ResourceDictionary/>
+
+				<ResourceDictionary Source="Dictionaries/DictionaryDataTemplates.xaml"/>
+				<ResourceDictionary Source="Dictionaries/DictionaryIcons.xaml"/>
+
+				<ResourceDictionary Source="Dictionaries/DictionaryBase.xaml"/>
+
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+		
+	</Application.Resources>
+</Application>

@@ -6,7 +6,7 @@ namespace LogicLayer.Manager {
 
 		#region fields
 
-		private static string themeDirectory = "/FrontLayer;component/Themes/";
+		private static string themeDirectory = "/FrontLayer.WPF;component/Themes/";
 		private static ResourceDictionary _themeDark;
 		private static ResourceDictionary _themeLight;
 		private static bool _darkMode;

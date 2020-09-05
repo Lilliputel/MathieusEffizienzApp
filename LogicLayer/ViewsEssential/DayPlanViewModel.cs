@@ -1,12 +1,5 @@
 ﻿using LogicLayer.Commands;
-using LogicLayer.Manager;
 using LogicLayer.ViewModels;
-using LogicLayer.Views;
-using ModelLayer.Planning;
-using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace LogicLayer.ViewsEssential {
@@ -17,7 +10,6 @@ namespace LogicLayer.ViewsEssential {
 		private ICommand? _LeftMouseDownCommand;
 		private ICommand? _MouseMoveCommand;
 		private ICommand? _LeftMouseUpCommand;
-
 
 		#endregion
 
