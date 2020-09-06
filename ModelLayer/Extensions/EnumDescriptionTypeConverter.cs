@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace ModelLayer.Enums {
+namespace ModelLayer.Extensions {
 	public class EnumDescriptionTypeConverter : EnumConverter {
 		public EnumDescriptionTypeConverter( Type type )
 			: base(type) {

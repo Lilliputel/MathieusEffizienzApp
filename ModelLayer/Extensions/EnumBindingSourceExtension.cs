@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace ModelLayer.Enums {
+namespace ModelLayer.Extensions {
 	public class EnumBindingSourceExtension : MarkupExtension {
 		private Type _enumType;
 		public Type EnumType {

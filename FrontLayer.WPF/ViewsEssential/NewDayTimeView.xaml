@@ -2,6 +2,7 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
+			 xmlns:extensions="clr-namespace:ModelLayer.Extensions;assembly=ModelLayer"
 			 xmlns:enums="clr-namespace:ModelLayer.Enums;assembly=ModelLayer"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
@@ -36,7 +37,7 @@
 		<!-- Gruppe Tag ComboBox -->
 		<TextBlock Text="Day:"/>
 		<ComboBox x:Name="ComboBox_Day"
-				  ItemsSource="{Binding Source={enums:EnumBindingSource {x:Type system:DayOfWeek}}}"
+				  ItemsSource="{Binding Source={extensions:EnumBindingSource {x:Type system:DayOfWeek}}}"
 				  SelectedItem="{Binding State, Mode=TwoWay}"/>
 
 		<!-- Gruppe StartDatum DatePicker -->

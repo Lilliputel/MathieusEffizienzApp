@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using ModelLayer.Extensions;
+using System.ComponentModel;
 
 namespace ModelLayer.Enums {
 

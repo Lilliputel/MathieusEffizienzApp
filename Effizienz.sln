@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModelLayer", "ModelLayer\Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontLayer.WPF", "FrontLayer.WPF\FrontLayer.WPF.csproj", "{A3263D20-7204-4571-B82F-F185824FBAE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{A3263D20-7204-4571-B82F-F185824FBAE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3263D20-7204-4571-B82F-F185824FBAE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3263D20-7204-4571-B82F-F185824FBAE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
