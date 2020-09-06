@@ -1,13 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace LogicLayer.Utility {
+namespace DataLayer.XMLDataService {
 	public class XMLDictionaryHandler {
 
 		#region fields
 
 		private string _FilePath;
+
+		#endregion
+
+		#region events
+
+		/// <summary>
+		/// Handles Exceptions <see cref="FileNotFoundException"/> and <see cref="ArgumentException"/>
+		/// </summary>
+		public event ErrorEventHandler ErrorOccured;
 
 		#endregion
 
@@ -25,6 +35,11 @@ namespace LogicLayer.Utility {
 			_FilePath = filePath;
 		}
 
+
+		protected void OnErrorOccured( Exception e ) {
+			ErrorOccured?.Invoke(this, new ErrorEventArgs(e));
+		}
+
 		#endregion
 
 		#region save
@@ -40,8 +55,8 @@ namespace LogicLayer.Utility {
 					Serializer.Serialize(fileStream, savingDic);
 				}
 			}
-			catch( FileNotFoundException ) {
-				MessageBoxDisplayer.FileNotFound(fileName, filePath);
+			catch( FileNotFoundException e ) {
+				OnErrorOccured(e);
 			}
 
 		}
@@ -62,12 +77,17 @@ namespace LogicLayer.Utility {
 					XmlSerializer Serializer = new XmlSerializer(typeof(Dictionary<string, T>));
 					var loadedDic = Serializer.Deserialize(fileStream) as Dictionary<string, T>;
 					foreach( var pair in loadedDic ??= new Dictionary<string, T>() ) {
-						loadedDic.TryAdd(pair.Key, pair.Value);
+						try {
+							loadedDic.Add(pair.Key, pair.Value);
+						}
+						catch( ArgumentException ae ) {
+							OnErrorOccured(ae);
+						}
 					}
 				}
 			}
-			catch( FileNotFoundException ) {
-				MessageBoxDisplayer.FileNotFound(fileName, filePath);
+			catch( FileNotFoundException e ) {
+				OnErrorOccured(e);
 			}
 		}
 

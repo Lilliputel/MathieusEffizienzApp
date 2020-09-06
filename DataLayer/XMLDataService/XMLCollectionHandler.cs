@@ -1,16 +1,25 @@
-﻿using LogicLayer.Utility;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace ModelLayer.Utility {
+namespace DataLayer.XMLDataService {
 
 	public class XMLCollectionHandler {
 
 		#region fields
 
 		private string _FilePath;
+
+		#endregion
+
+		#region public Events
+
+		/// <summary>
+		/// throws exceptions <see cref="FileNotFoundException"/>
+		/// </summary>
+		public event ErrorEventHandler ErrorOccured;
 
 		#endregion
 
@@ -26,6 +35,10 @@ namespace ModelLayer.Utility {
 
 		public void SetFilePath( string filePath ) {
 			_FilePath = filePath;
+		}
+
+		protected void OnErrorOccured( Exception e ) {
+			ErrorOccured?.Invoke(this, new ErrorEventArgs(e));
 		}
 
 		#endregion
@@ -44,8 +57,8 @@ namespace ModelLayer.Utility {
 					Serializer.Serialize(fileStream, savingList);
 				}
 			}
-			catch( FileNotFoundException ) {
-				MessageBoxDisplayer.FileNotFound(fileName, filePath);
+			catch( FileNotFoundException e ) {
+				OnErrorOccured(e);
 			}
 
 		}
@@ -67,8 +80,8 @@ namespace ModelLayer.Utility {
 					loadingList = new ObservableCollection<T>(loadingList.Concat(Serializer.Deserialize(fileStream) as ObservableCollection<T>));
 				}
 			}
-			catch( FileNotFoundException ) {
-				MessageBoxDisplayer.FileNotFound(fileName, filePath);
+			catch( FileNotFoundException e ) {
+				OnErrorOccured(e);
 			}
 		}
 
