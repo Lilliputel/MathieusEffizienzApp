@@ -1,15 +1,28 @@
-﻿using ModelLayer.Classes;
+﻿using DataLayer.Interfaces;
+using DataLayer.XMLDataService;
+using LogicLayer.Utility;
+using ModelLayer.Classes;
 using ModelLayer.Planning;
 using ModelLayer.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace LogicLayer.Manager {
 	public static class ObjectManager {
+
+		#region fields
+
+		private static string _FilePath = @"S:\TESTING\Effizienz\";
+		private static IDataService<ObservableCollection<Category>, Category> _ObjectDataService;
+		private static IDataService<Dictionary<string, bool>, KeyValuePair<string, bool>> _SettingsDataService;
+
+		#endregion
 
 		#region properties
 
@@ -39,6 +52,13 @@ namespace LogicLayer.Manager {
 			CategoryList.CollectionChanged += SubscribeWorkPlans;
 			WeekPlan = new WeekPlan();
 			Settings = new Dictionary<string, bool>();
+
+
+			_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
+			( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;
+			_SettingsDataService = new XMLDictionaryHandler<string, bool>(nameof(Settings), _FilePath);
+			( _SettingsDataService as XMLDictionaryHandler<string, bool> )!.ErrorOccured += ErrorOccured;
+
 		}
 
 		#endregion
@@ -79,6 +99,32 @@ namespace LogicLayer.Manager {
 			if( counter > 23 )
 				counter = 0;
 		}
+
+		public static Category? GetCategory( Guid ID ) {
+			foreach( Category category in CategoryList ) {
+				if( category.ID == ID )
+					return category;
+			}
+			return null;
+		}
+
+		public static void SaveCategories() {
+			_ObjectDataService.SaveData(CategoryList);
+		}
+		public static void LoadCategories() {
+			CategoryList = _ObjectDataService.LoadData();
+		}
+
+		public static void SaveSettings() {
+			_SettingsDataService.SaveData(Settings);
+		}
+		public static void LoadSettings() {
+			Settings = _SettingsDataService.LoadData();
+		}
+
+		#endregion
+
+		#region private helpers
 
 		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is ObservableCollection<Category> ) {
@@ -144,13 +190,20 @@ namespace LogicLayer.Manager {
 			}
 		}
 
-		public static Category? GetCategory( Guid ID ) {
-			foreach( Category category in CategoryList ) {
-				if( category.ID == ID )
-					return category;
+		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
+			switch( e.GetException() ) {
+			case FileNotFoundException fNFE:
+				MessageBoxDisplayer.FileNotFound(fNFE.FileName ?? $"unknown, from: {sender}", "");
+				return;
+			case ArgumentException aE:
+				MessageBoxDisplayer.InputInkorrekt($"{aE.Message}");
+				return;
+			default:
+				Debug.WriteLine($"{sender} threw {e.GetException()} \nwith the Message: {e.GetException().Message}");
+				return;
 			}
-			return null;
 		}
+
 		#endregion
 	}
 }

@@ -1,23 +1,24 @@
-﻿using System;
+﻿using DataLayer.Interfaces;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace DataLayer.XMLDataService {
 
-	public class XMLCollectionHandler {
+	public class XMLCollectionHandler<T> : IDataService<ObservableCollection<T>, T>, IErrorHandler {
 
 		#region fields
 
 		private string _FilePath;
+		private string _FileName;
 
 		#endregion
 
 		#region public Events
 
 		/// <summary>
-		/// throws exceptions <see cref="FileNotFoundException"/>
+		/// Handles Exceptions: <see cref="FileNotFoundException"/>
 		/// </summary>
 		public event ErrorEventHandler ErrorOccured;
 
@@ -25,17 +26,20 @@ namespace DataLayer.XMLDataService {
 
 		#region constructor
 
-		public XMLCollectionHandler( string filePath ) {
+		public XMLCollectionHandler( string fileName, string filePath ) {
+
+			this._FileName = fileName;
 			this._FilePath = filePath;
+
+			if( _FileName.EndsWith(".xml") is false )
+				_FileName = string.Concat(fileName, ".xml");
+			if( _FilePath.EndsWith("/") is false )
+				_FilePath = string.Concat(filePath, '/');
 		}
 
 		#endregion
 
 		#region methods
-
-		public void SetFilePath( string filePath ) {
-			_FilePath = filePath;
-		}
 
 		protected void OnErrorOccured( Exception e ) {
 			ErrorOccured?.Invoke(this, new ErrorEventArgs(e));
@@ -45,44 +49,35 @@ namespace DataLayer.XMLDataService {
 
 		#region save
 
-		public void SaveCollection<T>( ObservableCollection<T> savingList, string fileName )
-			=> SaveCollection<T>(savingList, fileName, _FilePath);
-		public void SaveCollection<T>( ObservableCollection<T> savingList, string fileName, string filePath ) {
-			if( fileName.EndsWith(".xml") == false )
-				fileName = string.Concat(fileName, ".xml");
-
+		public void SaveData( ObservableCollection<T> Collection ) {
 			try {
-				using( FileStream fileStream = new FileStream(filePath + fileName, FileMode.Create) ) {
+				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Create) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					Serializer.Serialize(fileStream, savingList);
+					Serializer.Serialize(fileStream, Collection);
 				}
 			}
 			catch( FileNotFoundException e ) {
 				OnErrorOccured(e);
 			}
-
 		}
 
 		#endregion
 
 		#region load
 
-		public void LoadCollection<T>( ObservableCollection<T> loadingList, string fileName ) =>
-			LoadCollection<T>(loadingList, fileName, _FilePath);
-		public void LoadCollection<T>( ObservableCollection<T> loadingList, string fileName, string filePath ) {
-			if( loadingList is null )
-				loadingList = new ObservableCollection<T>();
-			if( fileName.EndsWith(".xml") == false )
-				fileName = string.Concat(fileName, ".xml");
+		public ObservableCollection<T> LoadData() {
+
 			try {
-				using( FileStream fileStream = new FileStream(filePath + fileName, FileMode.Open) ) {
+				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Open) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					loadingList = new ObservableCollection<T>(loadingList.Concat(Serializer.Deserialize(fileStream) as ObservableCollection<T>));
+					return Serializer.Deserialize(fileStream) as ObservableCollection<T>;
 				}
 			}
 			catch( FileNotFoundException e ) {
 				OnErrorOccured(e);
 			}
+
+			return new ObservableCollection<T>();
 		}
 
 		#endregion

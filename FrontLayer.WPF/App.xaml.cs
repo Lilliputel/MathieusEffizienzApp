@@ -19,8 +19,8 @@ namespace FrontLayer.WPF {
 			Resources.MergedDictionaries[0].MergedDictionaries.Add(ThemeManager.SelectedTheme);
 
 			// Load the saved Categories from The XML-File
-			FileManager.LoadCategories();
-			FileManager.LoadSettings();
+			ObjectManager.LoadCategories();
+			ObjectManager.LoadSettings();
 			base.OnStartup(e);
 		}
 

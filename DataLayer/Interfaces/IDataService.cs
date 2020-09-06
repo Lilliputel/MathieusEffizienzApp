@@ -1,13 +1,13 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 
 namespace DataLayer.Interfaces {
-	public interface IDataService<T> {
+	public interface IDataService<T, U> where T : ICollection<U> {
 
 		#region methods
 
-		ObservableCollection<T> LoadData();
+		T LoadData();
 
-		void SaveData( ObservableCollection<T> Collection );
+		void SaveData( T Collection );
 
 		#endregion
 

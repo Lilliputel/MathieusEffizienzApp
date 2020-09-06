@@ -1,21 +1,24 @@
-﻿using System;
+﻿using DataLayer.Interfaces;
+using DataLayer.Structs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
 namespace DataLayer.XMLDataService {
-	public class XMLDictionaryHandler {
+	public class XMLDictionaryHandler<TKey, TValue> : IDataService<Dictionary<TKey, TValue>, KeyValuePair<TKey, TValue>>, IErrorHandler {
 
 		#region fields
 
 		private string _FilePath;
+		private string _FileName;
 
 		#endregion
 
 		#region events
 
 		/// <summary>
-		/// Handles Exceptions <see cref="FileNotFoundException"/> and <see cref="ArgumentException"/>
+		/// Handles Exceptions: <see cref="FileNotFoundException"/>/>
 		/// </summary>
 		public event ErrorEventHandler ErrorOccured;
 
@@ -23,18 +26,20 @@ namespace DataLayer.XMLDataService {
 
 		#region constructor
 
-		public XMLDictionaryHandler( string filePath ) {
+		public XMLDictionaryHandler( string fileName, string filePath ) {
+
+			this._FileName = fileName;
 			this._FilePath = filePath;
+
+			if( _FileName.EndsWith(".xml") is false )
+				_FileName = string.Concat(fileName, ".xml");
+			if( _FilePath.EndsWith("/") is false )
+				_FilePath = string.Concat(filePath, '/');
 		}
 
 		#endregion
 
 		#region methods
-
-		public void SetFilePath( string filePath ) {
-			_FilePath = filePath;
-		}
-
 
 		protected void OnErrorOccured( Exception e ) {
 			ErrorOccured?.Invoke(this, new ErrorEventArgs(e));
@@ -44,51 +49,42 @@ namespace DataLayer.XMLDataService {
 
 		#region save
 
-		public void SaveDictionary<T>( Dictionary<string, T> savingDic, string fileName )
-		=> SaveDictionary(savingDic, fileName, _FilePath);
-		public void SaveDictionary<T>( Dictionary<string, T> savingDic, string fileName, string filePath ) {
-			if( fileName.EndsWith(".xml") == false )
-				fileName = string.Concat(fileName, ".xml");
+		public void SaveData( Dictionary<TKey, TValue> Collection ) {
+			List<CustomPair<TKey, TValue>> customPairs = new List<CustomPair<TKey, TValue>>();
+			foreach( var pair in Collection )
+				customPairs.Add(new CustomPair<TKey, TValue>(pair));
+
 			try {
-				using( FileStream fileStream = new FileStream(filePath + fileName, FileMode.Create) ) {
-					XmlSerializer Serializer = new XmlSerializer(typeof(Dictionary<string, T>));
-					Serializer.Serialize(fileStream, savingDic);
+				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Create) ) {
+					XmlSerializer Serializer = new XmlSerializer(customPairs.GetType());
+					Serializer.Serialize(fileStream, customPairs);
 				}
 			}
 			catch( FileNotFoundException e ) {
 				OnErrorOccured(e);
 			}
-
 		}
 
 		#endregion
 
 		#region load
 
-		public void LoadDictionary<T>( Dictionary<string, T> loadingDic, string fileName ) =>
-			LoadDictionary<T>(loadingDic, fileName, _FilePath);
-		public void LoadDictionary<T>( Dictionary<string, T> loadingDic, string fileName, string filePath ) {
-			if( loadingDic is null )
-				loadingDic = new Dictionary<string, T>();
-			if( fileName.EndsWith(".xml") == false )
-				fileName = string.Concat(fileName, ".xml");
+		public Dictionary<TKey, TValue> LoadData() {
+			List<CustomPair<TKey, TValue>> deserialized = new List<CustomPair<TKey, TValue>>();
+			Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
 			try {
-				using( FileStream fileStream = new FileStream(filePath + fileName, FileMode.Open) ) {
-					XmlSerializer Serializer = new XmlSerializer(typeof(Dictionary<string, T>));
-					var loadedDic = Serializer.Deserialize(fileStream) as Dictionary<string, T>;
-					foreach( var pair in loadedDic ??= new Dictionary<string, T>() ) {
-						try {
-							loadedDic.Add(pair.Key, pair.Value);
-						}
-						catch( ArgumentException ae ) {
-							OnErrorOccured(ae);
-						}
+				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Open) ) {
+					XmlSerializer Serializer = new XmlSerializer(deserialized.GetType());
+					foreach( CustomPair<TKey, TValue> item in ( Serializer.Deserialize(fileStream) as List<CustomPair<TKey, TValue>> ) ) {
+						dictionary.Add(item.Key, item.Value);
 					}
 				}
 			}
 			catch( FileNotFoundException e ) {
 				OnErrorOccured(e);
 			}
+
+			return dictionary;
 		}
 
 		#endregion
