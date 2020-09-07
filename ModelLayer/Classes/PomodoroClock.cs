@@ -9,7 +9,7 @@ namespace ModelLayer.Classes {
 
 	public class PomodoroClock : ObservableObject {
 
-		#region fields
+		#region private fields
 
 		private TimeSpan _Time = TimeSpan.Zero;
 		private TimeSpan _TotalTime = TimeSpan.Zero;
@@ -33,7 +33,7 @@ namespace ModelLayer.Classes {
 
 		#endregion
 
-		#region properties
+		#region public properties
 
 		/// <summary>
 		/// The Time in the current Cycle
@@ -163,10 +163,30 @@ namespace ModelLayer.Classes {
 			}
 		}
 
+		#endregion
+
+		#region public Events
+
 		/// <summary>
 		/// Event gets Invoked, when a Timer is Elapsed and gets Passed the Elapsed Time and the WorkMode
 		/// </summary>
-		public event EventHandler? Elapsed;
+		public event PomodoroEventHandler Elapsed;
+
+		/// <summary>
+		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
+		/// </summary>
+		protected virtual void OnElapsed() {
+			PomodoroEventArgs e = new PomodoroEventArgs(){
+				Time = GetActualTime(),
+				WorkMode = CurrentWorkMode
+			};
+			Elapsed?.Invoke(this, e);
+
+			AddTimeIfWork();
+			ResetCounter();
+			StartClock();
+			UpdateButtonText();
+		}
 
 		#endregion
 
@@ -289,23 +309,7 @@ namespace ModelLayer.Classes {
 
 		#endregion
 
-		#region timer-events
-
-		/// <summary>
-		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
-		/// </summary>
-		protected virtual void OnElapsed() {
-			PomodoroEventArgs e = new PomodoroEventArgs(){
-				Time = GetActualTime(),
-				WorkMode = CurrentWorkMode
-			};
-			Elapsed?.Invoke(this, e);
-
-			AddTimeIfWork();
-			ResetCounter();
-			StartClock();
-			UpdateButtonText();
-		}
+		#region private Timer-Ticks
 
 		/// <summary>
 		/// Tickevent which gets called on every intervall from zero upwards
