@@ -1,6 +1,5 @@
 ﻿using DataLayer.Interfaces;
 using DataLayer.XMLDataService;
-using LogicLayer.Utility;
 using ModelLayer.Classes;
 using ModelLayer.Planning;
 using ModelLayer.Utility;
@@ -128,17 +127,17 @@ namespace LogicLayer.Manager {
 
 		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is ObservableCollection<Category> ) {
-				if( e.Action == NotifyCollectionChangedAction.Add ) {
+				if( e.Action is NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
 						foreach( Category? item in e.NewItems! )
 							item!.WeekPlanChanged += UpdateWeekPlan;
 				}
-				else if( e.Action == NotifyCollectionChangedAction.Remove ) {
+				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
 						foreach( Category? item in e.OldItems )
 							item!.WeekPlanChanged -= UpdateWeekPlan;
 				}
-				else if( e.Action == NotifyCollectionChangedAction.Replace ) {
+				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
 						foreach( Category? item in e.OldItems )
 							item!.WeekPlanChanged -= UpdateWeekPlan;
@@ -161,7 +160,7 @@ namespace LogicLayer.Manager {
 								);
 							}
 				}
-				else if( e.Action == NotifyCollectionChangedAction.Remove ) {
+				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
 						foreach( (DayOfWeek, DayTime)? item in e.OldItems )
 							if( item is (DayOfWeek day, DayTime time) ) {
@@ -171,7 +170,7 @@ namespace LogicLayer.Manager {
 								);
 							}
 				}
-				else if( e.Action == NotifyCollectionChangedAction.Replace ) {
+				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
 						foreach( (DayOfWeek, DayTime)? item in e.OldItems )
 							if( item is (DayOfWeek day, DayTime time) ) {
@@ -195,10 +194,10 @@ namespace LogicLayer.Manager {
 		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
 			switch( e.GetException() ) {
 			case FileNotFoundException fNFE:
-				MessageBoxDisplayer.FileNotFound(fNFE.FileName ?? $"unknown, from: {sender}", "");
+				MessageBoxManager.FileNotFound(fNFE.FileName ?? $"unknown, from: {sender}", "");
 				return;
 			case ArgumentException aE:
-				MessageBoxDisplayer.InputInkorrekt($"{aE.Message}");
+				MessageBoxManager.InputInkorrekt($"{aE.Message}");
 				return;
 			default:
 				Debug.WriteLine($"{sender} threw {e.GetException()} \nwith the Message: {e.GetException().Message}");

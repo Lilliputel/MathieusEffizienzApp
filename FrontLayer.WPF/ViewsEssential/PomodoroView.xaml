@@ -43,19 +43,19 @@
 			<TextBlock Grid.Row="0" Grid.Column="0"
 					   Text="Arbeitszeit: " Margin="0,5"/>
 			<TextBox Grid.Row="1" Grid.Column="0"
-					 Text="{Binding InputWorkTime}"/>
+					 Text="{Binding DurationWorkCycle}"/>
 
 			<!-- Arbeitszeit -->
 			<TextBlock Grid.Row="0" Grid.Column="1"
 					   Text="Arbeitszeit: " Margin="0,5"/>
 			<TextBox Grid.Row="1" Grid.Column="1"
-					 Text="{Binding InputBreakTime}"/>
+					 Text="{Binding DurationBreakCycle}"/>
 
 			<!-- Verzögerungszeit -->
 			<TextBlock Grid.Row="0" Grid.Column="2"
 					   Text="Verzögerungszeit: " Margin="0,5"/>
 			<TextBox Grid.Row="1" Grid.Column="2"
-					 Text="{Binding InputDelayTime}"/>
+					 Text="{Binding DurationDelayCycle}"/>
 
 		</Grid>
 

@@ -1,6 +1,5 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
-using LogicLayer.Utility;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
@@ -51,7 +50,7 @@ namespace LogicLayer.Views {
 
 		public EnumState State {
 			get {
-				return (EnumState)this._State;
+				return this._State;
 			}
 			set {
 				if( value == _State )
@@ -85,10 +84,10 @@ namespace LogicLayer.Views {
 							Description,
 							State)
 						);
-					MessageBoxDisplayer.ObjektErstellt(nameof(Category), Title);
+					MessageBoxManager.ObjektErstellt(nameof(Category), Title);
 				}
 				else {
-					MessageBoxDisplayer.InputInkorrekt("");
+					MessageBoxManager.InputInkorrekt("");
 				}
 			});
 

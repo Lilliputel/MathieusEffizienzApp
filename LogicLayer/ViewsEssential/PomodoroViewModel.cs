@@ -1,6 +1,7 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using System;
 using System.Windows.Input;
 
@@ -27,7 +28,7 @@ namespace LogicLayer.Views {
 			});
 		public ICommand SaveTimeCommand => _SaveTimeCommand ??=
 			new RelayCommand(parameter => {
-#warning i have to Implement the timesaving method
+				this.WorkItem.Time.Add(this.Clock.GetTotalAndReset());
 			});
 
 		#endregion
@@ -36,14 +37,15 @@ namespace LogicLayer.Views {
 
 		public PomodoroClock Clock { get; set; }
 
+		public IAccountable WorkItem { get; set; }
+
 		#endregion
 
 		#region constructor
 
-		public PomodoroViewModel() {
-
-			Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
-
+		public PomodoroViewModel( IAccountable workItem ) {
+			this.WorkItem = workItem;
+			this.Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
 		}
 
 		#endregion

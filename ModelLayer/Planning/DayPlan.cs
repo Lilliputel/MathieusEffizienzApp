@@ -33,13 +33,13 @@ namespace ModelLayer.Planning {
 					bool case2 = newDayTime.Start > oldStart && newDayTime.End < oldEnd;
 					bool case3 = newDayTime.Start < oldEnd && newDayTime.End > oldEnd;
 
-					if( case1 == true ) {
+					if( case1 is true ) {
 						result = new DayTime((oldStart, newDayTime.End));
 					}
-					else if( case2 == true ) {
+					else if( case2 is true ) {
 						result = newDayTime;
 					}
-					else if( case3 == true ) {
+					else if( case3 is true ) {
 						result = new DayTime((newDayTime.Start, oldEnd));
 					}
 

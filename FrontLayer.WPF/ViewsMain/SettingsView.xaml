@@ -16,6 +16,12 @@
 						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
 						  Margin="0,5"
 						  Background="{DynamicResource Back_2}"/>
+			<ToggleButton x:Name="ToggleButton_CountDirection"
+						  Command="{Binding CommandChangeCountDirection}"
+						  Content="Change countdirection!"
+						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+						  Margin="0,5"
+						  Background="{DynamicResource Back_2}"/>
 		</StackPanel>
 	</Border>
 	

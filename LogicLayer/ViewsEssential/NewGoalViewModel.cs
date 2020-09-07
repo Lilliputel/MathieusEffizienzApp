@@ -1,6 +1,5 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
-using LogicLayer.Utility;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
@@ -122,10 +121,10 @@ namespace LogicLayer.Views {
 							State)
 						);
 
-					MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title);
+					MessageBoxManager.ObjektErstellt(nameof(Goal), Title);
 				}
 				else {
-					MessageBoxDisplayer.InputInkorrekt("");
+					MessageBoxManager.InputInkorrekt("");
 				}
 			});
 

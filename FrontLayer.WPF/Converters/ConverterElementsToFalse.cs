@@ -8,11 +8,10 @@ namespace FrontLayer.WPF.Converters {
 			foreach( var item in values ) {
 				if( item is string s && s == string.Empty )
 					return false;
-				if( item is bool b && b == false )
+				if( item is bool b && b is false )
 					return false;
-				if( item is object o && o == null )
+				if( item is null )
 					return false;
-
 			}
 			return true;
 		}

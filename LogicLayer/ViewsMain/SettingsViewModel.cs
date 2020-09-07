@@ -8,7 +8,8 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private ICommand? _commandChangeTheme;
+		private ICommand? _CommandChangeTheme;
+		private ICommand? _CommandChangeCountDirection;
 
 		private string themeButton;
 
@@ -16,10 +17,14 @@ namespace LogicLayer.Views {
 
 		#region properties
 
-		public ICommand CommandChangeTheme => _commandChangeTheme ??=
+		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
 			new RelayCommand(parameter => {
 				ThemeManager.SwitchTheme();
 				ThemeButton = UpdateThemeButton();
+			});
+		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
+			new RelayCommand(parameter => {
+				( ViewModelManager.GetViewModel(EnumViewModels.Pomodoro) as PomodoroViewModel )!.Clock.UpdateCountDirection();
 			});
 
 		public string ThemeButton {

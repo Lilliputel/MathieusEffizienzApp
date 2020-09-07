@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 
-namespace LogicLayer.Utility {
-	public static class MessageBoxDisplayer {
+namespace LogicLayer.Manager {
+	public static class MessageBoxManager {
 
 		#region static methods
 

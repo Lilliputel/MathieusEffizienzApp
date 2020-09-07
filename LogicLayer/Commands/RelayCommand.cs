@@ -23,7 +23,7 @@ namespace LogicLayer.Commands {
 		#region constructor
 
 		public RelayCommand( Action<object> execute, Func<object, bool>? canExecute = null ) {
-			if( execute == null )
+			if( execute is null )
 				throw new NullReferenceException("execute");
 
 			_Execute = execute;

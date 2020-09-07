@@ -1,5 +1,4 @@
 ﻿using LogicLayer.Manager;
-using LogicLayer.Views;
 using System.Windows.Controls;
 
 namespace FrontLayer.WPF.Views {
@@ -10,7 +9,9 @@ namespace FrontLayer.WPF.Views {
 
 		public PomodoroView() {
 			InitializeComponent();
-			this.DataContext = ( ViewModelManager.GetViewModel(EnumViewModels.Pomodoro) as PomodoroViewModel );
+
+#warning i have to feed it a IAccountable
+			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Pomodoro);
 		}
 
 		~PomodoroView() { }

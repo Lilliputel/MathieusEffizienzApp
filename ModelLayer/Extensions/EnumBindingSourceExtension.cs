@@ -26,7 +26,7 @@ namespace ModelLayer.Extensions {
 		}
 
 		public override object ProvideValue( IServiceProvider serviceProvider ) {
-			if( null == this._enumType )
+			if( this._enumType is null )
 				throw new InvalidOperationException("The EnumType must be specified.");
 
 			Type actualEnumType = Nullable.GetUnderlyingType(this._enumType) ?? this._enumType;

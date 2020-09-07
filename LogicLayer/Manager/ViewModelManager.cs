@@ -1,10 +1,13 @@
 ﻿using LogicLayer.ViewModels;
 using LogicLayer.Views;
+using ModelLayer.Classes;
 using System.Collections.Generic;
 using System.Linq;
 
 
 namespace LogicLayer.Manager {
+
+#warning get rid of this enum, make Access easier
 
 	public enum EnumViewModels {
 
@@ -71,13 +74,14 @@ namespace LogicLayer.Manager {
 				{ EnumViewModels.Settings, _Settings }
 			};
 
-			_Pomodoro = new PomodoroViewModel();
+#warning for debugging purpose a new goal gets added
+			_Pomodoro = new PomodoroViewModel(new Goal());
 			_NewCategory = new NewCategoryViewModel();
 			_NewGoal = new NewGoalViewModel();
 			_NewDayTime = new NewDayTimeViewModel();
 
 			_DictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>(){
-				{ EnumViewModels.Pomodoro, _Pomodoro },
+				{EnumViewModels.Pomodoro, _Pomodoro },
 				{EnumViewModels.NewCategory, _NewCategory },
 				{EnumViewModels.NewGoal, _NewGoal },
 				{EnumViewModels.NewDayTime, _NewDayTime }
