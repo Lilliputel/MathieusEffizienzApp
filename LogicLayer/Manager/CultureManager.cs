@@ -3,7 +3,11 @@
 namespace LogicLayer.Manager {
 	public static class CultureManager {
 
-		public static readonly CultureInfo zeitFormat = new CultureInfo("ch-DE");
+		public static CultureInfo CurrentCulture = new CultureInfo("ch-DE");
+
+		public static void SetCulture( CultureInfo culture ) {
+			CurrentCulture = culture;
+		}
 
 	}
 }

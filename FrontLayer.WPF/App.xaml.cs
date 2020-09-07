@@ -1,4 +1,5 @@
 ﻿using LogicLayer.Manager;
+using System.Globalization;
 using System.Windows;
 
 namespace FrontLayer.WPF {
@@ -14,6 +15,10 @@ namespace FrontLayer.WPF {
 		#region methods
 
 		protected override void OnStartup( StartupEventArgs e ) {
+			// Set the Default Culture
+			CultureInfo.DefaultThreadCurrentCulture = CultureManager.CurrentCulture;
+			CultureInfo.DefaultThreadCurrentUICulture = CultureManager.CurrentCulture;
+
 			// Set the Theme to the standard-Theme
 			Resources.MergedDictionaries[0].Clear();
 			Resources.MergedDictionaries[0].MergedDictionaries.Add(ThemeManager.SelectedTheme);

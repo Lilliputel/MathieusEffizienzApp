@@ -26,7 +26,7 @@ namespace LogicLayer.Views {
 
 		#region properties
 
-		public string Title {
+		public string? Title {
 			get {
 				return _Title;
 			}
@@ -37,7 +37,7 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(Title));
 			}
 		}
-		public string Description {
+		public string? Description {
 			get {
 				return _Description;
 			}
@@ -63,7 +63,7 @@ namespace LogicLayer.Views {
 
 		public IEnumerable<PropertyInfo> ColorList
 			=> from property in typeof(Colors).GetProperties() orderby property.GetValue(null, null)?.ToString() select property;
-		public PropertyInfo SelectedColor {
+		public PropertyInfo? SelectedColor {
 			get {
 				return _SelectedColor;
 			}
@@ -77,14 +77,19 @@ namespace LogicLayer.Views {
 
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
 			new RelayCommand(parameter => {
-				ObjectManager.CategoryList.Add(
-					new Category(
-						Title,
-						(Color)SelectedColor.GetValue(null, null)!,
-						Description,
-						State)
-					);
-				MessageBoxDisplayer.ObjektErstellt(nameof(Category), Title);
+				if( Title is string && SelectedColor is PropertyInfo && Description is string ) {
+					ObjectManager.CategoryList.Add(
+						new Category(
+							Title,
+							(Color)SelectedColor.GetValue(null, null)!,
+							Description,
+							State)
+						);
+					MessageBoxDisplayer.ObjektErstellt(nameof(Category), Title);
+				}
+				else {
+					MessageBoxDisplayer.InputInkorrekt("");
+				}
 			});
 
 		#endregion

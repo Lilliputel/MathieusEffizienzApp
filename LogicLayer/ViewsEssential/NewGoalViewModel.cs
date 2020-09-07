@@ -26,7 +26,6 @@ namespace LogicLayer.Views {
 
 		private EnumState _State = EnumState.ToDo;
 
-
 		private ICommand? _SaveGoalCommand;
 
 		#endregion
@@ -36,8 +35,7 @@ namespace LogicLayer.Views {
 		public ObservableCollection<Category> CategoryList
 			=> ObjectManager.CategoryList;
 
-
-		public string Title {
+		public string? Title {
 			get {
 				return _Title;
 			}
@@ -48,7 +46,7 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(Title));
 			}
 		}
-		public string Description {
+		public string? Description {
 			get {
 				return _Description;
 			}
@@ -60,7 +58,7 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public Category SelectedCategory {
+		public Category? SelectedCategory {
 			get {
 				return _SelectedCategory;
 			}
@@ -114,16 +112,21 @@ namespace LogicLayer.Views {
 
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			new RelayCommand(parameter => {
-				IParent<Goal> parent = (IParent<Goal>?)SelectedGoal ?? SelectedCategory;
-				parent.AddChild(
-					new Goal(
-						Title,
-						new DateSpan(StartDate, EndDate),
-						Description,
-						State)
-					);
+				if( SelectedCategory is IParent<Goal> cat && Title is string && Description is string ) {
+					IParent<Goal> parent = SelectedGoal ?? cat;
+					parent.AddChild(
+						new Goal(
+							Title,
+							new DateSpan(StartDate, EndDate),
+							Description,
+							State)
+						);
 
-				MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title);
+					MessageBoxDisplayer.ObjektErstellt(nameof(Goal), Title);
+				}
+				else {
+					MessageBoxDisplayer.InputInkorrekt("");
+				}
 			});
 
 		#endregion
