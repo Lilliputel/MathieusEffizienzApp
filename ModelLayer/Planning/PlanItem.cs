@@ -1,8 +1,12 @@
 ﻿using ModelLayer.Utility;
 using System;
 using System.Windows.Media;
+using System.Xml.Serialization;
 
 namespace ModelLayer.Planning {
+	/// <summary>
+	/// Enthält eine StartZeit und eine EndZeit
+	/// </summary>
 	public class PlanItem : ObservableObject {
 
 		#region fields
@@ -16,6 +20,7 @@ namespace ModelLayer.Planning {
 
 		#region properties
 
+		[XmlElement("Time")]
 		public DayTime Time {
 			get {
 				return this._Time;
@@ -27,6 +32,7 @@ namespace ModelLayer.Planning {
 				OnPropertyChanged(nameof(Time));
 			}
 		}
+		[XmlAttribute("ID")]
 		public Guid ID {
 			get {
 				return this._ID;
@@ -38,6 +44,7 @@ namespace ModelLayer.Planning {
 				OnPropertyChanged(nameof(ID));
 			}
 		}
+		[XmlElement("Color")]
 		public Color Color {
 			get {
 				return _Color;
@@ -49,6 +56,7 @@ namespace ModelLayer.Planning {
 				OnPropertyChanged(nameof(Color));
 			}
 		}
+		[XmlAttribute("Title")]
 		public string Title {
 			get {
 				return _Title;
@@ -65,9 +73,7 @@ namespace ModelLayer.Planning {
 
 		#region constructors
 
-		public PlanItem() {
-
-		}
+		public PlanItem() { }
 
 		public PlanItem( DayTime time, Guid id, Color color, string title ) {
 			this._Time = time;

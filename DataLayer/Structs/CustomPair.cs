@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace DataLayer.Structs {
 
-	[Serializable]
 	public struct CustomPair<TKey, TValue> {
 
 		[XmlAttribute("Key")]
