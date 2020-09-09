@@ -1,6 +1,7 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
 using System;
+using System.Diagnostics;
 using System.Windows.Input;
 
 namespace LogicLayer.ViewModels {
@@ -32,7 +33,7 @@ namespace LogicLayer.ViewModels {
 
 		public ICommand CommandCreateObjects => _commandCreateObjects ??=
 			new RelayCommand(parameter => {
-				ObjectManager.GenerateObjects();
+				Debug.WriteLine("Tried to Generate Objects in the MainViewModel!");
 			});
 
 		#endregion

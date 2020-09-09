@@ -80,7 +80,7 @@ namespace LogicLayer.Views {
 					ObjectManager.CategoryList.Add(
 						new Category(
 							Title,
-							(Color)SelectedColor.GetValue(null, null)!,
+							SelectedColor.GetValue(null, null)!.ToString()!,
 							Description,
 							State)
 						);

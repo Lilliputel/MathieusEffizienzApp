@@ -4,7 +4,6 @@ using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
@@ -21,7 +20,7 @@ namespace ModelLayer.Classes {
 
 		private bool _IsParent;
 
-		private Color _Color;
+		private string _ColorHex;
 
 		private EnumState _State = EnumState.ToDo;
 		private DateSpan _Plan;
@@ -95,14 +94,14 @@ namespace ModelLayer.Classes {
 		}
 
 		// IColorfull
-		[XmlElement("Color")]
-		public Color Color {
+		[XmlAttribute("Color")]
+		public string ColorHex {
 			get {
-				return _Color;
+				return _ColorHex;
 			}
 			set {
-				_Color = value;
-				OnPropertyChanged(nameof(Color));
+				_ColorHex = value;
+				OnPropertyChanged(nameof(ColorHex));
 			}
 		}
 
@@ -193,7 +192,7 @@ namespace ModelLayer.Classes {
 		}
 		public void AddChild( Goal _Child ) {
 			_Child.ParentID = this.ID;
-			_Child.Color = this.Color;
+			_Child.ColorHex = this.ColorHex;
 
 			this.Children.Add(_Child);
 		}

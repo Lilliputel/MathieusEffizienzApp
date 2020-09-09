@@ -2,7 +2,6 @@
 using DataLayer.XMLDataService;
 using ModelLayer.Classes;
 using ModelLayer.Planning;
-using ModelLayer.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +9,6 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace LogicLayer.Manager {
 	public static class ObjectManager {
@@ -40,8 +38,6 @@ namespace LogicLayer.Manager {
 		/// </summary>
 		public static Dictionary<string, bool> Settings { get; set; }
 
-		private static int counter = 0;
-
 		#endregion
 
 		#region constructor
@@ -63,41 +59,6 @@ namespace LogicLayer.Manager {
 		#endregion
 
 		#region methods
-
-		public static void GenerateObjects() {
-			Random randomGen = new Random();
-			Color randomColor =
-				Color.FromArgb(
-				(byte)randomGen.Next(255),
-				(byte)randomGen.Next(255),
-				(byte)randomGen.Next(255),
-				(byte)randomGen.Next(255));
-
-			// new Category
-			Category CBCategory1 = new Category($"Generated-Category{counter}", randomColor);
-
-			Goal CBGoal1 = new Goal($"Generated-Goal{counter}_1", new DateSpan( DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)) ){
-				Time = new TimeSpan(1, 2, 3)
-			};
-			Goal CBGoal1_1 = new Goal($"Generated-Goal{counter}_1.1", new DateSpan( DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)) ){
-				Time = new TimeSpan(3, 12, 20)
-			};
-			Goal CBGoal2 = new Goal($"Generated-Goal{counter}_2", new DateSpan( DateTime.Today, DateTime.Today.AddDays(10)) ){
-				Time = new TimeSpan(10, 30, 0)
-			};
-
-			CBGoal1.AddChild(CBGoal1_1);
-
-			CBCategory1.AddChild(CBGoal1);
-			CBCategory1.AddChild(CBGoal2);
-
-			CategoryList.Add(CBCategory1);
-			CategoryList[CategoryList.IndexOf(CBCategory1)].WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DayTime((0.0 + counter, 1.0 + counter))));
-
-			counter++;
-			if( counter > 23 )
-				counter = 0;
-		}
 
 		public static Category? GetCategory( Guid ID ) {
 			foreach( Category category in CategoryList ) {
@@ -156,7 +117,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID, category.ColorHex, category.Title))
 								);
 							}
 				}
@@ -166,7 +127,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID, category.ColorHex, category.Title))
 								);
 							}
 				}
@@ -176,14 +137,14 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID, category.ColorHex, category.Title))
 								);
 							}
 						foreach( (DayOfWeek, DayTime)? item in e.NewItems )
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID, category.ColorHex, category.Title))
 								);
 							}
 					}

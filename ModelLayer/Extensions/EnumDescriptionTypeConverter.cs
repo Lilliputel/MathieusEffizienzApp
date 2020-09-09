@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 
 namespace ModelLayer.Extensions {
+
 	public class EnumDescriptionTypeConverter : EnumConverter {
 		public EnumDescriptionTypeConverter( Type type )
 			: base(type) {
@@ -23,4 +24,5 @@ namespace ModelLayer.Extensions {
 			return base.ConvertTo(context, culture, value, destinationType);
 		}
 	}
+
 }

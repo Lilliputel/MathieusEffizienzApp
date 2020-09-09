@@ -3,9 +3,11 @@ using ModelLayer.Extensions;
 using ModelLayer.Utility;
 using System;
 using System.Diagnostics;
-using System.Windows.Threading;
+using System.Timers;
 
 namespace ModelLayer.Classes {
+
+#warning Issue: If I change the Countdirection, when the timer is not running, it starts to count!?
 
 	public class PomodoroClock : ObservableObject {
 
@@ -27,7 +29,7 @@ namespace ModelLayer.Classes {
 		private string _StartStopText = "Start timer!";
 
 		// private Timer to Update the Time
-		private DispatcherTimer _Counter = new DispatcherTimer(){ Interval = TimeSpan.FromSeconds(1) };
+		private Timer _Counter = new Timer( ){ Interval = TimeSpan.FromSeconds(1).TotalMilliseconds };
 		// TimeSpan to keep track when to elapse the Counter
 		private TimeSpan _DestinationTime;
 
@@ -289,9 +291,9 @@ namespace ModelLayer.Classes {
 
 			// Attaches the Correct CounterTick
 			if( CountDown is true )
-				_Counter.Tick += DownCounter_Tick;
+				_Counter.Elapsed += DownCounter_Tick;
 			else
-				_Counter.Tick += UpCounter_Tick;
+				_Counter.Elapsed += UpCounter_Tick;
 
 			// Starts the new Counter
 			_Counter.Start();
@@ -419,8 +421,8 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private void ResetCounter() {
 			// removes all EventHandler for a bugfree experience
-			_Counter.Tick -= UpCounter_Tick;
-			_Counter.Tick -= DownCounter_Tick;
+			_Counter.Elapsed -= UpCounter_Tick;
+			_Counter.Elapsed -= DownCounter_Tick;
 
 			// Sets DestinationTime and Time to zero
 			_DestinationTime = TimeSpan.Zero;

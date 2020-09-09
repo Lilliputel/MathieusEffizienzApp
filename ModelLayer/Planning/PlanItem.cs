@@ -1,6 +1,5 @@
 ﻿using ModelLayer.Utility;
 using System;
-using System.Windows.Media;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Planning {
@@ -13,7 +12,7 @@ namespace ModelLayer.Planning {
 
 		private DayTime _Time;
 		private Guid _ID;
-		private Color _Color;
+		private string _ColorHex;
 		private string _Title;
 
 		#endregion
@@ -45,15 +44,15 @@ namespace ModelLayer.Planning {
 			}
 		}
 		[XmlElement("Color")]
-		public Color Color {
+		public string ColorHex {
 			get {
-				return _Color;
+				return _ColorHex;
 			}
 			set {
-				if( value == _Color )
+				if( value == _ColorHex )
 					return;
-				_Color = value;
-				OnPropertyChanged(nameof(Color));
+				_ColorHex = value;
+				OnPropertyChanged(nameof(ColorHex));
 			}
 		}
 		[XmlAttribute("Title")]
@@ -75,10 +74,10 @@ namespace ModelLayer.Planning {
 
 		public PlanItem() { }
 
-		public PlanItem( DayTime time, Guid id, Color color, string title ) {
+		public PlanItem( DayTime time, Guid id, string colorHex, string title ) {
 			this._Time = time;
 			this._ID = id;
-			this._Color = color;
+			this._ColorHex = colorHex;
 			this._Title = title;
 		}
 

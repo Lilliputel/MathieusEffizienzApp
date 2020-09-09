@@ -1,9 +1,7 @@
-﻿using System.Windows.Media;
-
-namespace ModelLayer.Interfaces {
+﻿namespace ModelLayer.Interfaces {
 	public interface IColorfull {
 
-		public Color Color { get; set; }
+		public string ColorHex { get; set; }
 
 	}
 }

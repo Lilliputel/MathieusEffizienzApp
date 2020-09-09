@@ -2,7 +2,7 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
-			 xmlns:extensions="clr-namespace:ModelLayer.Extensions;assembly=ModelLayer"
+			 xmlns:extensions="clr-namespace:ModelLayer.Extensions"
 			 xmlns:enums="clr-namespace:ModelLayer.Enums;assembly=ModelLayer"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
@@ -11,8 +11,8 @@
 	<UserControl.Resources>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
-		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
-		<converter:NullDayTimeToStringConverter x:Key="NullDayTime"/>
+		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
+		<converter:ConverterNullDayTimeToString x:Key="NullDayTime"/>
 	</UserControl.Resources>
 
 	<StackPanel>
@@ -27,7 +27,7 @@
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<StackPanel Orientation="Horizontal">
-						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+						<Ellipse Height="10" Width="10" Fill="{Binding ColorHex, Converter={StaticResource ColorConverter}}"/>
 						<TextBlock Text="{Binding Title}"/>
 					</StackPanel>
 				</DataTemplate>

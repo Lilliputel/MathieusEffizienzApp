@@ -4,7 +4,9 @@ using System.Windows.Data;
 using System.Windows.Media;
 
 namespace FrontLayer.WPF.Converters {
-	public class ConverterSCBToColor : IValueConverter {
+
+	[ValueConversion(typeof(string), typeof(Brush))]
+	public class ConverterSolidColorBrushToColor : IValueConverter {
 
 		public object? Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
 			return ( value as SolidColorBrush )?.Color;

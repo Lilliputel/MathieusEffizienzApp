@@ -7,7 +7,7 @@
 
 	<UserControl.Resources>
 		<converter:ConverterAufgabe x:Key="AufgabenConverter"/>
-		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
+		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<!-- Background -->

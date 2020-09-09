@@ -3,6 +3,7 @@ using System.Windows.Markup;
 
 namespace ModelLayer.Extensions {
 	public class EnumBindingSourceExtension : MarkupExtension {
+
 		private Type _enumType;
 		public Type EnumType {
 			get { return this._enumType; }
@@ -39,5 +40,6 @@ namespace ModelLayer.Extensions {
 			enumValues.CopyTo(tempArray, 1);
 			return tempArray;
 		}
+
 	}
 }

@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
+
+	[ValueConversion(typeof(DayTime), typeof(Thickness))]
 	public class DayTimeToBorderConverter : IMultiValueConverter {
 
 		public object? Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {

@@ -16,7 +16,7 @@
 	<HeaderedItemsControl.Resources>
 		<viewModels:DayPlanViewModel x:Key="ViewModel"/>
 		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
-		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
+		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
 	</HeaderedItemsControl.Resources>
 	
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->

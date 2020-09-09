@@ -6,7 +6,7 @@
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer">
 
 	<UserControl.Resources>
-		<converter:ConverterColorToSCB x:Key="ColorConverter"/>
+		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<!-- Background -->

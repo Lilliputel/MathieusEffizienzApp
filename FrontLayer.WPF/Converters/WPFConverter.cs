@@ -1,48 +1,11 @@
 ﻿using System;
-using System.Globalization;
+using System.Data;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace WPFConverter {
 
-	public class ColorToSCB : IValueConverter {
-
-		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			Color farbe = value is null ? Colors.White : (Color)value;
-			return new SolidColorBrush(farbe);
-		}
-
-		public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( value as SolidColorBrush )?.Color;
-		}
-
-	}
-	public class StringToSCB : IValueConverter {
-
-		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			Color farbe = value is null ? Colors.White : (Color)ColorConverter.ConvertFromString(value.ToString());
-			return new SolidColorBrush(farbe);
-		}
-
-		public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( value as SolidColorBrush )?.Color.ToString();
-		}
-
-	}
-	public class StringToColor : IValueConverter {
-
-		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
-			Color farbe = value is null ? Colors.White : (Color)ColorConverter.ConvertFromString(value.ToString());
-			return farbe;
-		}
-
-		public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			return ( (Color)value ).ToString();
-		}
-
-	}
-
+	[ValueConversion(typeof(DataGridCell), typeof(DataRow))]
 	public class DataRowViewConverter : IValueConverter {
 
 		public object? Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture ) {
@@ -62,4 +25,5 @@ namespace WPFConverter {
 		}
 
 	}
+
 }
