@@ -6,8 +6,6 @@
 			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters">
 
 	<UserControl.Resources>
-		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
-		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
 	</UserControl.Resources>
 
 	<!-- Backgrond -->

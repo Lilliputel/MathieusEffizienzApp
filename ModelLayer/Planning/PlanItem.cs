@@ -1,5 +1,6 @@
 ﻿using ModelLayer.Utility;
 using System;
+using System.Drawing;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Planning {
@@ -12,8 +13,8 @@ namespace ModelLayer.Planning {
 
 		private DayTime _Time;
 		private Guid _ID;
-		private string _ColorHex;
-		private string _Title;
+		private Color _Color;
+		private string _Title = "";
 
 		#endregion
 
@@ -44,15 +45,15 @@ namespace ModelLayer.Planning {
 			}
 		}
 		[XmlElement("Color")]
-		public string ColorHex {
+		public Color Color {
 			get {
-				return _ColorHex;
+				return _Color;
 			}
 			set {
-				if( value == _ColorHex )
+				if( value == _Color )
 					return;
-				_ColorHex = value;
-				OnPropertyChanged(nameof(ColorHex));
+				_Color = value;
+				OnPropertyChanged(nameof(Color));
 			}
 		}
 		[XmlAttribute("Title")]
@@ -72,12 +73,14 @@ namespace ModelLayer.Planning {
 
 		#region constructors
 
-		public PlanItem() { }
+		public PlanItem() {
+			this._Time = new DayTime();
+		}
 
-		public PlanItem( DayTime time, Guid id, string colorHex, string title ) {
+		public PlanItem( DayTime time, Guid id, Color color, string title ) {
 			this._Time = time;
 			this._ID = id;
-			this._ColorHex = colorHex;
+			this._Color = color;
 			this._Title = title;
 		}
 

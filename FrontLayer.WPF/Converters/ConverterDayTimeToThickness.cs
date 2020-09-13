@@ -7,9 +7,9 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(DayTime), typeof(Thickness))]
-	public class DayTimeToBorderConverter : IMultiValueConverter {
+	public class ConverterDayTimeToThickness : IMultiValueConverter {
 
-		public object? Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
+		public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
 			// get all the Values from Input
@@ -31,17 +31,11 @@ namespace FrontLayer.WPF.Converters {
 
 			#endregion
 
-			if( mode == "Start" ) {
-				return new Thickness(0, startFactor * height, 0, 0);
-			}
-			else if( mode == "End" ) {
-				return heightFactor * height;
-			}
+			return new Thickness(0, startFactor * height, 0, 0);
 
-			return null;
 
 		}
-		public object[]? ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) {
+		public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) {
 
 			throw new NotImplementedException();
 

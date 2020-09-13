@@ -30,27 +30,27 @@ namespace LogicLayer.Manager {
 		#region fields
 
 		private static Dictionary<EnumViewModels, ViewModelBase> _DictionaryViewModelsMain;
-
-		private static DashboardViewModel _Dashboard;
-		private static PlanViewModel _Plan;
-		private static GoalOverviewViewModel _GoalOverview;
-		private static GanttDiagramViewModel _GanttDiagram;
-		private static StatisticsViewModel _Statistics;
-		private static SettingsViewModel _Settings;
-
 		private static Dictionary<EnumViewModels, ViewModelBase> _DictionaryViewModelsEssential;
-
-		private static PomodoroViewModel _Pomodoro;
-		private static NewCategoryViewModel _NewCategory;
-		private static NewGoalViewModel _NewGoal;
-		private static NewDayTimeViewModel _NewDayTime;
 
 		#endregion
 
 		#region properties
 
 		public static ViewModelBase? SelectedMainViewModel { get; private set; }
+
+		public static DashboardViewModel Dashboard { get; private set; }
+		public static PlanViewModel Plan { get; private set; }
+		public static GoalOverviewViewModel GoalOverview { get; private set; }
+		public static GanttDiagramViewModel GanttDiagram { get; private set; }
+		public static StatisticsViewModel Statistics { get; private set; }
+		public static SettingsViewModel Settings { get; private set; }
+
 		public static ViewModelBase? SelectedEssentialViewModel { get; private set; }
+
+		public static PomodoroViewModel Pomodoro { get; private set; }
+		public static NewCategoryViewModel NewCategory { get; private set; }
+		public static NewGoalViewModel NewGoal { get; private set; }
+		public static NewDayTimeViewModel NewDayTime { get; private set; }
 
 		#endregion
 
@@ -58,33 +58,33 @@ namespace LogicLayer.Manager {
 
 		static ViewModelManager() {
 
-			_Dashboard = new DashboardViewModel();
-			_Plan = new PlanViewModel();
-			_GoalOverview = new GoalOverviewViewModel();
-			_GanttDiagram = new GanttDiagramViewModel();
-			_Statistics = new StatisticsViewModel();
-			_Settings = new SettingsViewModel();
+			Dashboard = new DashboardViewModel();
+			Plan = new PlanViewModel();
+			GoalOverview = new GoalOverviewViewModel();
+			GanttDiagram = new GanttDiagramViewModel();
+			Statistics = new StatisticsViewModel();
+			Settings = new SettingsViewModel();
 
 			_DictionaryViewModelsMain = new Dictionary<EnumViewModels, ViewModelBase>() {
-				{EnumViewModels.Dashboard, _Dashboard },
-				{EnumViewModels.Plan, _Plan },
-				{EnumViewModels.GoalOverview, _GoalOverview },
-				{EnumViewModels.GanttDiagram, _GanttDiagram },
-				{EnumViewModels.Statistics, _Statistics },
-				{ EnumViewModels.Settings, _Settings }
+				{EnumViewModels.Dashboard, Dashboard },
+				{EnumViewModels.Plan, Plan },
+				{EnumViewModels.GoalOverview, GoalOverview },
+				{EnumViewModels.GanttDiagram, GanttDiagram },
+				{EnumViewModels.Statistics, Statistics },
+				{ EnumViewModels.Settings, Settings }
 			};
 
 #warning for debugging purpose a new goal gets added
-			_Pomodoro = new PomodoroViewModel(new Goal());
-			_NewCategory = new NewCategoryViewModel();
-			_NewGoal = new NewGoalViewModel();
-			_NewDayTime = new NewDayTimeViewModel();
+			Pomodoro = new PomodoroViewModel(new Goal());
+			NewCategory = new NewCategoryViewModel();
+			NewGoal = new NewGoalViewModel();
+			NewDayTime = new NewDayTimeViewModel();
 
 			_DictionaryViewModelsEssential = new Dictionary<EnumViewModels, ViewModelBase>(){
-				{EnumViewModels.Pomodoro, _Pomodoro },
-				{EnumViewModels.NewCategory, _NewCategory },
-				{EnumViewModels.NewGoal, _NewGoal },
-				{EnumViewModels.NewDayTime, _NewDayTime }
+				{EnumViewModels.Pomodoro, Pomodoro },
+				{EnumViewModels.NewCategory, NewCategory },
+				{EnumViewModels.NewGoal, NewGoal },
+				{EnumViewModels.NewDayTime, NewDayTime }
 			};
 
 		}

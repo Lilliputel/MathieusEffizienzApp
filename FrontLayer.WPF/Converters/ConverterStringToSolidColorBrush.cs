@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace FrontLayer.WPF.Converters {
 
-	[ValueConversion(typeof(string), typeof(Brush))]
+	[ValueConversion(typeof(string), typeof(SolidColorBrush))]
 	public class ConverterStringToSolidColorBrush : IValueConverter {
 
 		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {

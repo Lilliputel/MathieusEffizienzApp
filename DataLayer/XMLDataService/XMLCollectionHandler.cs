@@ -20,7 +20,7 @@ namespace DataLayer.XMLDataService {
 		/// <summary>
 		/// Handles Exceptions: <see cref="FileNotFoundException"/>
 		/// </summary>
-		public event ErrorEventHandler ErrorOccured;
+		public event ErrorEventHandler? ErrorOccured;
 
 		#endregion
 
@@ -66,18 +66,17 @@ namespace DataLayer.XMLDataService {
 		#region load
 
 		public ObservableCollection<T> LoadData() {
-
+			var LoadingList = new ObservableCollection<T>();
 			try {
 				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Open) ) {
 					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					return Serializer.Deserialize(fileStream) as ObservableCollection<T>;
+					LoadingList = Serializer.Deserialize(fileStream) as ObservableCollection<T> ?? new ObservableCollection<T>();
 				}
 			}
 			catch( FileNotFoundException e ) {
 				OnErrorOccured(e);
 			}
-
-			return new ObservableCollection<T>();
+			return LoadingList;
 		}
 
 		#endregion

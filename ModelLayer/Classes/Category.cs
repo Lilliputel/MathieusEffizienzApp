@@ -5,6 +5,7 @@ using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Drawing;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
@@ -18,7 +19,7 @@ namespace ModelLayer.Classes {
 
 		private bool _IsParent;
 
-		private string _ColorHex;
+		private Color _Color;
 		private EnumState _State;
 
 		#endregion
@@ -84,13 +85,13 @@ namespace ModelLayer.Classes {
 
 		// IColorfull
 		[XmlAttribute("Color")]
-		public string ColorHex {
+		public Color Color {
 			get {
-				return _ColorHex;
+				return _Color;
 			}
 			set {
-				_ColorHex = value;
-				OnPropertyChanged(nameof(ColorHex));
+				_Color = value;
+				OnPropertyChanged(nameof(Color));
 			}
 		}
 
@@ -115,10 +116,10 @@ namespace ModelLayer.Classes {
 			this.WorkTimes.CollectionChanged += WorkTimes_CollectionChanged;
 		}
 
-		public Category( string title, string colorHex, string description = "New Category", EnumState state = EnumState.ToDo ) : this() {
+		public Category( string title, Color color, string description = "New Category", EnumState state = EnumState.ToDo ) : this() {
 			this.Title = title;
 			this.Description = description;
-			this.ColorHex = colorHex;
+			this.Color = color;
 			this.State = state;
 		}
 
@@ -150,7 +151,7 @@ namespace ModelLayer.Classes {
 		}
 		public void AddChild( Goal _Child ) {
 			_Child.ParentID = this.ID;
-			_Child.ColorHex = this.ColorHex;
+			_Child.Color = this.Color;
 
 			this.Children.Add(_Child);
 		}

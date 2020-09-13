@@ -4,10 +4,9 @@ using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace LogicLayer.Views {
 	public class NewCategoryViewModel : ViewModelBase {
@@ -17,7 +16,7 @@ namespace LogicLayer.Views {
 		private string? _Title;
 		private string? _Description;
 		private EnumState _State = EnumState.ToDo;
-		private PropertyInfo? _SelectedColor;
+		private (Color color, string name)? _SelectedColor;
 
 		private ICommand? _SaveCategoryCommand;
 
@@ -60,9 +59,11 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public IEnumerable<PropertyInfo> ColorList
-			=> from property in typeof(Colors).GetProperties() orderby property.GetValue(null, null)?.ToString() select property;
-		public PropertyInfo? SelectedColor {
+#warning Cannot convert Windows.Media.Color to Drawing.Color
+		public IEnumerable<(Color color, string name)> ColorList
+			=> from property in typeof(System.Windows.Media.Colors).GetProperties() orderby property.GetValue(null, null)?.ToString() select ((Color)property.GetValue(null, null)!, property.Name);
+
+		public (Color color, string name)? SelectedColor {
 			get {
 				return _SelectedColor;
 			}
@@ -76,11 +77,11 @@ namespace LogicLayer.Views {
 
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
 			new RelayCommand(parameter => {
-				if( Title is string && SelectedColor is PropertyInfo && Description is string ) {
+				if( Title is string && SelectedColor is (Color color, string name) item && Description is string ) {
 					ObjectManager.CategoryList.Add(
 						new Category(
 							Title,
-							SelectedColor.GetValue(null, null)!.ToString()!,
+							item.color,
 							Description,
 							State)
 						);

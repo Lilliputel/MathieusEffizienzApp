@@ -1,4 +1,5 @@
 ﻿using DataLayer.Interfaces;
+using DataLayer.MockDataService;
 using DataLayer.XMLDataService;
 using ModelLayer.Classes;
 using ModelLayer.Planning;
@@ -49,8 +50,11 @@ namespace LogicLayer.Manager {
 			Settings = new Dictionary<string, bool>();
 
 
-			_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
-			( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;
+			_ObjectDataService = new MockDataService();
+
+			//_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
+			//( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;
+
 			_SettingsDataService = new XMLDictionaryHandler<string, bool>(nameof(Settings), _FilePath);
 			( _SettingsDataService as XMLDictionaryHandler<string, bool> )!.ErrorOccured += ErrorOccured;
 
@@ -117,7 +121,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.ColorHex, category.Title))
+								new PlanItem(time, category.ID, category.Color, category.Title))
 								);
 							}
 				}
@@ -127,7 +131,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.ColorHex, category.Title))
+								new PlanItem(time, category.ID, category.Color, category.Title))
 								);
 							}
 				}
@@ -137,14 +141,14 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.ColorHex, category.Title))
+								new PlanItem(time, category.ID, category.Color, category.Title))
 								);
 							}
 						foreach( (DayOfWeek, DayTime)? item in e.NewItems )
 							if( item is (DayOfWeek day, DayTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.ColorHex, category.Title))
+								new PlanItem(time, category.ID, category.Color, category.Title))
 								);
 							}
 					}

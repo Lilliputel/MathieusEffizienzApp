@@ -10,7 +10,7 @@
 	<UserControl.Resources>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
-		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
+		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<StackPanel>

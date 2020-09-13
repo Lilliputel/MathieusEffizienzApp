@@ -15,8 +15,9 @@
 
 	<HeaderedItemsControl.Resources>
 		<viewModels:DayPlanViewModel x:Key="ViewModel"/>
-		<converter:DayTimeToBorderConverter x:Key="TimeToBorderConverter"/>
-		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
+		<converter:ConverterDayTimeToDouble x:Key="TimeToHeightConverter"/>
+		<converter:ConverterDayTimeToThickness x:Key="TimeToStartConverter"/>
+		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
 	</HeaderedItemsControl.Resources>
 	
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
@@ -28,22 +29,7 @@
 				  MouseLeftButtonDown="MouseLeftButtonDown"
 				  MouseMove="MouseMove"
 				  MouseLeftButtonUp="MouseLeftButtonUp">
-				
-				<!-- Interaction-Triggers, which handle the events-->
-				<!--
-				<i:Interaction.Triggers>
-					<i:EventTrigger EventName="MouseLeftButtonDown">
-						<i:InvokeCommandAction Command="{Binding LeftMouseDownCommand}"/>
-					</i:EventTrigger>
-					<i:EventTrigger EventName="MouseMove">
-						<i:InvokeCommandAction Command="{Binding MouseMoveCommand}"/>
-					</i:EventTrigger>
-					<i:EventTrigger EventName="MouseLeftButtonUp">
-						<i:InvokeCommandAction Command="{Binding LeftMouseUpCommand}"/>
-					</i:EventTrigger>
-				</i:Interaction.Triggers>
-				-->
-				
+
 				<Grid.RowDefinitions>
 					<RowDefinition Height="Auto"/>
 					<!-- Row Definition, which defines the actual height -->
@@ -77,7 +63,7 @@
 
 				<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 				<Border.Margin>
-					<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="Start">
+					<MultiBinding Converter="{StaticResource TimeToStartConverter}">
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"
@@ -87,7 +73,7 @@
 
 				<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
 				<Border.Height>
-					<MultiBinding Converter="{StaticResource TimeToBorderConverter}" ConverterParameter="End">
+					<MultiBinding Converter="{StaticResource TimeToHeightConverter}">
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"

@@ -4,7 +4,9 @@ using System.Windows;
 using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
-	public class ConverterAufgabe : IMultiValueConverter {
+
+	[ValueConversion(typeof(object[]), typeof(double))]
+	public class ConverterDateTimesToDouble : IMultiValueConverter {
 
 		public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
@@ -28,14 +30,7 @@ namespace FrontLayer.WPF.Converters {
 				faktor = 0;
 			}
 
-			double position = (faktor * gesamtLänge) + offset;
-
-			if( targetType == typeof(Thickness) ) {
-				return new Thickness(position, 0, 0, 0);
-			}
-			else {
-				return position;
-			}
+			return ( faktor * gesamtLänge ) + offset;
 
 		}
 
@@ -43,4 +38,5 @@ namespace FrontLayer.WPF.Converters {
 			throw new NotImplementedException();
 		}
 	}
+
 }

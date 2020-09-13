@@ -11,7 +11,7 @@
 	<UserControl.Resources>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
-		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
+		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
 		<converter:ConverterNullDayTimeToString x:Key="NullDayTime"/>
 	</UserControl.Resources>
 
@@ -27,7 +27,7 @@
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<StackPanel Orientation="Horizontal">
-						<Ellipse Height="10" Width="10" Fill="{Binding ColorHex, Converter={StaticResource ColorConverter}}"/>
+						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={StaticResource ColorConverter}}"/>
 						<TextBlock Text="{Binding Title}"/>
 					</StackPanel>
 				</DataTemplate>

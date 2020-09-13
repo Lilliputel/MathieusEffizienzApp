@@ -6,8 +6,7 @@
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer">
 
 	<UserControl.Resources>
-		<converter:ConverterAufgabe x:Key="AufgabenConverter"/>
-		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
+		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
 
 		<DataTemplate x:Key="Stretchpanel">
 			<Grid>

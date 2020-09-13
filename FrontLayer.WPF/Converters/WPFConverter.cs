@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace WPFConverter {
 
-	[ValueConversion(typeof(DataGridCell), typeof(DataRow))]
+	[ValueConversion(typeof(DataGridCell), typeof(DataRowView))]
 	public class DataRowViewConverter : IValueConverter {
 
 		public object? Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture ) {

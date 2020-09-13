@@ -1,7 +1,9 @@
-﻿namespace ModelLayer.Interfaces {
+﻿using System.Drawing;
+
+namespace ModelLayer.Interfaces {
 	public interface IColorfull {
 
-		public string ColorHex { get; set; }
+		public Color Color { get; set; }
 
 	}
 }

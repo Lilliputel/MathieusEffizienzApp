@@ -4,18 +4,17 @@ using System.Windows.Markup;
 namespace ModelLayer.Extensions {
 	public class EnumBindingSourceExtension : MarkupExtension {
 
-		private Type _enumType;
-		public Type EnumType {
+		private Type? _enumType;
+		public Type? EnumType {
 			get { return this._enumType; }
 			set {
 				if( value != this._enumType ) {
-					if( null != value ) {
+					if( value is { } ) {
 						Type enumType = Nullable.GetUnderlyingType(value) ?? value;
-						if( !enumType.IsEnum )
+						if( enumType.IsEnum is false )
 							throw new ArgumentException("Type must be for an Enum.");
+						this._enumType = value;
 					}
-
-					this._enumType = value;
 				}
 			}
 		}

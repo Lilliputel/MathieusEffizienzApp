@@ -172,7 +172,7 @@ namespace ModelLayer.Classes {
 		/// <summary>
 		/// Event gets Invoked, when a Timer is Elapsed and gets Passed the Elapsed Time and the WorkMode
 		/// </summary>
-		public event PomodoroEventHandler Elapsed;
+		public event PomodoroEventHandler? Elapsed;
 
 		/// <summary>
 		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed

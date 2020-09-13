@@ -6,8 +6,9 @@
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer">
 
 	<UserControl.Resources>
-		<converter:ConverterAufgabe x:Key="AufgabenConverter"/>
-		<converter:ConverterStringToSolidColorBrush x:Key="ColorConverter"/>
+		<converter:ConverterDateTimesToDouble x:Key="DateToDoubleConverter"/>
+		<converter:ConverterDateTimesToThickness x:Key="DateToThicknessConverter"/>
+		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<!-- Background -->
@@ -88,7 +89,7 @@
 
 															<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 															<Border.Margin>
-																<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																<MultiBinding Converter="{StaticResource DateToThicknessConverter}">
 																	<Binding ElementName="TimeLine" 
 																			 Path="DataContext.Plan.Start"/>
 																	<Binding ElementName="TimeLine"
@@ -105,7 +106,7 @@
 
 															<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
 															<Border.Width>
-																<MultiBinding Converter="{StaticResource AufgabenConverter}">
+																<MultiBinding Converter="{StaticResource DateToDoubleConverter}">
 																	<Binding ElementName="TimeLine" 
 																			 Path="DataContext.Plan.Start"/>
 																	<Binding ElementName="TimeLine" 

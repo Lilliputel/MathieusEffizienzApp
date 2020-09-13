@@ -6,6 +6,7 @@
 			  
 			  HorizontalAlignment="Center" VerticalAlignment="Top"
 			  x:Name="Root" MinWidth="550" MinHeight="600">
+	
 	<Grid DataContext="{Binding WeekPlan}">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto"/>

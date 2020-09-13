@@ -20,7 +20,7 @@ namespace DataLayer.XMLDataService {
 		/// <summary>
 		/// Handles Exceptions: <see cref="FileNotFoundException"/>/>
 		/// </summary>
-		public event ErrorEventHandler ErrorOccured;
+		public event ErrorEventHandler? ErrorOccured;
 
 		#endregion
 
@@ -70,13 +70,17 @@ namespace DataLayer.XMLDataService {
 		#region load
 
 		public Dictionary<TKey, TValue> LoadData() {
-			List<CustomPair<TKey, TValue>> deserialized = new List<CustomPair<TKey, TValue>>();
-			Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
+			Dictionary<TKey, TValue> loadingDictionary = new Dictionary<TKey, TValue>();
 			try {
 				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Open) ) {
-					XmlSerializer Serializer = new XmlSerializer(deserialized.GetType());
-					foreach( CustomPair<TKey, TValue> item in ( Serializer.Deserialize(fileStream) as List<CustomPair<TKey, TValue>> ) ) {
-						dictionary.Add(item.Key, item.Value);
+					XmlSerializer Serializer = new XmlSerializer(typeof(List<CustomPair<TKey, TValue>>));
+
+					//Tries to Deserialize the list to a certain Type
+					if( Serializer.Deserialize(fileStream) is List<CustomPair<TKey, TValue>> deserializedList ) {
+						//Adds every Item in the list to the LoadedList
+						deserializedList.ForEach(( pair ) => {
+							loadingDictionary.Add(pair.Key, pair.Value);
+						});
 					}
 				}
 			}
@@ -84,7 +88,7 @@ namespace DataLayer.XMLDataService {
 				OnErrorOccured(e);
 			}
 
-			return dictionary;
+			return loadingDictionary;
 		}
 
 		#endregion
