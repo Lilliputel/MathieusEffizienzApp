@@ -9,6 +9,7 @@
 	<UserControl.Resources>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
+		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
 	</UserControl.Resources>
 
 	<StackPanel>
@@ -32,13 +33,13 @@
 		<!-- Gruppe Farbe ComboBox -->
 		<TextBlock Text="Farbe:"/>
 		<ComboBox x:Name="ComboBox_Color"
-				  ItemsSource="{Binding ColorList, Mode=OneTime}"
-				  SelectedItem="{Binding SelectedColor, Mode=TwoWay}">
+				  ItemsSource="{Binding ColorNameList, Mode=OneTime}"
+				  SelectedItem="{Binding SelectedColorName, Mode=TwoWay}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
-						<Rectangle Fill="{Binding Name}" Width="40" Height="30"/>
-						<TextBlock Text="{Binding Name}"/>
+						<Rectangle Fill="{Binding}" Width="40" Height="30"/>
+						<TextBlock Text="{Binding}"/>
 					</StackPanel>
 				</DataTemplate>
 			</ComboBox.ItemTemplate>

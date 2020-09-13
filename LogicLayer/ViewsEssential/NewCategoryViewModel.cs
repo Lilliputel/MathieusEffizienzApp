@@ -5,7 +5,7 @@ using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
+using System.Reflection;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
@@ -16,7 +16,7 @@ namespace LogicLayer.Views {
 		private string? _Title;
 		private string? _Description;
 		private EnumState _State = EnumState.ToDo;
-		private (Color color, string name)? _SelectedColor;
+		private string? _SelectedColorName;
 
 		private ICommand? _SaveCategoryCommand;
 
@@ -59,29 +59,38 @@ namespace LogicLayer.Views {
 			}
 		}
 
-#warning Cannot convert Windows.Media.Color to Drawing.Color
-		public IEnumerable<(Color color, string name)> ColorList
-			=> from property in typeof(System.Windows.Media.Colors).GetProperties() orderby property.GetValue(null, null)?.ToString() select ((Color)property.GetValue(null, null)!, property.Name);
-
-		public (Color color, string name)? SelectedColor {
+		public List<string> ColorNameList {
 			get {
-				return _SelectedColor;
+				var allColors = new List<string>();
+				PropertyInfo[] propertyInfos = typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
+				foreach( PropertyInfo propertyInfo in propertyInfos ) {
+					allColors.Add(propertyInfo.Name);
+					//if( propertyInfo.GetValue(null, null) is Color color )
+					//	allColors.Add((color, propertyInfo.Name));
+				}
+				return allColors;
+			}
+		}
+
+		public string? SelectedColorName {
+			get {
+				return _SelectedColorName;
 			}
 			set {
-				if( value == _SelectedColor )
+				if( value == _SelectedColorName )
 					return;
-				_SelectedColor = value;
-				OnPropertyChanged(nameof(SelectedColor));
+				_SelectedColorName = value;
+				OnPropertyChanged(nameof(SelectedColorName));
 			}
 		}
 
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
 			new RelayCommand(parameter => {
-				if( Title is string && SelectedColor is (Color color, string name) item && Description is string ) {
+				if( Title is string && SelectedColorName is string && Description is string ) {
 					ObjectManager.CategoryList.Add(
 						new Category(
 							Title,
-							item.color,
+							Color.FromName(SelectedColorName),
 							Description,
 							State)
 						);
