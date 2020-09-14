@@ -89,7 +89,7 @@ namespace LogicLayer.Views {
 
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			 new AsyncRelayCommand(GetIfPossible, ( ex ) => {
-				 MessageBoxManager.InputInkorrekt(ex.Message);
+				 AlertManager.InputInkorrekt(ex.Message);
 			 });
 
 		#endregion

@@ -159,10 +159,10 @@ namespace LogicLayer.Manager {
 		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
 			switch( e.GetException() ) {
 			case FileNotFoundException fNFE:
-				MessageBoxManager.FileNotFound(fNFE.FileName ?? $"unknown, from: {sender}", "");
+				AlertManager.FileNotFound(fNFE.FileName ?? $"unknown, from: {sender}", "");
 				return;
 			case ArgumentException aE:
-				MessageBoxManager.InputInkorrekt($"{aE.Message}");
+				AlertManager.InputInkorrekt($"{aE.Message}");
 				return;
 			default:
 				Debug.WriteLine($"{sender} threw {e.GetException()} \nwith the Message: {e.GetException().Message}");

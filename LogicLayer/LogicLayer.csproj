@@ -4,7 +4,6 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<LangVersion>8.0</LangVersion>
 		<OutputType>Library</OutputType>
-		<UseWPF>true</UseWPF>
 		<RootNamespace>LogicLayer</RootNamespace>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>

@@ -1,58 +1,31 @@
-﻿using System;
-using System.Windows;
+﻿using LogicLayer.Extensions;
 
 namespace LogicLayer.Manager {
 	public static class ThemeManager {
 
-		#region fields
+		#region public properties
 
-		private static string themeDirectory = "/FrontLayer.WPF;component/Themes/";
-		private static ResourceDictionary _themeDark;
-		private static ResourceDictionary _themeLight;
-		private static bool _darkMode;
+		public static bool IsDarkMode { get; private set; }
 
 		#endregion
 
-		#region properties
+		#region public events
 
-		public static ResourceDictionary SelectedTheme { get; set; }
-		public static bool DarkMode {
-			get {
-				return _darkMode;
-			}
-			set {
-				_darkMode = value;
-				SetTheme();
-			}
-		}
-
-		#endregion
-
-		#region constructor
-
-		static ThemeManager() {
-			_themeDark = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute) };
-			_themeLight = new ResourceDictionary() { Source = new Uri(themeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute) };
-
-			SelectedTheme = new ResourceDictionary();
-			DarkMode = true;
-
-		}
+		public static event BoolChangedEventHandler? DarkModeChanged;
 
 		#endregion
 
 		#region methods
 
-		public static void SwitchTheme() {
-			DarkMode = !DarkMode;
-			SetTheme();
-		}
-
-		private static void SetTheme() {
-			SelectedTheme.Clear();
-			SelectedTheme.MergedDictionaries.Add(DarkMode ? _themeDark : _themeLight);
+		public static void SwitchTheme( bool? isDarkMode = null ) {
+			if( isDarkMode is bool isDarkModeNew )
+				IsDarkMode = isDarkModeNew;
+			else
+				IsDarkMode = !IsDarkMode;
+			DarkModeChanged?.Invoke(IsDarkMode);
 		}
 
 		#endregion
+
 	}
 }

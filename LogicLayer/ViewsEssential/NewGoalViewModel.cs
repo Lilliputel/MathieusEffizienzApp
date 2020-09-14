@@ -121,10 +121,10 @@ namespace LogicLayer.Views {
 							State)
 						);
 
-					MessageBoxManager.ObjektErstellt(nameof(Goal), Title);
+					AlertManager.ObjektErstellt(nameof(Goal), Title);
 				}
 				else {
-					MessageBoxManager.InputInkorrekt("");
+					AlertManager.InputInkorrekt("");
 				}
 			});
 

@@ -38,7 +38,7 @@
 		<TextBlock Text="Day:"/>
 		<ComboBox x:Name="ComboBox_Day"
 				  ItemsSource="{Binding Source={extensions:EnumBindingSource {x:Type system:DayOfWeek}}}"
-				  SelectedItem="{Binding State, Mode=TwoWay}"/>
+				  SelectedItem="{Binding DayOfWeek, Mode=TwoWay}"/>
 
 		<!-- Gruppe StartDatum DatePicker -->
 		<TextBlock Text="Startzeit:"/>

@@ -1,62 +1,74 @@
-﻿using System.Windows;
+﻿using LogicLayer.Extensions;
 
 namespace LogicLayer.Manager {
-	public static class MessageBoxManager {
+
+	public static class AlertManager {
+
+		#region public events
+
+		public static event AlertEventHanlder? AlertOccured;
+
+		#endregion
 
 		#region static methods
 
 		public static void ObjektErstellt( string _objektName, string _objektTitel ) {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 				$"Es wurde ein {_objektName} mit dem Titel {_objektTitel} erfolgreich erstellt!",
+				"OK",
 				"Objekt erstellt!",
-				MessageBoxButton.OK);
+				AlertSymbolEnum.Information);
 		}
 
 		public static void ZeitFormatInkorrekt() {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 				"Bitte ein korrektes Zeitformat verwenden! [hh:mm:ss]",
+				"OK",
 				"Format anpassen!",
-				MessageBoxButton.OK);
+				AlertSymbolEnum.Warning);
 		}
 
 		public static void InputInkorrekt( string _exceptionMessage ) {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 					$"Hier ist etwas Schiefgelaufen! Bitte überprüfe die korrekte Formatierung! \n{_exceptionMessage}",
+					"Anpassen!",
 					"Fehler!",
-					MessageBoxButton.OK,
-					MessageBoxImage.Error);
+					AlertSymbolEnum.Error);
 		}
 
 		public static void ListeGeladen( string _listenName ) {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 					$"Die Liste {_listenName} wurde geladen!",
+					"OK",
 					"Laden erfolgreich!",
-					MessageBoxButton.OK);
+					AlertSymbolEnum.OK);
 		}
 		public static void ListeGespeichert( string _listenName ) {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 					$"Die Liste {_listenName} wurde gespeichert!",
+					"OK",
 					"Speichern erfolgreich!",
-					MessageBoxButton.OK);
+					AlertSymbolEnum.OK);
 		}
 
 		public static void FileNotFound( string _dateiName, string _dateiPfad ) {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 				$"Datei {_dateiName} nicht gefunden! \n{_dateiPfad + _dateiName + ".xml"}",
+				"OK",
 				"File Not Found!",
-				MessageBoxButton.OK,
-				MessageBoxImage.Exclamation);
+				AlertSymbolEnum.Error);
 		}
 
 		public static void NullReferenceException( string _exceptionText ) {
-			MessageBox.Show(
+			AlertOccured?.Invoke(
 				$"Das Programm hat den Fehler \n{_exceptionText} \ngeworfen",
+				"OK",
 				"Fehler!",
-				MessageBoxButton.OK,
-				MessageBoxImage.Error);
+				AlertSymbolEnum.Fatal);
 		}
 
 		#endregion
 
 	}
+
 }

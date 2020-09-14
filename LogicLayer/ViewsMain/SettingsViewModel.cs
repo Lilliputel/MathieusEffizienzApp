@@ -20,7 +20,6 @@ namespace LogicLayer.Views {
 		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
 			new RelayCommand(parameter => {
 				ThemeManager.SwitchTheme();
-				ThemeButton = UpdateThemeButton();
 			});
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
 			new RelayCommand(parameter => {
@@ -42,16 +41,18 @@ namespace LogicLayer.Views {
 		#region constructors
 
 		public SettingsViewModel() {
-			this.themeButton = UpdateThemeButton();
+			ThemeManager.DarkModeChanged += UpdateThemeButton;
+			UpdateThemeButton(ThemeManager.IsDarkMode);
 		}
 
 		#endregion
 
 		#region methods
 
-		private string UpdateThemeButton() {
-			return ( ThemeManager.DarkMode ? "Light!" : "Dark!" );
+		private void UpdateThemeButton( bool isDarkMode ) {
+			this.ThemeButton = isDarkMode ? "Light!" : "Dark!";
 		}
+
 		#endregion
 	}
 }

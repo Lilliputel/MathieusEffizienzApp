@@ -2,12 +2,8 @@
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Planning;
-using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace LogicLayer.Views {
 	public class PlanViewModel : ViewModelBase {
