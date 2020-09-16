@@ -9,79 +9,30 @@ namespace ModelLayer.Planning {
 	/// </summary>
 	public class PlanItem : ObservableObject {
 
-		#region fields
-
-		private DoubleTime _Time;
-		private Guid _ID;
-		private Color _Color;
-		private string _Title = "";
-
-		#endregion
-
 		#region properties
 
 		[XmlElement("Time")]
-		public DoubleTime Time {
-			get {
-				return this._Time;
-			}
-			set {
-				if( value == _Time )
-					return;
-				_Time = value;
-				OnPropertyChanged(nameof(Time));
-			}
-		}
+		public DoubleTime Time { get; set; }
 		[XmlAttribute("ID")]
-		public Guid ID {
-			get {
-				return this._ID;
-			}
-			set {
-				if( value == _ID )
-					return;
-				_ID = value;
-				OnPropertyChanged(nameof(ID));
-			}
-		}
+		public Guid ID { get; set; }
 		[XmlElement("Color")]
-		public Color Color {
-			get {
-				return _Color;
-			}
-			set {
-				if( value == _Color )
-					return;
-				_Color = value;
-				OnPropertyChanged(nameof(Color));
-			}
-		}
+		public Color Color { get; set; }
 		[XmlAttribute("Title")]
-		public string Title {
-			get {
-				return _Title;
-			}
-			set {
-				if( value == _Title )
-					return;
-				_Title = value;
-				OnPropertyChanged(nameof(Title));
-			}
-		}
+		public string Title { get; set; }
 
 		#endregion
 
 		#region constructors
 
 		public PlanItem() {
-			this._Time = new DoubleTime();
+			this.Time = new DoubleTime();
 		}
 
 		public PlanItem( DoubleTime time, Guid id, Color color, string title ) {
-			this._Time = time;
-			this._ID = id;
-			this._Color = color;
-			this._Title = title;
+			this.Time = time;
+			this.ID = id;
+			this.Color = color;
+			this.Title = title;
 		}
 
 		#endregion

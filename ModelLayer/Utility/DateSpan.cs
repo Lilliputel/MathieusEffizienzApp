@@ -12,6 +12,7 @@ namespace ModelLayer.Utility {
 		private DateTime _Start;
 		private DateTime _End;
 		private TimeSpan _Duration;
+
 		#endregion
 
 		#region properties
@@ -25,7 +26,6 @@ namespace ModelLayer.Utility {
 				if( value == _Start )
 					return;
 				UpdateValues(value, this._End);
-				OnPropertyChanged(nameof(Start));
 			}
 		}
 		[XmlAttribute("End")]
@@ -37,7 +37,6 @@ namespace ModelLayer.Utility {
 				if( value == _End )
 					return;
 				UpdateValues(this._Start, value);
-				OnPropertyChanged(nameof(End));
 			}
 		}
 		[XmlAttribute("Duration")]
@@ -49,8 +48,6 @@ namespace ModelLayer.Utility {
 				if( value == _Duration )
 					return;
 				UpdateValues(this._Start, this._End - Duration + value);
-				OnPropertyChanged(nameof(Duration));
-
 			}
 		}
 

@@ -12,59 +12,21 @@ namespace ModelLayer.Classes {
 
 	public class Category : ObservableObject, IUnique, IStatus, IParent<Goal> {
 
-		#region fields
-
-		private string? _Title;
-		private string? _Description;
-
-		private bool _IsParent;
-
-		private Color _Color;
-		private EnumState _State;
-
-		#endregion
-
 		#region Properties
 
 		// IUnique
 		[XmlIgnore]
-		public Guid ID {
-			get;
-		}
+		public Guid ID { get; }
 		[XmlAttribute("Title")]
-		public string Title {
-			get {
-				return _Title ??= "New_Category!";
-			}
-			set {
-				_Title = value;
-				OnPropertyChanged(nameof(Title));
-			}
-		}
+		public string Title { get; set; }
 		[XmlAttribute("Description")]
-		public string Description {
-			get {
-				return _Description ??= "This is a new standardCategory!";
-			}
-			set {
-				_Description = value;
-				OnPropertyChanged(nameof(Description));
-			}
-		}
+		public string Description { get; set; }
 
 		// IParent
 		[XmlArray("Children")]
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
-		public bool IsParent {
-			get {
-				return _IsParent;
-			}
-			set {
-				_IsParent = value;
-				OnPropertyChanged(nameof(IsParent));
-			}
-		}
+		public bool IsParent { get; set; }
 
 		// WeekPlan
 		[XmlArray("WorkTimes")]
@@ -73,27 +35,11 @@ namespace ModelLayer.Classes {
 
 		// IStatus
 		[XmlAttribute("Status")]
-		public EnumState State {
-			get {
-				return _State;
-			}
-			set {
-				_State = value;
-				OnPropertyChanged(nameof(State));
-			}
-		}
+		public EnumState State { get; set; }
 
 		// IColorfull
 		[XmlAttribute("Color")]
-		public Color Color {
-			get {
-				return _Color;
-			}
-			set {
-				_Color = value;
-				OnPropertyChanged(nameof(Color));
-			}
-		}
+		public Color Color { get; set; }
 
 		#endregion
 

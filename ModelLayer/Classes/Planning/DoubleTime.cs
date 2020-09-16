@@ -20,39 +20,18 @@ namespace ModelLayer.Planning {
 
 		[XmlAttribute("Start")]
 		public double Start {
-			get {
-				return _Start;
-			}
-			set {
-				if( value == _Start )
-					return;
-				UpdateValues(RoundToQuarter(value), this._End);
-				OnPropertyChanged(nameof(Start));
-			}
+			get { return _Start; }
+			set { UpdateValues(RoundToQuarter(value), this._End); }
 		}
 		[XmlAttribute("End")]
 		public double End {
-			get {
-				return _End;
-			}
-			set {
-				if( value == _End )
-					return;
-				UpdateValues(this._Start, RoundToQuarter(value));
-				OnPropertyChanged(nameof(End));
-			}
+			get { return _End; }
+			set { UpdateValues(this._Start, RoundToQuarter(value)); }
 		}
 		[XmlAttribute("Duration")]
 		public double Duration {
-			get {
-				return _Duration;
-			}
-			set {
-				if( value == _Duration )
-					return;
-				UpdateValues(this._Start, this._End - this._Duration + RoundToQuarter(value));
-				OnPropertyChanged(nameof(Duration));
-			}
+			get { return _Duration; }
+			set { UpdateValues(this._Start, this._End - this._Duration + RoundToQuarter(value)); }
 		}
 
 		#endregion

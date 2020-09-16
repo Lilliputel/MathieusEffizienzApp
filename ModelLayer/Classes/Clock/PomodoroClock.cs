@@ -13,21 +13,6 @@ namespace ModelLayer.Classes {
 
 		#region private fields
 
-		private TimeSpan _Time = TimeSpan.Zero;
-		private TimeSpan _TotalTime = TimeSpan.Zero;
-
-		private bool _CountDown = false;
-
-		private TimeSpan _DurationWorkCycle;
-		private TimeSpan _DurationBreakCycle;
-		private TimeSpan _DurationDelayCycle;
-
-		private EnumWorkMode _CurrentWorkMode = EnumWorkMode.Stop;
-		private EnumWorkMode _NextWorkMode = EnumWorkMode.Work;
-
-		private string _DelayText = "Start work!";
-		private string _StartStopText = "Start timer!";
-
 		// private Timer to Update the Time
 		private Timer _Counter = new Timer( ){ Interval = TimeSpan.FromSeconds(1).TotalMilliseconds };
 		// TimeSpan to keep track when to elapse the Counter
@@ -40,130 +25,48 @@ namespace ModelLayer.Classes {
 		/// <summary>
 		/// The Time in the current Cycle
 		/// </summary>
-		public TimeSpan Time {
-			get {
-				return _Time;
-			}
-			private set {
-				_Time = value;
-				OnPropertyChanged(nameof(Time));
-			}
-		}
+		public TimeSpan Time { get; set; }
 		/// <summary>
 		/// The total Time worked on the same Task
 		/// </summary>
-		public TimeSpan TotalTime {
-			get {
-				return _TotalTime;
-			}
-			private set {
-				_TotalTime = value;
-				OnPropertyChanged(nameof(TotalTime));
-			}
-		}
+		public TimeSpan TotalTime { get; set; }
 
 		/// <summary>
 		/// If true, the Timer Counts down from the corresponding inputTime
 		/// </summary>
-		public bool CountDown {
-			get {
-				return _CountDown;
-			}
-			private set {
-				if( value == _CountDown )
-					return;
-				_CountDown = value;
-				OnPropertyChanged(nameof(CountDown));
-			}
-		}
+		public bool CountDown { get; set; }
 
 #warning i could implement a method to update the counter, whenever the inputTime gets changed
 		/// <summary>
 		/// The duration of the work cycle
 		/// </summary>
-		public TimeSpan DurationWorkCycle {
-			get {
-				return _DurationWorkCycle;
-			}
-			set {
-				_DurationWorkCycle = value;
-				OnPropertyChanged(nameof(DurationWorkCycle));
-			}
-		}
+		public TimeSpan DurationWorkCycle { get; set; }
 		/// <summary>
 		/// The duration of the break cycle
 		/// </summary>
-		public TimeSpan DurationBreakCycle {
-			get {
-				return _DurationBreakCycle;
-			}
-			set {
-				_DurationBreakCycle = value;
-				OnPropertyChanged(nameof(DurationBreakCycle));
-			}
-		}
+		public TimeSpan DurationBreakCycle { get; set; }
 		/// <summary>
 		/// The duration to delay the next cycle
 		/// </summary>
-		public TimeSpan DurationDelayCycle {
-			get {
-				return _DurationDelayCycle;
-			}
-			set {
-				_DurationDelayCycle = value;
-				OnPropertyChanged(nameof(DurationDelayCycle));
-			}
-		}
+		public TimeSpan DurationDelayCycle { get; set; }
 
 		/// <summary>
 		/// workMode in which the clock is in
 		/// </summary>
-		public EnumWorkMode CurrentWorkMode {
-			get {
-				return _CurrentWorkMode;
-			}
-			set {
-				_CurrentWorkMode = value;
-				OnPropertyChanged(nameof(CurrentWorkMode));
-			}
-		}
+		public EnumWorkMode CurrentWorkMode { get; set; }
 		/// <summary>
 		/// predefined workMode to calculate what action will be executed
 		/// </summary>
-		public EnumWorkMode NextWorkMode {
-			get {
-				return _NextWorkMode;
-			}
-			set {
-				_NextWorkMode = value;
-				OnPropertyChanged(nameof(NextWorkMode));
-			}
-		}
+		public EnumWorkMode NextWorkMode { get; set; }
 
 		/// <summary>
 		/// Text, to which a Button can be bound (shows the next action of that button)
 		/// </summary>
-		public string DelayText {
-			get {
-				return _DelayText;
-			}
-			set {
-				_DelayText = value;
-				OnPropertyChanged(nameof(DelayText));
-			}
-		}
+		public string DelayText { get; set; }
 		/// <summary>
 		/// Text, to which a Button can be bound (shows the next action of that button)
 		/// </summary>
-		public string StartStopText {
-			get {
-				return _StartStopText;
-			}
-			set {
-				_StartStopText = value;
-				OnPropertyChanged(nameof(StartStopText));
-			}
-		}
+		public string StartStopText { get; set; }
 
 		#endregion
 
@@ -198,6 +101,15 @@ namespace ModelLayer.Classes {
 			this.DurationWorkCycle = inputWorkTime;
 			this.DurationBreakCycle = inputBreakTime;
 			this.DurationDelayCycle = inputDelayTime;
+
+			this.Time = TimeSpan.Zero;
+			this.TotalTime = TimeSpan.Zero;
+
+			this.CurrentWorkMode = EnumWorkMode.Stop;
+			this.NextWorkMode = EnumWorkMode.Work;
+
+			this.DelayText = "Start work!";
+			this.StartStopText = "Start timer!";
 		}
 
 		#endregion

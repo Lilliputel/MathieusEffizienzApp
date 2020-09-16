@@ -13,19 +13,7 @@ namespace ModelLayer.Classes {
 
 		#region fields
 
-		private string? _Title;
-		private string? _Description;
-
 		private Guid? _ParentID;
-		private bool _IsChild;
-
-		private bool _IsParent;
-
-		private Color _Color;
-
-		private EnumState _State = EnumState.ToDo;
-		private DateSpan _Plan;
-		private TimeSpan _Time;
 
 		#endregion
 
@@ -35,25 +23,9 @@ namespace ModelLayer.Classes {
 		[XmlIgnore]
 		public Guid ID { get; }
 		[XmlAttribute("Title")]
-		public string Title {
-			get {
-				return _Title ??= "New_Goal!";
-			}
-			set {
-				_Title = value;
-				OnPropertyChanged(nameof(Title));
-			}
-		}
+		public string Title { get; set; }
 		[XmlAttribute("Description")]
-		public string Description {
-			get {
-				return _Description ??= "This is a new standardGoal!";
-			}
-			set {
-				_Description = value;
-				OnPropertyChanged(nameof(Description));
-			}
-		}
+		public string Description { get; set; }
 
 		// IChild
 		[XmlElement("ParentID", IsNullable = true)]
@@ -62,81 +34,31 @@ namespace ModelLayer.Classes {
 				return _ParentID;
 			}
 			set {
-				_ParentID = (Guid?)value;
-				OnPropertyChanged(nameof(ParentID));
-
+				_ParentID = value;
 				// setzt den status IsChild auf true, wenn die ID gesetzt wird
 				IsChild = ( ParentID is null ) ? false : true;
 			}
 		}
 		[XmlIgnore]
-		public bool IsChild {
-			get {
-				return _IsChild;
-			}
-			private set {
-				_IsChild = value;
-				OnPropertyChanged(nameof(IsChild));
-			}
-		}
+		public bool IsChild { get; set; }
 
 		// IParent
 		[XmlArray("Children")]
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
-		public bool IsParent {
-			get {
-				return _IsParent;
-			}
-			private set {
-				_IsParent = value;
-				OnPropertyChanged(nameof(IsParent));
-			}
-		}
+		public bool IsParent { get; set; }
 
 		// IColorfull
 		[XmlAttribute("Color")]
-		public Color Color {
-			get {
-				return _Color;
-			}
-			set {
-				_Color = value;
-				OnPropertyChanged(nameof(Color));
-			}
-		}
+		public Color Color { get; set; }
 
 		// IWorkable
 		[XmlAttribute("State")]
-		public EnumState State {
-			get {
-				return _State;
-			}
-			set {
-				_State = value;
-				OnPropertyChanged(nameof(State));
-			}
-		}
+		public EnumState State { get; set; }
 		[XmlElement("Plan")]
-		public DateSpan Plan {
-			get {
-				return _Plan;
-			}
-			set {
-				_Plan = value;
-				OnPropertyChanged(nameof(Plan));
-			}
-		}
+		public DateSpan Plan { get; set; }
 		[XmlAttribute("Time")]
-		public TimeSpan Time {
-			get {
-				return _Time;
-			}
-			set {
-				_Time = value;
-				OnPropertyChanged(nameof(Time));
-			}
-		}
+		public TimeSpan Time { get; set; }
 		[XmlArray("WorkHours")]
 		public ObservableCollection<(DateTime Date, TimeSpan Time)> WorkHours { get; set; }
 
@@ -151,9 +73,9 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		public Goal() {
 			this.ID = Guid.NewGuid();
-			this._Time = TimeSpan.Zero;
+			this.Time = TimeSpan.Zero;
 			this.WorkHours = new ObservableCollection<(DateTime Date, TimeSpan Time)>();
-			this._Plan = new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2));
+			this.Plan = new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2));
 
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
@@ -162,10 +84,10 @@ namespace ModelLayer.Classes {
 
 		public Goal( string title, DateSpan plan, string description = "New Goal!", EnumState state = EnumState.ToDo )
 			: this() {
-			this._Title = title;
-			this._Plan = plan;
-			this._Description = description;
-			this._State = state;
+			this.Title = title;
+			this.Plan = plan;
+			this.Description = description;
+			this.State = state;
 		}
 
 		~Goal() { }

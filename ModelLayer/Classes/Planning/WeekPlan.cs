@@ -6,117 +6,35 @@ using System.Xml.Serialization;
 namespace ModelLayer.Planning {
 	public class WeekPlan : ObservableObject {
 
-		#region fields
-
-		private DayPlan _Monday;
-		private DayPlan _Tuesday;
-		private DayPlan _Wednesday;
-		private DayPlan _Thursday;
-		private DayPlan _Friday;
-		private DayPlan _Saturday;
-		private DayPlan _Sunday;
-
-		#endregion
-
 		#region properties
 
 		[XmlElement("Monday")]
-		public DayPlan Monday {
-			get {
-				return _Monday;
-			}
-			set {
-				if( value == _Monday )
-					return;
-				_Monday = value;
-				OnPropertyChanged(nameof(Monday));
-			}
-		}
+		public DayPlan Monday { get; set; }
 		[XmlElement("Tuesday")]
-		public DayPlan Tuesday {
-			get {
-				return _Tuesday;
-			}
-			set {
-				if( value == _Tuesday )
-					return;
-				_Tuesday = value;
-				OnPropertyChanged(nameof(Tuesday));
-			}
-		}
+		public DayPlan Tuesday { get; set; }
 		[XmlElement("Wednesday")]
-		public DayPlan Wednesday {
-			get {
-				return _Wednesday;
-			}
-			set {
-				if( value == _Wednesday )
-					return;
-				_Wednesday = value;
-				OnPropertyChanged(nameof(Wednesday));
-			}
-		}
+		public DayPlan Wednesday { get; set; }
 		[XmlElement("Thursday")]
-		public DayPlan Thursday {
-			get {
-				return _Thursday;
-			}
-			set {
-				if( value == _Thursday )
-					return;
-				_Thursday = value;
-				OnPropertyChanged(nameof(Thursday));
-			}
-		}
+		public DayPlan Thursday { get; set; }
 		[XmlElement("Friday")]
-		public DayPlan Friday {
-			get {
-				return _Friday;
-			}
-			set {
-				if( value == _Friday )
-					return;
-				_Friday = value;
-				OnPropertyChanged(nameof(Friday));
-			}
-		}
+		public DayPlan Friday { get; set; }
 		[XmlElement("Saturday")]
-		public DayPlan Saturday {
-			get {
-				return _Saturday;
-			}
-			set {
-				if( value == _Saturday )
-					return;
-				_Saturday = value;
-				OnPropertyChanged(nameof(Saturday));
-			}
-		}
+		public DayPlan Saturday { get; set; }
 		[XmlElement("Sunday")]
-		public DayPlan Sunday {
-			get {
-				return _Sunday;
-			}
-			set {
-				if( value == _Sunday )
-					return;
-				_Sunday = value;
-				OnPropertyChanged(nameof(Sunday));
-			}
-		}
+		public DayPlan Sunday { get; set; }
 
 		#endregion
 
 		#region constructor
 
 		public WeekPlan() {
-			this._Monday = new DayPlan();
-			this._Tuesday = new DayPlan();
-			this._Wednesday = new DayPlan();
-			this._Thursday = new DayPlan();
-			this._Friday = new DayPlan();
-			this._Saturday = new DayPlan();
-			this._Sunday = new DayPlan();
+			this.Monday = new DayPlan();
+			this.Tuesday = new DayPlan();
+			this.Wednesday = new DayPlan();
+			this.Thursday = new DayPlan();
+			this.Friday = new DayPlan();
+			this.Saturday = new DayPlan();
+			this.Sunday = new DayPlan();
 		}
 
 		#endregion
@@ -156,5 +74,6 @@ namespace ModelLayer.Planning {
 		};
 
 		#endregion
+
 	}
 }

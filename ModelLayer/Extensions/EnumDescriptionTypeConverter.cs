@@ -5,9 +5,11 @@ using System.Reflection;
 namespace ModelLayer.Extensions {
 
 	public class EnumDescriptionTypeConverter : EnumConverter {
+
 		public EnumDescriptionTypeConverter( Type type )
 			: base(type) {
 		}
+
 		public override object ConvertTo( ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType ) {
 			if( destinationType == typeof(string) ) {
 				if( value != null ) {
@@ -23,6 +25,7 @@ namespace ModelLayer.Extensions {
 
 			return base.ConvertTo(context, culture, value, destinationType);
 		}
+
 	}
 
 }
