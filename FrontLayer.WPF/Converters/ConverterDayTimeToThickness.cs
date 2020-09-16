@@ -6,14 +6,14 @@ using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
 
-	[ValueConversion(typeof(DayTime), typeof(Thickness))]
+	[ValueConversion(typeof(DoubleTime), typeof(Thickness))]
 	public class ConverterDayTimeToThickness : IMultiValueConverter {
 
 		public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
 			// get all the Values from Input
-			DayTime time = (DayTime)values[0];
+			DoubleTime time = (DoubleTime)values[0];
 			double start = time.Start;
 			double end = time.End;
 			double height = (double)values[1];

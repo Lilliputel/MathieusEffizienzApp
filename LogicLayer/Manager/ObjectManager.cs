@@ -127,8 +127,8 @@ namespace LogicLayer.Manager {
 			if( sender is Category category ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
-						foreach( (DayOfWeek, DayTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DayTime time) ) {
+						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
+							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
 								new PlanItem(time, category.ID, category.Color, category.Title))
@@ -137,8 +137,8 @@ namespace LogicLayer.Manager {
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
-						foreach( (DayOfWeek, DayTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DayTime time) ) {
+						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
+							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
 								new PlanItem(time, category.ID, category.Color, category.Title))
@@ -147,15 +147,15 @@ namespace LogicLayer.Manager {
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
-						foreach( (DayOfWeek, DayTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DayTime time) ) {
+						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
+							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
 								new PlanItem(time, category.ID, category.Color, category.Title))
 								);
 							}
-						foreach( (DayOfWeek, DayTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DayTime time) ) {
+						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
+							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
 								new PlanItem(time, category.ID, category.Color, category.Title))

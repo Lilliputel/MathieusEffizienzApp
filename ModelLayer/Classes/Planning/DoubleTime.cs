@@ -6,7 +6,7 @@ namespace ModelLayer.Planning {
 	/// <summary>
 	/// Enthält eine StartZeit und eine EndZeit
 	/// </summary>
-	public class DayTime : ObservableObject {
+	public class DoubleTime : ObservableObject {
 
 		#region fields
 
@@ -59,13 +59,13 @@ namespace ModelLayer.Planning {
 
 		#region constructor
 
-		public DayTime() { }
+		public DoubleTime() { }
 
-		public DayTime( (double start, double end) doubles ) {
+		public DoubleTime( (double start, double end) doubles ) {
 			UpdateValues(RoundToQuarter(doubles.start), RoundToQuarter(doubles.end));
 		}
 
-		public DayTime( TimeSpan start, TimeSpan end ) {
+		public DoubleTime( TimeSpan start, TimeSpan end ) {
 			double startmins = start.Minutes / 60;
 			double endmins = end.Minutes / 60;
 			double realstart = start.Hours + startmins;

@@ -137,6 +137,9 @@ namespace ModelLayer.Classes {
 				OnPropertyChanged(nameof(Time));
 			}
 		}
+		[XmlArray("WorkHours")]
+		public ObservableCollection<(DateTime Date, TimeSpan Time)> WorkHours { get; set; }
+
 
 		#endregion
 
@@ -149,6 +152,7 @@ namespace ModelLayer.Classes {
 		public Goal() {
 			this.ID = Guid.NewGuid();
 			this._Time = TimeSpan.Zero;
+			this.WorkHours = new ObservableCollection<(DateTime Date, TimeSpan Time)>();
 			this._Plan = new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2));
 
 			// initialize Children-Collection and add a Eventhandler

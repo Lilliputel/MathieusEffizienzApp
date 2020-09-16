@@ -19,7 +19,7 @@ namespace LogicLayer.Views {
 		private TimeSpan _StartTime;
 		private TimeSpan _EndTime;
 
-		private DayTime? _Overlapping;
+		private DoubleTime? _Overlapping;
 
 		private ICommand? _SaveGoalCommand;
 
@@ -75,7 +75,7 @@ namespace LogicLayer.Views {
 			}
 		}
 
-		public DayTime? Overlapping {
+		public DoubleTime? Overlapping {
 			get {
 				return _Overlapping;
 			}
@@ -103,7 +103,7 @@ namespace LogicLayer.Views {
 #warning System.AggregateException thrown
 
 		private async Task GetIfPossible() {
-			await Task.Run(() => Overlapping = ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DayTime(StartTime, EndTime), SelectedCategory!.ID, SelectedCategory.Color, SelectedCategory.Title)).Result);
+			await Task.Run(() => Overlapping = ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DoubleTime(StartTime, EndTime), SelectedCategory!.ID, SelectedCategory.Color, SelectedCategory.Title)).Result);
 		}
 
 		#endregion

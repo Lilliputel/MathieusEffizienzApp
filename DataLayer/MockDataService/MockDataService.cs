@@ -41,7 +41,7 @@ namespace DataLayer.MockDataService {
 						}
 					}
 				};
-				CBCategory1.WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DayTime((0.0 + counter, 1.0 + counter))));
+				CBCategory1.WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DoubleTime((0.0 + counter, 1.0 + counter))));
 				zwischenSpeicher.Add(CBCategory1);
 			}
 

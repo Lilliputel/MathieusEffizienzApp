@@ -68,7 +68,7 @@ namespace ModelLayer.Classes {
 
 		// WeekPlan
 		[XmlArray("WorkTimes")]
-		public ObservableCollection<(DayOfWeek Day, DayTime Time)> WorkTimes { get; set; }
+		public ObservableCollection<(DayOfWeek Day, DoubleTime Time)> WorkTimes { get; set; }
 		public event EventHandler<NotifyCollectionChangedEventArgs>? WeekPlanChanged;
 
 		// IStatus
@@ -112,7 +112,7 @@ namespace ModelLayer.Classes {
 			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 
 			// initialize WeekPlan
-			this.WorkTimes = new ObservableCollection<(DayOfWeek Day, DayTime Time)>();
+			this.WorkTimes = new ObservableCollection<(DayOfWeek Day, DoubleTime Time)>();
 			this.WorkTimes.CollectionChanged += WorkTimes_CollectionChanged;
 		}
 

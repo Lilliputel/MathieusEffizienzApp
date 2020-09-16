@@ -123,9 +123,9 @@ namespace ModelLayer.Planning {
 
 		#region methods
 
-		public async Task<DayTime?> AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
+		public async Task<DoubleTime?> AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
 			DayPlan dayPlan = GetDayPlan(day);
-			DayTime? result = null;
+			DoubleTime? result = null;
 			await Task.Run(() => result = dayPlan.GetDayOverlappingAsync(item.Time).Result);
 			if( result is { } )
 				return result;
@@ -137,8 +137,8 @@ namespace ModelLayer.Planning {
 		}
 		public void RemoveItemFromDay( DayOfWeek day, PlanItem item ) => GetDayPlan(day).Remove(item);
 
-		public async Task<DayTime?> GetWeekOverlappingAsync( DayOfWeek day, DayTime time ) {
-			DayTime? result = null;
+		public async Task<DoubleTime?> GetWeekOverlappingAsync( DayOfWeek day, DoubleTime time ) {
+			DoubleTime? result = null;
 			await Task.Run(() => result = GetDayPlan(day).GetDayOverlappingAsync(time).Result);
 			return result;
 		}

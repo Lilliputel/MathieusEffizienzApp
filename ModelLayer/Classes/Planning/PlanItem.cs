@@ -11,7 +11,7 @@ namespace ModelLayer.Planning {
 
 		#region fields
 
-		private DayTime _Time;
+		private DoubleTime _Time;
 		private Guid _ID;
 		private Color _Color;
 		private string _Title = "";
@@ -21,7 +21,7 @@ namespace ModelLayer.Planning {
 		#region properties
 
 		[XmlElement("Time")]
-		public DayTime Time {
+		public DoubleTime Time {
 			get {
 				return this._Time;
 			}
@@ -74,10 +74,10 @@ namespace ModelLayer.Planning {
 		#region constructors
 
 		public PlanItem() {
-			this._Time = new DayTime();
+			this._Time = new DoubleTime();
 		}
 
-		public PlanItem( DayTime time, Guid id, Color color, string title ) {
+		public PlanItem( DoubleTime time, Guid id, Color color, string title ) {
 			this._Time = time;
 			this._ID = id;
 			this._Color = color;

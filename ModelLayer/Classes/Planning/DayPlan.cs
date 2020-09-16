@@ -21,9 +21,9 @@ namespace ModelLayer.Planning {
 
 		#region methods
 
-		public async Task<DayTime?> GetDayOverlappingAsync( DayTime newDayTime ) =>
-			await Task<DayTime?>.Run(() => {
-				DayTime? result = null;
+		public async Task<DoubleTime?> GetDayOverlappingAsync( DoubleTime newDayTime ) =>
+			await Task<DoubleTime?>.Run(() => {
+				DoubleTime? result = null;
 				foreach( PlanItem oldItem in this ) {
 
 					var oldStart = oldItem.Time.Start;
@@ -34,13 +34,13 @@ namespace ModelLayer.Planning {
 					bool case3 = newDayTime.Start < oldEnd && newDayTime.End > oldEnd;
 
 					if( case1 is true ) {
-						result = new DayTime((oldStart, newDayTime.End));
+						result = new DoubleTime((oldStart, newDayTime.End));
 					}
 					else if( case2 is true ) {
 						result = newDayTime;
 					}
 					else if( case3 is true ) {
-						result = new DayTime((newDayTime.Start, oldEnd));
+						result = new DoubleTime((newDayTime.Start, oldEnd));
 					}
 
 				}
