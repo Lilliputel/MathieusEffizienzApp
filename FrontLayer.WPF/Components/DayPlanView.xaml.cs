@@ -20,8 +20,9 @@ namespace FrontLayer.WPF.Components {
 			DayOfWeek day = Enum.Parse<DayOfWeek>((sender as FrameworkElement)!.Tag.ToString()!);
 
 			if( e.OriginalSource is Border border ) {
-				Debug.WriteLine("The origin is a Border!");
+				Debug.WriteLine("The origin is the Border!");
 				if( border.DataContext is PlanItem planItem ) {
+					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.Title ?? "Unknown Category"}");
 					ViewModelManager.SetViewModel(EnumViewModels.NewDayTime);
 					NewDayTimeViewModel viewModel = (ViewModelManager.SelectedEssentialViewModel as NewDayTimeViewModel)!;
 					viewModel.DayOfWeek = day;

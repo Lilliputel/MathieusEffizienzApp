@@ -100,6 +100,8 @@ namespace LogicLayer.Views {
 
 		#region methods
 
+#warning System.AggregateException thrown
+
 		private async Task GetIfPossible() {
 			await Task.Run(() => Overlapping = ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DayTime(StartTime, EndTime), SelectedCategory!.ID, SelectedCategory.Color, SelectedCategory.Title)).Result);
 		}

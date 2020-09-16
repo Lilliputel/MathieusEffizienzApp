@@ -24,7 +24,7 @@ namespace FrontLayer.WPF {
 
 		#endregion
 
-		#region methods
+		#region OnStartup
 
 		protected override void OnStartup( StartupEventArgs e ) {
 			// Set the Default Culture
@@ -43,6 +43,10 @@ namespace FrontLayer.WPF {
 			ObjectManager.LoadSettings();
 			base.OnStartup(e);
 		}
+
+		#endregion
+
+		#region private methods
 
 		private void DarkModeChanged( bool isDarkMode ) {
 			Resources.MergedDictionaries[0].Clear();

@@ -7,8 +7,6 @@ using System.Linq;
 
 namespace LogicLayer.Manager {
 
-#warning get rid of this enum, make Access easier
-
 	public enum EnumViewModels {
 
 		Dashboard,
@@ -71,7 +69,7 @@ namespace LogicLayer.Manager {
 				{EnumViewModels.GoalOverview, GoalOverview },
 				{EnumViewModels.GanttDiagram, GanttDiagram },
 				{EnumViewModels.Statistics, Statistics },
-				{ EnumViewModels.Settings, Settings }
+				{EnumViewModels.Settings, Settings }
 			};
 
 #warning for debugging purpose a new goal gets added
