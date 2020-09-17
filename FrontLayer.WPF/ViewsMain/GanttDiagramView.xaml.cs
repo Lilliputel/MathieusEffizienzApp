@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public GanttDiagramView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.GanttDiagram);
+			this.DataContext = ViewModelManager.GanttDiagram;
 		}
 
 		~GanttDiagramView() { }

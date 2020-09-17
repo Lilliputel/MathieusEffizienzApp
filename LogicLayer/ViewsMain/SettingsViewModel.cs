@@ -23,7 +23,7 @@ namespace LogicLayer.Views {
 			});
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
 			new RelayCommand(parameter => {
-				( ViewModelManager.GetViewModel(EnumViewModels.Pomodoro) as PomodoroViewModel )!.Clock.UpdateCountDirection();
+				ViewModelManager.Pomodoro.Clock.UpdateCountDirection();
 			});
 
 		public string ThemeButton {

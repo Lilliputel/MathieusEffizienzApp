@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public StatisticsView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Statistics);
+			this.DataContext = ViewModelManager.Statistics;
 		}
 
 		~StatisticsView() { }

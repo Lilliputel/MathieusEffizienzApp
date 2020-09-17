@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public PlanView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Plan);
+			this.DataContext = ViewModelManager.Plan;
 		}
 
 		~PlanView() { }

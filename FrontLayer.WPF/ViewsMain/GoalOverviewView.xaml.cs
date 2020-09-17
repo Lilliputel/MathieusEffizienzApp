@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public GoalOverviewView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.GoalOverview);
+			this.DataContext = ViewModelManager.GoalOverview;
 		}
 
 		~GoalOverviewView() { }

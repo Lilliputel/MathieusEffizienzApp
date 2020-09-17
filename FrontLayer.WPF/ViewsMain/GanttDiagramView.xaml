@@ -96,7 +96,7 @@
 																			 Path="DataContext.Plan.End"/>
 
 																	<Binding Path="Plan.Start"/>
-																	
+
 																	<Binding ElementName="TimeLineWidth"
 																			 Path="Width"/>
 																	<Binding ElementName="TimeLineOffset"

@@ -11,7 +11,7 @@ namespace FrontLayer.WPF.Views {
 			InitializeComponent();
 
 #warning i have to feed it a IAccountable
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Pomodoro);
+			this.DataContext = ViewModelManager.Pomodoro;
 		}
 
 		~PomodoroView() { }

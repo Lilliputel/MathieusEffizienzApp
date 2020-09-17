@@ -8,7 +8,7 @@ namespace FrontLayer.WPF.Views {
 		public DashboardView() {
 			InitializeComponent();
 
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Dashboard);
+			this.DataContext = ViewModelManager.Dashboard;
 
 		}
 

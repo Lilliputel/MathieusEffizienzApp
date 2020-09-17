@@ -1,7 +1,8 @@
-﻿using System;
+﻿using ModelLayer.Utility;
+using System;
 using System.Xml.Serialization;
 
-namespace ModelLayer.Utility {
+namespace ModelLayer.Classes {
 	/// <summary>
 	/// Enthält ein StartDatum, ein EndDatum generierte Zeitspanne.
 	/// </summary>
@@ -65,10 +66,11 @@ namespace ModelLayer.Utility {
 		public DateSpan( string start, string end, IFormatProvider formatProvider )
 			: this(DateTime.ParseExact(start, @"dd.MM.yy", formatProvider), DateTime.ParseExact(end, @"dd.MM.yy", formatProvider)) { }
 
-		public DateSpan( DateTime _start, DateTime _end ) {
+		public DateSpan( DateTime start, DateTime end ) {
 			// reduziert die eingegebene Zeit auf Tag, Monat, Jahr
-			DateTime start = new DateTime(_start.Year, _start.Month, _start.Day);
-			DateTime ende = new DateTime(_end.Year, _end.Month, _end.Day);
+			DateTime _start = new DateTime(start.Year, start.Month, start.Day);
+			DateTime _ende = new DateTime(end.Year, end.Month, end.Day);
+			UpdateValues(_start, _ende);
 		}
 
 		#endregion

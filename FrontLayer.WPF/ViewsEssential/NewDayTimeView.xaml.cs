@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public NewDayTimeView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.NewDayTime);
+			this.DataContext = ViewModelManager.NewDayTime;
 		}
 
 	}

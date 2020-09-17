@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public SettingsView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.Settings);
+			this.DataContext = ViewModelManager.Settings;
 		}
 
 		~SettingsView() { }

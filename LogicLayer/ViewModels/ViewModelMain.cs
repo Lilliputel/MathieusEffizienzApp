@@ -16,18 +16,19 @@ namespace LogicLayer.ViewModels {
 
 		#region properties
 
-		public ViewModelBase? SelectedVMMain
-			=> ViewModelManager.SelectedMainViewModel;
-		public ViewModelBase? SelectedVMEssential
-			=> ViewModelManager.SelectedEssentialViewModel;
+		public ViewModelBase? SelectedVMMain { get; private set; }
+		public ViewModelBase? SelectedVMEssential { get; private set; }
 
 		public ICommand CommandUpdateView => _commandUpdateView ??=
 			new RelayCommand(parameter => {
 				if( parameter is string pString ) {
-					EnumViewModels name = Enum.Parse<EnumViewModels>(pString);
-					ViewModelManager.SetViewModel(name);
-					OnPropertyChanged(nameof(SelectedVMEssential));
-					OnPropertyChanged(nameof(SelectedVMMain));
+
+					if( Enum.TryParse(pString, out EnumMainViewModels mainName) == true )
+						UpdateSelectedMainViewModel(ViewModelManager.GetMainViewModel(mainName), null);
+					else if( Enum.TryParse(pString, out EnumEssentialViewModels essentialName) == true )
+						UpdateSelectedEssentialViewModel(ViewModelManager.GetEssentialViewModel(essentialName), null);
+					else
+						Debug.WriteLine($"Could not Parse the string {pString} to an EnumMainViewModels or a EnumEssentialViewModels!");
 				}
 			});
 
@@ -38,6 +39,24 @@ namespace LogicLayer.ViewModels {
 
 		#endregion
 
+		#region constructor
 
+		public ViewModelMain() {
+			ViewModelManager.MainViewModelChanged += UpdateSelectedMainViewModel;
+			ViewModelManager.EssentialViewModelChanged += UpdateSelectedEssentialViewModel;
+		}
+
+		#endregion
+
+		#region public methods
+
+		private void UpdateSelectedMainViewModel( ViewModelBase newViewModel, object? passedObject ) {
+			this.SelectedVMMain = newViewModel;
+		}
+		private void UpdateSelectedEssentialViewModel( ViewModelBase newViewModel, object? passedObject ) {
+			this.SelectedVMEssential = newViewModel;
+		}
+
+		#endregion
 	}
 }

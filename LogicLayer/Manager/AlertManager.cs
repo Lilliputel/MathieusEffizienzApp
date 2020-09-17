@@ -10,10 +10,18 @@ namespace LogicLayer.Manager {
 
 		#endregion
 
+		#region private methods
+
+		private static void OnAlertOccured( string message, string buttonText, string? title, AlertSymbolEnum? symbol ) {
+			AlertOccured?.Invoke(message, buttonText, title, symbol);
+		}
+
+		#endregion
+
 		#region static methods
 
 		public static void ObjektErstellt( string _objektName, string _objektTitel ) {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 				$"Es wurde ein {_objektName} mit dem Titel {_objektTitel} erfolgreich erstellt!",
 				"OK",
 				"Objekt erstellt!",
@@ -21,7 +29,7 @@ namespace LogicLayer.Manager {
 		}
 
 		public static void ZeitFormatInkorrekt() {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 				"Bitte ein korrektes Zeitformat verwenden! [hh:mm:ss]",
 				"OK",
 				"Format anpassen!",
@@ -29,7 +37,7 @@ namespace LogicLayer.Manager {
 		}
 
 		public static void InputInkorrekt( string _exceptionMessage ) {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 					$"Hier ist etwas Schiefgelaufen! Bitte überprüfe die korrekte Formatierung! \n{_exceptionMessage}",
 					"Anpassen!",
 					"Fehler!",
@@ -37,14 +45,14 @@ namespace LogicLayer.Manager {
 		}
 
 		public static void ListeGeladen( string _listenName ) {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 					$"Die Liste {_listenName} wurde geladen!",
 					"OK",
 					"Laden erfolgreich!",
 					AlertSymbolEnum.OK);
 		}
 		public static void ListeGespeichert( string _listenName ) {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 					$"Die Liste {_listenName} wurde gespeichert!",
 					"OK",
 					"Speichern erfolgreich!",
@@ -52,7 +60,7 @@ namespace LogicLayer.Manager {
 		}
 
 		public static void FileNotFound( string _dateiName, string _dateiPfad ) {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 				$"Datei {_dateiName} nicht gefunden! \n{_dateiPfad + _dateiName + ".xml"}",
 				"OK",
 				"File Not Found!",
@@ -60,7 +68,7 @@ namespace LogicLayer.Manager {
 		}
 
 		public static void NullReferenceException( string _exceptionText ) {
-			AlertOccured?.Invoke(
+			OnAlertOccured(
 				$"Das Programm hat den Fehler \n{_exceptionText} \ngeworfen",
 				"OK",
 				"Fehler!",

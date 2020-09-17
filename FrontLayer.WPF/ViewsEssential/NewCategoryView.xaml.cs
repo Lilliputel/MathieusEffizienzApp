@@ -7,7 +7,7 @@ namespace FrontLayer.WPF.Views {
 
 		public NewCategoryView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GetViewModel(EnumViewModels.NewCategory);
+			this.DataContext = ViewModelManager.NewCategory;
 		}
 
 		~NewCategoryView() { }

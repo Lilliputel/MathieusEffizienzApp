@@ -23,8 +23,8 @@ namespace FrontLayer.WPF.Components {
 				Debug.WriteLine("The origin is the Border!");
 				if( border.DataContext is PlanItem planItem ) {
 					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.Title ?? "Unknown Category"}");
-					ViewModelManager.SetViewModel(EnumViewModels.NewDayTime);
-					NewDayTimeViewModel viewModel = (ViewModelManager.SelectedEssentialViewModel as NewDayTimeViewModel)!;
+					ViewModelManager.OnEssentialViewModelChanged(ViewModelManager.NewDayTime, planItem);
+					NewDayTimeViewModel viewModel = ViewModelManager.NewDayTime;
 					viewModel.DayOfWeek = day;
 					var timespans = planItem.Time.GetTimeSpans();
 					viewModel.StartTime = timespans.Start;
