@@ -6,6 +6,7 @@ using System;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
+
 	public class PomodoroViewModel : ViewModelBase {
 
 		#region fields
@@ -42,6 +43,10 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
+
+		public PomodoroViewModel() {
+
+		}
 
 		public PomodoroViewModel( IAccountable workItem ) {
 			this.WorkItem = workItem;

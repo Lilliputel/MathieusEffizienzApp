@@ -1,6 +1,9 @@
 ﻿<UserControl x:Class="FrontLayer.WPF.Views.StatisticsView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
+			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
+			 DataContext="{x:Static manager:ViewModelManager.Statistics}">
 
 	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"

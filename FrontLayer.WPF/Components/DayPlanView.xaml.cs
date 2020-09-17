@@ -23,7 +23,6 @@ namespace FrontLayer.WPF.Components {
 				Debug.WriteLine("The origin is the Border!");
 				if( border.DataContext is PlanItem planItem ) {
 					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.Title ?? "Unknown Category"}");
-					ViewModelManager.OnEssentialViewModelChanged(ViewModelManager.NewDayTime, planItem);
 					NewDayTimeViewModel viewModel = ViewModelManager.NewDayTime;
 					viewModel.DayOfWeek = day;
 					var timespans = planItem.Time.GetTimeSpans();
@@ -31,6 +30,7 @@ namespace FrontLayer.WPF.Components {
 					viewModel.EndTime = timespans.End;
 					viewModel.SelectedCategory = ObjectManager.GetCategory(planItem.ID);
 					viewModel.Overlapping = null;
+					ViewModelManager.OnEssentialViewModelChanged(ViewModelManager.NewDayTime, planItem);
 				}
 			}
 			else if( e.OriginalSource is Grid grid ) {

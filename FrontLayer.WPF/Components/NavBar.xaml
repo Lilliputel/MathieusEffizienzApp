@@ -9,37 +9,37 @@
 	<StackPanel>
 
 		<ToggleButton x:Name="Button_Dashboard"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Dashboard">
+					  Command="{Binding CommandUpdateView}" CommandParameter="MDashboard">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconDashboard}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Planung"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Plan">
+					  Command="{Binding CommandUpdateView}" CommandParameter="MPlan">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconKalender}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Projekte"
-					  Command="{Binding CommandUpdateView}" CommandParameter="GoalOverview">
+					  Command="{Binding CommandUpdateView}" CommandParameter="MGoalOverview">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconProjekte}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Gantt"
-					  Command="{Binding CommandUpdateView}" CommandParameter="GanttDiagram">
+					  Command="{Binding CommandUpdateView}" CommandParameter="MGanttDiagram">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconGantt}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Statistik"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Statistics">
+					  Command="{Binding CommandUpdateView}" CommandParameter="MStatistics">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconStatistik}"/>
 			</ToggleButton.Content>
 		</ToggleButton>
 		<ToggleButton x:Name="Button_Optionen"
-					  Command="{Binding CommandUpdateView}" CommandParameter="Settings">
+					  Command="{Binding CommandUpdateView}" CommandParameter="MSettings">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconOptionen}"/>
 			</ToggleButton.Content>

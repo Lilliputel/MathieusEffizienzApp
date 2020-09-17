@@ -2,7 +2,7 @@
 using LogicLayer.ViewModels;
 using System.Windows.Input;
 
-namespace LogicLayer.ViewsEssential {
+namespace LogicLayer.Views {
 	public class DayPlanViewModel : ViewModelBase {
 
 		#region fields

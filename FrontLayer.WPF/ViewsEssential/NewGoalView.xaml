@@ -5,8 +5,11 @@
 			 xmlns:extensions="clr-namespace:ModelLayer.Extensions"
 			 xmlns:enums="clr-namespace:ModelLayer.Enums;assembly=ModelLayer"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters">
-	
+			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			 
+			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
+			 DataContext="{x:Static manager:ViewModelManager.NewGoal}">
+
 	<UserControl.Resources>
 		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
 		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>

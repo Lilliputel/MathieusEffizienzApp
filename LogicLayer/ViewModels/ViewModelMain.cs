@@ -1,6 +1,5 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
-using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -22,13 +21,15 @@ namespace LogicLayer.ViewModels {
 		public ICommand CommandUpdateView => _commandUpdateView ??=
 			new RelayCommand(parameter => {
 				if( parameter is string pString ) {
+					ViewModelBase? viewModel = ViewModelManager.GetViewModel(pString.Substring(1));
 
-					if( Enum.TryParse(pString, out EnumMainViewModels mainName) == true )
-						UpdateSelectedMainViewModel(ViewModelManager.GetMainViewModel(mainName), null);
-					else if( Enum.TryParse(pString, out EnumEssentialViewModels essentialName) == true )
-						UpdateSelectedEssentialViewModel(ViewModelManager.GetEssentialViewModel(essentialName), null);
+					if( pString[0] == 'M' )
+						UpdateSelectedMainViewModel(viewModel, null);
+					else if( pString[0] == 'E' )
+						UpdateSelectedEssentialViewModel(viewModel, null);
 					else
-						Debug.WriteLine($"Could not Parse the string {pString} to an EnumMainViewModels or a EnumEssentialViewModels!");
+						Debug.WriteLine($"Could not Parse the string {pString} to a ViewModel!");
+
 				}
 			});
 

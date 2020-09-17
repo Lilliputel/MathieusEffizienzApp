@@ -1,5 +1,4 @@
-﻿using LogicLayer.Manager;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace FrontLayer.WPF.Views {
 
@@ -7,7 +6,6 @@ namespace FrontLayer.WPF.Views {
 
 		public GoalOverviewView() {
 			InitializeComponent();
-			this.DataContext = ViewModelManager.GoalOverview;
 		}
 
 		~GoalOverviewView() { }

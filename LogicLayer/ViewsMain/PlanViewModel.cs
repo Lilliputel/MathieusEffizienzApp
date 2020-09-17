@@ -20,7 +20,6 @@ namespace LogicLayer.Views {
 		public WeekPlan WeekPlan
 			=> ObjectManager.WeekPlan;
 
-
 		#endregion
 
 		#region constructor
@@ -28,7 +27,6 @@ namespace LogicLayer.Views {
 		public PlanViewModel() {
 			WeekPlan.PropertyChanged += Test;
 		}
-
 
 		#endregion
 

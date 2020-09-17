@@ -1,5 +1,4 @@
-﻿using LogicLayer.Manager;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace FrontLayer.WPF.Views {
 
@@ -7,9 +6,6 @@ namespace FrontLayer.WPF.Views {
 
 		public DashboardView() {
 			InitializeComponent();
-
-			this.DataContext = ViewModelManager.Dashboard;
-
 		}
 
 		~DashboardView() { }

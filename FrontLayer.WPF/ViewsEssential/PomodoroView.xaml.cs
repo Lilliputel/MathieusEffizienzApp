@@ -1,5 +1,4 @@
-﻿using LogicLayer.Manager;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace FrontLayer.WPF.Views {
 
@@ -7,11 +6,9 @@ namespace FrontLayer.WPF.Views {
 
 		#region constructor
 
+#warning i have to feed the viewModel a IAccountable
 		public PomodoroView() {
 			InitializeComponent();
-
-#warning i have to feed it a IAccountable
-			this.DataContext = ViewModelManager.Pomodoro;
 		}
 
 		~PomodoroView() { }

@@ -4,7 +4,6 @@
 					  
 					  xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
 					  xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
-					  xmlns:viewModels="clr-namespace:LogicLayer.ViewsEssential;assembly=LogicLayer"
 					  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 					  
 					  Background="{x:Null}"
@@ -14,7 +13,6 @@
 					  x:Name="Root" MinWidth="70">
 
 	<HeaderedItemsControl.Resources>
-		<viewModels:DayPlanViewModel x:Key="ViewModel"/>
 		<converter:ConverterDayTimeToDouble x:Key="TimeToHeightConverter"/>
 		<converter:ConverterDayTimeToThickness x:Key="TimeToStartConverter"/>
 		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
