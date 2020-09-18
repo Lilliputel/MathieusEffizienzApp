@@ -8,8 +8,7 @@
 			 DataContext="{x:Static manager:ViewModelManager.GoalOverview}">
 
 	<UserControl.Resources>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-
+		
 		<DataTemplate x:Key="Stretchpanel">
 			<Grid>
 				<Grid.ColumnDefinitions>
@@ -55,6 +54,7 @@
 				</Grid>
 			</Grid>
 		</DataTemplate>
+		
 	</UserControl.Resources>
 
 	<!-- Background -->
@@ -69,7 +69,7 @@
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<!-- Setzt ein Kreis und den Titel als TextBlock -->
 					<StackPanel Orientation="Horizontal" Background="Transparent">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" 
+						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>

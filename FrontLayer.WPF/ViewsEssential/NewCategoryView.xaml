@@ -8,12 +8,6 @@
 			 
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.NewCategory}">
-	
-	<UserControl.Resources>
-		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
-		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-	</UserControl.Resources>
 
 	<StackPanel>
 		<!-- ViewTitel -->
@@ -53,11 +47,11 @@
 				Content="Speichern!"
 				Margin="0,5">
 			<Button.IsEnabled>
-				<MultiBinding Converter="{StaticResource ElementsToFalseConverter}">
+				<MultiBinding Converter="{converter:ConverterElementsToFalse}">
 					<Binding ElementName="TextBox_Title" Path="Text"/>
 					<Binding ElementName="TextBox_Description" Path="Text"/>
-					<Binding ElementName="ComboBox_State" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
-					<Binding ElementName="ComboBox_Color" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
+					<Binding ElementName="ComboBox_State" Path="SelectedItem" Converter="{converter:ConverterNullToFalse}"/>
+					<Binding ElementName="ComboBox_Color" Path="SelectedItem" Converter="{converter:ConverterNullToFalse}"/>
 				</MultiBinding>
 			</Button.IsEnabled>
 		</Button>

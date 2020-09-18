@@ -7,9 +7,6 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Plan}">
 
-	<UserControl.Resources>
-	</UserControl.Resources>
-
 	<!-- Backgrond -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">

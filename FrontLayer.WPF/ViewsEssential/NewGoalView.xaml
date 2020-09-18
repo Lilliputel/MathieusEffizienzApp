@@ -10,12 +10,6 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.NewGoal}">
 
-	<UserControl.Resources>
-		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
-		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-	</UserControl.Resources>
-
 	<StackPanel>
 		<!-- ViewTitel -->
 		<TextBlock Text="Neue Aufgabe!" Style="{StaticResource Title}"/>
@@ -36,7 +30,7 @@
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<StackPanel Orientation="Horizontal">
-						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}"/>
 						<TextBlock Text="{Binding Title}"/>
 					</StackPanel>
 				</DataTemplate>
@@ -48,7 +42,7 @@
 		<ComboBox x:Name="ComboBox_Parent" 
 				  ItemsSource="{Binding SelectedCategory.Children}"
 				  SelectedItem="{Binding SelectedGoal, Mode=TwoWay}"
-				  IsEnabled="{Binding ElementName=ComboBox_Category, Path=SelectedItem, Converter={StaticResource NullToFalseConverter}, Mode=OneWay}">
+				  IsEnabled="{Binding ElementName=ComboBox_Category, Path=SelectedItem, Converter={converter:ConverterNullToFalse}, Mode=OneWay}">
 			<ComboBox.ItemTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
 										  ItemsSource="{Binding Children}">
@@ -81,11 +75,11 @@
 				Content="Speichern!"
 				Margin="0,5">
 			<Button.IsEnabled>
-				<MultiBinding Converter="{StaticResource ElementsToFalseConverter}">
+				<MultiBinding Converter="{converter:ConverterElementsToFalse}">
 					<Binding ElementName="TextBox_Title" Path="Text"/>
-					<Binding ElementName="ComboBox_Category" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
-					<Binding ElementName="DatePicker_StartDate" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
-					<Binding ElementName="DatePicker_EndDate" Path="SelectedDate" Converter="{StaticResource NullToFalseConverter}"/>
+					<Binding ElementName="ComboBox_Category" Path="SelectedItem" Converter="{converter:ConverterNullToFalse}"/>
+					<Binding ElementName="DatePicker_StartDate" Path="SelectedDate" Converter="{converter:ConverterNullToFalse}"/>
+					<Binding ElementName="DatePicker_EndDate" Path="SelectedDate" Converter="{converter:ConverterNullToFalse}"/>
 				</MultiBinding>
 			</Button.IsEnabled>
 		</Button>

@@ -12,12 +12,6 @@
 					  VerticalContentAlignment="Stretch" VerticalAlignment="Top"
 					  x:Name="Root" MinWidth="70">
 
-	<HeaderedItemsControl.Resources>
-		<converter:ConverterDayTimeToDouble x:Key="TimeToHeightConverter"/>
-		<converter:ConverterDayTimeToThickness x:Key="TimeToStartConverter"/>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-	</HeaderedItemsControl.Resources>
-	
 	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
 	<HeaderedItemsControl.Template>
 		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
@@ -57,11 +51,11 @@
 			<Border CornerRadius="5" 
 					VerticalAlignment="Top"
 					HorizontalAlignment="Stretch"
-					Background="{Binding Color, Converter={StaticResource ColorConverter}}">
+					Background="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}">
 
 				<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 				<Border.Margin>
-					<MultiBinding Converter="{StaticResource TimeToStartConverter}">
+					<MultiBinding Converter="{converter:ConverterDayTimeToThickness }">
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"
@@ -71,7 +65,7 @@
 
 				<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
 				<Border.Height>
-					<MultiBinding Converter="{StaticResource TimeToHeightConverter}">
+					<MultiBinding Converter="{converter:ConverterDayTimeToDouble}">
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"

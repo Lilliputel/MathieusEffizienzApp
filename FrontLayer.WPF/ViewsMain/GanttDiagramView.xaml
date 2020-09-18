@@ -7,12 +7,6 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}">
 
-	<UserControl.Resources>
-		<converter:ConverterDateTimesToDouble x:Key="DateToDoubleConverter"/>
-		<converter:ConverterDateTimesToThickness x:Key="DateToThicknessConverter"/>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-	</UserControl.Resources>
-
 	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
@@ -27,7 +21,7 @@
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<!-- Setzt ein Kreis und den Titel als TextBlock -->
 					<StackPanel Orientation="Horizontal" Background="Transparent">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" 
+						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
@@ -87,11 +81,11 @@
 																CornerRadius="5" 
 																VerticalAlignment="Stretch"
 																HorizontalAlignment="Left"
-																Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={StaticResource ColorConverter}}">
+																Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}">
 
 															<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 															<Border.Margin>
-																<MultiBinding Converter="{StaticResource DateToThicknessConverter}">
+																<MultiBinding Converter="{converter:ConverterDateTimesToThickness}">
 																	<Binding ElementName="TimeLine" 
 																			 Path="DataContext.Plan.Start"/>
 																	<Binding ElementName="TimeLine"
@@ -108,7 +102,7 @@
 
 															<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
 															<Border.Width>
-																<MultiBinding Converter="{StaticResource DateToDoubleConverter}">
+																<MultiBinding Converter="{converter:ConverterDateTimesToDouble}">
 																	<Binding ElementName="TimeLine" 
 																			 Path="DataContext.Plan.Start"/>
 																	<Binding ElementName="TimeLine" 

@@ -10,13 +10,6 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.NewDayTime}">
 
-	<UserControl.Resources>
-		<converter:ConverterNullToFalse x:Key="NullToFalseConverter"/>
-		<converter:ConverterElementsToFalse x:Key="ElementsToFalseConverter"/>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-		<converter:ConverterNullDayTimeToString x:Key="NullDayTime"/>
-	</UserControl.Resources>
-
 	<StackPanel>
 		<!-- ViewTitel -->
 		<TextBlock Text="Neue Arbeitszeit!" Style="{StaticResource Title}"/>
@@ -29,7 +22,7 @@
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<StackPanel Orientation="Horizontal">
-						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={StaticResource ColorConverter}}"/>
+						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}"/>
 						<TextBlock Text="{Binding Title}"/>
 					</StackPanel>
 				</DataTemplate>
@@ -55,8 +48,8 @@
 				Content="Speichern!"
 				Margin="0,5">
 			<Button.IsEnabled>
-				<MultiBinding Converter="{StaticResource ElementsToFalseConverter}">
-					<Binding ElementName="ComboBox_Category" Path="SelectedItem" Converter="{StaticResource NullToFalseConverter}"/>
+				<MultiBinding Converter="{converter:ConverterElementsToFalse}">
+					<Binding ElementName="ComboBox_Category" Path="SelectedItem" Converter="{converter:ConverterNullToFalse}"/>
 					<Binding ElementName="TimePicker_StartTime" Path="Text"/>
 					<Binding ElementName="TimePicker_EndTime" Path="Text"/>
 				</MultiBinding>
@@ -64,7 +57,7 @@
 		</Button>
 
 		<!-- Gruppe StartDatum DatePicker -->
-		<TextBlock x:Name="TextBlock_Warning" Text="{Binding Overlapping, Converter={StaticResource NullDayTime}}" Foreground="{DynamicResource ForeHigh_1}"/>
+		<TextBlock x:Name="TextBlock_Warning" Text="{Binding Overlapping, Converter={converter:ConverterNullDayTimeToString}}" Foreground="{DynamicResource ForeHigh_1}"/>
 
 	</StackPanel>
 

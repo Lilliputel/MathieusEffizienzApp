@@ -7,10 +7,6 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Dashboard}">
 
-	<UserControl.Resources>
-		<converter:ConverterDrawingColorToSolidColorBrush x:Key="ColorConverter"/>
-	</UserControl.Resources>
-
 	<!-- Background -->
 	<Border Background="{DynamicResource Back_1}"
 			Style="{StaticResource BorderRounded}">
@@ -24,7 +20,7 @@
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<!-- Setzt ein Kreis und den Titel als TextBlock -->
 					<StackPanel Orientation="Horizontal" Background="Transparent">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={StaticResource ColorConverter}}" 
+						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
 						<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
