@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FrontLayer.WPF.Extensions;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -6,9 +7,9 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(object[]), typeof(double))]
-	public class ConverterDateTimesToDouble : IMultiValueConverter {
+	public class ConverterDateTimesToDouble : MarkedupMultiValueConverter<ConverterDateTimesToDouble> {
 
-		public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
+		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			DateTime projektStart = (DateTime)values[0];
 			DateTime projektEnde = (DateTime)values[1];
@@ -34,9 +35,9 @@ namespace FrontLayer.WPF.Converters {
 
 		}
 
-		public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) {
-			throw new NotImplementedException();
-		}
+		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
+			=> throw new NotImplementedException();
+
 	}
 
 }

@@ -1,4 +1,5 @@
-﻿using ModelLayer.Planning;
+﻿using FrontLayer.WPF.Extensions;
+using ModelLayer.Planning;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -7,9 +8,9 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(DoubleTime), typeof(Thickness))]
-	public class ConverterDayTimeToThickness : IMultiValueConverter {
+	public class ConverterDayTimeToThickness : MarkedupMultiValueConverter<ConverterDayTimeToThickness> {
 
-		public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
+		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
 			// get all the Values from Input
@@ -35,11 +36,9 @@ namespace FrontLayer.WPF.Converters {
 
 
 		}
-		public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) {
 
-			throw new NotImplementedException();
-
-		}
+		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
+			=> throw new NotImplementedException();
 
 	}
 }

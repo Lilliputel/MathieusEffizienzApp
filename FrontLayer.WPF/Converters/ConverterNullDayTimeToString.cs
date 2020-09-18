@@ -1,4 +1,5 @@
-﻿using ModelLayer.Planning;
+﻿using FrontLayer.WPF.Extensions;
+using ModelLayer.Planning;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -7,9 +8,9 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(DoubleTime), typeof(string))]
-	public class ConverterNullDayTimeToString : IValueConverter {
+	public class ConverterNullDayTimeToString : MarkedupValueConverter<ConverterNullDayTimeToString> {
 
-		public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
+		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
 			if( value is null )
 				return "The DayTime is not Overlapping!";
 			else if( value is DoubleTime dayTime )
@@ -19,9 +20,9 @@ namespace FrontLayer.WPF.Converters {
 				return value;
 			}
 		}
-		public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
-			throw new NotImplementedException();
-		}
+
+		public override object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+			=> throw new NotImplementedException();
 
 	}
 }
