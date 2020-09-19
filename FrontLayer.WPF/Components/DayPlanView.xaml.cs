@@ -24,13 +24,14 @@ namespace FrontLayer.WPF.Components {
 				if( border.DataContext is PlanItem planItem ) {
 					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.Title ?? "Unknown Category"}");
 					NewDayTimeViewModel viewModel = ViewModelManager.NewDayTime;
+					//NewDayTimeViewModel viewModel = new NewDayTimeViewModel();
 					viewModel.DayOfWeek = day;
 					var timespans = planItem.Time.GetTimeSpans();
 					viewModel.StartTime = timespans.Start;
 					viewModel.EndTime = timespans.End;
 					viewModel.SelectedCategory = ObjectManager.GetCategory(planItem.ID);
 					viewModel.Overlapping = null;
-					ViewModelManager.OnEssentialViewModelChanged(ViewModelManager.NewDayTime, planItem);
+					ViewModelManager.OnEssentialViewModelChanged(viewModel, planItem);
 				}
 			}
 			else if( e.OriginalSource is Grid grid ) {

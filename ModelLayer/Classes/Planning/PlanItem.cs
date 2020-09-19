@@ -18,7 +18,7 @@ namespace ModelLayer.Planning {
 		[XmlElement("Color")]
 		public Color Color { get; set; }
 		[XmlAttribute("Title")]
-		public string Title { get; set; }
+		public string Title { get; set; } = "Unknown PlanItem";
 
 		#endregion
 

@@ -76,8 +76,6 @@ namespace LogicLayer.Manager {
 			_ObjectDataService.SaveData(CategoryList);
 		}
 		public static void LoadCategories() {
-			// CategoryList = _ObjectDataService.LoadData();
-#warning it does not automatically execute the subscribeWorkPlans Handler!
 			foreach( var category in _ObjectDataService.LoadData() ) {
 				CategoryList.Add(category);
 				foreach( var daytime in category.WorkTimes ) {

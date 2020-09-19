@@ -28,9 +28,12 @@ namespace LogicLayer.Views {
 				Clock.DelayWorkMode();
 			});
 		public ICommand SaveTimeCommand => _SaveTimeCommand ??=
-			new RelayCommand(parameter => {
-				this.WorkItem.Time.Add(this.Clock.GetTotalAndReset());
-			});
+			new RelayCommand(
+				parameter => {
+					this.WorkItem!.Time.Add(this.Clock.GetTotalAndReset());
+				},
+				obj => this.WorkItem is { }
+			);
 
 		#endregion
 
@@ -38,19 +41,18 @@ namespace LogicLayer.Views {
 
 		public PomodoroClock Clock { get; set; }
 
-		public IAccountable WorkItem { get; set; }
+		public IAccountable? WorkItem { get; set; }
 
 		#endregion
 
 		#region constructor
 
 		public PomodoroViewModel() {
-
+			this.Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
 		}
 
-		public PomodoroViewModel( IAccountable workItem ) {
+		public PomodoroViewModel( IAccountable workItem ) : this() {
 			this.WorkItem = workItem;
-			this.Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
 		}
 
 		#endregion

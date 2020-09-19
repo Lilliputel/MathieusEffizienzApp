@@ -21,7 +21,7 @@ namespace FrontLayer.WPF.Converters {
 			}
 		}
 
-		public override object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+		public override object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
 			=> throw new NotImplementedException();
 
 	}

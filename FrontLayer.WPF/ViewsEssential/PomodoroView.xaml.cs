@@ -6,7 +6,6 @@ namespace FrontLayer.WPF.Views {
 
 		#region constructor
 
-#warning i have to feed the viewModel a IAccountable
 		public PomodoroView() {
 			InitializeComponent();
 		}

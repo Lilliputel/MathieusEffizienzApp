@@ -2,16 +2,19 @@
 using System.Windows.Input;
 
 namespace LogicLayer.Commands {
+
 	public class RelayCommand : ICommand {
 
 		#region fields
 
 		private readonly Action<object> _Execute;
-		private readonly Func<object, bool>? _CanExecute;
+		private readonly Predicate<object>? _CanExecute;
 
 		#endregion
 
-		#region properties
+		#region public events
+
+#warning https://stackoverflow.com/questions/34996198/the-name-commandmanager-does-not-exist-in-the-current-context-visual-studio-2
 
 		public event EventHandler? CanExecuteChanged;
 
@@ -19,7 +22,7 @@ namespace LogicLayer.Commands {
 
 		#region constructor
 
-		public RelayCommand( Action<object> execute, Func<object, bool>? canExecute = null ) {
+		public RelayCommand( Action<object> execute, Predicate<object>? canExecute = null ) {
 			if( execute is null )
 				throw new NullReferenceException("execute");
 

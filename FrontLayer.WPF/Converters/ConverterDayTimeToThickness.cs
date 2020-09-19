@@ -27,8 +27,6 @@ namespace FrontLayer.WPF.Converters {
 
 			double maxValue = 24;
 			double startFactor = start / maxValue;
-			double endFactor = end / maxValue;
-			double heightFactor = endFactor - startFactor;
 
 			#endregion
 

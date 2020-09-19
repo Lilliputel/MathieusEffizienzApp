@@ -18,9 +18,9 @@ namespace ModelLayer.Classes {
 		[XmlIgnore]
 		public Guid ID { get; }
 		[XmlAttribute("Title")]
-		public string Title { get; set; }
+		public string Title { get; set; } = "New Category";
 		[XmlAttribute("Description")]
-		public string Description { get; set; }
+		public string Description { get; set; } = "This is a Category without description!";
 
 		// IParent
 		[XmlArray("Children")]

@@ -23,9 +23,9 @@ namespace ModelLayer.Classes {
 		[XmlIgnore]
 		public Guid ID { get; }
 		[XmlAttribute("Title")]
-		public string Title { get; set; }
+		public string Title { get; set; } = "New Goal";
 		[XmlAttribute("Description")]
-		public string Description { get; set; }
+		public string Description { get; set; } = "This is a Goal without a specific description!";
 
 		// IChild
 		[XmlElement("ParentID", IsNullable = true)]
@@ -36,7 +36,7 @@ namespace ModelLayer.Classes {
 			set {
 				_ParentID = value;
 				// setzt den status IsChild auf true, wenn die ID gesetzt wird
-				IsChild = ( ParentID is null ) ? false : true;
+				IsChild = ( ParentID is Guid ) ? true : false;
 			}
 		}
 		[XmlIgnore]

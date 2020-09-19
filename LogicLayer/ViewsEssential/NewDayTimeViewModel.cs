@@ -13,14 +13,6 @@ namespace LogicLayer.Views {
 
 		#region fields
 
-		private Category? _SelectedCategory;
-
-		private DayOfWeek _DayOfWeek;
-		private TimeSpan _StartTime;
-		private TimeSpan _EndTime;
-
-		private DoubleTime? _Overlapping;
-
 		private ICommand? _SaveGoalCommand;
 
 		#endregion
@@ -29,63 +21,13 @@ namespace LogicLayer.Views {
 
 		public ObservableCollection<Category> CategoryList
 			=> ObjectManager.CategoryList;
-		public Category? SelectedCategory {
-			get {
-				return _SelectedCategory;
-			}
-			set {
-				if( value == _SelectedCategory )
-					return;
-				_SelectedCategory = value;
-				OnPropertyChanged(nameof(SelectedCategory));
-			}
-		}
+		public Category? SelectedCategory { get; set; }
 
-		public DayOfWeek DayOfWeek {
-			get {
-				return _DayOfWeek;
-			}
-			set {
-				if( value == _DayOfWeek )
-					return;
-				_DayOfWeek = value;
-				OnPropertyChanged(nameof(DayOfWeek));
-			}
-		}
-		public TimeSpan StartTime {
-			get {
-				return _StartTime;
-			}
-			set {
-				if( value == _StartTime )
-					return;
-				_StartTime = value;
-				OnPropertyChanged(nameof(StartTime));
-			}
-		}
-		public TimeSpan EndTime {
-			get {
-				return _EndTime;
-			}
-			set {
-				if( value == _EndTime )
-					return;
-				_EndTime = value;
-				OnPropertyChanged(nameof(EndTime));
-			}
-		}
+		public DayOfWeek DayOfWeek { get; set; }
+		public TimeSpan StartTime { get; set; }
+		public TimeSpan EndTime { get; set; }
 
-		public DoubleTime? Overlapping {
-			get {
-				return _Overlapping;
-			}
-			set {
-				if( value == _Overlapping )
-					return;
-				_Overlapping = value;
-				OnPropertyChanged(nameof(Overlapping));
-			}
-		}
+		public DoubleTime? Overlapping { get; set; }
 
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			 new AsyncRelayCommand(GetIfPossible, ( ex ) => {

@@ -42,7 +42,7 @@ namespace LogicLayer.Views {
 
 		public SettingsViewModel() {
 			ThemeManager.DarkModeChanged += UpdateThemeButton;
-			UpdateThemeButton(ThemeManager.IsDarkMode);
+			this.themeButton = ThemeManager.IsDarkMode ? "Light!" : "Dark!";
 		}
 
 		#endregion
