@@ -11,13 +11,13 @@ namespace ModelLayer.Planning {
 
 		#region properties
 
-		[XmlElement("Time")]
+		[XmlAttribute(nameof(Time))]
 		public DoubleTime Time { get; set; }
-		[XmlAttribute("ID")]
+		[XmlAttribute(nameof(ID))]
 		public Guid ID { get; set; }
-		[XmlElement("Color")]
+		[XmlElement(nameof(Color))]
 		public Color Color { get; set; }
-		[XmlAttribute("Title")]
+		[XmlAttribute(nameof(Title))]
 		public string Title { get; set; } = "Unknown PlanItem";
 
 		#endregion

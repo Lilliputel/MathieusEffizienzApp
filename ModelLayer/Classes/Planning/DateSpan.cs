@@ -1,8 +1,10 @@
 ﻿using ModelLayer.Utility;
+using PropertyChanged;
 using System;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
+
 	/// <summary>
 	/// Enthält ein StartDatum, ein EndDatum generierte Zeitspanne.
 	/// </summary>
@@ -12,13 +14,13 @@ namespace ModelLayer.Classes {
 
 		private DateTime _Start;
 		private DateTime _End;
-		private TimeSpan _Duration;
 
 		#endregion
 
 		#region properties
 
-		[XmlAttribute("Start")]
+		[XmlAttribute(nameof(Start))]
+		[AlsoNotifyFor(nameof(Duration))]
 		public DateTime Start {
 			get {
 				return _Start;
@@ -29,7 +31,8 @@ namespace ModelLayer.Classes {
 				UpdateValues(value, this._End);
 			}
 		}
-		[XmlAttribute("End")]
+		[XmlAttribute(nameof(End))]
+		[AlsoNotifyFor(nameof(Duration))]
 		public DateTime End {
 			get {
 				return _End;
@@ -40,17 +43,9 @@ namespace ModelLayer.Classes {
 				UpdateValues(this._Start, value);
 			}
 		}
-		[XmlAttribute("Duration")]
-		public TimeSpan Duration {
-			get {
-				return _Duration;
-			}
-			set {
-				if( value == _Duration )
-					return;
-				UpdateValues(this._Start, this._End - Duration + value);
-			}
-		}
+		[XmlIgnore]
+		public TimeSpan Duration
+			=> this.End - this.Start;
 
 		#endregion
 
@@ -78,7 +73,6 @@ namespace ModelLayer.Classes {
 		#region methods
 
 		private void UpdateValues( DateTime start, DateTime end ) {
-
 			// setzt die Korrekte reihenfolge der beiden Daten
 			if( end >= start ) {
 				this._Start = start;
@@ -88,9 +82,6 @@ namespace ModelLayer.Classes {
 				this._Start = end;
 				this._End = start;
 			}
-
-			// setzt die Dauer
-			this._Duration = this._End - this._Start;
 		}
 
 		#endregion

@@ -1,9 +1,9 @@
 ﻿using ModelLayer.Enums;
 using ModelLayer.Interfaces;
 using ModelLayer.Utility;
+using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.Xml.Serialization;
 
@@ -22,44 +22,39 @@ namespace ModelLayer.Classes {
 		// IUnique
 		[XmlIgnore]
 		public Guid ID { get; }
-		[XmlAttribute("Title")]
+		[XmlAttribute(nameof(Title))]
 		public string Title { get; set; } = "New Goal";
-		[XmlAttribute("Description")]
+		[XmlAttribute(nameof(Description))]
 		public string Description { get; set; } = "This is a Goal without a specific description!";
 
 		// IChild
-		[XmlElement("ParentID", IsNullable = true)]
-		public Guid? ParentID {
-			get {
-				return _ParentID;
-			}
-			set {
-				_ParentID = value;
-				// setzt den status IsChild auf true, wenn die ID gesetzt wird
-				IsChild = ( ParentID is Guid ) ? true : false;
-			}
-		}
+		[XmlElement(nameof(ParentID), IsNullable = true)]
+		[AlsoNotifyFor(nameof(IsChild))]
+		public Guid? ParentID { get; set; }
 		[XmlIgnore]
-		public bool IsChild { get; set; }
+		public bool IsChild
+			=> ParentID is Guid;
 
 		// IParent
-		[XmlArray("Children")]
+		[XmlArray(nameof(Children))]
+		[AlsoNotifyFor(nameof(IsParent))]
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
-		public bool IsParent { get; set; }
+		public bool IsParent
+			=> Children.Count > 0;
 
 		// IColorfull
-		[XmlAttribute("Color")]
+		[XmlAttribute(nameof(Color))]
 		public Color Color { get; set; }
 
 		// IWorkable
-		[XmlAttribute("State")]
+		[XmlAttribute(nameof(State))]
 		public EnumState State { get; set; }
-		[XmlElement("Plan")]
+		[XmlElement(nameof(Plan))]
 		public DateSpan Plan { get; set; }
-		[XmlAttribute("Time")]
+		[XmlAttribute(nameof(Time))]
 		public TimeSpan Time { get; set; }
-		[XmlArray("WorkHours")]
+		[XmlArray(nameof(WorkHours))]
 		public ObservableCollection<(DateTime Date, TimeSpan Time)> WorkHours { get; set; }
 
 
@@ -79,7 +74,6 @@ namespace ModelLayer.Classes {
 
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
-			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 		}
 
 		public Goal( string title, DateSpan plan, string description = "New Goal!", EnumState state = EnumState.ToDo )
@@ -95,14 +89,6 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region Methods
-
-		protected virtual void CheckIfChildrenEmpty( object sender, NotifyCollectionChangedEventArgs e ) {
-			if( Children.Count <= 0 ) {
-				this.IsParent = false;
-				return;
-			}
-			this.IsParent = true;
-		}
 
 		public Goal? GetChild( Guid ID ) {
 			if( ID == this.ID ) {

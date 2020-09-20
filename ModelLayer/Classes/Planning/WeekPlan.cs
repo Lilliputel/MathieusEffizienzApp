@@ -8,19 +8,19 @@ namespace ModelLayer.Planning {
 
 		#region properties
 
-		[XmlElement("Monday")]
+		[XmlElement(nameof(Monday))]
 		public DayPlan Monday { get; set; }
-		[XmlElement("Tuesday")]
+		[XmlElement(nameof(Tuesday))]
 		public DayPlan Tuesday { get; set; }
-		[XmlElement("Wednesday")]
+		[XmlElement(nameof(Wednesday))]
 		public DayPlan Wednesday { get; set; }
-		[XmlElement("Thursday")]
+		[XmlElement(nameof(Thursday))]
 		public DayPlan Thursday { get; set; }
-		[XmlElement("Friday")]
+		[XmlElement(nameof(Friday))]
 		public DayPlan Friday { get; set; }
-		[XmlElement("Saturday")]
+		[XmlElement(nameof(Saturday))]
 		public DayPlan Saturday { get; set; }
-		[XmlElement("Sunday")]
+		[XmlElement(nameof(Sunday))]
 		public DayPlan Sunday { get; set; }
 
 		#endregion

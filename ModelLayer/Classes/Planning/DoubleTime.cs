@@ -1,4 +1,5 @@
 ﻿using ModelLayer.Utility;
+using PropertyChanged;
 using System;
 using System.Xml.Serialization;
 
@@ -12,27 +13,26 @@ namespace ModelLayer.Planning {
 
 		private double _Start;
 		private double _End;
-		private double _Duration;
 
 		#endregion
 
 		#region properties
 
-		[XmlAttribute("Start")]
+		[XmlAttribute(nameof(Start))]
+		[AlsoNotifyFor(nameof(Duration))]
 		public double Start {
 			get { return _Start; }
 			set { UpdateValues(RoundToQuarter(value), this._End); }
 		}
-		[XmlAttribute("End")]
+		[XmlAttribute(nameof(End))]
+		[AlsoNotifyFor(nameof(Duration))]
 		public double End {
 			get { return _End; }
 			set { UpdateValues(this._Start, RoundToQuarter(value)); }
 		}
-		[XmlAttribute("Duration")]
-		public double Duration {
-			get { return _Duration; }
-			set { UpdateValues(this._Start, this._End - this._Duration + RoundToQuarter(value)); }
-		}
+		[XmlIgnore]
+		public double Duration
+			=> RoundToQuarter(this.Start - this.End);
 
 		#endregion
 
@@ -81,9 +81,6 @@ namespace ModelLayer.Planning {
 				this._Start = end;
 				this._End = start;
 			}
-
-			// setzt die Dauer
-			this._Duration = this._End - this._Start;
 		}
 
 		public override string ToString()

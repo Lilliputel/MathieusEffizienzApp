@@ -2,6 +2,7 @@
 using ModelLayer.Interfaces;
 using ModelLayer.Planning;
 using ModelLayer.Utility;
+using PropertyChanged;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -17,28 +18,30 @@ namespace ModelLayer.Classes {
 		// IUnique
 		[XmlIgnore]
 		public Guid ID { get; }
-		[XmlAttribute("Title")]
+		[XmlAttribute(nameof(Title))]
 		public string Title { get; set; } = "New Category";
-		[XmlAttribute("Description")]
+		[XmlAttribute(nameof(Description))]
 		public string Description { get; set; } = "This is a Category without description!";
 
 		// IParent
-		[XmlArray("Children")]
+		[XmlArray(nameof(Children))]
+		[AlsoNotifyFor(nameof(IsParent))]
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
-		public bool IsParent { get; set; }
+		public bool IsParent
+			=> Children.Count > 0;
 
 		// WeekPlan
-		[XmlArray("WorkTimes")]
+		[XmlArray(nameof(WorkTimes))]
 		public ObservableCollection<(DayOfWeek Day, DoubleTime Time)> WorkTimes { get; set; }
-		public event EventHandler<NotifyCollectionChangedEventArgs>? WeekPlanChanged;
+		public event NotifyCollectionChangedEventHandler? WeekPlanChanged;
 
 		// IStatus
-		[XmlAttribute("Status")]
+		[XmlAttribute(nameof(State))]
 		public EnumState State { get; set; }
 
 		// IColorfull
-		[XmlAttribute("Color")]
+		[XmlElement(nameof(Color))]
 		public Color Color { get; set; }
 
 		#endregion
@@ -55,7 +58,6 @@ namespace ModelLayer.Classes {
 
 			// initialize Children-Collection and add a Eventhandler
 			this.Children = new ObservableCollection<Goal>();
-			this.Children.CollectionChanged += this.CheckIfChildrenEmpty;
 
 			// initialize WeekPlan
 			this.WorkTimes = new ObservableCollection<(DayOfWeek Day, DoubleTime Time)>();
@@ -76,14 +78,6 @@ namespace ModelLayer.Classes {
 		#region Methods
 
 		private void WorkTimes_CollectionChanged( object sender, NotifyCollectionChangedEventArgs e ) => WeekPlanChanged?.Invoke(this, e);
-
-		protected virtual void CheckIfChildrenEmpty( object sender, NotifyCollectionChangedEventArgs e ) {
-			if( Children.Count <= 0 ) {
-				this.IsParent = false;
-				return;
-			}
-			this.IsParent = true;
-		}
 
 		public Goal? GetChild( Guid ID ) {
 			Goal? placeholder;

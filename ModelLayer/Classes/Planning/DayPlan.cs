@@ -13,6 +13,7 @@ namespace ModelLayer.Planning {
 		#endregion
 
 		#region constructors
+
 		public DayPlan() {
 
 		}
@@ -22,7 +23,7 @@ namespace ModelLayer.Planning {
 		#region methods
 
 		public async Task<DoubleTime?> GetDayOverlappingAsync( DoubleTime newDayTime ) =>
-			await Task<DoubleTime?>.Run(() => {
+			await Task.Run(() => {
 				DoubleTime? result = null;
 				foreach( PlanItem oldItem in this ) {
 
