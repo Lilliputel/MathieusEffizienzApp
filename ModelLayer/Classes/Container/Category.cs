@@ -32,8 +32,8 @@ namespace ModelLayer.Classes {
 			=> Children.Count > 0;
 
 		// WeekPlan
-		[XmlArray(nameof(WorkTimes))]
-		public ObservableCollection<(DayOfWeek Day, DoubleTime Time)> WorkTimes { get; set; }
+		[XmlArray(nameof(WorkSessions))]
+		public ObservableCollection<(DayOfWeek Day, DoubleTime Time)> WorkSessions { get; set; }
 		public event NotifyCollectionChangedEventHandler? WeekPlanChanged;
 
 		// IStatus
@@ -60,8 +60,8 @@ namespace ModelLayer.Classes {
 			this.Children = new ObservableCollection<Goal>();
 
 			// initialize WeekPlan
-			this.WorkTimes = new ObservableCollection<(DayOfWeek Day, DoubleTime Time)>();
-			this.WorkTimes.CollectionChanged += WorkTimes_CollectionChanged;
+			this.WorkSessions = new ObservableCollection<(DayOfWeek Day, DoubleTime Time)>();
+			this.WorkSessions.CollectionChanged += WorkTimes_CollectionChanged;
 		}
 
 		public Category( string title, Color color, string description = "New Category", EnumState state = EnumState.ToDo ) : this() {

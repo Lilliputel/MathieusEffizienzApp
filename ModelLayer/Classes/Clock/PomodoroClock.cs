@@ -7,8 +7,6 @@ using System.Timers;
 
 namespace ModelLayer.Classes {
 
-#warning Issue: If I change the Countdirection, when the timer is not running, it starts to count!?
-
 	public class PomodoroClock : ObservableObject {
 
 		#region private fields
@@ -123,13 +121,15 @@ namespace ModelLayer.Classes {
 		public void UpdateCountDirection( bool? countDown = null ) {
 			double memory = GetActualTime().TotalSeconds;
 			this.CountDown = countDown ?? !this.CountDown;
-			this.NextWorkMode = this.CurrentWorkMode;
-			ResetCounter();
-			if( this.CountDown is true )
-				this.Time = TimeSpan.FromSeconds(GetCountStart().TotalSeconds - memory);
-			else
-				this.Time = TimeSpan.FromSeconds(memory);
-			StartClock(this.Time);
+
+			if( this._Counter.Enabled is true ) {
+				this._Counter.Stop();
+				this.NextWorkMode = this.CurrentWorkMode;
+				ResetCounter();
+				if( this.CountDown is true )
+					memory = GetCountStart().TotalSeconds - memory;
+				StartClock(TimeSpan.FromSeconds(memory));
+			}
 		}
 
 		/// <summary>
@@ -291,8 +291,8 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private TimeSpan GetActualTime() {
 			if( CountDown is true )
-				return _DestinationTime - Time;
-			return Time;
+				return GetCountStart() - this.Time;
+			return this.Time;
 		}
 		/// <summary>
 		/// returns the Timespan, where the clock has to start
@@ -333,12 +333,14 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private void ResetCounter() {
 			// removes all EventHandler for a bugfree experience
-			_Counter.Elapsed -= UpCounter_Tick;
-			_Counter.Elapsed -= DownCounter_Tick;
+			this._Counter.Elapsed -= UpCounter_Tick;
+			this._Counter.Elapsed -= DownCounter_Tick;
+
+			this._Counter.Enabled = false;
 
 			// Sets DestinationTime and Time to zero
-			_DestinationTime = TimeSpan.Zero;
-			Time = TimeSpan.Zero;
+			this._DestinationTime = TimeSpan.Zero;
+			this.Time = TimeSpan.Zero;
 		}
 
 		#endregion

@@ -78,7 +78,7 @@ namespace LogicLayer.Manager {
 		public static void LoadCategories() {
 			foreach( var category in _ObjectDataService.LoadData() ) {
 				CategoryList.Add(category);
-				foreach( var daytime in category.WorkTimes ) {
+				foreach( var daytime in category.WorkSessions ) {
 					Task.Run(() =>
 					WeekPlan.AddItemToDayAsync(daytime.Day,
 					new PlanItem(daytime.Time, category.ID, category.Color, category.Title))

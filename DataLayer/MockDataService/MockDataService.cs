@@ -1,5 +1,6 @@
 ﻿using DataLayer.Interfaces;
 using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using ModelLayer.Planning;
 using System;
 using System.Collections.ObjectModel;
@@ -22,25 +23,16 @@ namespace DataLayer.MockDataService {
 					(byte)randomGen.Next(255));
 
 				// new Category
-				Category CBCategory1 = new Category($"Generated-Category{counter}", randomColor){
-					Children = new ObservableCollection<Goal> {
-						new Goal($"Generated-Goal{counter}_1", new DateSpan( DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)) ){
-							Time = new TimeSpan(1, 2, 3),
-							Color = randomColor,
-							Children = new ObservableCollection<Goal>{
-								new Goal($"Generated-Goal{counter}_1.1", new DateSpan( DateTime.Today.AddDays(2),  DateTime.Today.AddDays(5)) ){
-									Time = new TimeSpan(3, 12, 20),
-									Color = randomColor
-								}
-							}
-						},
-						new Goal($"Generated-Goal{counter}_2", new DateSpan( DateTime.Today, DateTime.Today.AddDays(10)) ){
-							Time = new TimeSpan(10, 30, 0),
-							Color = randomColor
-						}
-					}
-				};
-				CBCategory1.WorkTimes.Add(((DayOfWeek)randomGen.Next(7), new DoubleTime((0.0 + counter, 1.0 + counter))));
+				Category CBCategory1 = new Category($"Generated-Category{counter}", randomColor);
+
+				Goal goalX_1 = new Goal($"Generated-Goal{counter}_1", new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)));
+				( goalX_1 as IAccountable ).AddWorkedTime(DateTime.Today.AddDays(randomGen.Next(-10, 11)), TimeSpan.FromHours(randomGen.NextDouble() * 5));
+				Goal goalX_1_1 = new Goal($"Generated-Goal{counter}_1.1", new DateSpan(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5)));
+				goalX_1.AddChild(goalX_1_1);
+				Goal goalX_2 = new Goal($"Generated-Goal{counter}_2", new DateSpan(DateTime.Today, DateTime.Today.AddDays(10)));
+
+				CBCategory1.AddChildren(new Collection<Goal> { goalX_1, goalX_2 });
+				CBCategory1.WorkSessions.Add(((DayOfWeek)randomGen.Next(7), new DoubleTime((0.0 + counter, 1.0 + counter))));
 				zwischenSpeicher.Add(CBCategory1);
 			}
 

@@ -9,13 +9,7 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 
-	public class Goal : ObservableObject, IUnique, IChild, IWorkable, IParent<Goal> {
-
-		#region fields
-
-		private Guid? _ParentID;
-
-		#endregion
+	public class Goal : ObservableObject, IUnique, IChild, IWorkItem, IParent<Goal> {
 
 		#region Properties
 
@@ -53,9 +47,16 @@ namespace ModelLayer.Classes {
 		[XmlElement(nameof(Plan))]
 		public DateSpan Plan { get; set; }
 		[XmlAttribute(nameof(Time))]
-		public TimeSpan Time { get; set; }
+		public TimeSpan Time {
+			get {
+				TimeSpan bridge = TimeSpan.Zero;
+				foreach( var item in WorkHours )
+					bridge.Add(item.Time);
+				return bridge;
+			}
+		}
 		[XmlArray(nameof(WorkHours))]
-		public ObservableCollection<(DateTime Date, TimeSpan Time)> WorkHours { get; set; }
+		public ObservableCollection<(DateTime Date, TimeSpan Time)> WorkHours { get; private set; }
 
 
 		#endregion
@@ -68,7 +69,6 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		public Goal() {
 			this.ID = Guid.NewGuid();
-			this.Time = TimeSpan.Zero;
 			this.WorkHours = new ObservableCollection<(DateTime Date, TimeSpan Time)>();
 			this.Plan = new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(2));
 
