@@ -6,69 +6,64 @@
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Dashboard}">
-
-	<!-- Background -->
-	<Border Background="{DynamicResource Back_1}"
-			Style="{StaticResource BorderRounded}">
-
-		<!-- TabControl mit den Kategorien als Tab -->
-		<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
+	
+	<!-- TabControl mit den Kategorien als Tab -->
+	<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
 					MinWidth="700">
-			
-			<!--#region Template für Tab -->
-			<TabControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type classes:Category}">
-					<!-- Setzt ein Kreis und den Titel als TextBlock -->
-					<StackPanel Orientation="Horizontal" Background="Transparent">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
+
+		<!--#region Template für Tab -->
+		<TabControl.ItemTemplate>
+			<DataTemplate DataType="{x:Type classes:Category}">
+				<!-- Setzt ein Kreis und den Titel als TextBlock -->
+				<StackPanel Orientation="Horizontal" Background="Transparent">
+					<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
-					</StackPanel>
-				</DataTemplate>
-			</TabControl.ItemTemplate>
-			<!--#endregion-->
+					<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+				</StackPanel>
+			</DataTemplate>
+		</TabControl.ItemTemplate>
+		<!--#endregion-->
 
-			<TabControl.ContentTemplate>
+		<TabControl.ContentTemplate>
 
-				<!-- Template für Kategorie -->
-				<DataTemplate DataType="{x:Type classes:Category}">
+			<!-- Template für Kategorie -->
+			<DataTemplate DataType="{x:Type classes:Category}">
 
-					<!-- ItemControl -->
-					<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}">
+				<!-- ItemControl -->
+				<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}">
 
-						<!-- Setzt die Orientierung des ItemsControl auf Horizontal-->
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<VirtualizingStackPanel Orientation="Horizontal"/>
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
-						<ItemsControl.ItemTemplate>
+					<!-- Setzt die Orientierung des ItemsControl auf Horizontal-->
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<VirtualizingStackPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+					<ItemsControl.ItemTemplate>
 
-							<!-- Template für Projekt -->
-							<DataTemplate DataType="{x:Type classes:Goal}">
-								<!-- Rahmen pro Projekt -->
-								<GroupBox Header="{Binding Title}"
+						<!-- Template für Projekt -->
+						<DataTemplate DataType="{x:Type classes:Goal}">
+							<!-- Rahmen pro Projekt -->
+							<GroupBox Header="{Binding Title}"
 										  BorderBrush="Black"
 										  Margin="5,2">
-									<!-- itemsControl für Aufgaben -->
-									<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}"
+								<!-- itemsControl für Aufgaben -->
+								<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}"
 												  Margin="5,2">
-										<ItemsControl.ItemTemplate>
-											<!-- Template für Aufgabe -->
-											<DataTemplate DataType="{x:Type classes:Goal}">
-												<TextBlock Text="{Binding Title}"/>
-											</DataTemplate>
-										</ItemsControl.ItemTemplate>
-									</ItemsControl>
-								</GroupBox>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
+									<ItemsControl.ItemTemplate>
+										<!-- Template für Aufgabe -->
+										<DataTemplate DataType="{x:Type classes:Goal}">
+											<TextBlock Text="{Binding Title}"/>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</GroupBox>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 
-				</DataTemplate>
-			</TabControl.ContentTemplate>
-		</TabControl>
-
-	</Border>
+			</DataTemplate>
+		</TabControl.ContentTemplate>
+	</TabControl>
+	
 </UserControl>

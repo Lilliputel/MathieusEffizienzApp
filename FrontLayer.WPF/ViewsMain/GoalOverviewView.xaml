@@ -8,7 +8,7 @@
 			 DataContext="{x:Static manager:ViewModelManager.GoalOverview}">
 
 	<UserControl.Resources>
-		
+
 		<DataTemplate x:Key="Stretchpanel">
 			<Grid>
 				<Grid.ColumnDefinitions>
@@ -54,61 +54,56 @@
 				</Grid>
 			</Grid>
 		</DataTemplate>
-		
+
 	</UserControl.Resources>
+	
+	<!-- TabControl mit den Kategorien als Tab -->
+	<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
 
-	<!-- Background -->
-	<Border Background="{DynamicResource Back_1}"
-			Style="{StaticResource BorderRounded}">
-
-		<!-- TabControl mit den Kategorien als Tab -->
-		<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
-
-			<!--#region Template für Tab -->
-			<TabControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type classes:Category}">
-					<!-- Setzt ein Kreis und den Titel als TextBlock -->
-					<StackPanel Orientation="Horizontal" Background="Transparent">
-						<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
+		<!--#region Template für Tab -->
+		<TabControl.ItemTemplate>
+			<DataTemplate DataType="{x:Type classes:Category}">
+				<!-- Setzt ein Kreis und den Titel als TextBlock -->
+				<StackPanel Orientation="Horizontal" Background="Transparent">
+					<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
-					</StackPanel>
-				</DataTemplate>
-			</TabControl.ItemTemplate>
-			<!--#endregion-->
+					<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+				</StackPanel>
+			</DataTemplate>
+		</TabControl.ItemTemplate>
+		<!--#endregion-->
 
-			<TabControl.ContentTemplate>
+		<TabControl.ContentTemplate>
 
-				<!-- Template für Kategorie -->
-				<DataTemplate DataType="{x:Type classes:Category}">
+			<!-- Template für Kategorie -->
+			<DataTemplate DataType="{x:Type classes:Category}">
 
-					<!-- ItemControl als Expander -->
-					<TreeView ItemsSource="{Binding Path=Children}"
+				<!-- ItemControl als Expander -->
+				<TreeView ItemsSource="{Binding Path=Children}"
 							  HorizontalContentAlignment="Stretch"
 							  VerticalContentAlignment="Stretch">
-						<TreeView.ItemTemplate>
-							<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" 
+					<TreeView.ItemTemplate>
+						<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" 
 													  ItemsSource="{Binding Children}">
 
-								<!-- Template für das Übergeordnete Element (Projekt) -->
-								<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
+							<!-- Template für das Übergeordnete Element (Projekt) -->
+							<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
 
-								<HierarchicalDataTemplate.ItemTemplate>
-									<DataTemplate DataType="{x:Type classes:Goal}">
+							<HierarchicalDataTemplate.ItemTemplate>
+								<DataTemplate DataType="{x:Type classes:Goal}">
 
-										<!-- Template für das untergeordnete Element (Aufgabe) -->
-										<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
+									<!-- Template für das untergeordnete Element (Aufgabe) -->
+									<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
 
-									</DataTemplate>
-								</HierarchicalDataTemplate.ItemTemplate>
-							</HierarchicalDataTemplate>
-						</TreeView.ItemTemplate>
-					</TreeView>
-				</DataTemplate>
-			</TabControl.ContentTemplate>
+								</DataTemplate>
+							</HierarchicalDataTemplate.ItemTemplate>
+						</HierarchicalDataTemplate>
+					</TreeView.ItemTemplate>
+				</TreeView>
+			</DataTemplate>
+		</TabControl.ContentTemplate>
 
-		</TabControl>
-	</Border>
+	</TabControl>
 
 </UserControl>

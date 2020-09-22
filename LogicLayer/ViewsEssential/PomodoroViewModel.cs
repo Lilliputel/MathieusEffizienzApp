@@ -1,7 +1,6 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Enums;
 using ModelLayer.Interfaces;
 using System;
 using System.Windows.Input;
@@ -30,14 +29,13 @@ namespace LogicLayer.Views {
 			new RelayCommand(
 				parameter => {
 					Clock.DelayWorkMode();
-				},
-				obj => Clock.CurrentWorkMode is EnumWorkMode.Stop
+				}
 			);
 		public ICommand SaveTimeCommand => _SaveTimeCommand ??=
 			new RelayCommand(
 				parameter => {
-					if( this.WorkItem is IAccountable )
-						this.WorkItem.AddWorkedTime(this.Clock.GetTotalAndReset());
+					if( this.WorkItem is IWorkItem workItem )
+						workItem.AddWorkedTime(this.Clock.GetTotalAndReset());
 				},
 				obj => this.WorkItem is { }
 			);

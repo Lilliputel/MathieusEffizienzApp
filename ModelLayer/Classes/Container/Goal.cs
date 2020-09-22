@@ -1,8 +1,10 @@
 ﻿using ModelLayer.Enums;
+using ModelLayer.Extensions;
 using ModelLayer.Interfaces;
 using ModelLayer.Utility;
 using PropertyChanged;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Xml.Serialization;
@@ -35,7 +37,7 @@ namespace ModelLayer.Classes {
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
 		public bool IsParent
-			=> Children.Count > 0;
+			=> Children is { } && Children.Count > 0;
 
 		// IColorfull
 		[XmlAttribute(nameof(Color))]
@@ -46,16 +48,17 @@ namespace ModelLayer.Classes {
 		public EnumState State { get; set; }
 		[XmlElement(nameof(Plan))]
 		public DateSpan Plan { get; set; }
-		[XmlAttribute(nameof(Time))]
+		[XmlIgnore]
 		public TimeSpan Time {
 			get {
 				TimeSpan bridge = TimeSpan.Zero;
 				foreach( var item in WorkHours )
-					bridge.Add(item.Time);
+					bridge += item.Time;
 				return bridge;
 			}
 		}
 		[XmlArray(nameof(WorkHours))]
+		[AlsoNotifyFor(nameof(Time))]
 		public ObservableCollection<(DateTime Date, TimeSpan Time)> WorkHours { get; private set; }
 
 
@@ -115,6 +118,63 @@ namespace ModelLayer.Classes {
 			}
 		}
 
+		public ICollection<DateTime> GetWorkedDates() {
+			ICollection<DateTime> placeholder = new List<DateTime>();
+
+			if( this.Time == TimeSpan.Zero )
+				return placeholder;
+
+			if( this.IsParent is true )
+				foreach( var child in this.Children )
+					placeholder.AddUniqueRange(child.GetWorkedDates());
+
+			foreach( var item in this.WorkHours )
+				placeholder.AddUnique(item.Date);
+
+			return placeholder;
+		}
+
+		public TimeSpan GetTotalTime() {
+			var placeholder = new TimeSpan();
+
+			if( this.Time == TimeSpan.Zero )
+				return TimeSpan.Zero;
+
+			if( this.IsParent is true )
+				foreach( var child in this.Children )
+					placeholder = placeholder.Add(child.GetTotalTime());
+
+			placeholder = placeholder.Add(this.Time);
+
+			return placeholder;
+		}
+
+		public TimeSpan GetTimeOnDate( DateTime date ) {
+			var placeholder = new TimeSpan();
+			var _Date = date.Date;
+
+			if( GetWorkedDates().Contains(_Date) is false )
+				return TimeSpan.Zero;
+
+			foreach( var workItem in this.WorkHours )
+				if( workItem.Date.Date == _Date )
+					placeholder += workItem.Time;
+
+			return placeholder;
+		}
+
+		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
+			var placeholder = new TimeSpan();
+			var _Date = date.Date;
+
+			if( this.IsParent is true )
+				foreach( var child in this.Children )
+					placeholder += GetTotalTimeOnDate(_Date);
+
+			placeholder += GetTimeOnDate(_Date);
+
+			return placeholder;
+		}
 		#endregion
 
 	}

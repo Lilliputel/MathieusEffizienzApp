@@ -11,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 
-	public class Category : ObservableObject, IUnique, IStatus, IParent<Goal> {
+	public class Category : ObservableObject, IUnique, IStatus, IParent<Goal>, IAccountable {
 
 		#region Properties
 
@@ -43,6 +43,16 @@ namespace ModelLayer.Classes {
 		// IColorfull
 		[XmlElement(nameof(Color))]
 		public Color Color { get; set; }
+
+		public TimeSpan Time {
+			get {
+				var bridge = new TimeSpan();
+				foreach( var child in Children )
+					bridge += child.GetTotalTime();
+				return bridge;
+			}
+		}
+
 
 		#endregion
 
@@ -99,6 +109,19 @@ namespace ModelLayer.Classes {
 			foreach( Goal child in _Children ) {
 				AddChild(child);
 			}
+		}
+
+		public TimeSpan GetTimeOnDate( DateTime date ) {
+			var placeholder = new TimeSpan();
+			foreach( var goal in Children )
+				placeholder += goal.GetTimeOnDate(date.Date);
+			return placeholder;
+		}
+		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
+			var placeholder = new TimeSpan();
+			foreach( var goal in Children )
+				placeholder += goal.GetTotalTimeOnDate(date.Date);
+			return placeholder;
 		}
 
 		#endregion

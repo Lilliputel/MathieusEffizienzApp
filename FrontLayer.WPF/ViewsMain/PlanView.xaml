@@ -6,17 +6,11 @@
 			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Plan}">
-
-	<!-- Backgrond -->
-	<Border Background="{DynamicResource Back_1}"
-			Style="{StaticResource BorderRounded}">
-
-		<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
-			<components:WeekPlanView WeekPlan="{Binding WeekPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" 
-									 Height="400" Width="490"/>
-		</ScrollViewer>
-		
-	</Border>
 	
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+		<components:WeekPlanView WeekPlan="{Binding WeekPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" 
+								 Height="400" Width="490"/>
+	</ScrollViewer>
+
 </UserControl>
  

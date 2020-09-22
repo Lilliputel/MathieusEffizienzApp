@@ -4,24 +4,19 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Settings}">
 
-	<!-- Background -->
-	<Border Background="{DynamicResource Back_1}"
-					Style="{StaticResource BorderRounded}">
-		
-		<StackPanel>
-			<ToggleButton x:Name="ToggleButton_Theme"
+	<StackPanel>
+		<ToggleButton x:Name="ToggleButton_Theme"
 						  Command="{Binding CommandChangeTheme}"
 						  Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged}"
 						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
 						  Margin="0,5"
 						  Background="{DynamicResource Back_2}"/>
-			<ToggleButton x:Name="ToggleButton_CountDirection"
+		<ToggleButton x:Name="ToggleButton_CountDirection"
 						  Command="{Binding CommandChangeCountDirection}"
 						  Content="Change countdirection!"
 						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
 						  Margin="0,5"
 						  Background="{DynamicResource Back_2}"/>
-		</StackPanel>
-	</Border>
+	</StackPanel>
 	
 </UserControl>
