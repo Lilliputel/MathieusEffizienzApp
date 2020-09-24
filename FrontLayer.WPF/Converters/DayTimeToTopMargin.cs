@@ -7,8 +7,8 @@ using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
 
-	[ValueConversion(typeof(DoubleTime), typeof(Thickness))]
-	public class ConverterDayTimeToThickness : MarkedupMultiValueConverter<ConverterDayTimeToThickness> {
+	[ValueConversion(typeof(object[]), typeof(Thickness))]
+	public class DayTimeToTopMargin : MarkedupMultiValueConverter<DayTimeToTopMargin> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 

@@ -1,20 +1,20 @@
 ﻿using FrontLayer.WPF.Extensions;
-using ModelLayer.Classes;
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
 
-	[ValueConversion(typeof(object[]), typeof(double))]
-	public class ConverterDateOnCategoryToDouble : MarkedupMultiValueConverter<ConverterDateOnCategoryToDouble> {
+	[ValueConversion(typeof(double[]), typeof(GridLength))]
+	public class DoublesToGridLenght : MarkedupMultiValueConverter<DoublesToGridLenght> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
-			Category category = (Category)values[0];
-			DateTime date = (DateTime)values[1];
 
-			var time = category.GetTimeOnDate(date);
-			return null;
+			double subtrahend = (double)values[0];
+			double minuend = ((GridLength)values[1]).Value;
+			return new GridLength(subtrahend - minuend);
+
 		}
 		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
 			=> throw new NotImplementedException();

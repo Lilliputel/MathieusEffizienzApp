@@ -47,11 +47,11 @@
 				Content="Speichern!"
 				Margin="0,5">
 			<Button.IsEnabled>
-				<MultiBinding Converter="{converter:ConverterElementsToFalse}">
+				<MultiBinding Converter="{converter:ElementsToFalse}">
 					<Binding ElementName="TextBox_Title" Path="Text"/>
 					<Binding ElementName="TextBox_Description" Path="Text"/>
-					<Binding ElementName="ComboBox_State" Path="SelectedItem" Converter="{converter:ConverterNullToFalse}"/>
-					<Binding ElementName="ComboBox_Color" Path="SelectedItem" Converter="{converter:ConverterNullToFalse}"/>
+					<Binding ElementName="ComboBox_State" Path="SelectedItem" Converter="{converter:NullToFalse}"/>
+					<Binding ElementName="ComboBox_Color" Path="SelectedItem" Converter="{converter:NullToFalse}"/>
 				</MultiBinding>
 			</Button.IsEnabled>
 		</Button>

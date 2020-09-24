@@ -40,7 +40,7 @@ namespace FrontLayer.WPF {
 
 			// Load the saved Categories from The XML-File
 			ObjectManager.LoadCategories();
-			ObjectManager.LoadSettings();
+			//ObjectManager.LoadSettings();
 			base.OnStartup(e);
 		}
 

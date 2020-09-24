@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(object[]), typeof(bool))]
-	public class ConverterElementsToFalse : MarkedupMultiValueConverter<ConverterElementsToFalse> {
+	public class ElementsToFalse : MarkedupMultiValueConverter<ElementsToFalse> {
 
 		public override object Convert( object[] values, Type targetTypes, object parameter, System.Globalization.CultureInfo culture ) {
 			foreach( var item in values ) {

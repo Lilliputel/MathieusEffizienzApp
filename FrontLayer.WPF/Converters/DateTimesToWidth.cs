@@ -6,8 +6,8 @@ using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
 
-	[ValueConversion(typeof(object[]), typeof(Thickness))]
-	public class ConverterDateTimesToThickness : MarkedupMultiValueConverter<ConverterDateTimesToThickness> {
+	[ValueConversion(typeof(object[]), typeof(double))]
+	public class DateTimesToWidth : MarkedupMultiValueConverter<DateTimesToWidth> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
@@ -31,9 +31,7 @@ namespace FrontLayer.WPF.Converters {
 				faktor = 0;
 			}
 
-			double position = (faktor * gesamtLänge) + offset;
-
-			return new Thickness(position, 0, 0, 0);
+			return ( faktor * gesamtLänge ) + offset;
 
 		}
 

@@ -7,8 +7,8 @@ using System.Windows.Data;
 
 namespace FrontLayer.WPF.Converters {
 
-	[ValueConversion(typeof(DoubleTime), typeof(double))]
-	public class ConverterDayTimeToDouble : MarkedupMultiValueConverter<ConverterDayTimeToDouble> {
+	[ValueConversion(typeof(object[]), typeof(double))]
+	public class DayTimeToHeight : MarkedupMultiValueConverter<DayTimeToHeight> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 

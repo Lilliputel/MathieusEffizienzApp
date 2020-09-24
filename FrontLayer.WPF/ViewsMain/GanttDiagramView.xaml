@@ -17,7 +17,7 @@
 			<DataTemplate DataType="{x:Type classes:Category}">
 				<!-- Setzt ein Kreis und den Titel als TextBlock -->
 				<StackPanel Orientation="Horizontal" Background="Transparent">
-					<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}" 
+					<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}" 
 							 Margin="0,0,5,0" Width="8" Height="8" 
 							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
 					<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
@@ -60,28 +60,34 @@
 														  Background="Transparent">
 													<Grid.ColumnDefinitions>
 														<ColumnDefinition Width="120"
-																			  x:Name="TimeLineOffset"/>
-														<ColumnDefinition Width="{Binding ElementName=ControlRoot, Path=MinWidth}"
-																			  x:Name="TimeLineWidth"/>
+																		  x:Name="TimeLineOffset"/>
+														<ColumnDefinition x:Name="TimeLineWidth">
+															<ColumnDefinition.Width>
+																<MultiBinding Converter="{converter:DoublesToGridLenght}">
+																	<Binding ElementName="ControlRoot" Path="ActualWidth"/>
+																	<Binding ElementName="TimeLineOffset" Path="Width"/>
+																</MultiBinding>
+															</ColumnDefinition.Width>
+														</ColumnDefinition>														
 													</Grid.ColumnDefinitions>
 
 													<!-- Textblock mit Aufgabentitel für Spalte 1 -->
 													<Border BorderBrush="Black" BorderThickness="0,0,1,0" Background="Transparent">
 														<TextBlock Grid.Column="0" VerticalAlignment="Center"
-															   Text="{Binding Title}" />
+																   Text="{Binding Title}" />
 													</Border>
 
 
 													<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
 													<Border Grid.Column="1" 
-																CornerRadius="5" 
-																VerticalAlignment="Stretch"
-																HorizontalAlignment="Left"
-																Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}">
+															CornerRadius="5" 
+															VerticalAlignment="Stretch"
+															HorizontalAlignment="Left"
+															Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={converter:DrawingColorToSolidBrush}}">
 
 														<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 														<Border.Margin>
-															<MultiBinding Converter="{converter:ConverterDateTimesToThickness}">
+															<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
 																<Binding ElementName="TimeLine" 
 																			 Path="DataContext.Plan.Start"/>
 																<Binding ElementName="TimeLine"
@@ -90,15 +96,15 @@
 																<Binding Path="Plan.Start"/>
 
 																<Binding ElementName="TimeLineWidth"
-																			 Path="Width"/>
+																		 Path="Width"/>
 																<Binding ElementName="TimeLineOffset"
-																			 Path="ActualWidth"/>
+																		 Path="ActualWidth"/>
 															</MultiBinding>
 														</Border.Margin>
 
 														<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert -->
 														<Border.Width>
-															<MultiBinding Converter="{converter:ConverterDateTimesToDouble}">
+															<MultiBinding Converter="{converter:DateTimesToWidth}">
 																<Binding ElementName="TimeLine" 
 																			 Path="DataContext.Plan.Start"/>
 																<Binding ElementName="TimeLine" 

@@ -51,11 +51,11 @@
 			<Border CornerRadius="5" 
 					VerticalAlignment="Top"
 					HorizontalAlignment="Stretch"
-					Background="{Binding Color, Converter={converter:ConverterDrawingColorToSolidColorBrush}}">
+					Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}">
 
 				<!-- Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert -->
 				<Border.Margin>
-					<MultiBinding Converter="{converter:ConverterDayTimeToThickness }">
+					<MultiBinding Converter="{converter:DayTimeToTopMargin }">
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"
@@ -65,7 +65,7 @@
 
 				<!-- Mithilfe eines Converters wird die richtige EndPosition berechnet und als höhe des Rechtecks definiert -->
 				<Border.Height>
-					<MultiBinding Converter="{converter:ConverterDayTimeToDouble}">
+					<MultiBinding Converter="{converter:DayTimeToHeight}">
 						<Binding Path="Time"/>
 
 						<Binding ElementName="ContentHolder"

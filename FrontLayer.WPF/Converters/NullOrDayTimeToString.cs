@@ -8,7 +8,7 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(DoubleTime), typeof(string))]
-	public class ConverterNullDayTimeToString : MarkedupValueConverter<ConverterNullDayTimeToString> {
+	public class NullOrDayTimeToString : MarkedupValueConverter<NullOrDayTimeToString> {
 
 		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
 			if( value is null )

@@ -7,7 +7,7 @@ using System.Windows.Media;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(System.Drawing.Color), typeof(SolidColorBrush))]
-	public class ConverterDrawingColorToSolidColorBrush : MarkedupValueConverter<ConverterDrawingColorToSolidColorBrush> {
+	public class DrawingColorToSolidBrush : MarkedupValueConverter<DrawingColorToSolidBrush> {
 
 		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture )
 			=> new SolidColorBrush(( (System.Drawing.Color)value ).ToMediaColor());

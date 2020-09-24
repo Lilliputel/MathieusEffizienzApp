@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace FrontLayer.WPF.Converters {
 
 	[ValueConversion(typeof(object), typeof(bool))]
-	public class ConverterNullToFalse : MarkedupValueConverter<ConverterNullToFalse> {
+	public class NullToFalse : MarkedupValueConverter<NullToFalse> {
 
 		public override object Convert( object value, Type targetType, object parameter, System.Globalization.CultureInfo culture )
 			=> value is { };

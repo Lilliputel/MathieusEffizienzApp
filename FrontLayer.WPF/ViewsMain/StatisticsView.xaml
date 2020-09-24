@@ -13,40 +13,56 @@
 	<ItemsControl ItemsSource="{Binding Dates}" >
 		<ItemsControl.ItemTemplate>
 			<DataTemplate>
+				
 				<Grid x:Name="DateRoot">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="*"/>
+						<RowDefinition Height="*" x:Name="ColumnHeight"/>
 						<RowDefinition Height="Auto"/>
 					</Grid.RowDefinitions>
 
 					<TextBlock Text="{Binding StringFormat={}{0:dd.MM.yy}}" Grid.Row="1"/>
+					
 					<GroupBox Grid.Row="0">
 						<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.Categories}">
 							<ItemsControl.ItemTemplate>
 								<DataTemplate DataType="{x:Type classes:Category}">
-
-									<TextBlock>
-										<TextBlock.Text>
-											<MultiBinding StringFormat="{}{0}" Converter="{converter:ConverterDateOnCategoryToTime}">
+									<Border Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"
+											Padding="2,0" Margin="3,0"
+											BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
+											Style="{StaticResource BorderRounded}">
+										<Border.Height>
+											<MultiBinding Converter="{converter:DateOnCategoryToHeight}">
+												
 												<Binding/>
 												<Binding ElementName="DateRoot" Path="DataContext"/>
-											</MultiBinding>
-										</TextBlock.Text>
-										<TextBlock.LayoutTransform>
-											<RotateTransform>
-												<RotateTransform.Angle>
-													90
-												</RotateTransform.Angle>
-											</RotateTransform>
-										</TextBlock.LayoutTransform>
-									</TextBlock>
 
+												<Binding ElementName="ColumnHeight" Path="ActualHeight"/>
+												
+											</MultiBinding>
+										</Border.Height>
+										<TextBlock VerticalAlignment="Bottom">
+											<TextBlock.Text>
+												<MultiBinding StringFormat="{}{0}" Converter="{converter:DateOnCategoryToTime}">
+													<Binding/>
+													<Binding ElementName="DateRoot" Path="DataContext"/>
+												</MultiBinding>
+											</TextBlock.Text>
+											<TextBlock.LayoutTransform>
+												<RotateTransform>
+													<RotateTransform.Angle>
+														90
+													</RotateTransform.Angle>
+												</RotateTransform>
+											</TextBlock.LayoutTransform>
+										</TextBlock>
+									</Border>
+									
 								</DataTemplate>
 							</ItemsControl.ItemTemplate>
 							<!-- A DockPanel as the Panel to Dock all Columns next to each other -->
 							<ItemsControl.ItemsPanel>
 								<ItemsPanelTemplate>
-									<DockPanel LastChildFill="False"/>
+									<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"/>
 								</ItemsPanelTemplate>
 							</ItemsControl.ItemsPanel>
 						</ItemsControl>

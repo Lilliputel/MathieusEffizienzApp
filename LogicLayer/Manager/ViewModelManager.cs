@@ -1,8 +1,7 @@
 ﻿using LogicLayer.Extensions;
 using LogicLayer.ViewModels;
 using LogicLayer.Views;
-using ModelLayer.Classes;
-
+using System.Linq;
 
 namespace LogicLayer.Manager {
 
@@ -43,7 +42,7 @@ namespace LogicLayer.Manager {
 			Settings = new SettingsViewModel();
 
 #warning for debugging purpose a new goal gets added
-			Pomodoro = new PomodoroViewModel(new Goal());
+			Pomodoro = new PomodoroViewModel(ObjectManager.CategoryList.First().Children.First());
 			NewCategory = new NewCategoryViewModel();
 			NewGoal = new NewGoalViewModel();
 			NewDayTime = new NewDayTimeViewModel();
