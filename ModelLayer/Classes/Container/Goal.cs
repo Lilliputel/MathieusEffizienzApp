@@ -37,7 +37,7 @@ namespace ModelLayer.Classes {
 		public ObservableCollection<Goal> Children { get; set; }
 		[XmlIgnore]
 		public bool IsParent
-			=> Children is { } && Children.Count > 0;
+			=> this.Children is { } && Children.Count > 0;
 
 		// IColorfull
 		[XmlAttribute(nameof(Color))]
@@ -169,12 +169,13 @@ namespace ModelLayer.Classes {
 
 			if( this.IsParent is true )
 				foreach( var child in this.Children )
-					placeholder += GetTotalTimeOnDate(_Date);
+					placeholder += child.GetTotalTimeOnDate(_Date);
 
 			placeholder += GetTimeOnDate(_Date);
 
 			return placeholder;
 		}
+
 		#endregion
 
 	}

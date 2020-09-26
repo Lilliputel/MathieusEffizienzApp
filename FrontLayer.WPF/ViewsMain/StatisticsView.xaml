@@ -6,78 +6,160 @@
 			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
+			 
 			 DataContext="{x:Static manager:ViewModelManager.Statistics}"
 			 x:Name="ControlRoot">
 
-	<!-- ItemsControl To Iterate over each Date, which gets used in the Goals-->
-	<ItemsControl ItemsSource="{Binding Dates}" >
+	<ItemsControl ItemsSource="{Binding Dates}"  
+				  x:Name="DatesControl">
 		<ItemsControl.ItemTemplate>
-			<DataTemplate>
-				
-				<Grid x:Name="DateRoot">
+			<DataTemplate DataType="{x:Type system:DateTime}">
+
+				<Grid x:Name="DateRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<Grid.RowDefinitions>
-						<RowDefinition Height="*" x:Name="ColumnHeight"/>
-						<RowDefinition Height="Auto"/>
+						<RowDefinition x:Name="ColumnHeight">
+							<RowDefinition.Height>
+								<MultiBinding Converter="{converter:DoublesToGridLenght}">
+									<Binding ElementName="ControlRoot" Path="ActualHeight"/>
+									<Binding ElementName="DateHeight" Path="Height"/>
+								</MultiBinding>
+							</RowDefinition.Height>
+						</RowDefinition>
+						<RowDefinition Height="30" x:Name="DateHeight"/>
 					</Grid.RowDefinitions>
 
 					<TextBlock Text="{Binding StringFormat={}{0:dd.MM.yy}}" Grid.Row="1"/>
-					
-					<GroupBox Grid.Row="0">
-						<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.Categories}">
-							<ItemsControl.ItemTemplate>
-								<DataTemplate DataType="{x:Type classes:Category}">
-									<Border Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"
+
+					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.Categories}">
+
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type classes:Category}">
+								<Border Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"
 											Padding="2,0" Margin="3,0"
 											BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
-											Style="{StaticResource BorderRounded}">
-										<Border.Height>
-											<MultiBinding Converter="{converter:DateOnCategoryToHeight}">
-												
+											Style="{StaticResource BorderRounded}"
+										VerticalAlignment="Bottom">
+									<Border.Height>
+										<MultiBinding Converter="{converter:DateOnCategoryToHeight}">
+
+											<Binding/>
+											<Binding ElementName="DateRoot" Path="DataContext"/>
+
+											<Binding ElementName="ControlRoot" Path="DataContext.MaximalWorkedTime"/>
+
+											<Binding ElementName="ColumnHeight" Path="Height"/>
+
+										</MultiBinding>
+									</Border.Height>
+									<TextBlock VerticalAlignment="Bottom">
+										<TextBlock.Text>
+											<MultiBinding StringFormat="{}{0}" Converter="{converter:DateOnCategoryToTime}">
 												<Binding/>
 												<Binding ElementName="DateRoot" Path="DataContext"/>
-
-												<Binding ElementName="ColumnHeight" Path="ActualHeight"/>
-												
 											</MultiBinding>
-										</Border.Height>
-										<TextBlock VerticalAlignment="Bottom">
-											<TextBlock.Text>
-												<MultiBinding StringFormat="{}{0}" Converter="{converter:DateOnCategoryToTime}">
-													<Binding/>
-													<Binding ElementName="DateRoot" Path="DataContext"/>
-												</MultiBinding>
-											</TextBlock.Text>
-											<TextBlock.LayoutTransform>
-												<RotateTransform>
-													<RotateTransform.Angle>
-														90
-													</RotateTransform.Angle>
-												</RotateTransform>
-											</TextBlock.LayoutTransform>
-										</TextBlock>
-									</Border>
-									
-								</DataTemplate>
-							</ItemsControl.ItemTemplate>
-							<!-- A DockPanel as the Panel to Dock all Columns next to each other -->
-							<ItemsControl.ItemsPanel>
-								<ItemsPanelTemplate>
-									<StackPanel Orientation="Horizontal" VerticalAlignment="Bottom"/>
-								</ItemsPanelTemplate>
-							</ItemsControl.ItemsPanel>
-						</ItemsControl>
-					</GroupBox>
+										</TextBlock.Text>
+										<TextBlock.LayoutTransform>
+											<RotateTransform>
+												<RotateTransform.Angle>
+													90
+												</RotateTransform.Angle>
+											</RotateTransform>
+										</TextBlock.LayoutTransform>
+									</TextBlock>
+								</Border>
+
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+					</ItemsControl>
+
 				</Grid>
-				
+
 			</DataTemplate>
 		</ItemsControl.ItemTemplate>
-		<!-- A DockPanel as the Panel to Dock all Date-Groups next to each other -->
 		<ItemsControl.ItemsPanel>
 			<ItemsPanelTemplate>
-				<DockPanel LastChildFill="False"/>
+				<StackPanel Orientation="Horizontal"/>
 			</ItemsPanelTemplate>
 		</ItemsControl.ItemsPanel>
 	</ItemsControl>
-	
+
+	<!-- 
+	<Grid DataContext="{Binding TestCategory}">
+		<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}"
+					  Background="Transparent"
+					  x:Name="ProjektRoot">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate DataType="{x:Type classes:Goal}">
+
+					<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}" Background="Transparent"
+								  x:Name="TimeLine">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="{x:Type classes:Goal}">
+
+								<Grid Height="20" Margin="2"  Background="Transparent">
+									<Grid.ColumnDefinitions>
+
+										<ColumnDefinition Width="120" x:Name="TimeLineOffset"/>
+
+										<ColumnDefinition x:Name="TimeLineWidth">
+											<ColumnDefinition.Width>
+												<MultiBinding Converter="{converter:DoublesToGridLenght}">
+													<Binding ElementName="ControlRoot" Path="ActualWidth"/>
+													<Binding ElementName="TimeLineOffset" Path="Width"/>
+												</MultiBinding>
+											</ColumnDefinition.Width>
+										</ColumnDefinition>
+									</Grid.ColumnDefinitions>
+
+									<TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Title}" />
+
+									<Border Grid.Column="1" Style="{StaticResource BorderRounded}" VerticalAlignment="Stretch" HorizontalAlignment="Left" Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={converter:DrawingColorToSolidBrush}}">
+
+										<Border.Margin>
+											<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
+												<Binding ElementName="TimeLine" 
+														 Path="DataContext.Plan.Start"/>
+												<Binding ElementName="TimeLine"
+														 Path="DataContext.Plan.End"/>
+
+												<Binding Path="Plan.Start"/>
+
+												<Binding ElementName="TimeLineWidth"
+														 Path="Width"/>
+											</MultiBinding>
+										</Border.Margin>
+
+										<Border.Width>
+											<MultiBinding Converter="{converter:DateTimesToWidth}">
+												<Binding ElementName="TimeLine" 
+														 Path="DataContext.Plan.Start"/>
+												<Binding ElementName="TimeLine" 
+														 Path="DataContext.Plan.End"/>
+
+												<Binding Path="Plan.End"/>
+
+												<Binding ElementName="TimeLineWidth"
+														 Path="Width"/>
+											</MultiBinding>
+										</Border.Width>
+
+									</Border>
+								</Grid>
+
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Grid>
+	-->
 
 </UserControl>

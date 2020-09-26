@@ -15,7 +15,7 @@ namespace FrontLayer.WPF.Converters {
 			DateTime projektEnde = (DateTime)values[1];
 			DateTime datum = (DateTime)values[2];
 			double gesamtLänge = ((GridLength)values[3]).Value;
-			double offset = ((double)values[4]);
+			//double offset = ((double)values[4]);
 
 			double faktor;
 			// setzt den faktor zu einem Bruch der gesamtlänge 
@@ -31,7 +31,7 @@ namespace FrontLayer.WPF.Converters {
 				faktor = 0;
 			}
 
-			double position = (faktor * gesamtLänge) + offset;
+			double position = (faktor * gesamtLänge); // + offset;
 
 			return new Thickness(position, 0, 0, 0);
 

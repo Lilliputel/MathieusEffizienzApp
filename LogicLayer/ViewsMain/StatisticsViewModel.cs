@@ -10,9 +10,26 @@ namespace LogicLayer.Views {
 
 		#region fields
 
+		private TimeSpan maxTime;
+
 		#endregion
 
 		#region properties
+
+		public TimeSpan MaximalWorkedTime {
+			get {
+				if( maxTime == new TimeSpan() )
+					foreach( var date in Dates )
+						foreach( var category in Categories ) {
+							var maxCatTime = category.GetTotalTimeOnDate(date);
+							if( maxCatTime > maxTime )
+								maxTime = maxCatTime;
+						}
+
+
+				return maxTime;
+			}
+		}
 
 		public ObservableCollection<DateTime> Dates {
 			get {

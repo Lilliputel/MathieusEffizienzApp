@@ -5,26 +5,27 @@
 			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}">
+			 
+			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}"
+			 x:Name="ControlRoot">
+
+	<UserControl.Resources>
+		<!--#region Template für Tab -->
+		<DataTemplate DataType="{x:Type classes:Category}" x:Key="TabTemplate">
+			<!-- Setzt ein Kreis und den Titel als TextBlock -->
+			<StackPanel Orientation="Horizontal" Background="Transparent">
+				<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}" 
+							 Margin="0,0,5,0" Width="8" Height="8" 
+							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
+				<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
+			</StackPanel>
+		</DataTemplate>
+		<!--#endregion-->
+	</UserControl.Resources>
 
 		<!-- TabControl mit den Kategorien als Tab -->
 	<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
-					MinWidth="700"
-					x:Name="ControlRoot">
-
-		<!--#region Template für Tab -->
-		<TabControl.ItemTemplate>
-			<DataTemplate DataType="{x:Type classes:Category}">
-				<!-- Setzt ein Kreis und den Titel als TextBlock -->
-				<StackPanel Orientation="Horizontal" Background="Transparent">
-					<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}" 
-							 Margin="0,0,5,0" Width="8" Height="8" 
-							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-					<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
-				</StackPanel>
-			</DataTemplate>
-		</TabControl.ItemTemplate>
-		<!--#endregion-->
+				MinWidth="700" ItemTemplate="{StaticResource TabTemplate}">
 
 		<TabControl.ContentTemplate>
 
@@ -37,6 +38,7 @@
 								  x:Name="ProjektRoot">
 					<ItemsControl.ItemTemplate>
 						<DataTemplate DataType="{x:Type classes:Goal}">
+							
 							<Expander Background="Transparent">
 								<!-- Template für Expander -->
 								<Expander.Header>
@@ -59,8 +61,9 @@
 														  Margin="2"
 														  Background="Transparent">
 													<Grid.ColumnDefinitions>
-														<ColumnDefinition Width="120"
-																		  x:Name="TimeLineOffset"/>
+														
+														<ColumnDefinition Width="120" x:Name="TimeLineOffset"/>
+
 														<ColumnDefinition x:Name="TimeLineWidth">
 															<ColumnDefinition.Width>
 																<MultiBinding Converter="{converter:DoublesToGridLenght}">
@@ -80,7 +83,7 @@
 
 													<!-- Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen -->
 													<Border Grid.Column="1" 
-															CornerRadius="5" 
+															Style="{StaticResource BorderRounded}"
 															VerticalAlignment="Stretch"
 															HorizontalAlignment="Left"
 															Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={converter:DrawingColorToSolidBrush}}">
@@ -97,8 +100,6 @@
 
 																<Binding ElementName="TimeLineWidth"
 																		 Path="Width"/>
-																<Binding ElementName="TimeLineOffset"
-																		 Path="ActualWidth"/>
 															</MultiBinding>
 														</Border.Margin>
 
@@ -114,8 +115,6 @@
 
 																<Binding ElementName="TimeLineWidth"
 																			 Path="Width"/>
-																<Binding ElementName="TimeLineOffset"
-																			 Path="ActualWidth"/>
 															</MultiBinding>
 														</Border.Width>
 
