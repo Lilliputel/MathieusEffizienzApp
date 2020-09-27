@@ -11,8 +11,6 @@ namespace FrontLayer.WPF.Converters {
 	[ValueConversion(typeof(object[]), typeof(double))]
 	public class DateOnCategoryToHeight : MarkedupMultiValueConverter<DateOnCategoryToHeight> {
 
-#warning somehow i have to get the totalheight
-
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 			var category = (Category)values[0];
 			var date = (DateTime)values[1];

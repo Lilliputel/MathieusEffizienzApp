@@ -10,8 +10,7 @@
 			 DataContext="{x:Static manager:ViewModelManager.Statistics}"
 			 x:Name="ControlRoot">
 
-	<ItemsControl ItemsSource="{Binding Dates}"  
-				  x:Name="DatesControl">
+	<ItemsControl ItemsSource="{Binding Dates}">
 		<ItemsControl.ItemTemplate>
 			<DataTemplate DataType="{x:Type system:DateTime}">
 
@@ -53,17 +52,13 @@
 									</Border.Height>
 									<TextBlock VerticalAlignment="Bottom">
 										<TextBlock.Text>
-											<MultiBinding StringFormat="{}{0}" Converter="{converter:DateOnCategoryToTime}">
+											<MultiBinding StringFormat="{}{0:hh\:mm}" Converter="{converter:DateOnCategoryToTime}">
 												<Binding/>
 												<Binding ElementName="DateRoot" Path="DataContext"/>
 											</MultiBinding>
 										</TextBlock.Text>
 										<TextBlock.LayoutTransform>
-											<RotateTransform>
-												<RotateTransform.Angle>
-													90
-												</RotateTransform.Angle>
-											</RotateTransform>
+											<RotateTransform Angle="270"/>
 										</TextBlock.LayoutTransform>
 									</TextBlock>
 								</Border>
@@ -88,78 +83,5 @@
 			</ItemsPanelTemplate>
 		</ItemsControl.ItemsPanel>
 	</ItemsControl>
-
-	<!-- 
-	<Grid DataContext="{Binding TestCategory}">
-		<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}"
-					  Background="Transparent"
-					  x:Name="ProjektRoot">
-			<ItemsControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type classes:Goal}">
-
-					<ItemsControl ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}" Background="Transparent"
-								  x:Name="TimeLine">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate DataType="{x:Type classes:Goal}">
-
-								<Grid Height="20" Margin="2"  Background="Transparent">
-									<Grid.ColumnDefinitions>
-
-										<ColumnDefinition Width="120" x:Name="TimeLineOffset"/>
-
-										<ColumnDefinition x:Name="TimeLineWidth">
-											<ColumnDefinition.Width>
-												<MultiBinding Converter="{converter:DoublesToGridLenght}">
-													<Binding ElementName="ControlRoot" Path="ActualWidth"/>
-													<Binding ElementName="TimeLineOffset" Path="Width"/>
-												</MultiBinding>
-											</ColumnDefinition.Width>
-										</ColumnDefinition>
-									</Grid.ColumnDefinitions>
-
-									<TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Title}" />
-
-									<Border Grid.Column="1" Style="{StaticResource BorderRounded}" VerticalAlignment="Stretch" HorizontalAlignment="Left" Background="{Binding ElementName=ProjektRoot, Path=DataContext.Color, Converter={converter:DrawingColorToSolidBrush}}">
-
-										<Border.Margin>
-											<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
-												<Binding ElementName="TimeLine" 
-														 Path="DataContext.Plan.Start"/>
-												<Binding ElementName="TimeLine"
-														 Path="DataContext.Plan.End"/>
-
-												<Binding Path="Plan.Start"/>
-
-												<Binding ElementName="TimeLineWidth"
-														 Path="Width"/>
-											</MultiBinding>
-										</Border.Margin>
-
-										<Border.Width>
-											<MultiBinding Converter="{converter:DateTimesToWidth}">
-												<Binding ElementName="TimeLine" 
-														 Path="DataContext.Plan.Start"/>
-												<Binding ElementName="TimeLine" 
-														 Path="DataContext.Plan.End"/>
-
-												<Binding Path="Plan.End"/>
-
-												<Binding ElementName="TimeLineWidth"
-														 Path="Width"/>
-											</MultiBinding>
-										</Border.Width>
-
-									</Border>
-								</Grid>
-
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-					</ItemsControl>
-
-				</DataTemplate>
-			</ItemsControl.ItemTemplate>
-		</ItemsControl>
-	</Grid>
-	-->
 
 </UserControl>
