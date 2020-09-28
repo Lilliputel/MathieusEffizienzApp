@@ -5,6 +5,8 @@ using System.Windows.Input;
 namespace LogicLayer.Views {
 	public class DayPlanViewModel : ViewModelBase {
 
+#warning no half hours can be set
+
 		#region fields
 
 		private ICommand? _LeftMouseDownCommand;

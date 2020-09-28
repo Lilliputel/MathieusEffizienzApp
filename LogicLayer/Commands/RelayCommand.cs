@@ -25,7 +25,6 @@ namespace LogicLayer.Commands {
 		public RelayCommand( Action<object> execute, Predicate<object>? canExecute = null ) {
 			if( execute is null )
 				throw new NullReferenceException("execute");
-
 			_Execute = execute;
 			_CanExecute = canExecute;
 		}
@@ -34,8 +33,11 @@ namespace LogicLayer.Commands {
 
 		#region Methods
 
-		public bool CanExecute( object parameter ) => _CanExecute is null || _CanExecute(parameter);
-		public void Execute( object parameter ) => _Execute.Invoke(parameter);
+		public bool CanExecute( object parameter )
+			=> _CanExecute is null || _CanExecute(parameter);
+
+		public void Execute( object parameter )
+			=> _Execute.Invoke(parameter);
 
 		#endregion
 

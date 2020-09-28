@@ -19,6 +19,8 @@ namespace FrontLayer.WPF.Components {
 			double y = e.GetPosition((IInputElement)sender).Y;
 			DayOfWeek day = Enum.Parse<DayOfWeek>((sender as FrameworkElement)!.Tag.ToString()!);
 
+#warning I should define the new ViewModel via the event not directly setting it here
+
 			if( e.OriginalSource is Border border ) {
 				Debug.WriteLine("The origin is the Border!");
 				if( border.DataContext is PlanItem planItem ) {
@@ -30,7 +32,7 @@ namespace FrontLayer.WPF.Components {
 					viewModel.StartTime = timespans.Start;
 					viewModel.EndTime = timespans.End;
 					viewModel.SelectedCategory = ObjectManager.GetCategory(planItem.ID);
-					viewModel.Overlapping = null;
+					viewModel.Warning = null;
 					ViewModelManager.OnEssentialViewModelChanged(viewModel, planItem);
 				}
 			}

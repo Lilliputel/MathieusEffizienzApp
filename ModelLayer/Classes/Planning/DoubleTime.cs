@@ -84,7 +84,7 @@ namespace ModelLayer.Planning {
 		}
 
 		public override string ToString()
-			=> $"{Math.Floor(Start)}:{getMinutes(Start)} - {Math.Floor(End)}:{getMinutes(End)}";
+			=> $"{new TimeSpan((int)Math.Floor(Start), (int)getMinutes(Start), 0).ToString(@"hh\:mm")} - {new TimeSpan((int)Math.Floor(End), (int)getMinutes(End), 0).ToString(@"hh\:mm")}";
 
 		#endregion
 	}

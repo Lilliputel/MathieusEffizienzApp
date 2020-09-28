@@ -27,12 +27,20 @@ namespace LogicLayer.Views {
 		public TimeSpan StartTime { get; set; }
 		public TimeSpan EndTime { get; set; }
 
-		public DoubleTime? Overlapping { get; set; }
+		public string? Warning { get; set; }
 
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
-			 new AsyncRelayCommand(GetIfPossible, ( ex ) => {
-				 AlertManager.InputInkorrekt(ex.Message);
-			 });
+			 new RelayCommandAsync(
+				 () => AddToWeekPlan(),
+				 ( obj ) =>
+					 SelectedCategory is Category && StartTime != EndTime
+				 ,
+				 ( ex ) => {
+					 if( ex is ArgumentException )
+						 this.Warning = $"{ex.Message}";
+					 else
+						 AlertManager.InputInkorrekt(ex.Message);
+				 });
 
 		#endregion
 
@@ -42,11 +50,8 @@ namespace LogicLayer.Views {
 
 		#region methods
 
-#warning System.AggregateException thrown
-
-		private async Task GetIfPossible() {
-			await Task.Run(() => Overlapping = ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DoubleTime(StartTime, EndTime), SelectedCategory!.ID, SelectedCategory.Color, SelectedCategory.Title)).Result);
-		}
+		private Task AddToWeekPlan()
+			=> ObjectManager.WeekPlan.AddItemToDayAsync(this.DayOfWeek, new PlanItem(new DoubleTime(this.StartTime, this.EndTime), this.SelectedCategory!.ID, this.SelectedCategory.Color, this.SelectedCategory.Title));
 
 		#endregion
 

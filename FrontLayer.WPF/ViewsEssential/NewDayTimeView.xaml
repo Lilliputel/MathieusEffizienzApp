@@ -37,11 +37,11 @@
 
 		<!-- Gruppe StartDatum DatePicker -->
 		<TextBlock Text="Startzeit:"/>
-		<TextBox x:Name="TimePicker_StartTime" Text="{Binding StartTime, Mode=TwoWay}"/>
+		<TextBox x:Name="TimePicker_StartTime" Text="{Binding Path=StartTime, StringFormat={}{0:hh\\:mm}, Mode=TwoWay}"/>
 		
 		<!-- Gruppe EndDatum DatePicker -->
 		<TextBlock Text="Endzeit:"/>
-		<TextBox x:Name="TimePicker_EndTime" Text="{Binding EndTime, Mode=TwoWay}"/>
+		<TextBox x:Name="TimePicker_EndTime" Text="{Binding Path=EndTime, StringFormat={}{0:hh\\:mm}, Mode=TwoWay}"/>
 
 		<!-- Gruppe Speichern Button -->
 		<Button Command="{Binding SaveGoalCommand}"
@@ -57,7 +57,7 @@
 		</Button>
 
 		<!-- Gruppe StartDatum DatePicker -->
-		<TextBlock x:Name="TextBlock_Warning" Text="{Binding Overlapping, Converter={converter:NullOrDayTimeToString}}" Foreground="{DynamicResource ForeHigh_1}"/>
+		<TextBlock x:Name="TextBlock_Warning" Text="{Binding Warning}" Foreground="{DynamicResource ForeHigh_1}"/>
 
 	</StackPanel>
 

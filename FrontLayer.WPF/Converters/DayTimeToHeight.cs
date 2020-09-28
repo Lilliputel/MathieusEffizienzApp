@@ -10,6 +10,7 @@ namespace FrontLayer.WPF.Converters {
 	[ValueConversion(typeof(object[]), typeof(double))]
 	public class DayTimeToHeight : MarkedupMultiValueConverter<DayTimeToHeight> {
 
+#warning sometimes Time is an Unset value ?!
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input

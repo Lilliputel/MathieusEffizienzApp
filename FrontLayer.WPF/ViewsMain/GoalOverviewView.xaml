@@ -31,24 +31,19 @@
 					</Grid.RowDefinitions>
 
 					<TextBlock Text="Fälllig am:" HorizontalAlignment="Left"
-								   Grid.Row="0" Grid.Column="0"/>
+							   Grid.Row="0" Grid.Column="0"/>
 					<TextBlock Text="{Binding Plan.End, StringFormat={}{0:dd.MM.yyyy}}" 
-								   FontWeight="Bold"
-								   HorizontalAlignment="Right"
-								   Grid.Row="0" Grid.Column="1"/>
+							   FontWeight="Bold"
+							   HorizontalAlignment="Right"
+							   Grid.Row="0" Grid.Column="1"/>
 
 					<TextBlock Text="Gesamte Zeit:"
-								   HorizontalAlignment="Left"
-								   Grid.Row="1" Grid.Column="0"/>
+							   HorizontalAlignment="Left"
+							   Grid.Row="1" Grid.Column="0"/>
 					<TextBlock FontWeight="Bold"
-								   HorizontalAlignment="Right" 
-								   Grid.Row="1" Grid.Column="1">
-						<TextBlock.Text>
-							<MultiBinding StringFormat="{}{0:00}:{1:00;00}" Mode="OneWay">
-								<Binding Path="Time.Hours" />
-								<Binding Path="Time.Minutes" />
-							</MultiBinding>
-						</TextBlock.Text>
+							   HorizontalAlignment="Right" 
+							   Grid.Row="1" Grid.Column="1"
+							   Text="{Binding Path=Time, StringFormat={}{0:hh\\:mm}}">
 					</TextBlock>
 
 				</Grid>
