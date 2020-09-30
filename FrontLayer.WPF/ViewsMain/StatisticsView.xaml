@@ -14,7 +14,7 @@
 		<ItemsControl.ItemTemplate>
 			<DataTemplate DataType="{x:Type system:DateTime}">
 
-				<Grid x:Name="DateRoot" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+				<Grid x:Name="DateRoot" Margin="5,0">
 					<Grid.RowDefinitions>
 						<RowDefinition x:Name="ColumnHeight">
 							<RowDefinition.Height>
@@ -27,30 +27,26 @@
 						<RowDefinition Height="30" x:Name="DateHeight"/>
 					</Grid.RowDefinitions>
 
-					<TextBlock Text="{Binding StringFormat={}{0:dd.MM.yy}}" Grid.Row="1"/>
+					<TextBlock Text="{Binding StringFormat={}{0:dd.MM.yy}}" Grid.Row="1" HorizontalAlignment="Center"/>
 
-					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.Categories}">
+					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.Categories}" HorizontalAlignment="Center">
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate DataType="{x:Type classes:Category}">
 								<Border Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"
-										Padding="2,0" Margin="3,0"
-										BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
 										Style="{StaticResource BorderRounded}"
-										VerticalAlignment="Bottom">
+										BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
+										Padding="2,0" Margin="3,0" VerticalAlignment="Bottom"
+										x:Name="Balken">
 									<Border.Height>
 										<MultiBinding Converter="{converter:DateOnCategoryToHeight}">
-
 											<Binding/>
 											<Binding ElementName="DateRoot" Path="DataContext"/>
-
 											<Binding ElementName="ControlRoot" Path="DataContext.MaximalWorkedTime"/>
-
 											<Binding ElementName="ColumnHeight" Path="Height" Converter="{converter:GridLengthToDouble}"/>
-
 										</MultiBinding>
 									</Border.Height>
-									<TextBlock VerticalAlignment="Bottom">
+									<TextBlock VerticalAlignment="Bottom" x:Name="test">
 										<TextBlock.Text>
 											<MultiBinding StringFormat="{}{0:hh\:mm}" Converter="{converter:DateOnCategoryToTime}">
 												<Binding/>
@@ -62,7 +58,11 @@
 										</TextBlock.LayoutTransform>
 									</TextBlock>
 								</Border>
-
+								<DataTemplate.Triggers>
+									<DataTrigger Binding="{Binding ElementName=Balken, Path=Height}" Value="0">
+										<Setter TargetName="Balken" Property="Visibility" Value="Collapsed"/>
+									</DataTrigger>
+								</DataTemplate.Triggers>
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 
