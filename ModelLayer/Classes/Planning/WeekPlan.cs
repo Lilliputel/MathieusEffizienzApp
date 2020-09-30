@@ -1,5 +1,6 @@
 ﻿using ModelLayer.Utility;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -23,6 +24,9 @@ namespace ModelLayer.Planning {
 		[XmlElement(nameof(Sunday))]
 		public DayPlan Sunday { get; set; }
 
+		[XmlIgnore]
+		public ObservableCollection<TimeSpan> HoursOfDay { get; private set; }
+
 		#endregion
 
 		#region constructor
@@ -35,6 +39,11 @@ namespace ModelLayer.Planning {
 			this.Friday = new DayPlan();
 			this.Saturday = new DayPlan();
 			this.Sunday = new DayPlan();
+
+			this.HoursOfDay = new ObservableCollection<TimeSpan>();
+			for( int h = 0; h < 24; h++ ) {
+				this.HoursOfDay.Add(TimeSpan.FromHours(h));
+			}
 		}
 
 		#endregion

@@ -16,10 +16,7 @@ namespace FrontLayer.WPF.Converters {
 			// get all the Values from Input
 			DoubleTime time = (DoubleTime)values[0];
 			double start = time.Start;
-			double end = time.End;
 			double height = (double)values[1];
-
-			string mode = (string)parameter;
 
 			#endregion
 
@@ -31,7 +28,6 @@ namespace FrontLayer.WPF.Converters {
 			#endregion
 
 			return new Thickness(0, startFactor * height, 0, 0);
-
 
 		}
 

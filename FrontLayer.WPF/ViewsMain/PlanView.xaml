@@ -7,9 +7,9 @@
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Plan}">
 	
-	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top">
+	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
 		<components:WeekPlanView WeekPlan="{Binding WeekPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" 
-								 Height="400" Width="490"/>
+								 Height="500" Width="Auto"/>
 	</ScrollViewer>
 
 </UserControl>

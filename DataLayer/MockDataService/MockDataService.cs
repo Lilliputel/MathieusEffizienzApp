@@ -17,7 +17,7 @@ namespace DataLayer.MockDataService {
 				Random randomGen = new Random();
 				Color randomColor =
 					Color.FromArgb(
-					(byte)randomGen.Next(255),
+					(byte)255,
 					(byte)randomGen.Next(255),
 					(byte)randomGen.Next(255),
 					(byte)randomGen.Next(255));

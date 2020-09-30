@@ -9,15 +9,32 @@ using System.Windows.Input;
 
 namespace FrontLayer.WPF.Components {
 
-	public partial class DayPlanView : HeaderedItemsControl {
+	public partial class DayPlanView : ItemsControl {
+
+		#region properties
+
+		public DayOfWeek Day {
+			get { return (DayOfWeek)GetValue(DayProperty); }
+			set { SetValue(DayProperty, value); }
+		}
+
+		public static readonly DependencyProperty DayProperty =
+			DependencyProperty.Register("Day", typeof(DayOfWeek), typeof(DayPlanView), new PropertyMetadata(DayOfWeek.Saturday));
+
+		#endregion
+
+		#region constructor
 
 		public DayPlanView() {
 			InitializeComponent();
 		}
 
+		#endregion
+
+		#region Event-Handlers
+
 		private new void MouseLeftButtonDown( object sender, MouseButtonEventArgs e ) {
 			double y = e.GetPosition((IInputElement)sender).Y;
-			DayOfWeek day = Enum.Parse<DayOfWeek>((sender as FrameworkElement)!.Tag.ToString()!);
 
 #warning I should define the new ViewModel via the event not directly setting it here
 
@@ -27,7 +44,7 @@ namespace FrontLayer.WPF.Components {
 					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.Title ?? "Unknown Category"}");
 					NewDayTimeViewModel viewModel = ViewModelManager.NewDayTime;
 					//NewDayTimeViewModel viewModel = new NewDayTimeViewModel();
-					viewModel.DayOfWeek = day;
+					viewModel.DayOfWeek = Day;
 					var timespans = planItem.Time.GetTimeSpans();
 					viewModel.StartTime = timespans.Start;
 					viewModel.EndTime = timespans.End;
@@ -52,5 +69,6 @@ namespace FrontLayer.WPF.Components {
 
 		}
 
+		#endregion
 	}
 }

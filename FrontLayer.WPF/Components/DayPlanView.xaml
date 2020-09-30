@@ -1,40 +1,16 @@
-﻿<HeaderedItemsControl x:Class="FrontLayer.WPF.Components.DayPlanView"
-					  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+﻿<ItemsControl x:Class="FrontLayer.WPF.Components.DayPlanView"
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  
+			  xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
+			  xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+
+			  ItemsSource="{Binding BindsDirectlyToSource=True}"
+			  HorizontalAlignment="Left" VerticalAlignment="Top"
+			  x:Name="ControlRoot" MinWidth="70"
 					  
-					  xmlns:Planing="clr-namespace:ModelLayer.Planning;assembly=ModelLayer"
-					  xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
-					  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-					  
-					  Background="{x:Null}"
-					  ItemsSource="{Binding BindsDirectlyToSource=True}"
-					  HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"
-					  VerticalContentAlignment="Stretch" VerticalAlignment="Top"
-					  x:Name="Root" MinWidth="70">
-
-	<!-- Überschreibt den Header, um die Höhe Binden zu können -->
-	<HeaderedItemsControl.Template>
-		<ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-			
-			<!-- Grid which defines the Layout and handles the Events -->
-			<Grid Background="Transparent" Tag="{Binding ElementName=Root, Path=Tag}"
-				  MouseLeftButtonDown="MouseLeftButtonDown"
-				  MouseMove="MouseMove"
-				  MouseLeftButtonUp="MouseLeftButtonUp">
-
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<!-- Row Definition, which defines the actual height -->
-					<RowDefinition Height="*" x:Name="ContentHolder"/>
-				</Grid.RowDefinitions>
-				
-				<!-- HeaderPresenter -->
-				<ContentPresenter Grid.Row="0" Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" ContentStringFormat="{TemplateBinding HeaderStringFormat}"/>
-				<ItemsPresenter Grid.Row="1"/>
-			</Grid>
-
-		</ControlTemplate>
-	</HeaderedItemsControl.Template>
+			  Background="Transparent">
 
 	<!-- Setzt ein Grid als Panel, damit alle denselben startpunkt haben. -->
 	<ItemsControl.ItemsPanel>
@@ -58,8 +34,8 @@
 					<MultiBinding Converter="{converter:DayTimeToTopMargin }">
 						<Binding Path="Time"/>
 
-						<Binding ElementName="ContentHolder"
-								 Path="ActualHeight" Mode="OneTime"/>
+						<Binding ElementName="ControlRoot"
+								 Path="ActualHeight"/>
 					</MultiBinding>
 				</Border.Margin>
 
@@ -68,8 +44,8 @@
 					<MultiBinding Converter="{converter:DayTimeToHeight}">
 						<Binding Path="Time"/>
 
-						<Binding ElementName="ContentHolder"
-								 Path="ActualHeight" Mode="OneTime" />
+						<Binding ElementName="ControlRoot"
+								 Path="ActualHeight"/>
 					</MultiBinding>
 				</Border.Height>
 
@@ -79,4 +55,4 @@
 		</DataTemplate>
 	</ItemsControl.ItemTemplate>
 
-</HeaderedItemsControl>
+</ItemsControl>

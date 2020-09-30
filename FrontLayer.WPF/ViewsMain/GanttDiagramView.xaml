@@ -92,9 +92,9 @@
 														<Border.Margin>
 															<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
 																<Binding ElementName="TimeLine" 
-																			 Path="DataContext.Plan.Start"/>
+																		 Path="DataContext.Plan.Start"/>
 																<Binding ElementName="TimeLine"
-																			 Path="DataContext.Plan.End"/>
+																		 Path="DataContext.Plan.End"/>
 
 																<Binding Path="Plan.Start"/>
 
@@ -114,7 +114,7 @@
 																<Binding Path="Plan.End"/>
 
 																<Binding ElementName="TimeLineWidth"
-																			 Path="Width"/>
+																		 Path="Width"/>
 															</MultiBinding>
 														</Border.Width>
 

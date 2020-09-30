@@ -34,9 +34,9 @@
 						<ItemsControl.ItemTemplate>
 							<DataTemplate DataType="{x:Type classes:Category}">
 								<Border Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"
-											Padding="2,0" Margin="3,0"
-											BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
-											Style="{StaticResource BorderRounded}"
+										Padding="2,0" Margin="3,0"
+										BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
+										Style="{StaticResource BorderRounded}"
 										VerticalAlignment="Bottom">
 									<Border.Height>
 										<MultiBinding Converter="{converter:DateOnCategoryToHeight}">
@@ -46,7 +46,7 @@
 
 											<Binding ElementName="ControlRoot" Path="DataContext.MaximalWorkedTime"/>
 
-											<Binding ElementName="ColumnHeight" Path="Height"/>
+											<Binding ElementName="ColumnHeight" Path="Height" Converter="{converter:GridLengthToDouble}"/>
 
 										</MultiBinding>
 									</Border.Height>

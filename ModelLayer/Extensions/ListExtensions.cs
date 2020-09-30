@@ -5,7 +5,7 @@ namespace ModelLayer.Extensions {
 	public static class ListExtensions {
 
 		public static ICollection<T> AddUnique<T>( this ICollection<T> extension, T Item ) {
-			if( extension.Contains(Item) == false )
+			if( extension.Contains(Item) is false )
 				extension.Add(Item);
 			return extension;
 		}

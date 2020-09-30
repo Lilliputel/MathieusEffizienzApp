@@ -15,8 +15,7 @@ namespace FrontLayer.WPF.Converters {
 			var category = (Category)values[0];
 			var date = (DateTime)values[1];
 			var maxTime = (TimeSpan)values[2];
-
-			var totalHeight = 350;//((GridLength)values[2]).Value - 30;
+			var totalHeight = (double)values[3];
 
 			var workedTime = category.GetTimeOnDate(date);
 
