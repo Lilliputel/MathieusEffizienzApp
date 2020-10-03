@@ -36,8 +36,7 @@
 		<Button x:Name="Button_CreateObjects"
 				Command="{Binding CommandCreateObjects}">
 			<Button.Content>
-				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" 
-										 Style="{StaticResource IconAufgabe1}"/>
+				<UserControls:VectorIcon Foreground="{DynamicResource Foreground}" Style="{StaticResource IconAufgabe1}"/>
 			</Button.Content>
 		</Button>
 

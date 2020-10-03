@@ -30,17 +30,8 @@
 		<UserControls:NavBar Grid.Column="0" Grid.Row="1"/>
 
 		<!-- Hauptansicht -->
-		<ContentControl Grid.Column="1" Grid.Row="1"
+		<ContentControl Template="{DynamicResource ContentControlTemplate1}" Grid.Column="1" Grid.Row="1"
 						Margin="5" Width="860" Height="390">
-			<ContentControl.Template>
-				<!-- Background -->
-				<ControlTemplate>
-					<Border Background="{DynamicResource Back_1}"
-							Style="{StaticResource BorderRounded}">
-						<ContentPresenter Content="{Binding SelectedVMMain}"/>
-					</Border>
-				</ControlTemplate>
-			</ContentControl.Template>
 		</ContentControl>
 
 		<!-- Nebenansicht -->

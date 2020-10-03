@@ -43,8 +43,8 @@
 					<TextBlock FontWeight="Bold"
 							   HorizontalAlignment="Right" 
 							   Grid.Row="1" Grid.Column="1"
-							   Text="{Binding Path=Time, StringFormat={}{0:hh\\:mm}}">
-					</TextBlock>
+							   Text="{Binding Path=Time, StringFormat={}{0:hh\\:mm}}"/>
+
 
 				</Grid>
 			</Grid>
