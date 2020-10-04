@@ -7,9 +7,27 @@
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 	
-	<SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
-	<SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
-	<SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
+	<!--#region	ComboBox Style -->
+	<Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}">
+		<Setter Property="OverridesDefaultStyle" Value="true"/>
+		<Setter Property="AllowDrop" Value="true"/>
+		<Setter Property="MinWidth" Value="0"/>
+		<Setter Property="MinHeight" Value="0"/>
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type TextBox}">
+					<ScrollViewer x:Name="PART_ContentHost" Background="Transparent" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!--#endregion-->
+
+	<!--#region Standard Style -->
 	<Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
 		<Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
@@ -51,5 +69,7 @@
 			</MultiTrigger>
 		</Style.Triggers>
 	</Style>
+	
+	<!--#endregion-->
 	
 </ResourceDictionary>

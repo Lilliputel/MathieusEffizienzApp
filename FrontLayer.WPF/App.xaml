@@ -12,11 +12,9 @@
 
 				<!-- This is the Theme-Dictionary and gets set in the Codebehind -->
 				<ResourceDictionary/>
-
-				<ResourceDictionary Source="Dictionaries/DictionaryDataTemplates.xaml"/>
-				<ResourceDictionary Source="Dictionaries/DictionaryIcons.xaml"/>
-
-				<ResourceDictionary Source="Dictionaries/DictionaryBase.xaml"/>
+				
+				<!-- This ResourceDictionary contains every other ResourceDictionary for Controls -->
+				<ResourceDictionary Source="Dictionaries/MainDictionary.xaml"/>
 
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>

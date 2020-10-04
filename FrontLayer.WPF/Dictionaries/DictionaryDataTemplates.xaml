@@ -44,14 +44,4 @@
 	
 	<!--#endregion-->
 
-	<!--#region ContentTemplates -->
-
-	<DataTemplate x:Key="TextBlock_Template">
-		<TextBlock Background="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Background}"
-				   Text="{Binding}"/>
-	</DataTemplate>
-
-	<!--#endregion-->
-
-
 </ResourceDictionary>

@@ -7,6 +7,8 @@
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
+	<!--#region Standard Style -->
+	
 	<Style x:Key="ItemsControlStyle1" TargetType="{x:Type ItemsControl}">
 		<Setter Property="Template">
 			<Setter.Value>
@@ -19,4 +21,6 @@
 		</Setter>
 	</Style>
 
+	<!--#endregion-->
+	
 </ResourceDictionary>

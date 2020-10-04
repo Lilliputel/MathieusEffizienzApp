@@ -7,9 +7,6 @@
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
-
-	<!--#region Border Styles -->
-
 	<Style x:Key="BorderRounded" TargetType="{x:Type Border}" >
 		<Style.Setters>
 			<Setter Property="CornerRadius" Value="{StaticResource StandardRadius}"/>
@@ -17,7 +14,5 @@
 			<Setter Property="Padding" Value="{StaticResource StandardPadding}"/>
 		</Style.Setters>
 	</Style>
-
-	<!--#endregion-->
 
 </ResourceDictionary>

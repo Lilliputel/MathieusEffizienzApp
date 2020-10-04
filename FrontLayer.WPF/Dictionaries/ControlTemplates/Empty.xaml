@@ -7,6 +7,10 @@
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
+	<!--#region Standard Style -->
 	
 	
+	
+	<!--#endregion-->
+
 </ResourceDictionary>

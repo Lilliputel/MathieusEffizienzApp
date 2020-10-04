@@ -7,6 +7,8 @@
 		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
+	<!--#region Standard Style -->
+	
 	<Style x:Key="DatePickerStyle1" TargetType="{x:Type DatePicker}">
 		<Setter Property="Foreground" Value="#FF333333"/>
 		<Setter Property="IsTodayHighlighted" Value="True"/>
@@ -163,5 +165,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+	
+	<!--#endregion-->
 	
 </ResourceDictionary>
