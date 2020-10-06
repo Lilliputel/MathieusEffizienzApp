@@ -30,7 +30,8 @@
 		<UserControls:NavBar Grid.Column="0" Grid.Row="1"/>
 
 		<!-- Hauptansicht -->
-		<ContentControl Template="{DynamicResource ContentControlTemplate1}" Grid.Column="1" Grid.Row="1"
+		<ContentControl Grid.Column="1" Grid.Row="1"
+						Content="{Binding SelectedVMMain}"
 						Margin="5" Width="860" Height="390">
 		</ContentControl>
 

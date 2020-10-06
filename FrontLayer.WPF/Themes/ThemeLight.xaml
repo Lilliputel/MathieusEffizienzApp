@@ -3,39 +3,31 @@
 					x:Name="ThemeLight">
 
 	<!--#region Vordergründe -->
-
 	<SolidColorBrush x:Key="Foreground" Color="Black"/>
-	<Color x:Key="ForegroundColor">#000000</Color>
 	<SolidColorBrush x:Key="Fore_1" Color="DarkSlateGray"/>
 	<SolidColorBrush x:Key="Fore_2" Color="LightSlateGray"/>
 	<SolidColorBrush x:Key="Fore_3" Color="DarkGray"/>
 	<!--#endregion-->
-
 	
 	<!--#region Hintergründe -->
-
 	<SolidColorBrush x:Key="Background" Color="#f8f8fa"/>
 	<SolidColorBrush x:Key="Back_1" Color="#c0c2ce"/>
 	<SolidColorBrush x:Key="Back_2" Color="#d2d4dc"/>
 	<SolidColorBrush x:Key="Back_3" Color="#e5e6eb"/>
 	<!--#endregion-->
-
 	
 	<!--#region Highlights -->
-	
 	<SolidColorBrush x:Key="ForeHigh_1" Color="#00b126"/>
 	<SolidColorBrush x:Key="ForeHigh_2" Color="#007e1b"/>
-	
 	<SolidColorBrush x:Key="BackHigh_1" Color="#aacbff"/>
 	<SolidColorBrush x:Key="BackHigh_2" Color="#c4dbff"/>
 	<!--#endregion-->
 
 	<!--#region Selection Colors -->
-
-	<SolidColorBrush x:Key="Selected_Focused_SCB" Color="DeepSkyBlue"/>
-	<SolidColorBrush x:Key="Selected_UnFocused_SCB" Color="SkyBlue"/>
-
+	<Color x:Key="Selected_FocusedColor">DeepSkyBlue</Color>
+	<SolidColorBrush x:Key="Selected_Focused" Color="{StaticResource Selected_FocusedColor}"/>
+	<Color x:Key="Selected_UnFocusedColor">SkyBlue</Color>
+	<SolidColorBrush x:Key="Selected_UnFocused" Color="{StaticResource Selected_UnFocusedColor}"/>
 	<!--#endregion-->
-
 
 </ResourceDictionary>

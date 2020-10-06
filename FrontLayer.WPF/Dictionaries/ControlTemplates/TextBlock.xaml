@@ -4,7 +4,7 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 					mc:Ignorable="d" >
 	<ResourceDictionary.MergedDictionaries>
-		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
+		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 	
 	<!--#region TextBlock Styles -->

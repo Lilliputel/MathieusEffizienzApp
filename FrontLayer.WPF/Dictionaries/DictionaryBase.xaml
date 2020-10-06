@@ -3,31 +3,8 @@
 
 	<CornerRadius x:Key="StandardRadius" TopLeft="8" TopRight="8" BottomRight="8" BottomLeft="8"/>
 	<Thickness x:Key="StandardPadding" Left="5" Top="5" Right="5" Bottom="5"/>
-	<Color x:Key="Selected_Focused" >#87CEFA</Color>
-	<Color x:Key="Selected_UnFocused">#b8e2fc</Color>
 
-	<!--#region Button -->
-	<SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-	<SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-	<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-	<SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-	<SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-	<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-	<Style x:Key="FocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<!--#endregion-->
-	
-	<!--#region ComboBox-->
+	<!--#region FocusVisual -->
 	<Style x:Key="FocusVisual">
 		<Setter Property="Control.Template">
 			<Setter.Value>
@@ -37,42 +14,58 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	<SolidColorBrush x:Key="TextBox.Static.Background" Color="#FFFFFFFF"/>
+	<!--#endregion-->
+
+	<!--#region Button, ToggleButton-->	
+	<SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+	<SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+	<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+	<SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+	<SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+	<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+	<!--#endregion-->
+	
+	<!--#region ComboBox-->
 	<LinearGradientBrush x:Key="ComboBox.Static.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#FFF0F0F0" Offset="0.0"/>
 		<GradientStop Color="#FFE5E5E5" Offset="1.0"/>
 	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ComboBox.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
+		<GradientStop Color="#FFECF4FC" Offset="0.0"/>
+		<GradientStop Color="#FFDCECFC" Offset="1.0"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
+		<GradientStop Color="#FFEBF4FC" Offset="0.0"/>
+		<GradientStop Color="#FFDCECFC" Offset="1.0"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ComboBox.Pressed.Background" EndPoint="0,1" StartPoint="0,0">
+		<GradientStop Color="#FFDAECFC" Offset="0.0"/>
+		<GradientStop Color="#FFC4E0FC" Offset="1.0"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
+		<GradientStop Color="#FFDAEBFC" Offset="0.0"/>
+		<GradientStop Color="#FFC4E0FC" Offset="1.0"/>
+	</LinearGradientBrush>
+	
+	<SolidColorBrush x:Key="TextBox.Static.Background" Color="#FFFFFFFF"/>
 	<SolidColorBrush x:Key="ComboBox.Static.Border" Color="#FFACACAC"/>
 	<SolidColorBrush x:Key="ComboBox.Static.Glyph" Color="#FF606060"/>
 	<SolidColorBrush x:Key="ComboBox.Static.Editable.Background" Color="#FFFFFFFF"/>
 	<SolidColorBrush x:Key="ComboBox.Static.Editable.Border" Color="#FFABADB3"/>
 	<SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Background" Color="Transparent"/>
 	<SolidColorBrush x:Key="ComboBox.Static.Editable.Button.Border" Color="Transparent"/>
-	<LinearGradientBrush x:Key="ComboBox.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="#FFECF4FC" Offset="0.0"/>
-		<GradientStop Color="#FFDCECFC" Offset="1.0"/>
-	</LinearGradientBrush>
 	<SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF7EB4EA"/>
 	<SolidColorBrush x:Key="ComboBox.MouseOver.Glyph" Color="#FF000000"/>
 	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
 	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
-	<LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="#FFEBF4FC" Offset="0.0"/>
-		<GradientStop Color="#FFDCECFC" Offset="1.0"/>
-	</LinearGradientBrush>
 	<SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Button.Border" Color="#FF7EB4EA"/>
-	<LinearGradientBrush x:Key="ComboBox.Pressed.Background" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="#FFDAECFC" Offset="0.0"/>
-		<GradientStop Color="#FFC4E0FC" Offset="1.0"/>
-	</LinearGradientBrush>
 	<SolidColorBrush x:Key="ComboBox.Pressed.Border" Color="#FF569DE5"/>
 	<SolidColorBrush x:Key="ComboBox.Pressed.Glyph" Color="#FF000000"/>
 	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Background" Color="#FFFFFFFF"/>
 	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border" Color="#FF569DE5"/>
-	<LinearGradientBrush x:Key="ComboBox.Pressed.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
-		<GradientStop Color="#FFDAEBFC" Offset="0.0"/>
-		<GradientStop Color="#FFC4E0FC" Offset="1.0"/>
-	</LinearGradientBrush>
 	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border" Color="#FF569DE5"/>
 	<SolidColorBrush x:Key="ComboBox.Disabled.Background" Color="#FFF0F0F0"/>
 	<SolidColorBrush x:Key="ComboBox.Disabled.Border" Color="#FFD9D9D9"/>
@@ -88,16 +81,6 @@
 	<!--#endregion-->
 
 	<!--#region ScrollBar -->
-	<Style x:Key="FocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle Margin="2" StrokeDashArray="1 2" SnapsToDevicePixels="true" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
 	<SolidColorBrush x:Key="ScrollBar.Static.Background" Color="#F0F0F0"/>
 	<SolidColorBrush x:Key="ScrollBar.Static.Border" Color="#F0F0F0"/>
 	<SolidColorBrush x:Key="ScrollBar.Static.Glyph" Color="#606060"/>
@@ -116,68 +99,29 @@
 	<!--#endregion-->
 
 	<!--#region TabControl -->
-
-	<Style x:Key="FocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
 	<LinearGradientBrush x:Key="TabItem.Static.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#F0F0F0" Offset="0.0"/>
 		<GradientStop Color="#E5E5E5" Offset="1.0"/>
 	</LinearGradientBrush>
-	<SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
 	<LinearGradientBrush x:Key="TabItem.MouseOver.Background" EndPoint="0,1" StartPoint="0,0">
 		<GradientStop Color="#ECF4FC" Offset="0.0"/>
 		<GradientStop Color="#DCECFC" Offset="1.0"/>
 	</LinearGradientBrush>
+	<SolidColorBrush x:Key="TabItem.Static.Border" Color="#ACACAC"/>
 	<SolidColorBrush x:Key="TabItem.MouseOver.Border" Color="#7EB4EA"/>
 	<SolidColorBrush x:Key="TabItem.Disabled.Background" Color="#F0F0F0"/>
 	<SolidColorBrush x:Key="TabItem.Disabled.Border" Color="#D9D9D9"/>
 	<SolidColorBrush x:Key="TabItem.Selected.Border" Color="#ACACAC"/>
 	<SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FFFFFF"/>
-
-	<SolidColorBrush x:Key="TabItem.Selected.Background" Color="#FFFFFF"/>
-	<SolidColorBrush x:Key="TabItem.Selected.Border" Color="#ACACAC"/>
-
 	<!--#endregion-->
 
 	<!--#region TextBox -->
-
 	<SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3"/>
 	<SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA"/>
 	<SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5"/>
-	
-	<!--#endregion-->
-
-	<!--#region ToggleButton -->
-	<Style x:Key="FocusVisual">
-		<Setter Property="Control.Template">
-			<Setter.Value>
-				<ControlTemplate>
-					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
-	<SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-	<SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-	<SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-	<SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-	<SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-	<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-	<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-	
 	<!--#endregion-->
 
 	<!--#region TreeView -->
-	<SolidColorBrush x:Key="ListBorder" Color="#828790"/>
 	<Style x:Key="TreeViewItemFocusVisual">
 		<Setter Property="Control.Template">
 			<Setter.Value>
@@ -187,16 +131,18 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+	
+	<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+	
+	<SolidColorBrush x:Key="ListBorder" Color="#828790"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill" Color="#FF595959"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke" Color="#FF262626"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke" Color="#FF27C7F7"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill" Color="#FFCCEEFB"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB"/>
-	<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill" Color="#FFFFFFFF"/>
 	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke" Color="#FF818181"/>
-	
 	<!--#endregion-->
 
 </ResourceDictionary>

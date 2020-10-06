@@ -4,7 +4,7 @@
 					xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 					mc:Ignorable="d" >
 	<ResourceDictionary.MergedDictionaries>
-		<d:ResourceDictionary Source="/Effizienz;component/Themes/ThemeLight.xaml"/>
+		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 	
 	<!--#region Custom Style -->
@@ -85,14 +85,14 @@
 								<VisualState x:Name="Selected">
 									<Storyboard>
 										<ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
-														To="{StaticResource Selected_Focused}" Duration="0"/>
+														To="{DynamicResource Selected_FocusedColor}" Duration="0"/>
 									</Storyboard>
 								</VisualState>
 								<VisualState x:Name="Unselected" />
 								<VisualState x:Name="SelectedInactive">
 									<Storyboard>
 										<ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
-														To="{StaticResource Selected_UnFocused}" Duration="0"/>
+														To="{DynamicResource Selected_UnFocusedColor}" Duration="0"/>
 									</Storyboard>
 								</VisualState>
 							</VisualStateGroup>
