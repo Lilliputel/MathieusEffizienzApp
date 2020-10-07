@@ -12,7 +12,7 @@ namespace FrontLayer.WPF.Converters {
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			double subtrahend = (double)values[0];
-			double minuend = ((GridLength)values[1]).Value;
+			double minuend = (double)values[1];
 			return new GridLength(subtrahend - minuend);
 
 		}

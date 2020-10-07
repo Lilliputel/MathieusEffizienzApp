@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="FrontLayer.WPF.Components.GanttPlan"
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
+			 xmlns:system="clr-namespace:System;assembly=mscorlib"
+			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
+			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
+			 
+			 HorizontalAlignment="Stretch" Width="Auto"
+			 x:Name="ControlRoot">
+	
+	<UserControl.Resources>
+		<system:Double x:Key="NameWidth">150</system:Double>
+		<system:Double x:Key="NameMargin">220</system:Double>
+	</UserControl.Resources>
+
+	<TreeView ItemsSource="{Binding ElementName=ControlRoot, Path=Goals}" HorizontalAlignment="Stretch" Width="Auto">
+		<TreeView.ItemTemplate>
+			<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" ItemsSource="{Binding Children}">
+
+				<components:GanttElement Goal="{Binding}" TextWidth="{Binding Source={StaticResource NameWidth}}">
+					<components:GanttElement.TimeLineWidth>
+						<MultiBinding Converter="{converter:DoubleSubtraction}">
+							<Binding ElementName="ControlRoot" Path="Width"/>
+							<Binding Source="{StaticResource NameMargin}"/>
+						</MultiBinding>
+					</components:GanttElement.TimeLineWidth>
+				</components:GanttElement>
+
+			</HierarchicalDataTemplate>
+		</TreeView.ItemTemplate>
+	</TreeView>
+</UserControl>

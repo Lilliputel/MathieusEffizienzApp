@@ -20,7 +20,7 @@
 							<RowDefinition.Height>
 								<MultiBinding Converter="{converter:DoublesToGridLenght}">
 									<Binding ElementName="ControlRoot" Path="ActualHeight"/>
-									<Binding ElementName="DateHeight" Path="Height"/>
+									<Binding ElementName="DateHeight" Path="Height" Converter="{converter:GridLengthToDouble}"/>
 								</MultiBinding>
 							</RowDefinition.Height>
 						</RowDefinition>

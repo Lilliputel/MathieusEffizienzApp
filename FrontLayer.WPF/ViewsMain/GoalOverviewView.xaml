@@ -3,6 +3,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
 			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.GoalOverview}">
@@ -53,52 +54,23 @@
 	</UserControl.Resources>
 	
 	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
-
-		<!--#region Template für Tab -->
-		<TabControl.ItemTemplate>
-			<DataTemplate DataType="{x:Type classes:Category}">
-				<!-- Setzt ein Kreis und den Titel als TextBlock -->
-				<StackPanel Orientation="Horizontal" Background="Transparent">
-					<Ellipse x:Name="ColorEllipse" Fill="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}" 
-							 Margin="0,0,5,0" Width="8" Height="8" 
-							 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-					<TextBlock Text="{Binding Title}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
-				</StackPanel>
-			</DataTemplate>
-		</TabControl.ItemTemplate>
-		<!--#endregion-->
-
+	<components:CategoryTabs ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
-			<!-- Template für Kategorie -->
 			<DataTemplate DataType="{x:Type classes:Category}">
-
-				<!-- ItemControl als Expander -->
 				<TreeView ItemsSource="{Binding Path=Children}"
-							  HorizontalContentAlignment="Stretch"
-							  VerticalContentAlignment="Stretch">
+						  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
 					<TreeView.ItemTemplate>
-						<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" 
-													  ItemsSource="{Binding Children}">
-
-							<!-- Template für das Übergeordnete Element (Projekt) -->
+						<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" ItemsSource="{Binding Children}">
+							
 							<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
-
-							<HierarchicalDataTemplate.ItemTemplate>
-								<DataTemplate DataType="{x:Type classes:Goal}">
-
-									<!-- Template für das untergeordnete Element (Aufgabe) -->
-									<ContentPresenter ContentTemplate="{StaticResource Stretchpanel}"/>
-
-								</DataTemplate>
-							</HierarchicalDataTemplate.ItemTemplate>
+							
 						</HierarchicalDataTemplate>
 					</TreeView.ItemTemplate>
 				</TreeView>
 			</DataTemplate>
 		</TabControl.ContentTemplate>
 
-	</TabControl>
+	</components:CategoryTabs>
 
 </UserControl>

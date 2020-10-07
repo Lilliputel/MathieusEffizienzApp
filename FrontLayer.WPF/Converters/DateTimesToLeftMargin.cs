@@ -14,25 +14,19 @@ namespace FrontLayer.WPF.Converters {
 			DateTime projektStart = (DateTime)values[0];
 			DateTime projektEnde = (DateTime)values[1];
 			DateTime datum = (DateTime)values[2];
-			double gesamtLänge = ((GridLength)values[3]).Value;
-			//double offset = ((double)values[4]);
+			double gesamtLänge = (double)values[3];
 
-			double faktor;
+			double faktor = 0.0;
 			// setzt den faktor zu einem Bruch der gesamtlänge 
 			// Datum - StartDatum = Reiner Tagesunterschied a
 			// EndDatum - StartDatum = Reiner Tagesunterschied b
 
-			try {
-				double start = datum.Date.Subtract(projektStart.Date).TotalDays;
-				double end = projektEnde.Date.Subtract(projektStart.Date).TotalDays;
+			double start = datum.Date.Subtract(projektStart.Date).TotalDays;
+			double end = projektEnde.Date.Subtract(projektStart.Date).TotalDays;
+			if( end > 0 )
 				faktor = start / end;
-			}
-			catch( DivideByZeroException ) {
-				faktor = 0;
-			}
 
 			double position = (faktor * gesamtLänge); // + offset;
-
 			return new Thickness(position, 0, 0, 0);
 
 		}
