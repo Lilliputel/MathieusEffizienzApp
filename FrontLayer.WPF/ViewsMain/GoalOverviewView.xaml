@@ -19,7 +19,7 @@
 				</Grid.ColumnDefinitions>
 
 				<!-- Template für das Untergeordnete Element (Aufgabe) -->
-				<TextBlock Text="{Binding Title}" VerticalAlignment="Center" Grid.Column="0"/>
+				<TextBlock Text="{Binding ID.Title}" VerticalAlignment="Center" Grid.Column="0"/>
 
 				<Grid VerticalAlignment="Center" Grid.Column="2">
 					<Grid.ColumnDefinitions>

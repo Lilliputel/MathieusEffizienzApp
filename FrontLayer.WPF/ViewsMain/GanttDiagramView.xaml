@@ -9,7 +9,6 @@
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 
 			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}"
-			 HorizontalAlignment="Stretch" Width="Auto"
 			 x:Name="ControlRoot">
 
 	<components:CategoryTabs ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
@@ -17,7 +16,7 @@
 			
 			<DataTemplate DataType="{x:Type classes:Category}">
 				
-				<components:GanttPlan Goals="{Binding Children}" HorizontalAlignment="Stretch" Width="Auto"/>
+				<components:GanttPlan Goals="{Binding Children}"/>
 				
 			</DataTemplate>
 		</components:CategoryTabs.ContentTemplate>

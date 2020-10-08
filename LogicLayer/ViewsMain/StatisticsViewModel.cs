@@ -36,7 +36,7 @@ namespace LogicLayer.Views {
 				var bridge = new ObservableCollection<DateTime>();
 				foreach( var cat in Categories )
 					foreach( var goal in cat.Children )
-						bridge.AddUniqueRange(goal.GetWorkedDates());
+						bridge.AddUniqueRange(goal.WorkHours.GetWorkedDates());
 				return bridge;
 			}
 		}

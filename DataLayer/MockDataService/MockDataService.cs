@@ -1,6 +1,6 @@
 ﻿using DataLayer.Interfaces;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
+using ModelLayer.Extensions;
 using ModelLayer.Planning;
 using System;
 using System.Collections.ObjectModel;
@@ -23,18 +23,18 @@ namespace DataLayer.MockDataService {
 					(byte)randomGen.Next(255));
 
 				// new Category
-				Category CBCategory1 = new Category($"Generated-Category{counter}", randomColor);
+				Category CBCategory1 = new Category(new Identification($"Generated-Category{counter}",null, randomColor));
 
-				Goal goalX_1 = new Goal($"Generated-Goal{counter}_1", new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)));
+				Goal goalX_1 = new Goal( new Identification($"Generated-Goal{counter}_1", null, randomColor), new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(8)));
 				var Date = DateTime.Today.AddDays(randomGen.Next(-10, 11));
 				var Time = TimeSpan.FromHours(randomGen.NextDouble() * 5);
-				( goalX_1 as IWorkItem ).AddWorkedTime(Date, Time);
-				Goal goalX_1_1 = new Goal($"Generated-Goal{counter}_1.1", new DateSpan(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5)));
-				goalX_1.AddChild(goalX_1_1);
-				Goal goalX_2 = new Goal($"Generated-Goal{counter}_2", new DateSpan(DateTime.Today, DateTime.Today.AddDays(10)));
+				goalX_1.WorkHours.Add(new WorkItem(Date, Time));
+				Goal goalX_1_1 = new Goal( new Identification($"Generated-Goal{counter}_1.1", null, randomColor), new DateSpan(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5)));
+				goalX_1.Children.Add(goalX_1_1);
+				Goal goalX_2 = new Goal(new Identification($"Generated-Goal{counter}_2", null, randomColor), new DateSpan(DateTime.Today, DateTime.Today.AddDays(10)));
 
-				CBCategory1.AddChildren(new Collection<Goal> { goalX_1, goalX_2 });
-				CBCategory1.WorkSessions.Add(((DayOfWeek)randomGen.Next(7), new DoubleTime((0.0 + counter, 1.0 + counter))));
+				CBCategory1.Children.AddRange(new Collection<Goal> { goalX_1, goalX_2 });
+				CBCategory1.WorkSessions.Add(new DayTime((DayOfWeek)randomGen.Next(7), new DoubleTime((0.0 + counter, 1.0 + counter))));
 				zwischenSpeicher.Add(CBCategory1);
 
 				Debug.WriteLine($"Created Cat{counter} with {Time} worked Time on the {Date}.");

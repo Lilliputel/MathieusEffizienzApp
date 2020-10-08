@@ -33,7 +33,7 @@
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate DataType="{x:Type classes:Category}">
-								<Border Background="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"
+								<Border Background="{Binding ID.Color, Converter={converter:DrawingColorToSolidBrush}}"
 										Style="{StaticResource BorderRounded}"
 										BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
 										Padding="2,0" Margin="3,0" VerticalAlignment="Bottom"
@@ -46,7 +46,7 @@
 											<Binding ElementName="ColumnHeight" Path="Height" Converter="{converter:GridLengthToDouble}"/>
 										</MultiBinding>
 									</Border.Height>
-									<TextBlock VerticalAlignment="Bottom" x:Name="test">
+									<TextBlock VerticalAlignment="Bottom">
 										<TextBlock.Text>
 											<MultiBinding StringFormat="{}{0:hh\:mm}" Converter="{converter:DateOnCategoryToTime}">
 												<Binding/>

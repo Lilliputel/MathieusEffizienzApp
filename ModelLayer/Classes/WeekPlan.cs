@@ -8,7 +8,6 @@ namespace ModelLayer.Planning {
 	public class WeekPlan : ObservableObject {
 
 		#region properties
-
 		[XmlElement(nameof(Monday))]
 		public DayPlan Monday { get; set; }
 		[XmlElement(nameof(Tuesday))]
@@ -26,11 +25,9 @@ namespace ModelLayer.Planning {
 
 		[XmlIgnore]
 		public ObservableCollection<TimeSpan> HoursOfDay { get; private set; }
-
 		#endregion
 
 		#region constructor
-
 		public WeekPlan() {
 			this.Monday = new DayPlan();
 			this.Tuesday = new DayPlan();
@@ -45,11 +42,9 @@ namespace ModelLayer.Planning {
 				this.HoursOfDay.Add(TimeSpan.FromHours(h));
 			}
 		}
-
 		#endregion
 
 		#region methods
-
 		public async Task AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
 			DayPlan dayPlan = GetDayPlan(day);
 			DoubleTime? result = null;
@@ -63,7 +58,6 @@ namespace ModelLayer.Planning {
 		}
 		public void RemoveItemFromDay( DayOfWeek day, PlanItem item )
 			=> GetDayPlan(day).Remove(item);
-
 		public DayPlan GetDayPlan( DayOfWeek day ) => day switch
 		{
 			DayOfWeek.Monday => this.Monday,
@@ -75,7 +69,6 @@ namespace ModelLayer.Planning {
 			DayOfWeek.Sunday => this.Sunday,
 			_ => new DayPlan()
 		};
-
 		#endregion
 
 	}

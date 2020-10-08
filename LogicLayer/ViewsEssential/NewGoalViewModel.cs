@@ -3,8 +3,6 @@ using LogicLayer.Manager;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
-using ModelLayer.Interfaces;
-using ModelLayer.Utility;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -30,7 +28,6 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region properties
-
 		public ObservableCollection<Category> CategoryList
 			=> ObjectManager.CategoryList;
 
@@ -56,7 +53,6 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(Description));
 			}
 		}
-
 		public Category? SelectedCategory {
 			get {
 				return _SelectedCategory;
@@ -75,7 +71,6 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(SelectedGoal));
 			}
 		}
-
 		public DateTime StartDate {
 			get {
 				return _StartDate ??= DateTime.Today;
@@ -96,7 +91,6 @@ namespace LogicLayer.Views {
 				}
 			}
 		}
-
 		public EnumState State {
 			get {
 				return _State;
@@ -111,16 +105,15 @@ namespace LogicLayer.Views {
 
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			new RelayCommand(parameter => {
-				if( SelectedCategory is IParent<Goal> cat && Title is string && Description is string ) {
-					IParent<Goal> parent = SelectedGoal ?? cat;
-					parent.AddChild(
-						new Goal(
-							Title,
-							new DateSpan(StartDate, EndDate),
-							Description,
-							State)
-						);
-
+				if( SelectedCategory is Category category && Title is string && Description is string ) {
+					var neu = new Goal(
+						new Identification(Title, Description, category.ID.Color),
+						new DateSpan(StartDate, EndDate),
+						State);
+					if( SelectedGoal is Goal goal )
+						goal.Children.Add(neu);
+					else
+						category.Children.Add(neu);
 					AlertManager.ObjektErstellt(nameof(Goal), Title);
 				}
 				else {

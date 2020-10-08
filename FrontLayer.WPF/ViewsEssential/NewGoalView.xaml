@@ -30,8 +30,8 @@
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
 					<StackPanel Orientation="Horizontal">
-						<Ellipse Height="10" Width="10" Fill="{Binding Color, Converter={converter:DrawingColorToSolidBrush}}"/>
-						<TextBlock Text="{Binding Title}"/>
+						<Ellipse Height="10" Width="10" Fill="{Binding ID.Color, Converter={converter:DrawingColorToSolidBrush}}"/>
+						<TextBlock Text="{Binding ID.Title}"/>
 					</StackPanel>
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
@@ -46,10 +46,10 @@
 			<ComboBox.ItemTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
 										  ItemsSource="{Binding Children}">
-					<TextBlock Text="{Binding Title}"/>
+					<TextBlock Text="{Binding ID.Title}"/>
 					<HierarchicalDataTemplate.ItemTemplate>
 						<DataTemplate DataType="{x:Type classes:Goal}">
-							<TextBlock Text="{Binding Title}"/>
+							<TextBlock Text="{Binding ID.Title}"/>
 						</DataTemplate>
 					</HierarchicalDataTemplate.ItemTemplate>
 				</HierarchicalDataTemplate>

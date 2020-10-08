@@ -66,7 +66,7 @@ namespace LogicLayer.Manager {
 
 		public static Category? GetCategory( Guid ID ) {
 			foreach( Category category in CategoryList ) {
-				if( category.ID == ID )
+				if( category.ID.Guid == ID )
 					return category;
 			}
 			return null;
@@ -81,7 +81,7 @@ namespace LogicLayer.Manager {
 				foreach( var daytime in category.WorkSessions ) {
 					Task.Run(() =>
 					WeekPlan.AddItemToDayAsync(daytime.Day,
-					new PlanItem(daytime.Time, category.ID, category.Color, category.Title))
+					new PlanItem(daytime.Time, category.ID.Guid, category.ID.Color, category.ID.Title))
 					);
 				}
 			}
@@ -103,19 +103,19 @@ namespace LogicLayer.Manager {
 				if( e.Action is NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
 						foreach( Category? item in e.NewItems! )
-							item!.WeekPlanChanged += UpdateWeekPlan;
+							item!.WorkSessions.CollectionChanged += UpdateWeekPlan;
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
 						foreach( Category? item in e.OldItems )
-							item!.WeekPlanChanged -= UpdateWeekPlan;
+							item!.WorkSessions.CollectionChanged -= UpdateWeekPlan;
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
 						foreach( Category? item in e.OldItems )
-							item!.WeekPlanChanged -= UpdateWeekPlan;
+							item!.WorkSessions.CollectionChanged -= UpdateWeekPlan;
 						foreach( Category? item in e.NewItems )
-							item!.WeekPlanChanged += UpdateWeekPlan;
+							item!.WorkSessions.CollectionChanged += UpdateWeekPlan;
 					}
 				}
 			}
@@ -129,7 +129,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
 								);
 							}
 				}
@@ -139,7 +139,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
 								);
 							}
 				}
@@ -149,14 +149,14 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
 								);
 							}
 						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID, category.Color, category.Title))
+								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
 								);
 							}
 					}

@@ -7,7 +7,6 @@
 			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 
-			 HorizontalAlignment="Stretch" Width="Auto"
 			 x:Name="ControlRoot">
 	
 	<UserControl.Resources>
@@ -15,14 +14,14 @@
 		<system:Double x:Key="NameMargin">220</system:Double>
 	</UserControl.Resources>
 
-	<TreeView ItemsSource="{Binding ElementName=ControlRoot, Path=Goals}" HorizontalAlignment="Stretch" Width="Auto">
+	<TreeView ItemsSource="{Binding ElementName=ControlRoot, Path=Goals}">
 		<TreeView.ItemTemplate>
 			<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" ItemsSource="{Binding Children}">
 
 				<components:GanttElement Goal="{Binding}" TextWidth="{Binding Source={StaticResource NameWidth}}">
 					<components:GanttElement.TimeLineWidth>
 						<MultiBinding Converter="{converter:DoubleSubtraction}">
-							<Binding ElementName="ControlRoot" Path="Width"/>
+							<Binding ElementName="ControlRoot" Path="ActualWidth"/>
 							<Binding Source="{StaticResource NameMargin}"/>
 						</MultiBinding>
 					</components:GanttElement.TimeLineWidth>

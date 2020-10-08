@@ -4,7 +4,6 @@
 			 
 			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
 			 
-			 HorizontalAlignment="Stretch" Width="Auto"
 			 x:Name="ControlRoot">
 	<!-- Grid um Spalten für Beschreibung & TimeLine zu erschaffen -->
 	<Grid Height="20"
@@ -18,14 +17,14 @@
 
 		<!-- Textblock mit Aufgabentitel für Spalte 1 -->
 		<TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
-				   Text="{Binding ElementName=ControlRoot, Path=Goal.Title}" />
+				   Text="{Binding ElementName=ControlRoot, Path=Goal.ID.Title}" />
 
 		<Border Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,0" Background="Transparent"/>
 		
 		<!--Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen--> 
 		<Border Grid.Column="2" Style="{StaticResource BorderRounded}"
 				VerticalAlignment="Stretch"	HorizontalAlignment="Left"
-				Background="{Binding ElementName=ControlRoot, Path=Goal.Color, Converter={converter:DrawingColorToSolidBrush}}">
+				Background="{Binding ElementName=ControlRoot, Path=Goal.ID.Color, Converter={converter:DrawingColorToSolidBrush}}">
 
 			 <!--Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert--> 
 			<Border.Margin>
@@ -47,7 +46,7 @@
 				</MultiBinding>
 			</Border.Width>
 
-			<TextBlock Text="{Binding ElementName=ControlRoot, Path=Goal.Title}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+			<TextBlock Text="{Binding ElementName=ControlRoot, Path=TimeLineWidth}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 		</Border>
 	</Grid>
 </UserControl>

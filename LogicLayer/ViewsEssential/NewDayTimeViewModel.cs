@@ -51,7 +51,7 @@ namespace LogicLayer.Views {
 		#region methods
 
 		private Task AddToWeekPlan()
-			=> ObjectManager.WeekPlan.AddItemToDayAsync(this.DayOfWeek, new PlanItem(new DoubleTime(this.StartTime, this.EndTime), this.SelectedCategory!.ID, this.SelectedCategory.Color, this.SelectedCategory.Title));
+			=> ObjectManager.WeekPlan.AddItemToDayAsync(this.DayOfWeek, new PlanItem(new DoubleTime(this.StartTime, this.EndTime), this.SelectedCategory!.ID.Guid, this.SelectedCategory.ID.Color, this.SelectedCategory.ID.Title));
 
 		#endregion
 

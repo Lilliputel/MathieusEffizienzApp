@@ -42,7 +42,7 @@ namespace LogicLayer.Manager {
 			Settings = new SettingsViewModel();
 
 #warning for debugging purpose a new goal gets added
-			Pomodoro = new PomodoroViewModel(ObjectManager.CategoryList.First().Children.First());
+			Pomodoro = new PomodoroViewModel(ObjectManager.CategoryList.First().Children.First().WorkHours.First());
 			NewCategory = new NewCategoryViewModel();
 			NewGoal = new NewGoalViewModel();
 			NewDayTime = new NewDayTimeViewModel();

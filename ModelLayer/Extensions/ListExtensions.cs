@@ -15,6 +15,12 @@ namespace ModelLayer.Extensions {
 				extension.AddUnique(item);
 			return extension;
 		}
-	}
 
+		public static ICollection<T> AddRange<T>( this ICollection<T> extension, ICollection<T> Collection ) {
+			foreach( T item in Collection )
+				extension.Add(item);
+			return extension;
+		}
+
+	}
 }

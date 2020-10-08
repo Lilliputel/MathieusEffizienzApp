@@ -41,7 +41,7 @@ namespace FrontLayer.WPF.Components {
 			if( e.OriginalSource is Border border ) {
 				Debug.WriteLine("The origin is the Border!");
 				if( border.DataContext is PlanItem planItem ) {
-					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.Title ?? "Unknown Category"}");
+					Debug.WriteLine($"=> {ObjectManager.GetCategory(planItem.ID)?.ID.Title ?? "Unknown Category"}");
 					NewDayTimeViewModel viewModel = ViewModelManager.NewDayTime;
 					//NewDayTimeViewModel viewModel = new NewDayTimeViewModel();
 					viewModel.DayOfWeek = Day;

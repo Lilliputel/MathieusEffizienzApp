@@ -9,7 +9,7 @@
 	
 	<ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" HorizontalAlignment="Left">
 		<components:WeekPlanView WeekPlan="{Binding WeekPlan, UpdateSourceTrigger=PropertyChanged, BindsDirectlyToSource=True}" 
-								 Height="500" Width="Auto"/>
+								 Height="500"/>
 	</ScrollViewer>
 
 </UserControl>

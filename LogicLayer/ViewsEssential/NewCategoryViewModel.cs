@@ -89,11 +89,10 @@ namespace LogicLayer.Views {
 				if( Title is string && SelectedColorName is string && Description is string ) {
 					ObjectManager.CategoryList.Add(
 						new Category(
-							Title,
-							Color.FromName(SelectedColorName),
-							Description,
-							State)
-						);
+							new Identification(
+								Title,
+								Description,
+								Color.FromName(SelectedColorName))));
 					AlertManager.ObjektErstellt(nameof(Category), Title);
 				}
 				else {

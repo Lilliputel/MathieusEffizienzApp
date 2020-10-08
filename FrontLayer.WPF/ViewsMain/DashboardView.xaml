@@ -30,7 +30,7 @@
 						<!-- Template für Projekt -->
 						<DataTemplate DataType="{x:Type classes:Goal}">
 							<!-- Rahmen pro Projekt -->
-							<GroupBox Header="{Binding Title}"
+							<GroupBox Header="{Binding ID.Title}"
 										  BorderBrush="Black"
 										  Margin="5,2">
 								<!-- itemsControl für Aufgaben -->
@@ -39,7 +39,7 @@
 									<ItemsControl.ItemTemplate>
 										<!-- Template für Aufgabe -->
 										<DataTemplate DataType="{x:Type classes:Goal}">
-											<TextBlock Text="{Binding Title}"/>
+											<TextBlock Text="{Binding ID.Title}"/>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>
