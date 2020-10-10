@@ -1,7 +1,6 @@
 ﻿using DataLayer.Interfaces;
 using ModelLayer.Classes;
 using ModelLayer.Extensions;
-using ModelLayer.Planning;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;

@@ -2,7 +2,6 @@
 using LogicLayer.Manager;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Planning;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

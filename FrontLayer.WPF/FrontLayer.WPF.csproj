@@ -16,6 +16,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\EffizienzControls\EffizienzControls.csproj" />
 		<ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
 	</ItemGroup>
 

@@ -5,7 +5,7 @@
 			 xmlns:extensions="clr-namespace:ModelLayer.Extensions"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.NewDayTime}">

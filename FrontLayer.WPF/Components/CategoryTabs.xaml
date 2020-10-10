@@ -3,9 +3,9 @@
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			
 			xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			MinWidth="700">
-	
+
 	<TabControl.ItemTemplate>
 		<DataTemplate DataType="{x:Type classes:Category}">
 			<!-- Setzt ein Kreis und den Titel als TextBlock -->
@@ -17,4 +17,5 @@
 			</StackPanel>
 		</DataTemplate>
 	</TabControl.ItemTemplate>
+	
 </TabControl>

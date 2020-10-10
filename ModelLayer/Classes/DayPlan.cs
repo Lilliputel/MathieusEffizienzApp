@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-namespace ModelLayer.Planning {
+namespace ModelLayer.Classes {
 	public class DayPlan : ObservableCollection<PlanItem> {
 
 		#region constructors

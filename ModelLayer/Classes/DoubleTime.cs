@@ -3,7 +3,7 @@ using PropertyChanged;
 using System;
 using System.Xml.Serialization;
 
-namespace ModelLayer.Planning {
+namespace ModelLayer.Classes {
 	/// <summary>
 	/// Enthält eine StartZeit und eine EndZeit
 	/// </summary>

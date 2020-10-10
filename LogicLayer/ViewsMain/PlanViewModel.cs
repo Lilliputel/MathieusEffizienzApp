@@ -1,7 +1,6 @@
 ﻿using LogicLayer.Manager;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Planning;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 

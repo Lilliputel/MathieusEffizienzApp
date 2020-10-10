@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Xml.Serialization;
 
-namespace ModelLayer.Planning {
+namespace ModelLayer.Classes {
 
 	[Serializable]
 	public class PlanItem : ObservableObject {

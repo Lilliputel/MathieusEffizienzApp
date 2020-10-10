@@ -4,7 +4,7 @@
 			 xmlns:UserControls="clr-namespace:FrontLayer.WPF.Themes">
 
 	<StackPanel Grid.Row="0" 
-					x:Name="Theme_Preview">
+				x:Name="Theme_Preview">
 		<StackPanel.Resources>
 			<Style TargetType="{x:Type TextBlock}">
 				<Setter Property="Margin" Value="5"/>
@@ -13,10 +13,10 @@
 		</StackPanel.Resources>
 		
 		<TextBlock HorizontalAlignment="Center"
-					   FontSize="32"
-					   Foreground="{DynamicResource Foreground}"
-					   Background="Transparent"
-					   Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=Name}"/>
+				   FontSize="32"
+				   Foreground="{DynamicResource Foreground}"
+				   Background="Transparent"
+				   Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=StackPanel}, Path=Name}"/>
 
 		<Grid>
 			<Grid.ColumnDefinitions>

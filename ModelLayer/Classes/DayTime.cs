@@ -1,5 +1,4 @@
-﻿using ModelLayer.Planning;
-using System;
+﻿using System;
 
 namespace ModelLayer.Classes {
 	public class DayTime {

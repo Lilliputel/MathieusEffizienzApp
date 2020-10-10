@@ -3,7 +3,7 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
-			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
+			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 

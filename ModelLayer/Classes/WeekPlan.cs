@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace ModelLayer.Planning {
+namespace ModelLayer.Classes {
 	public class WeekPlan : ObservableObject {
 
 		#region properties

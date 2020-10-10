@@ -2,11 +2,10 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
-			 xmlns:converter="clr-namespace:FrontLayer.WPF.Converters"
-			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
-			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 xmlns:system="clr-namespace:System;assembly=mscorlib"
+			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
+			 xmlns:controls="clr-namespace:EffizienzControls;assembly=EffizienzControls"
+			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 
 			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}"
 			 x:Name="ControlRoot">
@@ -15,9 +14,9 @@
 		<components:CategoryTabs.ContentTemplate>
 			
 			<DataTemplate DataType="{x:Type classes:Category}">
-				
-				<components:GanttPlan Goals="{Binding Children}"/>
-				
+
+				<controls:GanttPlan Category="{Binding}"/>
+
 			</DataTemplate>
 		</components:CategoryTabs.ContentTemplate>
 	</components:CategoryTabs>

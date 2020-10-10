@@ -2,7 +2,6 @@
 using DataLayer.MockDataService;
 using DataLayer.XMLDataService;
 using ModelLayer.Classes;
-using ModelLayer.Planning;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
