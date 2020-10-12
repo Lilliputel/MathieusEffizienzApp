@@ -12,7 +12,7 @@ namespace ModelLayer.Extensions {
 #warning I could simplify this, see above
 	public delegate void PomodoroEventHandler( PomodoroClock sender, PomodoroEventArgs e );
 	public class PomodoroEventArgs : EventArgs {
-		public EnumWorkMode WorkMode { get; set; }
+		public WorkModeEnum WorkMode { get; set; }
 		public TimeSpan Time { get; set; }
 	}
 	#endregion

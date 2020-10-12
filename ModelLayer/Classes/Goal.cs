@@ -18,7 +18,7 @@ namespace ModelLayer.Classes {
 		[XmlElement(nameof(Plan))]
 		public DateSpan Plan { get; set; }
 		[XmlAttribute(nameof(State))]
-		public EnumState State { get; set; }
+		public StateEnum State { get; set; }
 
 		[XmlArray(nameof(Children))]
 		public Children Children { get; set; }
@@ -41,7 +41,7 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region Constructors
-		public Goal( Identification id, DateSpan plan, EnumState state = EnumState.ToDo ) : this() {
+		public Goal( Identification id, DateSpan plan, StateEnum state = StateEnum.ToDo ) : this() {
 			this.ID = id;
 			this.Plan = plan;
 			this.Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke(this.Plan);

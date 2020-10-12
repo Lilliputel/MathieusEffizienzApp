@@ -10,24 +10,21 @@ using System.Windows.Input;
 namespace LogicLayer.Views {
 	public class NewDayTimeViewModel : ViewModelBase {
 
-		#region fields
-
+		#region private fields
 		private ICommand? _SaveGoalCommand;
-
 		#endregion
 
-		#region properties
-
-		public ObservableCollection<Category> CategoryList
-			=> ObjectManager.CategoryList;
+		#region public properties
+		public ObservableCollection<Category> CategoryList { get; private set; }
 		public Category? SelectedCategory { get; set; }
-
 		public DayOfWeek DayOfWeek { get; set; }
 		public TimeSpan StartTime { get; set; }
 		public TimeSpan EndTime { get; set; }
 
 		public string? Warning { get; set; }
+		#endregion
 
+		#region public commands
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			 new RelayCommandAsync(
 				 () => AddToWeekPlan(),
@@ -44,14 +41,13 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructors
-
+		public NewDayTimeViewModel( ObservableCollection<Category> categoryList )
+			=> CategoryList = categoryList;
 		#endregion
 
-		#region methods
-
+		#region private helper methods
 		private Task AddToWeekPlan()
 			=> ObjectManager.WeekPlan.AddItemToDayAsync(this.DayOfWeek, new PlanItem(new DoubleTime(this.StartTime, this.EndTime), this.SelectedCategory!.ID.Guid, this.SelectedCategory.ID.Color, this.SelectedCategory.ID.Title));
-
 		#endregion
 
 	}

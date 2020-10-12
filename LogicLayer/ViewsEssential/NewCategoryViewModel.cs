@@ -4,6 +4,7 @@ using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Input;
@@ -11,19 +12,17 @@ using System.Windows.Input;
 namespace LogicLayer.Views {
 	public class NewCategoryViewModel : ViewModelBase {
 
-		#region fields
-
+		#region private fields
+		private ObservableCollection<Category> CategoryList;
 		private string? _Title;
 		private string? _Description;
-		private EnumState _State = EnumState.ToDo;
+		private StateEnum _State = StateEnum.ToDo;
 		private string? _SelectedColorName;
 
 		private ICommand? _SaveCategoryCommand;
-
 		#endregion
 
-		#region properties
-
+		#region public properties
 		public string? Title {
 			get {
 				return _Title;
@@ -46,8 +45,7 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(Description));
 			}
 		}
-
-		public EnumState State {
+		public StateEnum State {
 			get {
 				return this._State;
 			}
@@ -58,7 +56,6 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(State));
 			}
 		}
-
 		public List<string> ColorNameList {
 			get {
 				var allColors = new List<string>();
@@ -71,7 +68,6 @@ namespace LogicLayer.Views {
 				return allColors;
 			}
 		}
-
 		public string? SelectedColorName {
 			get {
 				return _SelectedColorName;
@@ -83,11 +79,13 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(SelectedColorName));
 			}
 		}
+		#endregion
 
+		#region public commands
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
 			new RelayCommand(parameter => {
 				if( Title is string && SelectedColorName is string && Description is string ) {
-					ObjectManager.CategoryList.Add(
+					CategoryList.Add(
 						new Category(
 							new Identification(
 								Title,
@@ -103,7 +101,9 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-
+		public NewCategoryViewModel( ObservableCollection<Category> categories ) {
+			this.CategoryList = categories;
+		}
 		#endregion
 
 		#region methods

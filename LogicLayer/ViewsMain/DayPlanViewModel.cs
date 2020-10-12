@@ -7,33 +7,23 @@ namespace LogicLayer.Views {
 
 #warning no half hours can be set
 
-		#region fields
-
+		#region private fields
 		private ICommand? _LeftMouseDownCommand;
 		private ICommand? _MouseMoveCommand;
 		private ICommand? _LeftMouseUpCommand;
-
 		#endregion
 
-		#region properties
-
+		#region public commands
 		public ICommand LeftMouseDownCommand => _LeftMouseDownCommand ??=
 			new RelayCommand(parameter => { });
-
 		public ICommand MouseMoveCommand => _MouseMoveCommand ??=
 			new RelayCommand(parameter => { });
-
 		public ICommand LeftMouseUpCommand => _LeftMouseUpCommand ??=
 			new RelayCommand(parameter => { });
-
 		#endregion
 
 		#region constructor
-
-		public DayPlanViewModel() {
-
-		}
-
+		public DayPlanViewModel() { }
 		#endregion
 
 		#region methods

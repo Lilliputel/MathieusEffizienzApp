@@ -1,5 +1,4 @@
-﻿using LogicLayer.Manager;
-using LogicLayer.ViewModels;
+﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -7,34 +6,27 @@ using System.Diagnostics;
 namespace LogicLayer.Views {
 	public class PlanViewModel : ViewModelBase {
 
-		#region fields
+		#region private fields
 
 		#endregion
 
-		#region properties
-
-		public ObservableCollection<Category> Categories
-			=> ObjectManager.CategoryList;
-
-		public WeekPlan WeekPlan
-			=> ObjectManager.WeekPlan;
-
+		#region public properties
+		public ObservableCollection<Category> Categories { get; private set; }
+		public WeekPlan WeekPlan { get; private set; }
 		#endregion
 
 		#region constructor
-
-		public PlanViewModel() {
+		public PlanViewModel( ObservableCollection<Category> categories, WeekPlan weekPlan ) {
+			Categories = categories;
+			WeekPlan = weekPlan;
 			WeekPlan.PropertyChanged += Test;
 		}
-
 		#endregion
 
-		#region methods
-
+		#region private helper methods
 		private void Test( object sender, System.ComponentModel.PropertyChangedEventArgs e ) {
 			Debug.WriteLine($"Executed PropertyChanged {e.PropertyName}");
 		}
-
 		#endregion
 
 	}

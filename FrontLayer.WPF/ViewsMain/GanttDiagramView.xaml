@@ -1,6 +1,8 @@
 ﻿<UserControl x:Class="FrontLayer.WPF.Views.GanttDiagramView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 
+			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
@@ -10,15 +12,81 @@
 			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}"
 			 x:Name="ControlRoot">
 
-	<components:CategoryTabs ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
-		<components:CategoryTabs.ContentTemplate>
-			
+
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
+		<TabControl.ContentTemplate>
+
 			<DataTemplate DataType="{x:Type classes:Category}">
 
 				<controls:GanttPlan Category="{Binding}"/>
+				<!--
+				<TreeView ItemsSource="{Binding Children, UpdateSourceTrigger=PropertyChanged}"
+							  Background="Transparent"
+							  x:Name="TimeLine">
+					<TreeView.ItemTemplate>
+						<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" ItemsSource="{Binding Children}">
+							<Grid x:Name="ColumnGrid"
+									  Height="20" Margin="2"
+									  Background="Transparent">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="120" x:Name="TimeLineOffset"/>
+									<ColumnDefinition x:Name="TimeLineWidth">
+										<ColumnDefinition.Width>
+											<MultiBinding Converter="{converter:DoublesToGridLenght}">
+												<Binding ElementName="ControlRoot" Path="ActualWidth"/>
+												<Binding ElementName="TimeLineOffset" Path="Width" Converter="{converter:GridLengthToDouble}"/>
+											</MultiBinding>
+										</ColumnDefinition.Width>
+									</ColumnDefinition>
+								</Grid.ColumnDefinitions>
+								
+								<Border BorderBrush="Black" BorderThickness="0,0,1,0" Background="Transparent">
+									<TextBlock Grid.Column="0" VerticalAlignment="Center"
+												   Text="{Binding ID.Title}" />
+								</Border>
 
+								<Border Grid.Column="1" 
+											Style="{StaticResource BorderRounded}"
+											VerticalAlignment="Stretch"
+											HorizontalAlignment="Left"
+											Background="{Binding ElementName=TimeLineWidth, Path=DataContext.ID.Color, Converter={converter:DrawingColorToSolidBrush}}">
+									<Border.Margin>
+										<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
+											<Binding ElementName="TimeLine" 
+														 Path="DataContext.Plan.Start"/>
+											<Binding ElementName="TimeLine"
+														 Path="DataContext.Plan.End"/>
+
+											<Binding Path="Plan.Start"/>
+
+											<Binding ElementName="TimeLineWidth"
+														 Path="Width"/>
+										</MultiBinding>
+									</Border.Margin>
+									<Border.Width>
+										<MultiBinding Converter="{converter:DateTimesToWidth}">
+											<Binding ElementName="TimeLine" 
+														 Path="DataContext.Plan.Start"/>
+											<Binding ElementName="TimeLine" 
+														 Path="DataContext.Plan.End"/>
+
+											<Binding Path="Plan.End"/>
+
+											<Binding ElementName="TimeLineWidth"
+														 Path="Width"/>
+										</MultiBinding>
+									</Border.Width>
+
+								</Border>
+							</Grid>
+							
+						</HierarchicalDataTemplate>
+					</TreeView.ItemTemplate>
+				</TreeView>
+				-->
+				
 			</DataTemplate>
-		</components:CategoryTabs.ContentTemplate>
-	</components:CategoryTabs>
-	
+		</TabControl.ContentTemplate>
+	</TabControl>
+
 </UserControl>

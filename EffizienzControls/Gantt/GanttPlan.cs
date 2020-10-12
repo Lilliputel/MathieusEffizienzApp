@@ -19,29 +19,45 @@ namespace EffizienzControls {
 			}
 		}
 		public static readonly DependencyProperty CategoryProperty =
-			DependencyProperty.Register(nameof(Category), typeof(Category), typeof(GanttPlan));
-
+			DependencyProperty.Register(nameof(Category), typeof(Category), typeof(GanttPlan), new PropertyMetadata(new Category()));
 		public DateTime MainStart {
 			get { return (DateTime)GetValue(MainStartProperty); }
 			private set { SetValue(MainStartProperty, value); }
 		}
 		public static readonly DependencyProperty MainStartProperty =
-			DependencyProperty.Register(nameof(MainStart), typeof(DateTime), typeof(GanttPlan), new PropertyMetadata(DateTime.Today));
-
+			DependencyProperty.Register(nameof(MainStart), typeof(DateTime), typeof(GanttPlan), new PropertyMetadata(DateTime.Today.AddDays(1) ));
 		public DateTime MainEnd {
 			get { return (DateTime)GetValue(MainEndProperty); }
 			private set { SetValue(MainEndProperty, value); }
 		}
 		public static readonly DependencyProperty MainEndProperty =
-			DependencyProperty.Register(nameof(MainEnd), typeof(DateTime), typeof(GanttPlan), new PropertyMetadata(DateTime.Today.AddDays(1.0)));
-
+			DependencyProperty.Register(nameof(MainEnd), typeof(DateTime), typeof(GanttPlan), new PropertyMetadata(DateTime.Today.AddDays(10)));
 		public ObservableCollection<DateTime> PlanDuration {
 			get { return (ObservableCollection<DateTime>)GetValue(PlanDurationProperty); }
 			private set { SetValue(PlanDurationProperty, value); }
 		}
 		public static readonly DependencyProperty PlanDurationProperty =
 			DependencyProperty.Register(nameof(PlanDuration), typeof(ObservableCollection<DateTime>), typeof(GanttPlan), new PropertyMetadata( new ObservableCollection<DateTime>() ));
-
+		public double NameWidth {
+			get { return (double)GetValue(NameWidthProperty); }
+			set {
+				SetValue(NameWidthProperty, value);
+				this.SetStartAndEnd();
+				this.SetPlanDuration();
+			}
+		}
+		public static readonly DependencyProperty NameWidthProperty =
+			DependencyProperty.Register(nameof(NameWidth), typeof(double), typeof(GanttPlan), new PropertyMetadata(200.0));
+		public double NameMargin {
+			get { return (double)GetValue(NameMarginProperty); }
+			set {
+				SetValue(NameMarginProperty, value);
+				this.SetStartAndEnd();
+				this.SetPlanDuration();
+			}
+		}
+		public static readonly DependencyProperty NameMarginProperty =
+			DependencyProperty.Register(nameof(NameMargin), typeof(double), typeof(GanttPlan), new PropertyMetadata(220.0));
 
 		#endregion
 

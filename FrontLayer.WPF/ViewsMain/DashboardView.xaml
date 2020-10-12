@@ -8,9 +8,8 @@
 			 DataContext="{x:Static manager:ViewModelManager.Dashboard}">
 	
 	<!-- TabControl mit den Kategorien als Tab -->
-	<components:CategoryTabs ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
-
-		<components:CategoryTabs.ContentTemplate>
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
+		<TabControl.ContentTemplate>
 
 			<!-- Template für Kategorie -->
 			<DataTemplate DataType="{x:Type classes:Category}">
@@ -48,7 +47,7 @@
 				</ItemsControl>
 
 			</DataTemplate>
-		</components:CategoryTabs.ContentTemplate>
-	</components:CategoryTabs>
+		</TabControl.ContentTemplate>
+	</TabControl>
 	
 </UserControl>

@@ -1,5 +1,4 @@
-﻿using LogicLayer.Manager;
-using LogicLayer.ViewModels;
+﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using ModelLayer.Extensions;
 using System;
@@ -8,14 +7,11 @@ using System.Collections.ObjectModel;
 namespace LogicLayer.Views {
 	public class StatisticsViewModel : ViewModelBase {
 
-		#region fields
-
+		#region private fields
 		private TimeSpan maxTime;
-
 		#endregion
 
-		#region properties
-
+		#region public properties
 		public TimeSpan MaximalWorkedTime {
 			get {
 				if( maxTime == new TimeSpan() )
@@ -30,7 +26,6 @@ namespace LogicLayer.Views {
 				return maxTime;
 			}
 		}
-
 		public ObservableCollection<DateTime> Dates {
 			get {
 				var bridge = new ObservableCollection<DateTime>();
@@ -40,14 +35,12 @@ namespace LogicLayer.Views {
 				return bridge;
 			}
 		}
-
-		public ObservableCollection<Category> Categories
-			=> ObjectManager.CategoryList;
-
+		public ObservableCollection<Category> Categories { get; private set; }
 		#endregion
 
 		#region constructors
-
+		public StatisticsViewModel( ObservableCollection<Category> categories )
+			=> Categories = categories;
 		#endregion
 
 		#region methods

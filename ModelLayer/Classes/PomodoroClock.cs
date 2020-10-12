@@ -51,11 +51,11 @@ namespace ModelLayer.Classes {
 		/// <summary>
 		/// workMode in which the clock is in
 		/// </summary>
-		public EnumWorkMode CurrentWorkMode { get; set; }
+		public WorkModeEnum CurrentWorkMode { get; set; }
 		/// <summary>
 		/// predefined workMode to calculate what action will be executed
 		/// </summary>
-		public EnumWorkMode NextWorkMode { get; set; }
+		public WorkModeEnum NextWorkMode { get; set; }
 
 		/// <summary>
 		/// Text, to which a Button can be bound (shows the next action of that button)
@@ -103,8 +103,8 @@ namespace ModelLayer.Classes {
 			this.Time = TimeSpan.Zero;
 			this.TotalTime = TimeSpan.Zero;
 
-			this.CurrentWorkMode = EnumWorkMode.Stop;
-			this.NextWorkMode = EnumWorkMode.Work;
+			this.CurrentWorkMode = WorkModeEnum.Stop;
+			this.NextWorkMode = WorkModeEnum.Work;
 
 			this.DelayText = "Start work!";
 			this.StartStopText = "Start timer!";
@@ -137,7 +137,7 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		public void StartStopClock() {
 			// Start new Timer
-			if( CurrentWorkMode is EnumWorkMode.Stop )
+			if( CurrentWorkMode is WorkModeEnum.Stop )
 				StartClock();
 			// Stop the Timer
 			else {
@@ -154,19 +154,19 @@ namespace ModelLayer.Classes {
 			ResetCounter();
 
 			switch( CurrentWorkMode ) {
-			case EnumWorkMode.Stop:
+			case WorkModeEnum.Stop:
 				break;
-			case EnumWorkMode.Work:
-				this.NextWorkMode = EnumWorkMode.DelayBreak;
+			case WorkModeEnum.Work:
+				this.NextWorkMode = WorkModeEnum.DelayBreak;
 				break;
-			case EnumWorkMode.DelayBreak:
-				this.NextWorkMode = EnumWorkMode.Break;
+			case WorkModeEnum.DelayBreak:
+				this.NextWorkMode = WorkModeEnum.Break;
 				break;
-			case EnumWorkMode.Break:
-				this.NextWorkMode = EnumWorkMode.DelayWork;
+			case WorkModeEnum.Break:
+				this.NextWorkMode = WorkModeEnum.DelayWork;
 				break;
-			case EnumWorkMode.DelayWork:
-				this.NextWorkMode = EnumWorkMode.Work;
+			case WorkModeEnum.DelayWork:
+				this.NextWorkMode = WorkModeEnum.Work;
 				break;
 			default:
 				Debug.WriteLine($"PomodoroClock hat einen EnumWorkMode erreicht, den es nicht gibt: {CurrentWorkMode}");
@@ -217,8 +217,8 @@ namespace ModelLayer.Classes {
 		public void StopClock() {
 			AddTimeIfWork();
 			ResetCounter();
-			CurrentWorkMode = EnumWorkMode.Stop;
-			NextWorkMode = EnumWorkMode.Work;
+			CurrentWorkMode = WorkModeEnum.Stop;
+			NextWorkMode = WorkModeEnum.Work;
 		}
 
 		#endregion
@@ -251,23 +251,23 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private void UpdateButtonText() {
 			switch( CurrentWorkMode ) {
-			case EnumWorkMode.Stop:
+			case WorkModeEnum.Stop:
 				StartStopText = "Start timer!";
 				DelayText = "Start work!";
 				break;
-			case EnumWorkMode.Work:
+			case WorkModeEnum.Work:
 				StartStopText = "Stop timer!";
 				DelayText = "Delay break!";
 				break;
-			case EnumWorkMode.Break:
+			case WorkModeEnum.Break:
 				StartStopText = "Stop timer!";
 				DelayText = "Delay work!";
 				break;
-			case EnumWorkMode.DelayWork:
+			case WorkModeEnum.DelayWork:
 				StartStopText = "Stop timer!";
 				DelayText = "Back to work!";
 				break;
-			case EnumWorkMode.DelayBreak:
+			case WorkModeEnum.DelayBreak:
 				StartStopText = "Stop timer!";
 				DelayText = "Take a break!";
 				break;
@@ -282,7 +282,7 @@ namespace ModelLayer.Classes {
 		/// checks if the current time can be added to the total and adds it
 		/// </summary>
 		private void AddTimeIfWork() {
-			if( CurrentWorkMode is EnumWorkMode.DelayBreak || CurrentWorkMode is EnumWorkMode.Work )
+			if( CurrentWorkMode is WorkModeEnum.DelayBreak || CurrentWorkMode is WorkModeEnum.Work )
 				TotalTime = TotalTime.Add(GetActualTime());
 		}
 
@@ -299,10 +299,10 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private TimeSpan GetCountStart() => CurrentWorkMode switch
 		{
-			EnumWorkMode.Work => CountDown ? DurationWorkCycle : TimeSpan.Zero,
-			EnumWorkMode.Break => CountDown ? DurationBreakCycle : TimeSpan.Zero,
-			EnumWorkMode.DelayWork => CountDown ? DurationDelayCycle : TimeSpan.Zero,
-			EnumWorkMode.DelayBreak => CountDown ? DurationDelayCycle : TimeSpan.Zero,
+			WorkModeEnum.Work => CountDown ? DurationWorkCycle : TimeSpan.Zero,
+			WorkModeEnum.Break => CountDown ? DurationBreakCycle : TimeSpan.Zero,
+			WorkModeEnum.DelayWork => CountDown ? DurationDelayCycle : TimeSpan.Zero,
+			WorkModeEnum.DelayBreak => CountDown ? DurationDelayCycle : TimeSpan.Zero,
 			_ => CountDown ? DurationWorkCycle : TimeSpan.Zero,
 		};
 		/// <summary>
@@ -310,23 +310,23 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private TimeSpan GetCountGoal() => CurrentWorkMode switch
 		{
-			EnumWorkMode.Work => CountDown ? TimeSpan.Zero : DurationWorkCycle,
-			EnumWorkMode.Break => CountDown ? TimeSpan.Zero : DurationBreakCycle,
-			EnumWorkMode.DelayWork => CountDown ? TimeSpan.Zero : DurationDelayCycle,
-			EnumWorkMode.DelayBreak => CountDown ? TimeSpan.Zero : DurationDelayCycle,
+			WorkModeEnum.Work => CountDown ? TimeSpan.Zero : DurationWorkCycle,
+			WorkModeEnum.Break => CountDown ? TimeSpan.Zero : DurationBreakCycle,
+			WorkModeEnum.DelayWork => CountDown ? TimeSpan.Zero : DurationDelayCycle,
+			WorkModeEnum.DelayBreak => CountDown ? TimeSpan.Zero : DurationDelayCycle,
 			_ => CountDown ? TimeSpan.Zero : DurationWorkCycle,
 		};
 		/// <summary>
 		/// returns a workMode where the clock will go if there is no interruption
 		/// </summary>
-		private EnumWorkMode GetNextWorkMode() => CurrentWorkMode switch
+		private WorkModeEnum GetNextWorkMode() => CurrentWorkMode switch
 		{
-			EnumWorkMode.Stop => EnumWorkMode.Work,
-			EnumWorkMode.Work => EnumWorkMode.Break,
-			EnumWorkMode.Break => EnumWorkMode.Work,
-			EnumWorkMode.DelayWork => EnumWorkMode.Work,
-			EnumWorkMode.DelayBreak => EnumWorkMode.Break,
-			_ => EnumWorkMode.Stop,
+			WorkModeEnum.Stop => WorkModeEnum.Work,
+			WorkModeEnum.Work => WorkModeEnum.Break,
+			WorkModeEnum.Break => WorkModeEnum.Work,
+			WorkModeEnum.DelayWork => WorkModeEnum.Work,
+			WorkModeEnum.DelayBreak => WorkModeEnum.Break,
+			_ => WorkModeEnum.Stop,
 		};
 		/// <summary>
 		/// resets the counter (cleanup)

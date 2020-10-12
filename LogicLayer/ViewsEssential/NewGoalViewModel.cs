@@ -21,16 +21,14 @@ namespace LogicLayer.Views {
 		private DateTime? _StartDate;
 		private DateTime? _EndDate;
 
-		private EnumState _State = EnumState.ToDo;
+		private StateEnum _State = StateEnum.ToDo;
 
 		private ICommand? _SaveGoalCommand;
 
 		#endregion
 
 		#region properties
-		public ObservableCollection<Category> CategoryList
-			=> ObjectManager.CategoryList;
-
+		public ObservableCollection<Category> CategoryList { get; private set; }
 		public string? Title {
 			get {
 				return _Title;
@@ -91,7 +89,7 @@ namespace LogicLayer.Views {
 				}
 			}
 		}
-		public EnumState State {
+		public StateEnum State {
 			get {
 				return _State;
 			}
@@ -102,7 +100,9 @@ namespace LogicLayer.Views {
 				OnPropertyChanged(nameof(State));
 			}
 		}
+		#endregion
 
+		#region public Commands
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			new RelayCommand(parameter => {
 				if( SelectedCategory is Category category && Title is string && Description is string ) {
@@ -124,7 +124,8 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructors
-
+		public NewGoalViewModel( ObservableCollection<Category> categoryList )
+			=> this.CategoryList = categoryList;
 		#endregion
 
 		#region methods

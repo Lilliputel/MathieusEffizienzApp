@@ -10,4 +10,12 @@
 		Fatal
 	}
 
+	public enum BoolSettingsEnum {
+		DarkMode,
+		CountDirection
+	}
+	public enum ObjectSettingsEnum {
+		Culture
+	}
+
 }

@@ -7,7 +7,7 @@ namespace ModelLayer.Enums {
 	/// Ein Enum, in dem alle möglichen Arbeitsschritte erfasst sind.
 	/// </summary>
 	[TypeConverter(typeof(EnumDescriptionTypeConverter))]
-	public enum EnumState {
+	public enum StateEnum {
 
 		[Description("ToDo: Muss erledigt werden!")]
 		ToDo,

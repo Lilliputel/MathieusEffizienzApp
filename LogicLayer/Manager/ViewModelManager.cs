@@ -1,25 +1,31 @@
 ﻿using LogicLayer.Extensions;
 using LogicLayer.ViewModels;
 using LogicLayer.Views;
+using ModelLayer.Classes;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace LogicLayer.Manager {
 
 	public static class ViewModelManager {
 
-		#region properties
+		#region private fields
+		private static ObservableCollection<Category> Categories = ObjectManager.CategoryList;
+		private static WeekPlan WeekPlan = ObjectManager.WeekPlan;
+		#endregion
 
-		public static DashboardViewModel Dashboard { get; private set; }
-		public static PlanViewModel Plan { get; private set; }
-		public static GoalOverviewViewModel GoalOverview { get; private set; }
-		public static GanttDiagramViewModel GanttDiagram { get; private set; }
-		public static StatisticsViewModel Statistics { get; private set; }
-		public static SettingsViewModel Settings { get; private set; }
+		#region public properties
+		public static DashboardViewModel Dashboard { get; private set; } = new DashboardViewModel(Categories);
+		public static PlanViewModel Plan { get; private set; } = new PlanViewModel(Categories, WeekPlan);
+		public static GoalOverviewViewModel GoalOverview { get; private set; } = new GoalOverviewViewModel(Categories);
+		public static GanttDiagramViewModel GanttDiagram { get; private set; } = new GanttDiagramViewModel(Categories);
+		public static StatisticsViewModel Statistics { get; private set; } = new StatisticsViewModel(Categories);
+		public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
 		public static PomodoroViewModel Pomodoro { get; private set; }
-		public static NewCategoryViewModel NewCategory { get; private set; }
-		public static NewGoalViewModel NewGoal { get; private set; }
-		public static NewDayTimeViewModel NewDayTime { get; private set; }
+		public static NewCategoryViewModel NewCategory { get; private set; } = new NewCategoryViewModel(Categories);
+		public static NewGoalViewModel NewGoal { get; private set; } = new NewGoalViewModel(Categories);
+		public static NewDayTimeViewModel NewDayTime { get; private set; } = new NewDayTimeViewModel(Categories);
 
 		#endregion
 
@@ -33,20 +39,8 @@ namespace LogicLayer.Manager {
 		#region initializer
 
 		static ViewModelManager() {
-
-			Dashboard = new DashboardViewModel();
-			Plan = new PlanViewModel();
-			GoalOverview = new GoalOverviewViewModel();
-			GanttDiagram = new GanttDiagramViewModel();
-			Statistics = new StatisticsViewModel();
-			Settings = new SettingsViewModel();
-
 #warning for debugging purpose a new goal gets added
-			Pomodoro = new PomodoroViewModel(ObjectManager.CategoryList.First().Children.First().WorkHours.First());
-			NewCategory = new NewCategoryViewModel();
-			NewGoal = new NewGoalViewModel();
-			NewDayTime = new NewDayTimeViewModel();
-
+			Pomodoro = new PomodoroViewModel(Categories.First().Children.First().WorkHours.First());
 		}
 
 		#endregion

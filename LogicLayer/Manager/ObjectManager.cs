@@ -1,9 +1,7 @@
 ﻿using DataLayer.Interfaces;
 using DataLayer.MockDataService;
-using DataLayer.XMLDataService;
 using ModelLayer.Classes;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -14,55 +12,34 @@ namespace LogicLayer.Manager {
 	public static class ObjectManager {
 
 		#region fields
-
-		private static string _FilePath = @"S:\TESTING\Effizienz\";
 		private static IDataService<ObservableCollection<Category>, Category> _ObjectDataService;
-		private static IDataService<Dictionary<string, bool>, KeyValuePair<string, bool>> _SettingsDataService;
-
 		#endregion
 
 		#region properties
-
 		/// <summary>
 		/// Die Globale CategoryList, welche gespeichert wird und alle Categories enthalten sollte.
 		/// </summary>
 		public static ObservableCollection<Category> CategoryList { get; set; }
-
 		/// <summary>
 		/// Der Globale WeekPlan, welche nicht gespeichert wird und alle DayTimes mit den Kategorien und Farben enthalten sollte.
 		/// </summary>
 		public static WeekPlan WeekPlan { get; set; }
-
-		/// <summary>
-		/// Die Globale SettingsList, welche gespeichert wird und alle Settings enthalten sollte.
-		/// </summary>
-		public static Dictionary<string, bool> Settings { get; set; }
-
 		#endregion
 
 		#region constructor
-
 		static ObjectManager() {
 			CategoryList = new ObservableCollection<Category>();
 			CategoryList.CollectionChanged += SubscribeWorkPlans;
 			WeekPlan = new WeekPlan();
-			Settings = new Dictionary<string, bool>();
-
 
 			_ObjectDataService = new MockDataService();
-
+			//string _FilePath = @"S:\TESTING\Effizienz\";
 			//_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
 			//( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;
-
-			_SettingsDataService = new XMLDictionaryHandler<string, bool>(nameof(Settings), _FilePath);
-			( _SettingsDataService as XMLDictionaryHandler<string, bool> )!.ErrorOccured += ErrorOccured;
-
 		}
-
 		#endregion
 
-		#region methods
-
+		#region public methods
 		public static Category? GetCategory( Guid ID ) {
 			foreach( Category category in CategoryList ) {
 				if( category.ID.Guid == ID )
@@ -70,7 +47,6 @@ namespace LogicLayer.Manager {
 			}
 			return null;
 		}
-
 		public static void SaveCategories() {
 			_ObjectDataService.SaveData(CategoryList);
 		}
@@ -85,18 +61,9 @@ namespace LogicLayer.Manager {
 				}
 			}
 		}
-
-		public static void SaveSettings() {
-			_SettingsDataService.SaveData(Settings);
-		}
-		public static void LoadSettings() {
-			Settings = _SettingsDataService.LoadData();
-		}
-
 		#endregion
 
-		#region private helpers
-
+		#region private helper methods
 		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is ObservableCollection<Category> ) {
 				if( e.Action is NotifyCollectionChangedAction.Add ) {
@@ -119,7 +86,6 @@ namespace LogicLayer.Manager {
 				}
 			}
 		}
-
 		private static void UpdateWeekPlan( object? sender, NotifyCollectionChangedEventArgs e ) {
 			if( sender is Category category ) {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
@@ -162,7 +128,6 @@ namespace LogicLayer.Manager {
 				}
 			}
 		}
-
 		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
 			switch( e.GetException() ) {
 			case FileNotFoundException fNFE:

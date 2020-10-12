@@ -43,9 +43,9 @@ namespace LogicLayer.Views {
 
 		#region properties
 
-		public PomodoroClock Clock { get; set; }
+		public PomodoroClock Clock { get; private set; }
 
-		public WorkItem? WorkItem { get; set; }
+		public WorkItem? WorkItem { get; private set; }
 
 		#endregion
 

@@ -1,23 +1,37 @@
 ﻿<UserControl x:Class="FrontLayer.WPF.Views.SettingsView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+			 xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib" 
 			 
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.Settings}">
 
 	<StackPanel>
-		<ToggleButton x:Name="ToggleButton_Theme"
-						  Command="{Binding CommandChangeTheme}"
-						  Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged}"
-						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-						  Margin="0,5"
-						  Background="{DynamicResource Back_2}"/>
-		<ToggleButton x:Name="ToggleButton_CountDirection"
-						  Command="{Binding CommandChangeCountDirection}"
-						  Content="Change countdirection!"
-						  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-						  Margin="0,5"
-						  Background="{DynamicResource Back_2}"/>
+		<ToggleButton Command="{Binding CommandChangeTheme}"
+					  Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged}"
+					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+					  Margin="0,5"
+					  Background="{DynamicResource Back_2}"/>
+		<ToggleButton Command="{Binding CommandChangeCountDirection}"
+					  Content="Change countdirection!"
+					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
+					  Margin="0,5"
+					  Background="{DynamicResource Back_2}"/>
+		<ComboBox ItemsSource="{Binding Cultures}" x:Name="CultureComboBox"
+				  SelectedItem="{Binding SelectedCulture}"
+				  Margin="0,5">
+			<ComboBox.ItemTemplate>
+				<DataTemplate DataType="{x:Type global:CultureInfo}">
+					<TextBlock Text="{Binding DisplayName}"/>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="SelectionChanged">
+					<i:InvokeCommandAction Command="{Binding CommandChangedCulture}" CommandParameter="{Binding Path=SelectedItem, ElementName=CultureComboBox}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</ComboBox>
 	</StackPanel>
 	
 </UserControl>

@@ -8,21 +8,16 @@
 	
 	<ControlTemplate TargetType="{x:Type local:GanttPlan}" x:Key="GanttPlanTemplate">
 
-		<TreeView ItemsSource="{Binding Children}">
-
-			<TreeView.Resources>
-				<system:Double x:Key="NameWidth">150</system:Double>
-				<system:Double x:Key="NameMargin">220</system:Double>
-			</TreeView.Resources>
+		<TreeView DataContext="{TemplateBinding Category}" ItemsSource="{Binding Children}">
 
 			<TreeView.ItemTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}" ItemsSource="{Binding Children}">
 
-					<local:GanttElement Goal="{Binding}" TextWidth="{Binding Source={StaticResource NameWidth}}">
+					<local:GanttElement Goal="{Binding}" TextWidth="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:GanttPlan}}, Path=NameWidth}">
 						<local:GanttElement.TimeLineWidth>
 							<MultiBinding Converter="{converter:DoubleSubtraction}">
-								<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="ActualWidth"/>
-								<Binding Source="{StaticResource NameMargin}"/>
+								<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttPlan}}" Path="ActualWidth"/>
+								<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttPlan}}" Path="NameMargin"/>
 							</MultiBinding>
 						</local:GanttElement.TimeLineWidth>
 					</local:GanttElement>

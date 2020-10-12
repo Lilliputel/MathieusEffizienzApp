@@ -53,7 +53,7 @@
 	</UserControl.Resources>
 	
 	<!-- TabControl mit den Kategorien als Tab -->
-	<components:CategoryTabs ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
 			<DataTemplate DataType="{x:Type classes:Category}">
@@ -70,6 +70,6 @@
 			</DataTemplate>
 		</TabControl.ContentTemplate>
 
-	</components:CategoryTabs>
+	</TabControl>
 
 </UserControl>

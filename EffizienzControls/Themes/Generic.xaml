@@ -2,11 +2,11 @@
 
 	<ResourceDictionary.MergedDictionaries>
 
-		<ResourceDictionary Source="EffizienzControls;component/GanttElement/GanttElement.xaml"/>
-		<ResourceDictionary Source="EffizienzControls;component/GanttPlan/GanttPlan.xaml"/>
+		<ResourceDictionary Source="EffizienzControls;component/Gantt/GanttElement.xaml"/>
+		<ResourceDictionary Source="EffizienzControls;component/Gantt/GanttPlan.xaml"/>
 
-		<ResourceDictionary Source="EffizienzControls;component/DayPlanView/DayPlanView.xaml"/>
-		<ResourceDictionary Source="EffizienzControls;component/WeekPlanView/WeekPlanView.xaml"/>
+		<ResourceDictionary Source="EffizienzControls;component/Plan/DayPlanView.xaml"/>
+		<ResourceDictionary Source="EffizienzControls;component/Plan/WeekPlanView.xaml"/>
 
 	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

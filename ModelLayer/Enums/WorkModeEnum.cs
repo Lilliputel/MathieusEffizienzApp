@@ -7,7 +7,7 @@ namespace ModelLayer.Enums {
 	/// Ein Enum, in dem alle möglichen Arbeitsschritte erfasst sind.
 	/// </summary>
 	[TypeConverter(typeof(EnumDescriptionTypeConverter))]
-	public enum EnumWorkMode {
+	public enum WorkModeEnum {
 
 		[Description("Stop: keine Arbeit")]
 		Stop,
