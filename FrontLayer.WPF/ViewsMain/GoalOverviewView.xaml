@@ -18,7 +18,7 @@
 				</Grid.ColumnDefinitions>
 
 				<!-- Template für das Untergeordnete Element (Aufgabe) -->
-				<TextBlock Text="{Binding ID.Title}" VerticalAlignment="Center" Grid.Column="0"/>
+				<TextBlock Text="{Binding UserText.Title}" VerticalAlignment="Center" Grid.Column="0"/>
 
 				<Grid VerticalAlignment="Center" Grid.Column="2">
 					<Grid.ColumnDefinitions>
@@ -53,7 +53,7 @@
 	</UserControl.Resources>
 	
 	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList.Children, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
 			<DataTemplate DataType="{x:Type classes:Category}">

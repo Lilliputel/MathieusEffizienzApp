@@ -18,7 +18,7 @@
 
 			<!-- Textblock mit Aufgabentitel für Spalte 1 -->
 			<TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
-					   Text="{Binding ID.Title}" />
+					   Text="{Binding UserText.Title}" />
 			
 			<!-- Border, der eine Linie zwischen dem Strahl und dem Titel erstellen sollte-->
 			<Border Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,0" 	Background="Transparent" IsHitTestVisible="False"/>
@@ -26,7 +26,7 @@
 			<!--Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen-->
 			<Border Grid.Column="2" Style="{TemplateBinding BorderStyle}"
 					VerticalAlignment="Stretch"	HorizontalAlignment="Left"
-					Background="{Binding ID.Color, Converter={converter:DrawingColorToSolidBrush}}">
+					Background="{Binding UserText.Color, Converter={converter:DrawingColorToSolidBrush}}">
 
 				<!--Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert-->
 				<Border.Margin>

@@ -15,23 +15,18 @@
 
 		<!-- Gruppe Titel -->
 		<TextBlock Text="Titel:"/>
-		<TextBox x:Name="TextBox_Title" Text="{Binding Title, Mode=TwoWay}"/>
+		<TextBox x:Name="TextBox_Title" 
+				 Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
 
 		<!-- Gruppe Beschreibung -->
 		<TextBlock Text="Beschreibung:"/>
-		<TextBox x:Name="TextBox_Description" Text="{Binding Description, Mode=TwoWay}"/>
-
-		<!-- Gruppe Status ComboBox -->
-		<TextBlock Text="Status:"/>
-		<ComboBox x:Name="ComboBox_State"
-				  ItemsSource="{Binding Source={extensions:EnumBindingSource {x:Type enums:EnumState}}}"
-				  SelectedItem="{Binding State, Mode=TwoWay}"/>
+		<TextBox x:Name="TextBox_Description" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
 
 		<!-- Gruppe Farbe ComboBox -->
 		<TextBlock Text="Farbe:"/>
 		<ComboBox x:Name="ComboBox_Color"
 				  ItemsSource="{Binding ColorNameList, Mode=OneTime}"
-				  SelectedItem="{Binding SelectedColorName, Mode=TwoWay}">
+				  SelectedItem="{Binding SelectedColorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">
@@ -45,18 +40,8 @@
 		<!-- Gruppe Speichern Button -->
 		<Button Command="{Binding SaveCategoryCommand}"
 				Content="Speichern!"
-				Margin="0,5">
-			<Button.IsEnabled>
-				<MultiBinding Converter="{converter:ElementsToFalse}">
-					<Binding ElementName="TextBox_Title" Path="Text"/>
-					<Binding ElementName="TextBox_Description" Path="Text"/>
-					<Binding ElementName="ComboBox_State" Path="SelectedItem" Converter="{converter:NullToFalse}"/>
-					<Binding ElementName="ComboBox_Color" Path="SelectedItem" Converter="{converter:NullToFalse}"/>
-				</MultiBinding>
-			</Button.IsEnabled>
-		</Button>
-		
-		
+				Margin="0,5"/>
+
 	</StackPanel>
 
 </UserControl>

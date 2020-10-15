@@ -1,6 +1,7 @@
 ﻿using DataLayer.Interfaces;
 using DataLayer.MockDataService;
 using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -11,26 +12,24 @@ using System.Threading.Tasks;
 namespace LogicLayer.Manager {
 	public static class ObjectManager {
 
-		#region fields
+		#region private fields
 		private static IDataService<ObservableCollection<Category>, Category> _ObjectDataService;
 		#endregion
 
-		#region properties
+		#region public properties
 		/// <summary>
 		/// Die Globale CategoryList, welche gespeichert wird und alle Categories enthalten sollte.
 		/// </summary>
-		public static ObservableCollection<Category> CategoryList { get; set; }
+		public static IAccountableParent<Category> CategoryList { get; } = new CategoryList();
 		/// <summary>
 		/// Der Globale WeekPlan, welche nicht gespeichert wird und alle DayTimes mit den Kategorien und Farben enthalten sollte.
 		/// </summary>
-		public static WeekPlan WeekPlan { get; set; }
+		public static WeekPlan WeekPlan { get; } = new WeekPlan();
 		#endregion
 
 		#region constructor
 		static ObjectManager() {
-			CategoryList = new ObservableCollection<Category>();
-			CategoryList.CollectionChanged += SubscribeWorkPlans;
-			WeekPlan = new WeekPlan();
+			CategoryList.Children.CollectionChanged += SubscribeWorkPlans;
 
 			_ObjectDataService = new MockDataService();
 			//string _FilePath = @"S:\TESTING\Effizienz\";
@@ -40,23 +39,16 @@ namespace LogicLayer.Manager {
 		#endregion
 
 		#region public methods
-		public static Category? GetCategory( Guid ID ) {
-			foreach( Category category in CategoryList ) {
-				if( category.ID.Guid == ID )
-					return category;
-			}
-			return null;
-		}
 		public static void SaveCategories() {
-			_ObjectDataService.SaveData(CategoryList);
+			_ObjectDataService.SaveData(CategoryList.Children);
 		}
 		public static void LoadCategories() {
 			foreach( var category in _ObjectDataService.LoadData() ) {
-				CategoryList.Add(category);
-				foreach( var daytime in category.WorkSessions ) {
+				CategoryList.Children.Add(category);
+				foreach( var daytime in category.WorkPlan ) {
 					Task.Run(() =>
 					WeekPlan.AddItemToDayAsync(daytime.Day,
-					new PlanItem(daytime.Time, category.ID.Guid, category.ID.Color, category.ID.Title))
+					new PlanItem(daytime.Time, category))
 					);
 				}
 			}
@@ -65,23 +57,23 @@ namespace LogicLayer.Manager {
 
 		#region private helper methods
 		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
-			if( sender is ObservableCollection<Category> ) {
+			if( sender is CategoryList ) {
 				if( e.Action is NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
 						foreach( Category? item in e.NewItems! )
-							item!.WorkSessions.CollectionChanged += UpdateWeekPlan;
+							item!.WorkPlan.CollectionChanged += UpdateWeekPlan;
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
 						foreach( Category? item in e.OldItems )
-							item!.WorkSessions.CollectionChanged -= UpdateWeekPlan;
+							item!.WorkPlan.CollectionChanged -= UpdateWeekPlan;
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
 						foreach( Category? item in e.OldItems )
-							item!.WorkSessions.CollectionChanged -= UpdateWeekPlan;
+							item!.WorkPlan.CollectionChanged -= UpdateWeekPlan;
 						foreach( Category? item in e.NewItems )
-							item!.WorkSessions.CollectionChanged += UpdateWeekPlan;
+							item!.WorkPlan.CollectionChanged += UpdateWeekPlan;
 					}
 				}
 			}
@@ -94,7 +86,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
+								new PlanItem(time, category))
 								);
 							}
 				}
@@ -104,7 +96,7 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
+								new PlanItem(time, category))
 								);
 							}
 				}
@@ -114,14 +106,14 @@ namespace LogicLayer.Manager {
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
+								new PlanItem(time, category))
 								);
 							}
 						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
 							if( item is (DayOfWeek day, DoubleTime time) ) {
 								Task.Run(() =>
 								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category.ID.Guid, category.ID.Color, category.ID.Title))
+								new PlanItem(time, category))
 								);
 							}
 					}

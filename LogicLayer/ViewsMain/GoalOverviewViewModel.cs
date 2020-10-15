@@ -1,6 +1,6 @@
 ﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using System.Collections.ObjectModel;
+using ModelLayer.Interfaces;
 
 namespace LogicLayer.Views {
 	public class GoalOverviewViewModel : ViewModelBase {
@@ -10,12 +10,12 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public ObservableCollection<Category> Categories { get; private set; }
+		public IAccountableParent<Category> CategoryList { get; }
 		#endregion
 
 		#region constructors
-		public GoalOverviewViewModel( ObservableCollection<Category> categories )
-			=> Categories = categories;
+		public GoalOverviewViewModel( IAccountableParent<Category> categoryList )
+			=> CategoryList = categoryList;
 		#endregion
 
 		#region methods

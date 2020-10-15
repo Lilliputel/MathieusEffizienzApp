@@ -8,7 +8,7 @@
 			 DataContext="{x:Static manager:ViewModelManager.Dashboard}">
 	
 	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList.Children, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
 			<!-- Template für Kategorie -->
@@ -28,7 +28,7 @@
 						<!-- Template für Projekt -->
 						<DataTemplate DataType="{x:Type classes:Goal}">
 							<!-- Rahmen pro Projekt -->
-							<GroupBox Header="{Binding ID.Title}"
+							<GroupBox Header="{Binding UserText.Title}"
 										  BorderBrush="Black"
 										  Margin="5,2">
 								<!-- itemsControl für Aufgaben -->
@@ -37,7 +37,7 @@
 									<ItemsControl.ItemTemplate>
 										<!-- Template für Aufgabe -->
 										<DataTemplate DataType="{x:Type classes:Goal}">
-											<TextBlock Text="{Binding ID.Title}"/>
+											<TextBlock Text="{Binding UserText.Title}"/>
 										</DataTemplate>
 									</ItemsControl.ItemTemplate>
 								</ItemsControl>

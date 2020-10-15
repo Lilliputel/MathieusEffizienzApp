@@ -14,8 +14,8 @@ namespace DataLayer.Structs {
 			: this(keyValuePair.Key, keyValuePair.Value) { }
 
 		public CustomPair( TKey key, TValue value ) {
-			this.Key = key;
-			this.Value = value;
+			Key = key;
+			Value = value;
 		}
 
 	}

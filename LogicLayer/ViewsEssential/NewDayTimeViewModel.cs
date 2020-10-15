@@ -2,8 +2,8 @@
 using LogicLayer.Manager;
 using LogicLayer.ViewModels;
 using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using System;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -15,7 +15,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public ObservableCollection<Category> CategoryList { get; private set; }
+		public IAccountableParent<Category> CategoryList { get; }
 		public Category? SelectedCategory { get; set; }
 		public DayOfWeek DayOfWeek { get; set; }
 		public TimeSpan StartTime { get; set; }
@@ -28,12 +28,10 @@ namespace LogicLayer.Views {
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			 new RelayCommandAsync(
 				 () => AddToWeekPlan(),
-				 ( obj ) =>
-					 SelectedCategory is Category && StartTime != EndTime
-				 ,
-				 ( ex ) => {
+				 obj => SelectedCategory is Category && StartTime != EndTime,
+				 ex => {
 					 if( ex is ArgumentException )
-						 this.Warning = $"{ex.Message}";
+						 Warning = $"{ex.Message}";
 					 else
 						 AlertManager.InputInkorrekt(ex.Message);
 				 });
@@ -41,13 +39,13 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructors
-		public NewDayTimeViewModel( ObservableCollection<Category> categoryList )
+		public NewDayTimeViewModel( IAccountableParent<Category> categoryList )
 			=> CategoryList = categoryList;
 		#endregion
 
 		#region private helper methods
 		private Task AddToWeekPlan()
-			=> ObjectManager.WeekPlan.AddItemToDayAsync(this.DayOfWeek, new PlanItem(new DoubleTime(this.StartTime, this.EndTime), this.SelectedCategory!.ID.Guid, this.SelectedCategory.ID.Color, this.SelectedCategory.ID.Title));
+			=> ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DoubleTime(StartTime, EndTime), SelectedCategory));
 		#endregion
 
 	}

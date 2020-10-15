@@ -6,14 +6,14 @@ namespace ModelLayer.Extensions {
 
 		private Type? _enumType;
 		public Type? EnumType {
-			get { return this._enumType; }
+			get { return _enumType; }
 			set {
-				if( value != this._enumType ) {
+				if( value != _enumType ) {
 					if( value is { } ) {
 						Type enumType = Nullable.GetUnderlyingType(value) ?? value;
 						if( enumType.IsEnum is false )
 							throw new ArgumentException("Type must be for an Enum.");
-						this._enumType = value;
+						_enumType = value;
 					}
 				}
 			}
@@ -22,17 +22,17 @@ namespace ModelLayer.Extensions {
 		public EnumBindingSourceExtension() { }
 
 		public EnumBindingSourceExtension( Type enumType ) {
-			this.EnumType = enumType;
+			EnumType = enumType;
 		}
 
 		public override object ProvideValue( IServiceProvider serviceProvider ) {
-			if( this._enumType is null )
+			if( _enumType is null )
 				throw new InvalidOperationException("The EnumType must be specified.");
 
-			Type actualEnumType = Nullable.GetUnderlyingType(this._enumType) ?? this._enumType;
+			Type actualEnumType = Nullable.GetUnderlyingType(_enumType) ?? _enumType;
 			Array enumValues = Enum.GetValues(actualEnumType);
 
-			if( actualEnumType == this._enumType )
+			if( actualEnumType == _enumType )
 				return enumValues;
 
 			Array tempArray = Array.CreateInstance(actualEnumType, enumValues.Length + 1);

@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Timers;
 
 namespace ModelLayer.Classes {
-
 	public class PomodoroClock : ObservableObject {
 
 		#region private fields
@@ -79,11 +78,8 @@ namespace ModelLayer.Classes {
 		/// Call to Invoke the event Elapsed, if a Timer Tick gets Elapsed
 		/// </summary>
 		protected virtual void OnElapsed() {
-			PomodoroEventArgs e = new PomodoroEventArgs(){
-				Time = GetActualTime(),
-				WorkMode = CurrentWorkMode
-			};
-			Elapsed?.Invoke(this, e);
+
+			Elapsed?.Invoke(CurrentWorkMode, GetActualTime());
 
 			AddTimeIfWork();
 			ResetCounter();
@@ -96,18 +92,18 @@ namespace ModelLayer.Classes {
 		#region constructor
 
 		public PomodoroClock( TimeSpan inputWorkTime, TimeSpan inputBreakTime, TimeSpan inputDelayTime ) {
-			this.DurationWorkCycle = inputWorkTime;
-			this.DurationBreakCycle = inputBreakTime;
-			this.DurationDelayCycle = inputDelayTime;
+			DurationWorkCycle = inputWorkTime;
+			DurationBreakCycle = inputBreakTime;
+			DurationDelayCycle = inputDelayTime;
 
-			this.Time = TimeSpan.Zero;
-			this.TotalTime = TimeSpan.Zero;
+			Time = TimeSpan.Zero;
+			TotalTime = TimeSpan.Zero;
 
-			this.CurrentWorkMode = WorkModeEnum.Stop;
-			this.NextWorkMode = WorkModeEnum.Work;
+			CurrentWorkMode = WorkModeEnum.Stop;
+			NextWorkMode = WorkModeEnum.Work;
 
-			this.DelayText = "Start work!";
-			this.StartStopText = "Start timer!";
+			DelayText = "Start work!";
+			StartStopText = "Start timer!";
 		}
 
 		#endregion
@@ -120,13 +116,13 @@ namespace ModelLayer.Classes {
 		/// <param name="countDown">if <see langword="true"/> it counts down, if <see langword="false"/> the <see cref="PomodoroClock"/> will cound Up and if <see langword="null"/> it switches the countdirection </param>
 		public void UpdateCountDirection( bool? countDown = null ) {
 			double memory = GetActualTime().TotalSeconds;
-			this.CountDown = countDown ?? !this.CountDown;
+			CountDown = countDown ?? !CountDown;
 
-			if( this._Counter.Enabled is true ) {
-				this._Counter.Stop();
-				this.NextWorkMode = this.CurrentWorkMode;
+			if( _Counter.Enabled is true ) {
+				_Counter.Stop();
+				NextWorkMode = CurrentWorkMode;
 				ResetCounter();
-				if( this.CountDown is true )
+				if( CountDown is true )
 					memory = GetCountStart().TotalSeconds - memory;
 				StartClock(TimeSpan.FromSeconds(memory));
 			}
@@ -157,16 +153,16 @@ namespace ModelLayer.Classes {
 			case WorkModeEnum.Stop:
 				break;
 			case WorkModeEnum.Work:
-				this.NextWorkMode = WorkModeEnum.DelayBreak;
+				NextWorkMode = WorkModeEnum.DelayBreak;
 				break;
 			case WorkModeEnum.DelayBreak:
-				this.NextWorkMode = WorkModeEnum.Break;
+				NextWorkMode = WorkModeEnum.Break;
 				break;
 			case WorkModeEnum.Break:
-				this.NextWorkMode = WorkModeEnum.DelayWork;
+				NextWorkMode = WorkModeEnum.DelayWork;
 				break;
 			case WorkModeEnum.DelayWork:
-				this.NextWorkMode = WorkModeEnum.Work;
+				NextWorkMode = WorkModeEnum.Work;
 				break;
 			default:
 				Debug.WriteLine($"PomodoroClock hat einen EnumWorkMode erreicht, den es nicht gibt: {CurrentWorkMode}");
@@ -291,8 +287,8 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private TimeSpan GetActualTime() {
 			if( CountDown is true )
-				return GetCountStart() - this.Time;
-			return this.Time;
+				return GetCountStart() - Time;
+			return Time;
 		}
 		/// <summary>
 		/// returns the Timespan, where the clock has to start
@@ -333,14 +329,14 @@ namespace ModelLayer.Classes {
 		/// </summary>
 		private void ResetCounter() {
 			// removes all EventHandler for a bugfree experience
-			this._Counter.Elapsed -= UpCounter_Tick;
-			this._Counter.Elapsed -= DownCounter_Tick;
+			_Counter.Elapsed -= UpCounter_Tick;
+			_Counter.Elapsed -= DownCounter_Tick;
 
-			this._Counter.Enabled = false;
+			_Counter.Enabled = false;
 
 			// Sets DestinationTime and Time to zero
-			this._DestinationTime = TimeSpan.Zero;
-			this.Time = TimeSpan.Zero;
+			_DestinationTime = TimeSpan.Zero;
+			Time = TimeSpan.Zero;
 		}
 
 		#endregion

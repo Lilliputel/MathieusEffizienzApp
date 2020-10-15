@@ -7,39 +7,24 @@ using System.Xml.Serialization;
 namespace ModelLayer.Classes {
 	public class WeekPlan : ObservableObject {
 
-		#region properties
-		[XmlElement(nameof(Monday))]
-		public DayPlan Monday { get; set; }
-		[XmlElement(nameof(Tuesday))]
-		public DayPlan Tuesday { get; set; }
-		[XmlElement(nameof(Wednesday))]
-		public DayPlan Wednesday { get; set; }
-		[XmlElement(nameof(Thursday))]
-		public DayPlan Thursday { get; set; }
-		[XmlElement(nameof(Friday))]
-		public DayPlan Friday { get; set; }
-		[XmlElement(nameof(Saturday))]
-		public DayPlan Saturday { get; set; }
-		[XmlElement(nameof(Sunday))]
-		public DayPlan Sunday { get; set; }
+		#region public properties
+		public DayPlan Monday { get; } = new DayPlan();
+		public DayPlan Tuesday { get; } = new DayPlan();
+		public DayPlan Wednesday { get; } = new DayPlan();
+		public DayPlan Thursday { get; } = new DayPlan();
+		public DayPlan Friday { get; } = new DayPlan();
+		public DayPlan Saturday { get; } = new DayPlan();
+		public DayPlan Sunday { get; } = new DayPlan();
 
 		[XmlIgnore]
-		public ObservableCollection<TimeSpan> HoursOfDay { get; private set; }
+		public ObservableCollection<TimeSpan> HoursOfDay { get; }
 		#endregion
 
 		#region constructor
 		public WeekPlan() {
-			this.Monday = new DayPlan();
-			this.Tuesday = new DayPlan();
-			this.Wednesday = new DayPlan();
-			this.Thursday = new DayPlan();
-			this.Friday = new DayPlan();
-			this.Saturday = new DayPlan();
-			this.Sunday = new DayPlan();
-
-			this.HoursOfDay = new ObservableCollection<TimeSpan>();
+			HoursOfDay = new ObservableCollection<TimeSpan>();
 			for( int h = 0; h < 24; h++ ) {
-				this.HoursOfDay.Add(TimeSpan.FromHours(h));
+				HoursOfDay.Add(TimeSpan.FromHours(h));
 			}
 		}
 		#endregion
@@ -60,13 +45,13 @@ namespace ModelLayer.Classes {
 			=> GetDayPlan(day).Remove(item);
 		public DayPlan GetDayPlan( DayOfWeek day ) => day switch
 		{
-			DayOfWeek.Monday => this.Monday,
-			DayOfWeek.Tuesday => this.Tuesday,
-			DayOfWeek.Wednesday => this.Wednesday,
-			DayOfWeek.Thursday => this.Thursday,
-			DayOfWeek.Friday => this.Friday,
-			DayOfWeek.Saturday => this.Saturday,
-			DayOfWeek.Sunday => this.Sunday,
+			DayOfWeek.Monday => Monday,
+			DayOfWeek.Tuesday => Tuesday,
+			DayOfWeek.Wednesday => Wednesday,
+			DayOfWeek.Thursday => Thursday,
+			DayOfWeek.Friday => Friday,
+			DayOfWeek.Saturday => Saturday,
+			DayOfWeek.Sunday => Sunday,
 			_ => new DayPlan()
 		};
 		#endregion

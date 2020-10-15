@@ -1,37 +1,30 @@
 ﻿using ModelLayer.Utility;
 using PropertyChanged;
 using System;
-using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
-	/// <summary>
-	/// Enthält eine StartZeit und eine EndZeit
-	/// </summary>
 	public class DoubleTime : ObservableObject {
 
-		#region fields
+		#region private fields
 
 		private double _Start;
 		private double _End;
 
 		#endregion
 
-		#region properties
-		[XmlAttribute(nameof(Start))]
+		#region public properties
 		[AlsoNotifyFor(nameof(Duration))]
 		public double Start {
 			get { return _Start; }
-			set { UpdateValues(RoundToQuarter(value), this._End); }
+			set { UpdateValues(RoundToQuarter(value), _End); }
 		}
-		[XmlAttribute(nameof(End))]
 		[AlsoNotifyFor(nameof(Duration))]
 		public double End {
 			get { return _End; }
-			set { UpdateValues(this._Start, RoundToQuarter(value)); }
+			set { UpdateValues(_Start, RoundToQuarter(value)); }
 		}
-		[XmlIgnore]
 		public double Duration
-			=> RoundToQuarter(this.Start - this.End);
+			=> RoundToQuarter(Start - End);
 		#endregion
 
 		#region constructor
@@ -68,12 +61,12 @@ namespace ModelLayer.Classes {
 
 			// setzt die Korrekte reihenfolge der beiden Daten
 			if( end >= start ) {
-				this._Start = start;
-				this._End = end;
+				_Start = start;
+				_End = end;
 			}
 			else {
-				this._Start = end;
-				this._End = start;
+				_Start = end;
+				_End = start;
 			}
 		}
 		#endregion

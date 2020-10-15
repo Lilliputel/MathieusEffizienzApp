@@ -13,7 +13,7 @@
 			 x:Name="ControlRoot">
 
 
-	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}">
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList.Children, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
 			<DataTemplate DataType="{x:Type classes:Category}">
@@ -42,14 +42,14 @@
 								
 								<Border BorderBrush="Black" BorderThickness="0,0,1,0" Background="Transparent">
 									<TextBlock Grid.Column="0" VerticalAlignment="Center"
-												   Text="{Binding ID.Title}" />
+												   Text="{Binding UserText.Title}" />
 								</Border>
 
 								<Border Grid.Column="1" 
 											Style="{StaticResource BorderRounded}"
 											VerticalAlignment="Stretch"
 											HorizontalAlignment="Left"
-											Background="{Binding ElementName=TimeLineWidth, Path=DataContext.ID.Color, Converter={converter:DrawingColorToSolidBrush}}">
+											Background="{Binding ElementName=TimeLineWidth, Path=DataContext.UserText.Color, Converter={converter:DrawingColorToSolidBrush}}">
 									<Border.Margin>
 										<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
 											<Binding ElementName="TimeLine" 

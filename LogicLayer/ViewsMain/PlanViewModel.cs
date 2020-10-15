@@ -1,6 +1,7 @@
 ﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using System.Collections.ObjectModel;
+using ModelLayer.Interfaces;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace LogicLayer.Views {
@@ -11,20 +12,20 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public ObservableCollection<Category> Categories { get; private set; }
-		public WeekPlan WeekPlan { get; private set; }
+		public IAccountableParent<Category> CategoryList { get; }
+		public WeekPlan WeekPlan { get; }
 		#endregion
 
 		#region constructor
-		public PlanViewModel( ObservableCollection<Category> categories, WeekPlan weekPlan ) {
-			Categories = categories;
+		public PlanViewModel( IAccountableParent<Category> categoryList, WeekPlan weekPlan ) {
+			CategoryList = categoryList;
 			WeekPlan = weekPlan;
 			WeekPlan.PropertyChanged += Test;
 		}
 		#endregion
 
 		#region private helper methods
-		private void Test( object sender, System.ComponentModel.PropertyChangedEventArgs e ) {
+		private void Test( object sender, PropertyChangedEventArgs e ) {
 			Debug.WriteLine($"Executed PropertyChanged {e.PropertyName}");
 		}
 		#endregion

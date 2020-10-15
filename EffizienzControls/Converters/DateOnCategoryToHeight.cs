@@ -1,5 +1,6 @@
 ﻿using EffizienzControls.Extensions;
 using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using System;
 using System.Globalization;
 using System.Windows.Data;
@@ -20,7 +21,7 @@ namespace EffizienzControls.Converters {
 			#endregion
 
 			#region conversion
-			var workedTime = category.GetTimeOnDate(date);
+			var workedTime = (category as IAccountableParent<Goal>).GetTimeOnDate(date);
 
 			if( maxTime > TimeSpan.Zero )
 				factor = workedTime / maxTime;

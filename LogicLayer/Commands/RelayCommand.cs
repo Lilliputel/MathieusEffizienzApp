@@ -5,7 +5,7 @@ namespace LogicLayer.Commands {
 
 	public class RelayCommand : ICommand {
 
-		#region fields
+		#region private fields
 
 		private readonly Action<object> _Execute;
 		private readonly Predicate<object>? _CanExecute;
@@ -31,7 +31,7 @@ namespace LogicLayer.Commands {
 
 		#endregion
 
-		#region Methods
+		#region public Methods
 
 		public bool CanExecute( object parameter )
 			=> _CanExecute is null || _CanExecute(parameter);

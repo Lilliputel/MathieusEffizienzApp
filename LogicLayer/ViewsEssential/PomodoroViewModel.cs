@@ -8,7 +8,7 @@ namespace LogicLayer.Views {
 
 	public class PomodoroViewModel : ViewModelBase {
 
-		#region fields
+		#region private fields
 
 		private ICommand? _StartStopCommand;
 		private ICommand? _DelayCommand;
@@ -33,32 +33,25 @@ namespace LogicLayer.Views {
 		public ICommand SaveTimeCommand => _SaveTimeCommand ??=
 			new RelayCommand(
 				parameter => {
-					if( this.WorkItem is WorkItem workItem )
-						workItem.Time += ( this.Clock.GetTotalAndReset() );
+					if( WorkItem is WorkItem workItem )
+						workItem.Time += ( Clock.GetTotalAndReset() );
 				},
-				obj => this.WorkItem is { }
+				_ => WorkItem is { }
 			);
 
 		#endregion
 
-		#region properties
-
-		public PomodoroClock Clock { get; private set; }
-
+		#region public properties
+		public PomodoroClock Clock { get; }
 		public WorkItem? WorkItem { get; private set; }
-
 		#endregion
 
 		#region constructor
-
 		public PomodoroViewModel() {
-			this.Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
+			Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
 		}
-
-		public PomodoroViewModel( WorkItem workItem ) : this() {
-			this.WorkItem = workItem;
-		}
-
+		public PomodoroViewModel( WorkItem workItem ) : this()
+			=> WorkItem = workItem;
 		#endregion
 
 

@@ -8,12 +8,11 @@ namespace ModelLayer.Extensions {
 	public delegate void PlanEventHandler( DateSpan plan );
 	#endregion
 
+	#region worktime Events
+	public delegate void WorkTimeEventHandler( DateSpan plan );
+	#endregion
+
 	#region pomodoro Events
-#warning I could simplify this, see above
-	public delegate void PomodoroEventHandler( PomodoroClock sender, PomodoroEventArgs e );
-	public class PomodoroEventArgs : EventArgs {
-		public WorkModeEnum WorkMode { get; set; }
-		public TimeSpan Time { get; set; }
-	}
+	public delegate void PomodoroEventHandler( WorkModeEnum workMode, TimeSpan time );
 	#endregion
 }

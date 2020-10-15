@@ -8,7 +8,7 @@ namespace DataLayer.XMLDataService {
 
 	public class XMLCollectionHandler<T> : IDataService<ObservableCollection<T>, T>, IErrorHandler {
 
-		#region fields
+		#region private fields
 
 		private string _FilePath;
 		private string _FileName;
@@ -28,8 +28,8 @@ namespace DataLayer.XMLDataService {
 
 		public XMLCollectionHandler( string fileName, string filePath ) {
 
-			this._FileName = fileName;
-			this._FilePath = filePath;
+			_FileName = fileName;
+			_FilePath = filePath;
 
 			if( _FileName.EndsWith(".xml") is false )
 				_FileName = string.Concat(fileName, ".xml");

@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace LogicLayer.Views {
 	public class SettingsViewModel : ViewModelBase {
 
-		#region fields
+		#region private fields
 		private ICommand? _CommandChangeTheme;
 		private ICommand? _CommandChangeCountDirection;
 		#endregion
@@ -42,21 +42,20 @@ namespace LogicLayer.Views {
 			SettingsManager.BoolSettingChanged += UpdateBoolSettings;
 			SettingsManager.ObjectSettingChanged += UpdateObjectSettings;
 
-			this.ThemeButton = SettingsManager.DarkMode ? "Light!" : "Dark!";
-			this.Cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+			ThemeButton = SettingsManager.DarkMode ? "Light!" : "Dark!";
+			Cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 		}
 		#endregion
 
 		#region private helper methods
 		private void UpdateBoolSettings( BoolSettingsEnum setting, bool value ) {
 			if( setting == BoolSettingsEnum.DarkMode )
-				this.ThemeButton = value ? "Light!" : "Dark!";
+				ThemeButton = value ? "Light!" : "Dark!";
 		}
 		private void UpdateObjectSettings( ObjectSettingsEnum setting, object value ) {
 			if( setting == ObjectSettingsEnum.Culture )
 				Debug.WriteLine($"Updated the Culture with {value}");
 		}
-
 		#endregion
 	}
 }

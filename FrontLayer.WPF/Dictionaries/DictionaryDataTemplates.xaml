@@ -5,7 +5,6 @@
 					xmlns:ViewModels="clr-namespace:LogicLayer.Views;assembly=LogicLayer">
 
 	<!--#region ViewModels Essential  -->
-
 	<DataTemplate DataType="{x:Type ViewModels:NewCategoryViewModel}">
 		<Views:NewCategoryView/>
 	</DataTemplate>
@@ -18,11 +17,9 @@
 	<DataTemplate DataType="{x:Type ViewModels:NewDayTimeViewModel}">
 		<Views:NewDayTimeView/>
 	</DataTemplate>
-	
 	<!--#endregion-->
 
 	<!--#region ViewModels Main -->
-
 	<DataTemplate DataType="{x:Type ViewModels:DashboardViewModel}">
 		<Views:DashboardView/>
 	</DataTemplate>
@@ -41,7 +38,6 @@
 	<DataTemplate DataType="{x:Type ViewModels:SettingsViewModel}">
 		<Views:SettingsView/>
 	</DataTemplate>
-	
 	<!--#endregion-->
 
 </ResourceDictionary>

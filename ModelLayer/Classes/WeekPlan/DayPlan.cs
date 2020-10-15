@@ -4,11 +4,6 @@ using System.Threading.Tasks;
 namespace ModelLayer.Classes {
 	public class DayPlan : ObservableCollection<PlanItem> {
 
-		#region constructors
-		public DayPlan() { }
-		~DayPlan() { }
-		#endregion
-
 		#region methods
 		public async Task<DoubleTime?> GetDayOverlappingAsync( DoubleTime newDayTime ) =>
 			await Task.Run(() => {
@@ -33,7 +28,6 @@ namespace ModelLayer.Classes {
 				return result;
 			});
 		#endregion
-
 
 	}
 }

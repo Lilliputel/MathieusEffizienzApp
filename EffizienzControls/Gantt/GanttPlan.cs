@@ -14,8 +14,8 @@ namespace EffizienzControls {
 			get { return (Category)GetValue(CategoryProperty); }
 			set {
 				SetValue(CategoryProperty, value);
-				this.SetStartAndEnd();
-				this.SetPlanDuration();
+				SetStartAndEnd();
+				SetPlanDuration();
 			}
 		}
 		public static readonly DependencyProperty CategoryProperty =
@@ -42,8 +42,8 @@ namespace EffizienzControls {
 			get { return (double)GetValue(NameWidthProperty); }
 			set {
 				SetValue(NameWidthProperty, value);
-				this.SetStartAndEnd();
-				this.SetPlanDuration();
+				SetStartAndEnd();
+				SetPlanDuration();
 			}
 		}
 		public static readonly DependencyProperty NameWidthProperty =
@@ -52,8 +52,8 @@ namespace EffizienzControls {
 			get { return (double)GetValue(NameMarginProperty); }
 			set {
 				SetValue(NameMarginProperty, value);
-				this.SetStartAndEnd();
-				this.SetPlanDuration();
+				SetStartAndEnd();
+				SetPlanDuration();
 			}
 		}
 		public static readonly DependencyProperty NameMarginProperty =
@@ -69,11 +69,11 @@ namespace EffizienzControls {
 
 		#region private Helperfunctions
 		private void SetStartAndEnd() {
-			var NewDates = GetStartAndEnd(this.Category.Children);
-			if( NewDates.start is DateTime start && start <= this.MainStart )
-				this.MainStart = start;
-			if( NewDates.end is DateTime end && end <= this.MainEnd )
-				this.MainEnd = end;
+			var NewDates = GetStartAndEnd(Category.Children);
+			if( NewDates.start is DateTime start && start <= MainStart )
+				MainStart = start;
+			if( NewDates.end is DateTime end && end <= MainEnd )
+				MainEnd = end;
 		}
 		private (DateTime? start, DateTime? end) GetStartAndEnd( Collection<Goal> goals ) {
 			DateTime? start = null;
@@ -93,10 +93,10 @@ namespace EffizienzControls {
 		}
 		private void SetPlanDuration() {
 			var placeholder = new ObservableCollection<DateTime>();
-			for( DateTime day = this.MainStart; day <= this.MainEnd; day.AddDays(1.0) ) {
+			for( DateTime day = MainStart; day <= MainEnd; day.AddDays(1.0) ) {
 				placeholder.Add(day.Date);
 			}
-			this.PlanDuration = placeholder;
+			PlanDuration = placeholder;
 		}
 		#endregion
 

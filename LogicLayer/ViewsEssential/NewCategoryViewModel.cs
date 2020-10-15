@@ -1,65 +1,34 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
-using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Enums;
+using ModelLayer.Interfaces;
+using PropertyChanged;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
-	public class NewCategoryViewModel : ViewModelBase {
+	public class NewCategoryViewModel : ValidationViewModel {
 
 		#region private fields
-		private ObservableCollection<Category> CategoryList;
-		private string? _Title;
-		private string? _Description;
-		private StateEnum _State = StateEnum.ToDo;
-		private string? _SelectedColorName;
-
+		private IAccountableParent<Category> CategoryList;
 		private ICommand? _SaveCategoryCommand;
 		#endregion
 
 		#region public properties
-		public string? Title {
-			get {
-				return _Title;
-			}
-			set {
-				if( value == _Title )
-					return;
-				_Title = value;
-				OnPropertyChanged(nameof(Title));
-			}
-		}
-		public string? Description {
-			get {
-				return _Description;
-			}
-			set {
-				if( value == _Description )
-					return;
-				_Description = value;
-				OnPropertyChanged(nameof(Description));
-			}
-		}
-		public StateEnum State {
-			get {
-				return this._State;
-			}
-			set {
-				if( value == _State )
-					return;
-				_State = value;
-				OnPropertyChanged(nameof(State));
-			}
-		}
+		[AlsoNotifyFor(nameof(SaveCategoryCommand))]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty.")]
+		public string Title { get; set; }
+		[AlsoNotifyFor(nameof(SaveCategoryCommand))]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty.")]
+		public string Description { get; set; }
 		public List<string> ColorNameList {
 			get {
 				var allColors = new List<string>();
-				PropertyInfo[] propertyInfos = typeof(System.Drawing.Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
+				PropertyInfo[] propertyInfos = typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
 				foreach( PropertyInfo propertyInfo in propertyInfos ) {
 					allColors.Add(propertyInfo.Name);
 					//if( propertyInfo.GetValue(null, null) is Color color )
@@ -68,41 +37,38 @@ namespace LogicLayer.Views {
 				return allColors;
 			}
 		}
-		public string? SelectedColorName {
-			get {
-				return _SelectedColorName;
-			}
-			set {
-				if( value == _SelectedColorName )
-					return;
-				_SelectedColorName = value;
-				OnPropertyChanged(nameof(SelectedColorName));
-			}
-		}
+		[AlsoNotifyFor(nameof(SaveCategoryCommand))]
+		public string? SelectedColorName { get; set; }
 		#endregion
 
 		#region public commands
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
-			new RelayCommand(parameter => {
-				if( Title is string && SelectedColorName is string && Description is string ) {
-					CategoryList.Add(
+			new RelayCommand(
+				parameter => {
+					CategoryList.Children.Add(
 						new Category(
-							new Identification(
+							new UserText(
 								Title,
 								Description,
 								Color.FromName(SelectedColorName))));
 					AlertManager.ObjektErstellt(nameof(Category), Title);
-				}
-				else {
-					AlertManager.InputInkorrekt("");
-				}
-			});
+				},
+				_ => IsOkay);
+
+		protected override List<(ValidationAttribute validAttr, Predicate<object> ValidationCheck)> ValidationAttributes
+			=> new List<(ValidationAttribute validAttr, Predicate<object> ValidationCheck)> {
+				( new StringLengthAttribute(50), new Predicate<object>((value) => string.IsNullOrEmpty(value?.ToString() ?? string.Empty)))
+			};
 
 		#endregion
 
 		#region constructor
-		public NewCategoryViewModel( ObservableCollection<Category> categories ) {
-			this.CategoryList = categories;
+		public NewCategoryViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+			//ErrorsChanged += ( s, e ) => {
+			//	SaveCategoryCommand.CanExecuteChanged?.Invoke(s, e);
+			//};
+#warning i have to implement a way to raise the canexecute changed event
 		}
 		#endregion
 
