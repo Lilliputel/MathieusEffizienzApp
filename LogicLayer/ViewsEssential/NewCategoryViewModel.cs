@@ -2,9 +2,8 @@
 using LogicLayer.Manager;
 using ModelLayer.Classes;
 using ModelLayer.Interfaces;
-using PropertyChanged;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Reflection;
@@ -19,25 +18,21 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		[AlsoNotifyFor(nameof(SaveCategoryCommand))]
-		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty.")]
-		public string Title { get; set; }
-		[AlsoNotifyFor(nameof(SaveCategoryCommand))]
-		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty.")]
-		public string Description { get; set; }
+		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty!")]
+		public string? Title { get; set; }
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Title must not be empty!")]
+		public string? Description { get; set; }
 		public List<string> ColorNameList {
 			get {
 				var allColors = new List<string>();
 				PropertyInfo[] propertyInfos = typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
 				foreach( PropertyInfo propertyInfo in propertyInfos ) {
 					allColors.Add(propertyInfo.Name);
-					//if( propertyInfo.GetValue(null, null) is Color color )
-					//	allColors.Add((color, propertyInfo.Name));
 				}
 				return allColors;
 			}
 		}
-		[AlsoNotifyFor(nameof(SaveCategoryCommand))]
+		[Required(AllowEmptyStrings = false, ErrorMessage = "Color has to be selected!")]
 		public string? SelectedColorName { get; set; }
 		#endregion
 
@@ -53,22 +48,20 @@ namespace LogicLayer.Views {
 								Color.FromName(SelectedColorName))));
 					AlertManager.ObjektErstellt(nameof(Category), Title);
 				},
-				_ => IsOkay);
-
-		protected override List<(ValidationAttribute validAttr, Predicate<object> ValidationCheck)> ValidationAttributes
-			=> new List<(ValidationAttribute validAttr, Predicate<object> ValidationCheck)> {
-				( new StringLengthAttribute(50), new Predicate<object>((value) => string.IsNullOrEmpty(value?.ToString() ?? string.Empty)))
-			};
-
+				obj => HasErrors is false);
 		#endregion
 
 		#region constructor
 		public NewCategoryViewModel( IAccountableParent<Category> categoryList ) {
 			CategoryList = categoryList;
-			//ErrorsChanged += ( s, e ) => {
-			//	SaveCategoryCommand.CanExecuteChanged?.Invoke(s, e);
-			//};
-#warning i have to implement a way to raise the canexecute changed event
+			base.PropertyChanged += t;
+		}
+		private void t( object sender, PropertyChangedEventArgs e ) {
+			if( e.PropertyName is nameof(HasErrors) ) {
+				( (RelayCommand)SaveCategoryCommand ).RaiseCanExecuteChanged();
+			}
+			if( e.PropertyName != nameof(SaveCategoryCommand) )
+				RaisePropertyChanged(nameof(SaveCategoryCommand));
 		}
 		#endregion
 

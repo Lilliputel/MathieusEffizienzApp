@@ -9,7 +9,7 @@
 	</ResourceDictionary.MergedDictionaries>
 	
 	<!--#region Custom Styles -->
-	<Style TargetType="{x:Type ToggleButton}">
+	<!--<Style TargetType="{x:Type ToggleButton}">
 		<Style.Setters>
 			<Setter Property="Margin" Value="1"/>
 			<Setter Property="Foreground" Value="{DynamicResource Foreground}"/>
@@ -24,7 +24,7 @@
 				</Setter.Value>
 			</Setter>
 		</Style.Setters>
-	</Style>
+	</Style>-->
 	<!--#endregion-->
 
 	<!--#region ComboBox Style -->

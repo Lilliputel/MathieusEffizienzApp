@@ -6,49 +6,43 @@ namespace LogicLayer.Commands {
 	public class RelayCommandAsync : ICommand {
 
 		#region private fields
-
 		private bool _IsExecuting;
-
 		private readonly Func<Task> _Execute;
 		private readonly Predicate<object>? _CanExecute;
 		private readonly Action<Exception>? _OnException;
-
 		#endregion
 
 		#region public properties
-
 		public bool IsExecuting {
 			get { return _IsExecuting; }
-			set {
+			private set {
 				_IsExecuting = value;
-				CanExecuteChanged?.Invoke(this, new EventArgs());
+				CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 			}
 		}
-		public event EventHandler? CanExecuteChanged;
-
 		#endregion
 
-		#region constructors
+		#region public events
+		public event EventHandler? CanExecuteChanged;
+		public void RaiseCanExecuteChanged( object? sender = null, EventArgs? e = null )
+			=> CanExecuteChanged?.Invoke(sender ?? this, e ?? EventArgs.Empty);
+		#endregion
 
+		#region constructor
 		public RelayCommandAsync( Func<Task> execute, Predicate<object>? canExecute = null, Action<Exception>? onException = null ) {
 			if( execute is null )
-				throw new NullReferenceException("execute");
-
+				throw new NullReferenceException("Execute has to be set!");
 			_Execute = execute;
 			_CanExecute = canExecute;
 			_OnException = onException;
 		}
-
 		#endregion
 
 		#region methods
-
 		public async Task ExecuteAsync()
 			=> await _Execute();
-
 		public bool CanExecute( object parameter )
 			=> IsExecuting is false || _CanExecute is null || _CanExecute(parameter);
-
 		public async void Execute( object parameter ) {
 			IsExecuting = true;
 			try {
@@ -59,7 +53,6 @@ namespace LogicLayer.Commands {
 			}
 			IsExecuting = false;
 		}
-
 		#endregion
 
 	}

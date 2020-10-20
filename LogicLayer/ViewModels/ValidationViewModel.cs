@@ -1,5 +1,5 @@
 ﻿using LogicLayer.ViewModels;
-using PropertyChanged;
+using ModelLayer.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,101 +7,95 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace LogicLayer {
 
 	public abstract class ValidationViewModel : ViewModelBase, INotifyDataErrorInfo {
 
+#warning If a button gets clicked, the validation no longer works?!
+#warning the ErrorsChanged Event should be Implemented seperately from the PropertyChanged, since it could get a huge performance impact, if CollectErrors always gets executed (Maybe Dictionary<propname, List<ValidationAttribute>> 
+
 		#region private fields
-		private static List<PropertyInfo>? _PropertyInfos;
+		private bool _HasErrors;
+		private readonly Type _VMType;
+		private readonly List<Type> _ValidationAttributes= new List<Type>();
+		private readonly List<PropertyInfo> _Properties = new List<PropertyInfo>();
 		private readonly Dictionary<string, List<string>> _PropertyErrors = new Dictionary<string, List<string>>();
 		#endregion
 
-		#region public properties
-		[AlsoNotifyFor(nameof(HasErrors))]
-		public bool HasErrors
-			=> _PropertyErrors.Any();
-		public bool IsOkay
-			=> HasErrors is false;
-		#endregion
-
-		#region public events
-		public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
-		private void OnErrorsChanged( string propertyName ) {
-			ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+		#region INotifyDataErrorInfo Implementation
+		public bool HasErrors {
+			get {
+				bool value = _PropertyErrors.Values.Where(value => value.Count > 0).Any();
+				if( value != _HasErrors ) {
+					_HasErrors = value;
+					RaisePropertyChanged(nameof(HasErrors));
+				}
+				return _HasErrors;
+			}
 		}
-		#endregion
 
-		#region protected Properties
-		[AlsoNotifyFor(nameof(HasErrors))]
-		protected List<PropertyInfo> Properties
-			=> _PropertyInfos
-			??= GetType()
-			.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-			.Where(
-				prop => ValidationAttributes.Where(
-					attr => prop.IsDefined(attr.GetType(), true))
-				.Any())
-			.ToList();
-		#endregion
-
-		#region abstract Properties
-		protected abstract List<(ValidationAttribute validAttr, Predicate<object> ValidationCheck)> ValidationAttributes { get; }
-		#endregion
-
-		#region public methods
-		public IEnumerable? GetErrors( [CallerMemberName] string propertyName = "" ) {
-			CollectErrors();
+		public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+		protected void RaiseErrorsChanged( string? propertyName )
+			=> ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+		public IEnumerable? GetErrors( string propertyName ) {
+			CollectErrors(propertyName);
 			return _PropertyErrors.GetValueOrDefault(propertyName, new List<string>());
 		}
 		#endregion
 
+		#region constructor
+		public ValidationViewModel() {
+			_VMType = GetType();
+			_ValidationAttributes.AddUniqueRange(DefaultValidationAttributes());
+			_Properties.AddUniqueRange(
+				_VMType.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+				.Where(
+					prop => _ValidationAttributes.Where(
+						attributeType => prop.IsDefined(attributeType, true))
+					.Any()).ToList()
+				);
+
+			_Properties.ForEach(prop => CollectErrors(prop.Name));
+		}
+		#endregion
+
 		#region private methods
-		private void CollectErrors() {
-			_PropertyErrors.Clear();
-			Properties.ForEach(
-				prop => {
-					ValidationAttributes.ForEach(
-						( (ValidationAttribute attr, Predicate<object> check) tuple ) => {
-							Type attributeType = tuple.attr.GetType();
-							MethodInfo methodInfo = typeof(PropertyInfo).GetMethod("GetCustomAttribute");
-							ValidationAttribute? validationAttribute = methodInfo.MakeGenericMethod(attributeType).Invoke(null, null) as ValidationAttribute;
-							bool CheckResult = tuple.check( prop.GetValue(this) );
-							if( validationAttribute is ValidationAttribute vattr && CheckResult is true )
-								AddError(prop.Name, vattr.ErrorMessage ?? string.Empty);
-						}
-					);
-				}
-			);
-			OnPropertyChanged(nameof(HasErrors));
-			OnPropertyChanged(nameof(IsOkay));
-		}
-		private void AddError( string propertyName, string? errorMessage = "" ) {
-			if( string.IsNullOrEmpty(errorMessage) )
+		private void CollectErrors( string? propertyName = "" ) {
+			if( string.IsNullOrEmpty(propertyName) )
 				return;
-			if( _PropertyErrors.ContainsKey(propertyName) is false )
+
+			var property = _VMType.GetProperty(propertyName);
+
+			if( _PropertyErrors.ContainsKey(propertyName) )
+				_PropertyErrors[propertyName].Clear();
+			else
 				_PropertyErrors.Add(propertyName, new List<string>());
-			if( _PropertyErrors[propertyName].Contains(errorMessage) )
-				return;
-			_PropertyErrors[propertyName].Add(errorMessage);
-			OnErrorsChanged(propertyName);
+
+			foreach( var atttributeType in _ValidationAttributes ) {
+
+				var methodInfo = typeof(CustomAttributeExtensions).GetMethod("GetCustomAttribute", new Type[]{ typeof(MemberInfo), typeof(Type)} );
+				var methodReturnValue = methodInfo.Invoke(null, new object[]{ property, atttributeType });
+
+				if( methodReturnValue is ValidationAttribute vAttribute )
+					if( vAttribute.IsValid(property.GetValue(this)) is false )
+						_PropertyErrors[propertyName].Add(vAttribute.ErrorMessage);
+			}
 		}
+
+		private List<Type> DefaultValidationAttributes() // I could also use reflection
+			=> new List<Type>{
+				typeof(CompareAttribute),
+				typeof(DataTypeAttribute),
+				typeof(MaxLengthAttribute),
+				typeof(MinLengthAttribute),
+				typeof(RangeAttribute),
+				typeof(RegularExpressionAttribute),
+				typeof(RequiredAttribute),
+				typeof(StringLengthAttribute),
+				typeof(CustomValidationAttribute)
+			};
 		#endregion
 	}
 
-
-	class PersonViewModel {
-
-		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty.")]
-		[MaxLength(20, ErrorMessage = "Maximum of 50 characters is allowed.")]
-		public string Firstname { get; set; }
-
-		/// <summary>
-		/// The lastname of the person.
-		/// </summary>
-		[Required(AllowEmptyStrings = false, ErrorMessage = "Last name must not be empty.")]
-		public string Lastname { get; set; }
-
-	}
 }

@@ -38,7 +38,7 @@ namespace ModelLayer.Classes {
 				throw new ArgumentException(result.ToString());
 			else {
 				dayPlan.Add(item);
-				OnPropertyChanged(day.ToString());
+				RaisePropertyChanged(day.ToString());
 			}
 		}
 		public void RemoveItemFromDay( DayOfWeek day, PlanItem item )

@@ -8,6 +8,47 @@
 			 
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
 			 DataContext="{x:Static manager:ViewModelManager.NewCategory}">
+	<UserControl.Resources>
+		<Style TargetType="TextBox">
+			<Setter Property="Padding" Value="2 1" />
+			<Setter Property="BorderBrush" Value="LightGray" />
+			<Setter Property="Validation.ErrorTemplate">
+				<Setter.Value>
+					<ControlTemplate>
+						<AdornedElementPlaceholder />
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="TextBox">
+						<StackPanel>
+							<Border Padding="{TemplateBinding Padding}"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									BorderThickness="{TemplateBinding BorderThickness}"
+									CornerRadius="3">
+								<ScrollViewer x:Name="PART_ContentHost" />
+							</Border>
+							<ItemsControl Margin="0 5 0 0"
+									FontSize="12"
+									ItemsSource="{TemplateBinding Validation.Errors}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TextBlock Foreground="Red" Text="{Binding ErrorContent}" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</StackPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Style.Triggers>
+				<Trigger Property="Validation.HasError" Value="true">
+					<Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self},Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</UserControl.Resources>
 
 	<StackPanel>
 		<!-- ViewTitel -->
