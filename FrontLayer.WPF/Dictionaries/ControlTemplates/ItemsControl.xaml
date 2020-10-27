@@ -9,7 +9,7 @@
 
 	<!--#region Standard Style -->
 	
-	<Style x:Key="ItemsControlStyle1" TargetType="{x:Type ItemsControl}">
+	<Style TargetType="{x:Type ItemsControl}">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ItemsControl}">

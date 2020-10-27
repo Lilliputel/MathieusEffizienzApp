@@ -24,7 +24,7 @@ namespace LogicLayer.Views {
 			}
 		}
 		public ObservableCollection<DateTime> Dates
-			=> new ObservableCollection<DateTime>(CategoryList?.GetWorkedDates());
+			=> new ObservableCollection<DateTime>(CategoryList.GetTotalWorkedDates());
 		public IAccountableParent<Category> CategoryList { get; }
 		#endregion
 

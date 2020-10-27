@@ -24,11 +24,9 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
 	<!--#endregion-->
 
-	<!--#region Standard Style -->
-	<Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+	<Style TargetType="{x:Type TextBox}">
 		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
 		<Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}"/>
 		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -69,7 +67,5 @@
 			</MultiTrigger>
 		</Style.Triggers>
 	</Style>
-	
-	<!--#endregion-->
-	
+
 </ResourceDictionary>

@@ -1,12 +1,17 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:local="clr-namespace:EffizienzControls">
 	<ResourceDictionary.MergedDictionaries>
 
-		<ResourceDictionary Source="EffizienzControls;component/Gantt/GanttElement.xaml"/>
-		<ResourceDictionary Source="EffizienzControls;component/Gantt/GanttPlan.xaml"/>
+		<ResourceDictionary Source="EffizienzControls;component/Gantt/GanttElement.xaml" />
+		<ResourceDictionary Source="EffizienzControls;component/Gantt/GanttPlan.xaml" />
 
-		<ResourceDictionary Source="EffizienzControls;component/Plan/DayPlanView.xaml"/>
-		<ResourceDictionary Source="EffizienzControls;component/Plan/WeekPlanView.xaml"/>
+		<ResourceDictionary Source="EffizienzControls;component/Plan/DayPlanView.xaml" />
+		<ResourceDictionary Source="EffizienzControls;component/Plan/WeekPlanView.xaml" />
+
+		<ResourceDictionary Source="EffizienzControls;component/Charts/BarChart.xaml" />
+
+		<ResourceDictionary Source="EffizienzControls;component/Primitives/ProportionalBar.xaml" />
 
 	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					
+					xmlns:local="clr-namespace:EffizienzControls"
+					xmlns:converter="clr-namespace:EffizienzControls.Converters"
+					xmlns:system="clr-namespace:System;assembly=mscorlib"
+					xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer">
+
+	<ControlTemplate TargetType="{x:Type local:BarChart}" x:Key="BarChartTemplate">
+
+	</ControlTemplate>
+
+	<Style TargetType="{x:Type local:BarChart}">
+		<Setter Property="Template" Value="{StaticResource BarChartTemplate}"/>
+	</Style>
+</ResourceDictionary>

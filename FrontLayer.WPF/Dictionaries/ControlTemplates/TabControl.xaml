@@ -30,46 +30,48 @@
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
-	</Style>
-
-	<!-- Style für Tabs -->
-	<Style TargetType="{x:Type TabItem}">
-		<Setter Property="Template">
+		<Setter Property="ItemContainerStyle">
 			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type TabItem}">
-					<!-- Setzt ein Grid als HintergrundPanel -->
-					<Border Name="Bd" 
-							Background="{DynamicResource Back_2}" 
-							CornerRadius="{StaticResource StandardRadius}"
-							Padding="8,2">
-						<ContentPresenter VerticalAlignment="Center"
-										  HorizontalAlignment="Center"
-										  ContentSource="Header"/>
+				<Style TargetType="{x:Type TabItem}">
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="{x:Type TabItem}">
+								<!-- Setzt ein Grid als HintergrundPanel -->
+								<Border Name="Bd" 
+								Background="{DynamicResource Back_2}" 
+								CornerRadius="{StaticResource StandardRadius}"
+								Padding="8,2">
+									<ContentPresenter VerticalAlignment="Center"
+											  HorizontalAlignment="Center"
+											  ContentSource="Header"/>
 
-						<!--#region VisualStates -->
-						<VisualStateManager.VisualStateGroups>
+									<!--#region VisualStates -->
+									<VisualStateManager.VisualStateGroups>
 
-							<VisualStateGroup x:Name="SelectionStates">
-								<VisualState x:Name="Selected">
-									<Storyboard>
-										<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
-														To="{DynamicResource Selected_FocusedColor}" Duration="0"/>
-									</Storyboard>
-								</VisualState>
-								<VisualState x:Name="Unselected"/>
-								<VisualState x:Name="SelectedInactive">
-									<Storyboard>
-										<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
-														To="{DynamicResource Selected_UnFocusedColor}" Duration="0"/>
-									</Storyboard>
-								</VisualState>
-							</VisualStateGroup>
+										<VisualStateGroup x:Name="SelectionStates">
+											<VisualState x:Name="Selected">
+												<Storyboard>
+													<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
+															To="{DynamicResource Selected_FocusedColor}" Duration="0"/>
+												</Storyboard>
+											</VisualState>
+											<VisualState x:Name="Unselected"/>
+											<VisualState x:Name="SelectedInactive">
+												<Storyboard>
+													<ColorAnimation Storyboard.TargetName="Bd" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" 
+															To="{DynamicResource Selected_UnFocusedColor}" Duration="0"/>
+												</Storyboard>
+											</VisualState>
+										</VisualStateGroup>
 
-						</VisualStateManager.VisualStateGroups>
-						<!--#endregion-->
-					</Border>
+									</VisualStateManager.VisualStateGroups>
+									<!--#endregion-->
+								</Border>
 
-				</ControlTemplate>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
 			</Setter.Value>
 		</Setter>
 	</Style>
@@ -78,7 +80,7 @@
 	
 	<!--#region Standard Style -->
 	
-	<Style x:Key="TabControlStyle1" TargetType="{x:Type TabControl}">
+	<Style TargetType="{x:Type TabControl}">
 		<Setter Property="Padding" Value="2"/>
 		<Setter Property="HorizontalContentAlignment" Value="Center"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -142,7 +144,7 @@
 		</Setter>
 	</Style>
 
-	<Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
+	<Style TargetType="{x:Type TabItem}">
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 		<Setter Property="Foreground" Value="Black"/>
 		<Setter Property="Background" Value="{StaticResource TabItem.Static.Background}"/>

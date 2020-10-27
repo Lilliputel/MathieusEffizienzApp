@@ -7,8 +7,6 @@
 		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
-	<!--#region Standard Style -->
-
 	<Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
 		<Setter Property="OverridesDefaultStyle" Value="true"/>
 		<Setter Property="Background" Value="Transparent"/>
@@ -56,7 +54,5 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
-	<!--#endregion-->
 
 </ResourceDictionary>

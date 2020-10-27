@@ -10,8 +10,6 @@
 		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 	
-	<!--#region Standard-Style -->
-	
 	<ControlTemplate x:Key="ComboBoxEditableTemplate" TargetType="{x:Type ComboBox}">
 		<Grid x:Name="templateRoot" SnapsToDevicePixels="true">
 			<Grid.ColumnDefinitions>
@@ -110,7 +108,7 @@
 		</ControlTemplate.Triggers>
 	</ControlTemplate>
 	
-	<Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
+	<Style TargetType="{x:Type ComboBox}">
 		<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 		<Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}"/>
 		<Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}"/>
@@ -131,7 +129,5 @@
 			</Trigger>
 		</Style.Triggers>
 	</Style>
-	
-	<!--#endregion-->
-	
+
 </ResourceDictionary>

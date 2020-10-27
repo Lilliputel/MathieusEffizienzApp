@@ -62,6 +62,26 @@ namespace ModelLayer.Classes {
 		}
 		#endregion
 
+		#region public methods
+		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
+			var placeholder = TimeSpan.Zero;
+			new List<Goal>(Children).ForEach(Child =>
+				placeholder += ( Child ).GetTotalTimeOnDate(date)
+				);
+			placeholder += ( this as IAccountable ).GetTimeOnDate(date);
+			return placeholder;
+		}
+		public ICollection<DateTime> GetTotalWorkedDates() {
+			var placeholder = new List<DateTime>();
+			new List<Goal>(Children).ForEach(Child =>
+				placeholder.AddUniqueRange(Child.GetTotalWorkedDates())
+				);
+			new List<WorkItem>(WorkHours).ForEach(workItem =>
+				placeholder.AddUnique(workItem.Date));
+			return placeholder;
+		}
+		#endregion
+
 		#region private helper methods
 		private void Child_PlanChanged( DateSpan plan ) {
 			if( plan.Start < Plan.Start )

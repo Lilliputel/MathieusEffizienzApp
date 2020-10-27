@@ -7,8 +7,7 @@
 		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
-	<!--#region Standard Style -->
-	<Style x:Key="UserControlStyle1" TargetType="{x:Type UserControl}">
+	<Style TargetType="{x:Type UserControl}">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type UserControl}">
@@ -20,6 +19,4 @@
 		</Setter>
 	</Style>
 
-	<!--#endregion-->
-	
 </ResourceDictionary>

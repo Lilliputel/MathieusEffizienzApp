@@ -7,9 +7,7 @@
 		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
-	<!--#region Standard Style -->
-	
-	<Style x:Key="ScrollBarStyle1" TargetType="{x:Type ScrollBar}">
+	<Style TargetType="{x:Type ScrollBar}">
 		<Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
 		<Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
 		<Setter Property="Background" Value="{StaticResource ScrollBar.Static.Background}"/>
@@ -158,7 +156,5 @@
 			</Trigger>
 		</Style.Triggers>
 	</Style>
-	
-	<!--#endregion-->
-	
+
 </ResourceDictionary>

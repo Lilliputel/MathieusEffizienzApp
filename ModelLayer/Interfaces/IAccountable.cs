@@ -3,6 +3,7 @@ using ModelLayer.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ModelLayer.Interfaces {
 	public interface IAccountable : IHasTime {
@@ -10,7 +11,8 @@ namespace ModelLayer.Interfaces {
 		TimeSpan GetTimeOnDate( DateTime date ) {
 			var placeholder = new TimeSpan();
 			new List<WorkItem>(WorkHours)
-				.ForEach(item => placeholder += item.Time);
+				.Where(item => item.Date.Date == date.Date)
+				.ToList().ForEach(item => placeholder += item.Time);
 			return placeholder;
 		}
 		ICollection<DateTime> GetWorkedDates() {

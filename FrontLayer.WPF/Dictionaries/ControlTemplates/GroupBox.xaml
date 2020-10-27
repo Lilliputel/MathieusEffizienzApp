@@ -6,10 +6,8 @@
 	<ResourceDictionary.MergedDictionaries>
 		<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
-	
-	<!--#region Standard Style -->
-	
-	<Style x:Key="GroupBoxStyle1" TargetType="{x:Type GroupBox}">
+
+	<Style TargetType="{x:Type GroupBox}">
 		<Setter Property="BorderBrush" Value="#D5DFE5"/>
 		<Setter Property="BorderThickness" Value="1"/>
 		<Setter Property="Template">
@@ -51,6 +49,4 @@
 		</Setter>
 	</Style>
 	
-	<!--#endregion-->
-
 </ResourceDictionary>

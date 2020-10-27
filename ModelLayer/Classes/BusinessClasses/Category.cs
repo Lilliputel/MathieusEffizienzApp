@@ -1,4 +1,5 @@
-﻿using ModelLayer.Interfaces;
+﻿using ModelLayer.Extensions;
+using ModelLayer.Interfaces;
 using ModelLayer.Utility;
 using PropertyChanged;
 using System;
@@ -42,6 +43,26 @@ namespace ModelLayer.Classes {
 			Archived = archived;
 		}
 		public Category() { }
+		#endregion
+
+		#region public methods
+		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
+			var placeholder = TimeSpan.Zero;
+			new List<Goal>(Children).ForEach(Child =>
+				placeholder += ( Child ).GetTotalTimeOnDate(date)
+				);
+			placeholder += ( this as IAccountable ).GetTimeOnDate(date);
+			return placeholder;
+		}
+		public ICollection<DateTime> GetTotalWorkedDates() {
+			var placeholder = new List<DateTime>();
+			new List<Goal>(Children).ForEach(Child =>
+				placeholder.AddUniqueRange(Child.GetTotalWorkedDates())
+				);
+			new List<WorkItem>(WorkHours).ForEach(workItem =>
+				placeholder.AddUnique(workItem.Date));
+			return placeholder;
+		}
 		#endregion
 
 	}

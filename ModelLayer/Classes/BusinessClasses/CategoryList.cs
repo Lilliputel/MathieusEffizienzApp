@@ -29,5 +29,25 @@ namespace ModelLayer.Classes {
 				return placeholder;
 			}
 		}
+
+		#region public methods
+		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
+			var placeholder = TimeSpan.Zero;
+			new List<Category>(Children).ForEach(Child =>
+				placeholder += ( Child ).GetTotalTimeOnDate(date)
+				);
+			placeholder += ( this as IAccountable ).GetTimeOnDate(date);
+			return placeholder;
+		}
+		public ICollection<DateTime> GetTotalWorkedDates() {
+			var placeholder = new List<DateTime>();
+			new List<Category>(Children).ForEach(Child =>
+				placeholder.AddUniqueRange(Child.GetTotalWorkedDates())
+				);
+			new List<WorkItem>(WorkHours).ForEach(workItem =>
+				placeholder.AddUnique(workItem.Date));
+			return placeholder;
+		}
+		#endregion
 	}
 }

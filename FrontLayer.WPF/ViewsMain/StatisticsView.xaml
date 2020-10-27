@@ -1,12 +1,11 @@
 ﻿<UserControl x:Class="FrontLayer.WPF.Views.StatisticsView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 
+			 xmlns:controls="clr-namespace:EffizienzControls;assembly=EffizienzControls"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 
 			 DataContext="{x:Static manager:ViewModelManager.Statistics}"
 			 x:Name="ControlRoot">
 
@@ -14,61 +13,66 @@
 		<ItemsControl.ItemTemplate>
 			<DataTemplate DataType="{x:Type system:DateTime}">
 
-				<Grid x:Name="DateRoot" Margin="5,0">
+				<Grid x:Name="DateRoot"
+					  Margin="5,0">
 					<Grid.RowDefinitions>
 						<RowDefinition x:Name="ColumnHeight">
 							<RowDefinition.Height>
 								<MultiBinding Converter="{converter:DoublesToGridLenght}">
-									<Binding ElementName="ControlRoot" Path="ActualHeight"/>
-									<Binding ElementName="DateHeight" Path="Height" Converter="{converter:GridLengthToDouble}"/>
+									<Binding ElementName="ControlRoot"
+											 Path="ActualHeight" />
+									<Binding ElementName="DateHeight"
+											 Path="Height"
+											 Converter="{converter:GridLengthToDouble}" />
 								</MultiBinding>
 							</RowDefinition.Height>
 						</RowDefinition>
-						<RowDefinition Height="30" x:Name="DateHeight"/>
+						<RowDefinition Height="30"
+									   x:Name="DateHeight" />
 					</Grid.RowDefinitions>
 
-					<TextBlock Text="{Binding StringFormat={}{0:dd.MM.yy}}" Grid.Row="1" HorizontalAlignment="Center"/>
+					<TextBlock Text="{Binding StringFormat={}{0:dd.MM.yy}}"
+							   Grid.Row="1"
+							   HorizontalAlignment="Center" />
 
-					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.CategoryList.Children}" HorizontalAlignment="Center">
+					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.CategoryList.Children}"
+								  HorizontalAlignment="Center">
 
 						<ItemsControl.ItemTemplate>
 							<DataTemplate DataType="{x:Type classes:Category}">
-								<Border Background="{Binding ID.Color, Converter={converter:DrawingColorToSolidBrush}}"
-										Style="{StaticResource BorderRounded}"
-										BorderBrush="{StaticResource Foreground}" BorderThickness="0.5"
-										Padding="2,0" Margin="3,0" VerticalAlignment="Bottom"
-										x:Name="Balken">
-									<Border.Height>
-										<MultiBinding Converter="{converter:DateOnCategoryToHeight}">
+
+								<controls:ProportionalBar CornerRadius="{StaticResource StandardRadius}"
+														  Background="{Binding UserText.Color, Converter={converter:DrawingColorToSolidBrush}}"
+														  TotalSize="{Binding ElementName=ColumnHeight, Path=Height, Converter={converter:GridLengthToDouble}}"
+														  >
+									<controls:ProportionalBar.SizeFactor>
+										<MultiBinding Converter="{converter:CategoryToFactor}">
 											<Binding/>
-											<Binding ElementName="DateRoot" Path="DataContext"/>
-											<Binding ElementName="ControlRoot" Path="DataContext.MaximalWorkedTime"/>
-											<Binding ElementName="ColumnHeight" Path="Height" Converter="{converter:GridLengthToDouble}"/>
+											<Binding ElementName="DateRoot"
+													 Path="DataContext"/>
+											<Binding ElementName="ControlRoot"
+													 Path="DataContext.MaximalWorkedTime" />
 										</MultiBinding>
-									</Border.Height>
+									</controls:ProportionalBar.SizeFactor>
+
 									<TextBlock VerticalAlignment="Bottom">
 										<TextBlock.Text>
-											<MultiBinding StringFormat="{}{0:hh\:mm}" Converter="{converter:DateOnCategoryToTime}">
+											<MultiBinding StringFormat="{}{0:hh\:mm}"
+														  Converter="{converter:CategoryToTime}">
 												<Binding/>
-												<Binding ElementName="DateRoot" Path="DataContext"/>
+												<Binding ElementName="DateRoot"
+														 Path="DataContext" />
 											</MultiBinding>
 										</TextBlock.Text>
-										<TextBlock.LayoutTransform>
-											<RotateTransform Angle="270"/>
-										</TextBlock.LayoutTransform>
 									</TextBlock>
-								</Border>
-								<DataTemplate.Triggers>
-									<DataTrigger Binding="{Binding ElementName=Balken, Path=Height}" Value="0">
-										<Setter TargetName="Balken" Property="Visibility" Value="Collapsed"/>
-									</DataTrigger>
-								</DataTemplate.Triggers>
+								</controls:ProportionalBar>
+								
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
-								<StackPanel Orientation="Horizontal"/>
+								<StackPanel Orientation="Horizontal" />
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
 					</ItemsControl>
@@ -77,9 +81,10 @@
 
 			</DataTemplate>
 		</ItemsControl.ItemTemplate>
+
 		<ItemsControl.ItemsPanel>
 			<ItemsPanelTemplate>
-				<StackPanel Orientation="Horizontal"/>
+				<StackPanel Orientation="Horizontal" />
 			</ItemsPanelTemplate>
 		</ItemsControl.ItemsPanel>
 	</ItemsControl>
