@@ -37,7 +37,7 @@
 								<RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatButtonTransparent}"/>
 							</Track.IncreaseRepeatButton>
 							<Track.Thumb>
-								<Thumb Style="{StaticResource ScrollBarThumbVertical}"/>
+								<Thumb Style="{StaticResource ScrollBarThumb}"/>
 							</Track.Thumb>
 						</Track>
 						<RepeatButton x:Name="PART_LineDownButton" Command="{x:Static ScrollBar.LineDownCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="2" Style="{StaticResource ScrollBarButton}">

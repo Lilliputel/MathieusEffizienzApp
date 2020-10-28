@@ -9,7 +9,6 @@ namespace EffizienzControls {
 	public class GanttPlan : Control {
 
 		#region properties
-
 		public Category Category {
 			get { return (Category)GetValue(CategoryProperty); }
 			set {

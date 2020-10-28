@@ -8,21 +8,18 @@ namespace EffizienzControls {
 	public class DayPlanView : Control {
 
 		#region properties
-
 		public DayPlan DayPlan {
 			get { return (DayPlan)GetValue(DayPlanProperty); }
 			set { SetValue(DayPlanProperty, value); }
 		}
 		public static readonly DependencyProperty DayPlanProperty =
-			DependencyProperty.Register(nameof(DayPlan), typeof(DayPlan), typeof(DayPlanView));
-
+			DependencyProperty.Register(nameof(DayPlan), typeof(DayPlan), typeof(DayPlanView), new PropertyMetadata( new DayPlan() ));
 		public DayOfWeek Day {
 			get { return (DayOfWeek)GetValue(DayProperty); }
 			set { SetValue(DayProperty, value); }
 		}
 		public static readonly DependencyProperty DayProperty =
-			DependencyProperty.Register(nameof(Day), typeof(DayOfWeek), typeof(DayPlanView));
-
+			DependencyProperty.Register(nameof(Day), typeof(DayOfWeek), typeof(DayPlanView), new PropertyMetadata(DayOfWeek.Monday));
 		#endregion
 
 		#region initializer

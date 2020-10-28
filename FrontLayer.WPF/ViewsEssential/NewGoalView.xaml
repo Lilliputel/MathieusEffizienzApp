@@ -25,7 +25,7 @@
 		<!-- Gruppe Kategorie ComboBox -->
 		<TextBlock Text="Kategorie:"/>
 		<ComboBox x:Name="ComboBox_Category" 
-				  ItemsSource="{Binding CategoryList}"
+				  ItemsSource="{Binding CategoryList.Children}"
 				  SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">

@@ -24,30 +24,31 @@
 			<Border Grid.Column="1" BorderBrush="Black" BorderThickness="0,0,1,0" 	Background="Transparent" IsHitTestVisible="False"/>
 
 			<!--Ein Rechteck mit gerundeten Ecken, um die Verwendete Zeit in der ListView anzuzeigen-->
-			<Border Grid.Column="2" Style="{TemplateBinding BorderStyle}"
-					VerticalAlignment="Stretch"	HorizontalAlignment="Left"
-					Background="{Binding UserText.Color, Converter={converter:DrawingColorToSolidBrush}}">
+			<local:ProportionalBar Grid.Column="2" 
+								   BarStyle="{TemplateBinding BarStyle}"
+								   VerticalAlignment="Stretch"	HorizontalAlignment="Left"
+								   Background="{Binding UserText.Color, Converter={converter:DrawingColorToSolidBrush}}"
+								   TotalSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=TimeLineWidth}"
+								   Dock="Left">
 
 				<!--Mithilfe eines Converters wird die richtige StartPosition berechnet und als Abstand des Rechtecks definiert-->
-				<Border.Margin>
+				<local:ProportionalBar.OffsetFactor>
 					<MultiBinding Converter="{converter:DateTimesToLeftMargin}">
-						<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttElement}}" Path="MainStart" />
-						<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttElement}}" Path="MainEnd" />
+						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="MainStart" />
+						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="MainEnd" />
 						<Binding Path="Plan.Start" />
-						<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttElement}}" Path="TimeLineWidth" />
 					</MultiBinding>
-				</Border.Margin>
+				</local:ProportionalBar.OffsetFactor>
 
 				<!--Mithilfe eines Converters wird die richtige EndPosition berechnet und als breite des Rechtecks definiert-->
-				<Border.Width>
+				<local:ProportionalBar.SizeFactor>
 					<MultiBinding Converter="{converter:DateTimesToWidth}">
-						<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttElement}}" Path="MainStart"/>
-						<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttElement}}" Path="MainEnd"/>
-						<Binding Path="Plan.End"/>
-						<Binding RelativeSource="{RelativeSource AncestorType={x:Type local:GanttElement}}" Path="TimeLineWidth"/>
+						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="MainStart"/>
+						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="MainEnd"/>
+						<Binding Path="Plan.End" />
 					</MultiBinding>
-				</Border.Width>
-			</Border>
+				</local:ProportionalBar.SizeFactor>
+			</local:ProportionalBar>
 		</Grid>
 	</ControlTemplate>
 

@@ -41,10 +41,10 @@
 						<ItemsControl.ItemTemplate>
 							<DataTemplate DataType="{x:Type classes:Category}">
 
-								<controls:ProportionalBar CornerRadius="{StaticResource StandardRadius}"
+								<controls:ProportionalBar BarStyle="{StaticResource BorderRounded}"
 														  Background="{Binding UserText.Color, Converter={converter:DrawingColorToSolidBrush}}"
 														  TotalSize="{Binding ElementName=ColumnHeight, Path=Height, Converter={converter:GridLengthToDouble}}"
-														  >
+														  Dock="Bottom">
 									<controls:ProportionalBar.SizeFactor>
 										<MultiBinding Converter="{converter:CategoryToFactor}">
 											<Binding/>

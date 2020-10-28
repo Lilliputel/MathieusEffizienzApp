@@ -1,6 +1,7 @@
 ﻿using EffizienzControls.Extensions;
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace EffizienzControls.Converters {
@@ -10,9 +11,9 @@ namespace EffizienzControls.Converters {
 
 		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
 			double.TryParse((string)parameter, out double divisor);
+			double dividend = (value is GridLength gl) ? gl.Value : (double)value;
 			double result = 0.0;
 			try {
-				var dividend = (double)value;
 				result = dividend / divisor;
 			}
 			catch( DivideByZeroException ) {

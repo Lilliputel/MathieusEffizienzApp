@@ -16,27 +16,27 @@ namespace ModelLayer.Classes {
 		[AlsoNotifyFor(nameof(Duration))]
 		public double Start {
 			get { return _Start; }
-			set { UpdateValues(RoundToQuarter(value), _End); }
+			set { UpdateValues(value, _End); }
 		}
 		[AlsoNotifyFor(nameof(Duration))]
 		public double End {
 			get { return _End; }
-			set { UpdateValues(_Start, RoundToQuarter(value)); }
+			set { UpdateValues(_Start, value); }
 		}
 		public double Duration
-			=> RoundToQuarter(Start - End);
+			=> End - Start;
 		#endregion
 
 		#region constructor
 		public DoubleTime( (double start, double end) doubles ) {
-			UpdateValues(RoundToQuarter(doubles.start), RoundToQuarter(doubles.end));
+			UpdateValues(doubles.start, doubles.end);
 		}
 		public DoubleTime( TimeSpan start, TimeSpan end ) {
 			double startmins = start.Minutes / 60;
 			double endmins = end.Minutes / 60;
 			double realstart = start.Hours + startmins;
 			double realend = end.Hours + endmins;
-			UpdateValues(RoundToQuarter(realstart), RoundToQuarter(realend));
+			UpdateValues(realstart, realend);
 		}
 		public DoubleTime() { }
 		#endregion
@@ -53,22 +53,23 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region private helper methods
-		private double RoundToQuarter( double val )
-			=> Math.Round(val * 4, MidpointRounding.ToEven) / 4;
 		private double getMinutes( double number )
 			=> ( number - Math.Floor(number) ) * 60;
 		private void UpdateValues( double start, double end ) {
-
+			double roundedStart = RoundToQuarter(start);
+			double roundedEnd = RoundToQuarter(end);
 			// setzt die Korrekte reihenfolge der beiden Daten
-			if( end >= start ) {
-				_Start = start;
-				_End = end;
+			if( roundedEnd > roundedStart ) {
+				_Start = roundedStart;
+				_End = roundedEnd;
 			}
 			else {
-				_Start = end;
-				_End = start;
+				_Start = roundedEnd;
+				_End = roundedStart;
 			}
 		}
+		private double RoundToQuarter( double val )
+			=> Math.Round(val * 4, MidpointRounding.ToEven) / 4;
 		#endregion
 	}
 }

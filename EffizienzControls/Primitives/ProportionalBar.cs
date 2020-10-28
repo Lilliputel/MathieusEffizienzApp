@@ -5,12 +5,18 @@ namespace EffizienzControls {
 	public class ProportionalBar : ContentControl {
 
 		#region public properties
-		public Orientation Orientation {
-			get { return (Orientation)GetValue(OrientationProperty); }
-			set { SetValue(OrientationProperty, value); }
+		public Dock Dock {
+			get { return (Dock)GetValue(DockProperty); }
+			set { SetValue(DockProperty, value); }
 		}
-		public static readonly DependencyProperty OrientationProperty =
-			DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(ProportionalBar), new PropertyMetadata(Orientation.Vertical));
+		public static readonly DependencyProperty DockProperty =
+			DependencyProperty.Register(nameof(Dock), typeof(Dock), typeof(ProportionalBar), new PropertyMetadata(Dock.Left));
+		public Orientation ContentOrientation {
+			get { return (Orientation)GetValue(ContentOrientationProperty); }
+			set { SetValue(ContentOrientationProperty, value); }
+		}
+		public static readonly DependencyProperty ContentOrientationProperty =
+			DependencyProperty.Register(nameof(ContentOrientation), typeof(Orientation), typeof(ProportionalBar), new PropertyMetadata(Orientation.Horizontal));
 		public double OffsetFactor {
 			get { return (double)GetValue(OffsetFactorProperty); }
 			set { SetValue(OffsetFactorProperty, value); }
@@ -29,6 +35,13 @@ namespace EffizienzControls {
 		}
 		public static readonly DependencyProperty TotalSizeProperty =
 			DependencyProperty.Register(nameof(TotalSize), typeof(double), typeof(ProportionalBar), new PropertyMetadata(0.0));
+		public Style BarStyle {
+			get { return (Style)GetValue(BarStyleProperty); }
+			set { SetValue(BarStyleProperty, value); }
+		}
+#warning somehow the style does not work
+		public static readonly DependencyProperty BarStyleProperty =
+			DependencyProperty.Register(nameof(BarStyle), typeof(Style), typeof(ProportionalBar), new PropertyMetadata(new Style( typeof(Border)) ));
 		public CornerRadius CornerRadius {
 			get { return (CornerRadius)GetValue(CornerRadiusProperty); }
 			set { SetValue(CornerRadiusProperty, value); }

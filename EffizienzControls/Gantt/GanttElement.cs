@@ -38,12 +38,12 @@ namespace EffizienzControls {
 		}
 		public static readonly DependencyProperty TextWidthProperty =
 			DependencyProperty.Register(nameof(TextWidth), typeof(double), typeof(GanttElement), new PropertyMetadata(0.0));
-		public Style BorderStyle {
-			get { return (Style)GetValue(BorderStyleProperty); }
-			set { SetValue(BorderStyleProperty, value); }
+		public Style BarStyle {
+			get { return (Style)GetValue(BarStyleProperty); }
+			set { SetValue(BarStyleProperty, value); }
 		}
-		public static readonly DependencyProperty BorderStyleProperty =
-			DependencyProperty.Register(nameof(BorderStyle), typeof(Style), typeof(GanttElement), new PropertyMetadata( new Style(typeof(Border)) ));
+		public static readonly DependencyProperty BarStyleProperty =
+			DependencyProperty.Register(nameof(BarStyle), typeof(Style), typeof(GanttElement), new PropertyMetadata( new Style(typeof(Border)) ));
 		#endregion
 
 		#region initializer

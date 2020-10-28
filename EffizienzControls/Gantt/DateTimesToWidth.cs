@@ -14,7 +14,6 @@ namespace EffizienzControls.Converters {
 			DateTime projektStart = (DateTime)values[0];
 			DateTime projektEnde = (DateTime)values[1];
 			DateTime datum = (DateTime)values[2];
-			double gesamtLänge = (double)values[3];
 			double faktor = 0.0;
 			#endregion
 
@@ -29,7 +28,7 @@ namespace EffizienzControls.Converters {
 				faktor = start / end;
 			#endregion
 
-			return ( faktor * gesamtLänge );
+			return faktor;
 		}
 
 		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )

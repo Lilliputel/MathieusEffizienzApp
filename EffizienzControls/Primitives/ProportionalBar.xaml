@@ -7,52 +7,210 @@
 
 	<ControlTemplate TargetType="{x:Type local:ProportionalBar}"
 					 x:Key="ProportionalBarTemplate">
-		<Grid>
-			<Grid.Style>
-				<Style TargetType="{x:Type Grid}">
-					<Style.Triggers>
-						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SizeFactor}"
-									 Value="0">
-							<Setter Property="Visibility"
-									Value="Collapsed" />
-						</DataTrigger>
-						<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Orientation}"
-									 Value="Vertical">
-							<Setter Property="LayoutTransform">
-								<Setter.Value>
-									<RotateTransform Angle="270" />
-								</Setter.Value>
-							</Setter>
-						</DataTrigger>
-					</Style.Triggers>
-				</Style>
-			</Grid.Style>
+
+		<ControlTemplate.Resources>
+			<Style TargetType="{x:Type Grid}"
+				   x:Key="GridTriggers">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=SizeFactor}"
+								 Value="0">
+						<Setter Property="Visibility"
+								Value="Collapsed" />
+					</DataTrigger>
+
+					<!--#region Controls The Orientation in the specific Dockings of the Bar -->
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+								 Value="Left">
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="0" />
+							</Setter.Value>
+						</Setter>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+								 Value="Top">
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="90" />
+							</Setter.Value>
+						</Setter>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+								 Value="Right">
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="180" />
+							</Setter.Value>
+						</Setter>
+					</DataTrigger>
+					<DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+								 Value="Bottom">
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="270" />
+							</Setter.Value>
+						</Setter>
+					</DataTrigger>
+					<!--#endregion-->
+
+				</Style.Triggers>
+			</Style>
+
+			<Style TargetType="{x:Type ContentPresenter}" x:Key="ContentPresenterTriggers">
+				<Style.Triggers>
+
+					<!--#region Controls The Orientation (Case Horizontal) of the Content -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Horizontal" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Left" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="0" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Horizontal" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Top" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="270" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Horizontal" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Right" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="180" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Horizontal" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Bottom" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="90" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<!--#endregion-->
+
+					<!--#region Controls The Orientation (Case Vertical) of the Content -->
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Vertical" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Left" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="270" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Vertical" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Top" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="180" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Vertical" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Right" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="90" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<MultiDataTrigger>
+						<MultiDataTrigger.Conditions>
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ContentOrientation}"
+									   Value="Vertical" />
+							<Condition Binding="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Dock}"
+									   Value="Bottom" />
+						</MultiDataTrigger.Conditions>
+						<Setter Property="LayoutTransform">
+							<Setter.Value>
+								<RotateTransform Angle="0" />
+							</Setter.Value>
+						</Setter>
+					</MultiDataTrigger>
+					<!--#endregion-->
+
+				</Style.Triggers>
+			</Style>
+		</ControlTemplate.Resources>
+		
+		<Grid Style="{StaticResource GridTriggers}">
 			
+
 			<Border Background="{TemplateBinding Background}"
 					CornerRadius="{TemplateBinding CornerRadius}"
 					IsHitTestVisible="{TemplateBinding IsHitTestVisible}"
 					BorderBrush="{TemplateBinding BorderBrush}"
 					BorderThickness="{TemplateBinding BorderThickness}"
 					Padding="{TemplateBinding Padding}"
-					Margin="{TemplateBinding Margin}"
+					Style="{TemplateBinding BarStyle}"
 					HorizontalAlignment="Left"
-					VerticalAlignment="Stretch">
+					VerticalAlignment="Stretch"
+					ClipToBounds="False">
 				<Border.Width>
-					<MultiBinding Converter="{converter:DoubleMultiplication}">
+					<MultiBinding Converter="{converter:DoublesToSize}">
 						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}"
 								 Path="TotalSize" />
 						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}"
 								 Path="SizeFactor" />
 					</MultiBinding>
 				</Border.Width>
+				<Border.Margin>
+					<MultiBinding Converter="{converter:DoublesToOffset}">
+						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}"
+								 Path="TotalSize" />
+						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}"
+								 Path="OffsetFactor" />
+					</MultiBinding>
+				</Border.Margin>
 			</Border>
 
 			<ContentPresenter Content="{TemplateBinding Content}"
 							  ContentTemplate="{TemplateBinding ContentTemplate}"
 							  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
 							  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-							  Margin="6,3"/>
-			
+							  Margin="6,3"
+							  Style="{StaticResource ContentPresenterTriggers}" />
+
 		</Grid>
 	</ControlTemplate>
 

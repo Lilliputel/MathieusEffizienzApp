@@ -1,12 +1,11 @@
 ﻿using EffizienzControls.Extensions;
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
 
 namespace EffizienzControls.Converters {
 
-	[ValueConversion(typeof(object[]), typeof(Thickness))]
+	[ValueConversion(typeof(object[]), typeof(double))]
 	public class DateTimesToLeftMargin : MarkedupMultiValueConverter<DateTimesToLeftMargin> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
@@ -15,7 +14,6 @@ namespace EffizienzControls.Converters {
 			DateTime projektStart = (DateTime)values[0];
 			DateTime projektEnde = (DateTime)values[1];
 			DateTime datum = (DateTime)values[2];
-			double gesamtLänge = (double)values[3];
 			double faktor = 0.0;
 			#endregion
 
@@ -28,10 +26,9 @@ namespace EffizienzControls.Converters {
 			double end = projektEnde.Date.Subtract(projektStart.Date).TotalDays;
 			if( end > 0 )
 				faktor = start / end;
-			double position = (faktor * gesamtLänge); // + offset; 
 			#endregion
 
-			return new Thickness(position, 0, 0, 0);
+			return faktor;
 		}
 
 		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
