@@ -74,7 +74,7 @@ namespace LogicLayer {
 
 			foreach( var atttributeType in _ValidationAttributes ) {
 
-				var methodInfo = typeof(CustomAttributeExtensions).GetMethod("GetCustomAttribute", new Type[]{ typeof(MemberInfo), typeof(Type)} );
+				var methodInfo = typeof(CustomAttributeExtensions).GetMethod(nameof(CustomAttributeExtensions.GetCustomAttribute), new Type[]{ typeof(MemberInfo), typeof(Type)} );
 				var methodReturnValue = methodInfo.Invoke(null, new object[]{ property, atttributeType });
 
 				if( methodReturnValue is ValidationAttribute vAttribute )

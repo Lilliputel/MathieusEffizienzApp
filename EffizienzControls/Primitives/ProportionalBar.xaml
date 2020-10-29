@@ -56,7 +56,8 @@
 				</Style.Triggers>
 			</Style>
 
-			<Style TargetType="{x:Type ContentPresenter}" x:Key="ContentPresenterTriggers">
+			<Style TargetType="{x:Type ContentPresenter}"
+				   x:Key="ContentPresenterTriggers">
 				<Style.Triggers>
 
 					<!--#region Controls The Orientation (Case Horizontal) of the Content -->
@@ -172,9 +173,8 @@
 				</Style.Triggers>
 			</Style>
 		</ControlTemplate.Resources>
-		
+
 		<Grid Style="{StaticResource GridTriggers}">
-			
 
 			<Border Background="{TemplateBinding Background}"
 					CornerRadius="{TemplateBinding CornerRadius}"
@@ -183,9 +183,10 @@
 					BorderThickness="{TemplateBinding BorderThickness}"
 					Padding="{TemplateBinding Padding}"
 					Style="{TemplateBinding BarStyle}"
+					Height="{TemplateBinding BarWidth}"
+					MinHeight="{TemplateBinding BarMinWidth}"
 					HorizontalAlignment="Left"
-					VerticalAlignment="Stretch"
-					ClipToBounds="False">
+					VerticalAlignment="Stretch">
 				<Border.Width>
 					<MultiBinding Converter="{converter:DoublesToSize}">
 						<Binding RelativeSource="{RelativeSource Mode=TemplatedParent}"
@@ -202,14 +203,13 @@
 								 Path="OffsetFactor" />
 					</MultiBinding>
 				</Border.Margin>
-			</Border>
 
-			<ContentPresenter Content="{TemplateBinding Content}"
-							  ContentTemplate="{TemplateBinding ContentTemplate}"
-							  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-							  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-							  Margin="6,3"
-							  Style="{StaticResource ContentPresenterTriggers}" />
+				<ContentPresenter Content="{TemplateBinding Content}"
+								  ContentTemplate="{TemplateBinding ContentTemplate}"
+								  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+								  ContentStringFormat="{TemplateBinding ContentStringFormat}"
+								  Style="{StaticResource ContentPresenterTriggers}" />
+			</Border>
 
 		</Grid>
 	</ControlTemplate>

@@ -43,17 +43,8 @@ namespace ModelLayer.Classes {
 		}
 		public void RemoveItemFromDay( DayOfWeek day, PlanItem item )
 			=> GetDayPlan(day).Remove(item);
-		public DayPlan GetDayPlan( DayOfWeek day ) => day switch
-		{
-			DayOfWeek.Monday => Monday,
-			DayOfWeek.Tuesday => Tuesday,
-			DayOfWeek.Wednesday => Wednesday,
-			DayOfWeek.Thursday => Thursday,
-			DayOfWeek.Friday => Friday,
-			DayOfWeek.Saturday => Saturday,
-			DayOfWeek.Sunday => Sunday,
-			_ => new DayPlan()
-		};
+		public DayPlan GetDayPlan( DayOfWeek day )
+			=> (DayPlan)typeof(WeekPlan).GetProperty(day.ToString()).GetValue(this); // using reflection to get the correct DayPlan
 		#endregion
 
 	}

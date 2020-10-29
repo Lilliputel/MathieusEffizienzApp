@@ -10,7 +10,8 @@
 				  VerticalScrollBarVisibility="Auto"
 				  VerticalAlignment="Top"
 				  HorizontalAlignment="Left">
-		<controls:WeekPlanView Height="500" WeekPlan="{Binding WeekPlan}" />
+		<controls:WeekPlanView Height="500"
+							   WeekPlan="{Binding WeekPlan}" />
 	</ScrollViewer>
 
 </UserControl>
