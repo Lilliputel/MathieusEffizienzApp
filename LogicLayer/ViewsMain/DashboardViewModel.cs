@@ -14,8 +14,9 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public DashboardViewModel( IAccountableParent<Category> categoryList )
-			=> CategoryList = categoryList;
+		public DashboardViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+		}
 		#endregion
 
 		#region methods

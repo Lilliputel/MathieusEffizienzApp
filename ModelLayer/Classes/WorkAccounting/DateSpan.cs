@@ -14,17 +14,17 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
-		[XmlAttribute(nameof(Start))]
-		[AlsoNotifyFor(nameof(Duration))]
+		[XmlAttribute( nameof( Start ) )]
+		[AlsoNotifyFor( nameof( Duration ) )]
 		public DateTime Start {
 			get => _Start;
-			set => UpdateValues(value.Date, _End);
+			set => UpdateValues( value.Date, _End );
 		}
-		[XmlAttribute(nameof(End))]
-		[AlsoNotifyFor(nameof(Duration))]
+		[XmlAttribute( nameof( End ) )]
+		[AlsoNotifyFor( nameof( Duration ) )]
 		public DateTime End {
 			get => _End;
-			set => UpdateValues(_Start, value.Date);
+			set => UpdateValues( _Start, value.Date );
 		}
 		[XmlIgnore]
 		public TimeSpan Duration
@@ -33,9 +33,11 @@ namespace ModelLayer.Classes {
 
 		#region constructor
 		public DateSpan( string start, string end, IFormatProvider formatProvider )
-			: this(DateTime.ParseExact(start, @"dd.MM.yy", formatProvider), DateTime.ParseExact(end, @"dd.MM.yy", formatProvider)) { }
-		public DateSpan( DateTime start, DateTime end )
-			=> UpdateValues(start.Date, end.Date);
+			: this( DateTime.ParseExact( start, @"dd.MM.yy", formatProvider ), DateTime.ParseExact( end, @"dd.MM.yy", formatProvider ) ) { }
+		public DateSpan( DateTime start, DateTime end ) {
+			UpdateValues( start.Date, end.Date );
+		}
+
 		public DateSpan() { }
 		#endregion
 

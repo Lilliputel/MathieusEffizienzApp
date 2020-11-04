@@ -39,16 +39,14 @@ namespace LogicLayer.Manager {
 		#endregion
 
 		#region public methods
-		public static void SaveCategories() {
-			_ObjectDataService.SaveData(CategoryList.Children);
-		}
+		public static void SaveCategories() => _ObjectDataService.SaveData( CategoryList.Children );
 		public static void LoadCategories() {
-			foreach( var category in _ObjectDataService.LoadData() ) {
-				CategoryList.Children.Add(category);
-				foreach( var daytime in category.WorkPlan ) {
-					Task.Run(() =>
-					WeekPlan.AddItemToDayAsync(daytime.Day,
-					new PlanItem(daytime.Time, category))
+			foreach( Category? category in _ObjectDataService.LoadData() ) {
+				CategoryList.Children.Add( category );
+				foreach( (DayOfWeek Day, DoubleTime Time) daytime in category.WorkPlan ) {
+					Task.Run( () =>
+					 WeekPlan.AddItemToDayAsync( daytime.Day,
+					 new PlanItem( daytime.Time, category ) )
 					);
 				}
 			}
@@ -83,37 +81,37 @@ namespace LogicLayer.Manager {
 				if( e.Action == NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
 						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DoubleTime time) ) {
-								Task.Run(() =>
-								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category))
+							if( item is (DayOfWeek day, DoubleTime time ) ) {
+								Task.Run( () =>
+								 WeekPlan.AddItemToDayAsync( day,
+								 new PlanItem( time, category ) )
 								);
 							}
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
 					if( e.OldStartingIndex >= 0 )
 						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DoubleTime time) ) {
-								Task.Run(() =>
-								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category))
+							if( item is (DayOfWeek day, DoubleTime time ) ) {
+								Task.Run( () =>
+								 WeekPlan.RemoveItemFromDay( day,
+								 new PlanItem( time, category ) )
 								);
 							}
 				}
 				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
 					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
 						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DoubleTime time) ) {
-								Task.Run(() =>
-								WeekPlan.RemoveItemFromDay(day,
-								new PlanItem(time, category))
+							if( item is (DayOfWeek day, DoubleTime time ) ) {
+								Task.Run( () =>
+								 WeekPlan.RemoveItemFromDay( day,
+								 new PlanItem( time, category ) )
 								);
 							}
 						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DoubleTime time) ) {
-								Task.Run(() =>
-								WeekPlan.AddItemToDayAsync(day,
-								new PlanItem(time, category))
+							if( item is (DayOfWeek day, DoubleTime time ) ) {
+								Task.Run( () =>
+								 WeekPlan.AddItemToDayAsync( day,
+								 new PlanItem( time, category ) )
 								);
 							}
 					}
@@ -122,15 +120,15 @@ namespace LogicLayer.Manager {
 		}
 		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
 			switch( e.GetException() ) {
-			case FileNotFoundException fNFE:
-				AlertManager.FileNotFound(fNFE.FileName ?? $"unknown, from: {sender}", "");
-				return;
-			case ArgumentException aE:
-				AlertManager.InputInkorrekt($"{aE.Message}");
-				return;
-			default:
-				Debug.WriteLine($"{sender} threw {e.GetException()} \nwith the Message: {e.GetException().Message}");
-				return;
+				case FileNotFoundException fNFE:
+					AlertManager.FileNotFound( fNFE.FileName ?? $"unknown, from: {sender}", "" );
+					return;
+				case ArgumentException aE:
+					AlertManager.InputInkorrekt( $"{aE.Message}" );
+					return;
+				default:
+					Debug.WriteLine( $"{sender} threw {e.GetException()} \nwith the Message: {e.GetException().Message}" );
+					return;
 			}
 		}
 

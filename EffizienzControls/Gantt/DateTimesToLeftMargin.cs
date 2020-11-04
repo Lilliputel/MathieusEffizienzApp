@@ -5,15 +5,15 @@ using System.Windows.Data;
 
 namespace EffizienzControls.Converters {
 
-	[ValueConversion(typeof(object[]), typeof(double))]
+	[ValueConversion( typeof( object[] ), typeof( double ) )]
 	public class DateTimesToLeftMargin : MarkedupMultiValueConverter<DateTimesToLeftMargin> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
-			DateTime projektStart = (DateTime)values[0];
-			DateTime projektEnde = (DateTime)values[1];
-			DateTime datum = (DateTime)values[2];
+			var projektStart = (DateTime) values[0];
+			var projektEnde = (DateTime) values[1];
+			var datum = (DateTime) values[2];
 			double faktor = 0.0;
 			#endregion
 
@@ -22,8 +22,8 @@ namespace EffizienzControls.Converters {
 			// Datum - StartDatum = Reiner Tagesunterschied a
 			// EndDatum - StartDatum = Reiner Tagesunterschied b
 
-			double start = datum.Date.Subtract(projektStart.Date).TotalDays;
-			double end = projektEnde.Date.Subtract(projektStart.Date).TotalDays;
+			double start = datum.Date.Subtract( projektStart.Date ).TotalDays;
+			double end = projektEnde.Date.Subtract( projektStart.Date ).TotalDays;
 			if( end > 0 )
 				faktor = start / end;
 			#endregion

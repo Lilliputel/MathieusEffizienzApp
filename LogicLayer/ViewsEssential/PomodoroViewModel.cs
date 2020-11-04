@@ -34,9 +34,9 @@ namespace LogicLayer.Views {
 			new RelayCommand(
 				parameter => {
 					if( WorkItem is WorkItem workItem )
-						workItem.Time += ( Clock.GetTotalAndReset() );
+						workItem.Time += (Clock.GetTotalAndReset());
 				},
-				_ => WorkItem is { }
+				parameter => WorkItem is { }
 			);
 
 		#endregion
@@ -48,10 +48,11 @@ namespace LogicLayer.Views {
 
 		#region constructor
 		public PomodoroViewModel() {
-			Clock = new PomodoroClock(TimeSpan.FromMinutes(45), TimeSpan.FromMinutes(12), TimeSpan.FromMinutes(8));
+			Clock = new PomodoroClock( TimeSpan.FromMinutes( 45 ), TimeSpan.FromMinutes( 12 ), TimeSpan.FromMinutes( 8 ) );
 		}
-		public PomodoroViewModel( WorkItem workItem ) : this()
-			=> WorkItem = workItem;
+		public PomodoroViewModel( WorkItem workItem ) : this() {
+			WorkItem = workItem;
+		}
 		#endregion
 
 

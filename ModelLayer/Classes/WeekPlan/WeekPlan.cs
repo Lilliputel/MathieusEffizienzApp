@@ -24,27 +24,27 @@ namespace ModelLayer.Classes {
 		public WeekPlan() {
 			HoursOfDay = new ObservableCollection<TimeSpan>();
 			for( int h = 0; h < 24; h++ ) {
-				HoursOfDay.Add(TimeSpan.FromHours(h));
+				HoursOfDay.Add( TimeSpan.FromHours( h ) );
 			}
 		}
 		#endregion
 
 		#region methods
 		public async Task AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
-			DayPlan dayPlan = GetDayPlan(day);
+			DayPlan dayPlan = GetDayPlan( day );
 			DoubleTime? result = null;
-			await Task.Run(() => result = dayPlan.GetDayOverlappingAsync(item.Time).Result);
+			await Task.Run( () => result = dayPlan.GetDayOverlappingAsync( item.Time ).Result );
 			if( result is { } )
-				throw new ArgumentException(result.ToString());
+				throw new ArgumentException( result.ToString() );
 			else {
-				dayPlan.Add(item);
-				RaisePropertyChanged(day.ToString());
+				dayPlan.Add( item );
+				RaisePropertyChanged( day.ToString() );
 			}
 		}
 		public void RemoveItemFromDay( DayOfWeek day, PlanItem item )
-			=> GetDayPlan(day).Remove(item);
+			=> GetDayPlan( day ).Remove( item );
 		public DayPlan GetDayPlan( DayOfWeek day )
-			=> (DayPlan)typeof(WeekPlan).GetProperty(day.ToString()).GetValue(this); // using reflection to get the correct DayPlan
+			=> (DayPlan) typeof( WeekPlan ).GetProperty( day.ToString() ).GetValue( this ); // using reflection to get the correct DayPlan
 		#endregion
 
 	}

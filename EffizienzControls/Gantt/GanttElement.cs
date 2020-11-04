@@ -9,46 +9,46 @@ namespace EffizienzControls {
 
 		#region properties
 		public Goal Goal {
-			get { return (Goal)GetValue(GoalProperty); }
-			set { SetValue(GoalProperty, value); }
+			get => (Goal) GetValue( GoalProperty );
+			set => SetValue( GoalProperty, value );
 		}
 		public static readonly DependencyProperty GoalProperty =
-			DependencyProperty.Register(nameof(Goal), typeof(Goal), typeof(GanttElement), new FrameworkPropertyMetadata( new Goal(), FrameworkPropertyMetadataOptions.AffectsRender ));
+			DependencyProperty.Register( nameof( Goal ), typeof( Goal ), typeof( GanttElement ), new FrameworkPropertyMetadata( new Goal(), FrameworkPropertyMetadataOptions.AffectsRender ) );
 		public DateTime MainStart {
-			get { return (DateTime)GetValue(MainStartProperty); }
-			set { SetValue(MainStartProperty, value); }
+			get => (DateTime) GetValue( MainStartProperty );
+			set => SetValue( MainStartProperty, value );
 		}
 		public static readonly DependencyProperty MainStartProperty =
-			DependencyProperty.Register(nameof(MainStart), typeof(DateTime), typeof(GanttElement), new PropertyMetadata(DateTime.Today.AddDays(-1)));
+			DependencyProperty.Register( nameof( MainStart ), typeof( DateTime ), typeof( GanttElement ), new PropertyMetadata( DateTime.Today.AddDays( -1 ) ) );
 		public DateTime MainEnd {
-			get { return (DateTime)GetValue(MainEndProperty); }
-			set { SetValue(MainEndProperty, value); }
+			get => (DateTime) GetValue( MainEndProperty );
+			set => SetValue( MainEndProperty, value );
 		}
 		public static readonly DependencyProperty MainEndProperty =
-			DependencyProperty.Register(nameof(MainEnd), typeof(DateTime), typeof(GanttElement), new PropertyMetadata( DateTime.Today.AddDays(10)));
+			DependencyProperty.Register( nameof( MainEnd ), typeof( DateTime ), typeof( GanttElement ), new PropertyMetadata( DateTime.Today.AddDays( 10 ) ) );
 		public double TimeLineWidth {
-			get { return (double)GetValue(TimeLineWidthProperty); }
-			set { SetValue(TimeLineWidthProperty, value); }
+			get => (double) GetValue( TimeLineWidthProperty );
+			set => SetValue( TimeLineWidthProperty, value );
 		}
 		public static readonly DependencyProperty TimeLineWidthProperty =
-			DependencyProperty.Register(nameof(TimeLineWidth), typeof(double), typeof(GanttElement), new PropertyMetadata(0.0));
+			DependencyProperty.Register( nameof( TimeLineWidth ), typeof( double ), typeof( GanttElement ), new PropertyMetadata( 0.0 ) );
 		public double TextWidth {
-			get { return (double)GetValue(TextWidthProperty); }
-			set { SetValue(TextWidthProperty, value); }
+			get => (double) GetValue( TextWidthProperty );
+			set => SetValue( TextWidthProperty, value );
 		}
 		public static readonly DependencyProperty TextWidthProperty =
-			DependencyProperty.Register(nameof(TextWidth), typeof(double), typeof(GanttElement), new PropertyMetadata(0.0));
+			DependencyProperty.Register( nameof( TextWidth ), typeof( double ), typeof( GanttElement ), new PropertyMetadata( 0.0 ) );
 		public Style BarStyle {
-			get { return (Style)GetValue(BarStyleProperty); }
-			set { SetValue(BarStyleProperty, value); }
+			get => (Style) GetValue( BarStyleProperty );
+			set => SetValue( BarStyleProperty, value );
 		}
 		public static readonly DependencyProperty BarStyleProperty =
-			DependencyProperty.Register(nameof(BarStyle), typeof(Style), typeof(GanttElement), new PropertyMetadata( new Style(typeof(Border)) ));
+			DependencyProperty.Register( nameof( BarStyle ), typeof( Style ), typeof( GanttElement ), new PropertyMetadata( new Style( typeof( Border ) ) ) );
 		#endregion
 
 		#region initializer
 		static GanttElement() {
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(GanttElement), new FrameworkPropertyMetadata(typeof(GanttElement)));
+			DefaultStyleKeyProperty.OverrideMetadata( typeof( GanttElement ), new FrameworkPropertyMetadata( typeof( GanttElement ) ) );
 		}
 		#endregion
 	}

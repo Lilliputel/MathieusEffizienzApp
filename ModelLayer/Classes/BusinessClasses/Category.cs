@@ -13,27 +13,26 @@ namespace ModelLayer.Classes {
 	public class Category : ObservableObject, IAccountableParent<Goal>, IPlannedWork {
 
 		#region public properties
-		[XmlElement(nameof(UserText))]
+		[XmlElement( nameof( UserText ) )]
 		public UserText UserText { get; set; }
 
-		[XmlArray(nameof(Children))]
+		[XmlArray( nameof( Children ) )]
 		public Children<Goal> Children { get; } = new Children<Goal>();
-		[XmlArray(nameof(WorkHours))]
-		[AlsoNotifyFor(nameof(Time))]
+		[XmlArray( nameof( WorkHours ) ), AlsoNotifyFor( nameof( Time ) )]
 		public ObservableCollection<WorkItem> WorkHours { get; } = new ObservableCollection<WorkItem>();
 		[XmlIgnore]
 		public TimeSpan Time {
 			get {
-				var placeholder = TimeSpan.Zero;
-				new List<WorkItem>(WorkHours).ForEach(item => placeholder += item.Time);
+				TimeSpan placeholder = TimeSpan.Zero;
+				new List<WorkItem>( WorkHours ).ForEach( item => placeholder += item.Time );
 				return placeholder;
 			}
 		}
 
-		[XmlArray(nameof(WorkPlan))]
+		[XmlArray( nameof( WorkPlan ) )]
 		public WorkPlan WorkPlan { get; } = new WorkPlan();
 
-		[XmlAttribute(nameof(Archived))]
+		[XmlAttribute( nameof( Archived ) )]
 		public bool Archived { get; set; } = false;
 		#endregion
 
@@ -47,20 +46,20 @@ namespace ModelLayer.Classes {
 
 		#region public methods
 		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
-			var placeholder = TimeSpan.Zero;
-			new List<Goal>(Children).ForEach(Child =>
-				placeholder += ( Child ).GetTotalTimeOnDate(date)
+			TimeSpan placeholder = TimeSpan.Zero;
+			new List<Goal>( Children ).ForEach( Child =>
+				   placeholder += (Child).GetTotalTimeOnDate( date )
 				);
-			placeholder += ( this as IAccountable ).GetTimeOnDate(date);
+			placeholder += (this as IAccountable).GetTimeOnDate( date );
 			return placeholder;
 		}
 		public ICollection<DateTime> GetTotalWorkedDates() {
 			var placeholder = new List<DateTime>();
-			new List<Goal>(Children).ForEach(Child =>
-				placeholder.AddUniqueRange(Child.GetTotalWorkedDates())
+			new List<Goal>( Children ).ForEach( Child =>
+				   placeholder.AddUniqueRange( Child.GetTotalWorkedDates() )
 				);
-			new List<WorkItem>(WorkHours).ForEach(workItem =>
-				placeholder.AddUnique(workItem.Date));
+			new List<WorkItem>( WorkHours ).ForEach( workItem =>
+				   placeholder.AddUnique( workItem.Date ) );
 			return placeholder;
 		}
 		#endregion

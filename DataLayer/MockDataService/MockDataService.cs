@@ -11,13 +11,13 @@ namespace DataLayer.MockDataService {
 		public ObservableCollection<Category> LoadData() {
 			var placeholder = new ObservableCollection<Category>();
 			for( int counter = 0; counter <= 3; counter++ ) {
-				Random randomGen = new Random();
-				Color randomColor = Color.FromArgb( 255,
-					(byte)randomGen.Next(255),
-					(byte)randomGen.Next(255),
-					(byte)randomGen.Next(255));
+				var randomGen = new Random();
+				var randomColor = Color.FromArgb( 255,
+					(byte) randomGen.Next( 255 ),
+					(byte) randomGen.Next( 255 ),
+					(byte) randomGen.Next( 255 ) );
 
-				Category CodeCat = new Category(new UserText($"Generated-Category{counter}",null,randomColor)){
+				var CodeCat = new Category( new UserText( $"Generated-Category{counter}", null, randomColor ) ) {
 					Children = {
 
 						new Goal(new UserText($"Generated-Goal{counter}_1", null, randomColor), new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(8))) {
@@ -38,14 +38,12 @@ namespace DataLayer.MockDataService {
 					}
 				};
 
-				placeholder.Add(CodeCat);
+				placeholder.Add( CodeCat );
 			}
 			return placeholder;
 		}
 
-		public void SaveData( ObservableCollection<Category> Collection ) {
-			Debug.WriteLine($"Tried to save the {nameof(Collection)}[{Collection}] in the MockDataService");
-		}
+		public void SaveData( ObservableCollection<Category> Collection ) => Debug.WriteLine( $"Tried to save the {nameof( Collection )}[{Collection}] in the MockDataService" );
 
 	}
 }

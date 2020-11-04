@@ -13,7 +13,7 @@ namespace ModelLayer.Classes {
 		public bool IsParent
 			=> Count > 0;
 		[XmlIgnore]
-		[AlsoNotifyFor(nameof(IsParent))]
+		[AlsoNotifyFor( nameof( IsParent ) )]
 		public new int Count { get; set; }
 		#endregion
 	}

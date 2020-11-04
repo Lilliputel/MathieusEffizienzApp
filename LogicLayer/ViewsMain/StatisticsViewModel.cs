@@ -14,9 +14,9 @@ namespace LogicLayer.Views {
 		#region public properties
 		public TimeSpan MaximalWorkedTime {
 			get {
-				foreach( var date in Dates )
-					foreach( var category in CategoryList.Children ) {
-						var maxCatTime = (category as IAccountableParent<Goal>).GetTotalTimeOnDate(date);
+				foreach( DateTime date in Dates )
+					foreach( Category? category in CategoryList.Children ) {
+						TimeSpan maxCatTime = (category as IAccountableParent<Goal>).GetTotalTimeOnDate( date );
 						if( maxCatTime > maxTime )
 							maxTime = maxCatTime;
 					}
@@ -24,13 +24,14 @@ namespace LogicLayer.Views {
 			}
 		}
 		public ObservableCollection<DateTime> Dates
-			=> new ObservableCollection<DateTime>(CategoryList.GetTotalWorkedDates());
+			=> new ObservableCollection<DateTime>( CategoryList.GetTotalWorkedDates() );
 		public IAccountableParent<Category> CategoryList { get; }
 		#endregion
 
 		#region constructors
-		public StatisticsViewModel( IAccountableParent<Category> categoryList )
-			=> CategoryList = categoryList;
+		public StatisticsViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+		}
 		#endregion
 
 		#region methods

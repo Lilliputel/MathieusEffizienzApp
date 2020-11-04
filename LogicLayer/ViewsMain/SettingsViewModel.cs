@@ -17,10 +17,10 @@ namespace LogicLayer.Views {
 		#region public properties
 		public string ThemeButton { get; private set; }
 		public CultureInfo SelectedCulture {
-			get { return SettingsManager.CurrentCulture; }
+			get => SettingsManager.CurrentCulture;
 			set {
 				if( value != SettingsManager.CurrentCulture )
-					SettingsManager.SetCulture(value);
+					SettingsManager.SetCulture( value );
 			}
 		}
 		public CultureInfo[] Cultures { get; private set; }
@@ -28,13 +28,13 @@ namespace LogicLayer.Views {
 
 		#region public commands
 		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
-			new RelayCommand(parameter => {
+			new RelayCommand( parameter => {
 				SettingsManager.SwitchTheme();
-			});
+			} );
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
-			new RelayCommand(parameter => {
+			new RelayCommand( parameter => {
 				ViewModelManager.Pomodoro.Clock.UpdateCountDirection();
-			});
+			} );
 		#endregion
 
 		#region constructor
@@ -43,7 +43,7 @@ namespace LogicLayer.Views {
 			SettingsManager.ObjectSettingChanged += UpdateObjectSettings;
 
 			ThemeButton = SettingsManager.DarkMode ? "Light!" : "Dark!";
-			Cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+			Cultures = CultureInfo.GetCultures( CultureTypes.SpecificCultures );
 		}
 		#endregion
 
@@ -54,7 +54,7 @@ namespace LogicLayer.Views {
 		}
 		private void UpdateObjectSettings( ObjectSettingsEnum setting, object value ) {
 			if( setting == ObjectSettingsEnum.Culture )
-				Debug.WriteLine($"Updated the Culture with {value}");
+				Debug.WriteLine( $"Updated the Culture with {value}" );
 		}
 		#endregion
 	}

@@ -31,19 +31,17 @@ namespace DataLayer.XMLDataService {
 			_FileName = fileName;
 			_FilePath = filePath;
 
-			if( _FileName.EndsWith(".xml") is false )
-				_FileName = string.Concat(fileName, ".xml");
-			if( _FilePath.EndsWith("/") is false )
-				_FilePath = string.Concat(filePath, '/');
+			if( _FileName.EndsWith( ".xml" ) is false )
+				_FileName = string.Concat( fileName, ".xml" );
+			if( _FilePath.EndsWith( "/" ) is false )
+				_FilePath = string.Concat( filePath, '/' );
 		}
 
 		#endregion
 
 		#region methods
 
-		protected void OnErrorOccured( Exception e ) {
-			ErrorOccured?.Invoke(this, new ErrorEventArgs(e));
-		}
+		protected void OnErrorOccured( Exception e ) => ErrorOccured?.Invoke( this, new ErrorEventArgs( e ) );
 
 		#endregion
 
@@ -51,13 +49,13 @@ namespace DataLayer.XMLDataService {
 
 		public void SaveData( ObservableCollection<T> Collection ) {
 			try {
-				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Create) ) {
-					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					Serializer.Serialize(fileStream, Collection);
+				using( var fileStream = new FileStream( _FilePath + _FileName, FileMode.Create ) ) {
+					var Serializer = new XmlSerializer( typeof( ObservableCollection<T> ) );
+					Serializer.Serialize( fileStream, Collection );
 				}
 			}
 			catch( FileNotFoundException e ) {
-				OnErrorOccured(e);
+				OnErrorOccured( e );
 			}
 		}
 
@@ -68,13 +66,13 @@ namespace DataLayer.XMLDataService {
 		public ObservableCollection<T> LoadData() {
 			var LoadingList = new ObservableCollection<T>();
 			try {
-				using( FileStream fileStream = new FileStream(_FilePath + _FileName, FileMode.Open) ) {
-					XmlSerializer Serializer = new XmlSerializer(typeof(ObservableCollection<T>));
-					LoadingList = Serializer.Deserialize(fileStream) as ObservableCollection<T> ?? new ObservableCollection<T>();
+				using( var fileStream = new FileStream( _FilePath + _FileName, FileMode.Open ) ) {
+					var Serializer = new XmlSerializer( typeof( ObservableCollection<T> ) );
+					LoadingList = Serializer.Deserialize( fileStream ) as ObservableCollection<T> ?? new ObservableCollection<T>();
 				}
 			}
 			catch( FileNotFoundException e ) {
-				OnErrorOccured(e);
+				OnErrorOccured( e );
 			}
 			return LoadingList;
 		}

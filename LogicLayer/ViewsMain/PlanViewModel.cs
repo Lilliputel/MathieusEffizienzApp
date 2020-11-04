@@ -25,9 +25,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region private helper methods
-		private void Test( object sender, PropertyChangedEventArgs e ) {
-			Debug.WriteLine($"Executed PropertyChanged {e.PropertyName}");
-		}
+		private void Test( object sender, PropertyChangedEventArgs e ) => Debug.WriteLine( $"Executed PropertyChanged {e.PropertyName}" );
 		#endregion
 
 	}

@@ -6,18 +6,18 @@ namespace ModelLayer.Enums {
 	/// <summary>
 	/// Ein Enum, in dem alle möglichen Arbeitsschritte erfasst sind.
 	/// </summary>
-	[TypeConverter(typeof(EnumDescriptionTypeConverter))]
+	[TypeConverter( typeof( EnumDescriptionTypeConverter ) )]
 	public enum StateEnum {
 
-		[Description("ToDo: Muss erledigt werden!")]
+		[Description( "ToDo: Muss erledigt werden!" )]
 		ToDo,
-		[Description("In Bearbeitung!")]
+		[Description( "In Bearbeitung!" )]
 		InProgress,
-		[Description("Prio 1: Sofort erledigen!")]
+		[Description( "Prio 1: Sofort erledigen!" )]
 		Priority,
-		[Description("Erledigt!")]
+		[Description( "Erledigt!" )]
 		Done,
-		[Description("Bugs: Muss überarbeitet werden!")]
+		[Description( "Bugs: Muss überarbeitet werden!" )]
 		Bugs
 
 	}

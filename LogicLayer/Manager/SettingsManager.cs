@@ -7,7 +7,7 @@ namespace LogicLayer.Manager {
 		#region public properties
 		public static bool DarkMode { get; private set; }
 		public static bool PomodoroCountUp { get; private set; }
-		public static CultureInfo CurrentCulture { get; private set; } = CultureInfo.CreateSpecificCulture("en-US");
+		public static CultureInfo CurrentCulture { get; private set; } = CultureInfo.CreateSpecificCulture( "en-US" );
 		#endregion
 
 		#region public events
@@ -21,26 +21,26 @@ namespace LogicLayer.Manager {
 				DarkMode = isDarkModeNew;
 			else
 				DarkMode = !DarkMode;
-			OnBoolChanged(BoolSettingsEnum.DarkMode, DarkMode);
+			OnBoolChanged( BoolSettingsEnum.DarkMode, DarkMode );
 		}
 		public static void ChangeCountDirection( bool? CountsUp = null ) {
 			if( CountsUp is bool up )
 				PomodoroCountUp = up;
 			else
 				PomodoroCountUp = !PomodoroCountUp;
-			OnBoolChanged(BoolSettingsEnum.CountDirection, PomodoroCountUp);
+			OnBoolChanged( BoolSettingsEnum.CountDirection, PomodoroCountUp );
 		}
 		public static void SetCulture( CultureInfo culture ) {
 			CurrentCulture = culture;
-			OnObjectChanged(ObjectSettingsEnum.Culture, culture);
+			OnObjectChanged( ObjectSettingsEnum.Culture, culture );
 		}
 		#endregion
 
 		#region private helper methods
 		private static void OnBoolChanged( BoolSettingsEnum setting, bool value )
-			=> BoolSettingChanged?.Invoke(setting, value);
+			=> BoolSettingChanged?.Invoke( setting, value );
 		private static void OnObjectChanged( ObjectSettingsEnum setting, object value )
-			=> ObjectSettingChanged?.Invoke(setting, value);
+			=> ObjectSettingChanged?.Invoke( setting, value );
 		#endregion
 
 	}

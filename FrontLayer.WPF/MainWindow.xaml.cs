@@ -11,7 +11,7 @@ namespace FrontLayer.WPF.Windows {
 		}
 
 		~MainWindow() {
-			MessageBox.Show("Hello");
+			MessageBox.Show( "Hello" );
 		}
 	}
 }

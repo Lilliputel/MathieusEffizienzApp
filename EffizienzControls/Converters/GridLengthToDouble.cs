@@ -6,14 +6,14 @@ using System.Windows.Data;
 
 namespace EffizienzControls.Converters {
 
-	[ValueConversion(typeof(GridLength), typeof(double))]
+	[ValueConversion( typeof( GridLength ), typeof( double ) )]
 	public class GridLengthToDouble : MarkedupValueConverter<GridLengthToDouble> {
 
 		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture )
-			=> (double)( (GridLength)value ).Value;
+			=> (double) ((GridLength) value).Value;
 
 		public override object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
-			=> new GridLength((double)value);
+			=> new GridLength( (double) value );
 
 	}
 }

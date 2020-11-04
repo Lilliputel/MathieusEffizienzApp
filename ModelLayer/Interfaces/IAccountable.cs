@@ -10,15 +10,15 @@ namespace ModelLayer.Interfaces {
 		ObservableCollection<WorkItem> WorkHours { get; }
 		TimeSpan GetTimeOnDate( DateTime date ) {
 			var placeholder = new TimeSpan();
-			new List<WorkItem>(WorkHours)
-				.Where(item => item.Date.Date == date.Date)
-				.ToList().ForEach(item => placeholder += item.Time);
+			new List<WorkItem>( WorkHours )
+				.Where( item => item.Date.Date == date.Date )
+				.ToList().ForEach( item => placeholder += item.Time );
 			return placeholder;
 		}
 		ICollection<DateTime> GetWorkedDates() {
 			var placeholder = new List<DateTime>();
-			new List<WorkItem>(WorkHours).ForEach(workItem =>
-				placeholder.AddUnique(workItem.Date));
+			new List<WorkItem>( WorkHours ).ForEach( workItem =>
+				   placeholder.AddUnique( workItem.Date ) );
 			return placeholder;
 		}
 	}

@@ -1,6 +1,4 @@
-﻿using ModelLayer.Classes;
-
-namespace ModelLayer.Extensions {
+﻿namespace ModelLayer.Extensions {
 
 
 

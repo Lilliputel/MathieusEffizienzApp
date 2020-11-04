@@ -14,8 +14,9 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructors
-		public GoalOverviewViewModel( IAccountableParent<Category> categoryList )
-			=> CategoryList = categoryList;
+		public GoalOverviewViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+		}
 		#endregion
 
 		#region methods

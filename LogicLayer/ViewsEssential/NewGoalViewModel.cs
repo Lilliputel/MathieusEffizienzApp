@@ -30,23 +30,24 @@ namespace LogicLayer.Views {
 			new RelayCommand(
 				parameter => {
 					var neu = new Goal(
-						new UserText(Title, Description, SelectedCategory.UserText.Color),
-						new DateSpan(StartDate, EndDate),
-						State);
+						new UserText( Title, Description, SelectedCategory!.UserText.Color ),
+						new DateSpan( StartDate, EndDate ),
+						State );
 					if( SelectedGoal is Goal goal )
-						goal.Children.Add(neu);
+						goal.Children.Add( neu );
 					else
-						SelectedCategory.Children.Add(neu);
-					AlertManager.ObjektErstellt(nameof(Goal), Title);
+						SelectedCategory.Children.Add( neu );
+					AlertManager.ObjektErstellt( nameof( Goal ), Title );
 				},
-				_ => ( SelectedCategory is Category && Title is string && Description is string )
+				parameter => (SelectedCategory is Category && Title is string && Description is string)
 			);
 
 		#endregion
 
 		#region constructors
-		public NewGoalViewModel( IAccountableParent<Category> categoryList )
-			=> CategoryList = categoryList;
+		public NewGoalViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+		}
 		#endregion
 
 

@@ -18,21 +18,21 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		[Required(AllowEmptyStrings = false, ErrorMessage = "First name must not be empty!")]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "First name must not be empty!" )]
 		public string? Title { get; set; }
-		[Required(AllowEmptyStrings = false, ErrorMessage = "Title must not be empty!")]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "Title must not be empty!" )]
 		public string? Description { get; set; }
 		public List<string> ColorNameList {
 			get {
 				var allColors = new List<string>();
-				PropertyInfo[] propertyInfos = typeof(Color).GetProperties(BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
+				PropertyInfo[] propertyInfos = typeof( Color ).GetProperties( BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
 				foreach( PropertyInfo propertyInfo in propertyInfos ) {
-					allColors.Add(propertyInfo.Name);
+					allColors.Add( propertyInfo.Name );
 				}
 				return allColors;
 			}
 		}
-		[Required(AllowEmptyStrings = false, ErrorMessage = "Color has to be selected!")]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "Color has to be selected!" )]
 		public string? SelectedColorName { get; set; }
 		#endregion
 
@@ -45,23 +45,23 @@ namespace LogicLayer.Views {
 							new UserText(
 								Title,
 								Description,
-								Color.FromName(SelectedColorName))));
-					AlertManager.ObjektErstellt(nameof(Category), Title);
+								Color.FromName( SelectedColorName ) ) ) );
+					AlertManager.ObjektErstellt( nameof( Category ), Title );
 				},
-				obj => HasErrors is false);
+				parameter => HasErrors is false );
 		#endregion
 
 		#region constructor
 		public NewCategoryViewModel( IAccountableParent<Category> categoryList ) {
 			CategoryList = categoryList;
-			base.PropertyChanged += t;
+			base.PropertyChanged += test;
 		}
-		private void t( object sender, PropertyChangedEventArgs e ) {
-			if( e.PropertyName is nameof(HasErrors) ) {
-				( (RelayCommand)SaveCategoryCommand ).RaiseCanExecuteChanged();
-			}
-			if( e.PropertyName != nameof(SaveCategoryCommand) )
-				RaisePropertyChanged(nameof(SaveCategoryCommand));
+		//TODO this is temporary and should be fixed
+		private void test( object sender, PropertyChangedEventArgs e ) {
+			if( e.PropertyName is nameof( HasErrors ) )
+				((RelayCommand) SaveCategoryCommand).RaiseCanExecuteChanged();
+			if( e.PropertyName != nameof( SaveCategoryCommand ) )
+				RaisePropertyChanged( nameof( SaveCategoryCommand ) );
 		}
 		#endregion
 

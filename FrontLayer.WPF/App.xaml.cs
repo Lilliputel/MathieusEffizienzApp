@@ -16,8 +16,8 @@ namespace FrontLayer.WPF {
 
 		#region constructor
 		public App() {
-			_ThemeDarkUri = new Uri(_ThemeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute);
-			_ThemeLightUri = new Uri(_ThemeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute);
+			_ThemeDarkUri = new Uri( _ThemeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute );
+			_ThemeLightUri = new Uri( _ThemeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute );
 		}
 		#endregion
 
@@ -31,17 +31,17 @@ namespace FrontLayer.WPF {
 			SettingsManager.ObjectSettingChanged += ObjectSettingChanged;
 
 			// Set the default culture
-			SettingsManager.SetCulture(CultureInfo.CreateSpecificCulture(Settings.Default.CurrentCulture));
+			SettingsManager.SetCulture( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
 			// Set the default theme
-			SettingsManager.SwitchTheme(Settings.Default.DarkMode);
+			SettingsManager.SwitchTheme( Settings.Default.DarkMode );
 			// Set the default Countdirection
-			SettingsManager.ChangeCountDirection(Settings.Default.CountsUp);
+			SettingsManager.ChangeCountDirection( Settings.Default.CountsUp );
 
 			// Load the saved Categories from The XML-File
 			ObjectManager.LoadCategories();
 
 			//Standard procedure
-			base.OnStartup(e);
+			base.OnStartup( e );
 		}
 		#endregion
 
@@ -55,18 +55,18 @@ namespace FrontLayer.WPF {
 			SettingsManager.ObjectSettingChanged -= ObjectSettingChanged;
 
 			//Standard procedure
-			base.OnExit(e);
+			base.OnExit( e );
 		}
 		#endregion
 
 		#region private eventhandler
 		private void BoolSettingChanged( BoolSettingsEnum setting, bool value ) {
 			if( setting == BoolSettingsEnum.DarkMode )
-				setDarkMode(value);
+				setDarkMode( value );
 		}
 		private void ObjectSettingChanged( ObjectSettingsEnum setting, object value ) {
 			if( setting == ObjectSettingsEnum.Culture )
-				SetDefaultCulture((CultureInfo)value);
+				SetDefaultCulture( (CultureInfo) value );
 		}
 		private void ShowMessageBoxOnAlert( string message, string buttonText, string? title, AlertSymbolEnum? symbol ) {
 			MessageBoxImage image = symbol switch
@@ -80,7 +80,7 @@ namespace FrontLayer.WPF {
 				AlertSymbolEnum.Fatal => MessageBoxImage.Stop,
 				_ => MessageBoxImage.None
 			};
-			MessageBox.Show(message, title, MessageBoxButton.OK, image);
+			MessageBox.Show( message, title, MessageBoxButton.OK, image );
 
 		}
 		#endregion
@@ -92,7 +92,7 @@ namespace FrontLayer.WPF {
 			Resources.MergedDictionaries[0].MergedDictionaries.Add(
 				new ResourceDictionary() {
 					Source = value ? _ThemeDarkUri : _ThemeLightUri
-				});
+				} );
 		}
 		private void SetDefaultCulture( CultureInfo defaultCulture ) {
 			CultureInfo.DefaultThreadCurrentCulture = defaultCulture;

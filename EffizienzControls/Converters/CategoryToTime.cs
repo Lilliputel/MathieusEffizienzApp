@@ -6,17 +6,17 @@ using System.Windows.Data;
 
 namespace EffizienzControls.Converters {
 
-	[ValueConversion(typeof(object[]), typeof(TimeSpan))]
+	[ValueConversion( typeof( object[] ), typeof( TimeSpan ) )]
 	public class CategoryToTime : MarkedupMultiValueConverter<CategoryToTime> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
-			Category category = (Category)values[0];
-			DateTime date = (DateTime)values[1];
+			var category = (Category) values[0];
+			var date = (DateTime) values[1];
 			#endregion
 
-			return ( category ).GetTotalTimeOnDate(date);
+			return (category).GetTotalTimeOnDate( date );
 		}
 		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
 			=> throw new NotImplementedException();

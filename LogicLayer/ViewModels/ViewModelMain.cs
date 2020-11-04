@@ -15,21 +15,21 @@ namespace LogicLayer.ViewModels {
 		public ViewModelBase? SelectedVMMain { get; private set; }
 		public ViewModelBase? SelectedVMEssential { get; private set; }
 		public ICommand CommandUpdateView => _commandUpdateView ??=
-			new RelayCommand(parameter => {
+			new RelayCommand( parameter => {
 				if( parameter is string pString ) {
-					ViewModelBase? viewModel = ViewModelManager.GetViewModel(pString.Substring(1));
+					ViewModelBase? viewModel = ViewModelManager.GetViewModel( pString.Substring( 1 ) );
 					if( pString[0] == 'M' )
-						UpdateSelectedMainViewModel(viewModel, null);
+						UpdateSelectedMainViewModel( viewModel, null );
 					else if( pString[0] == 'E' )
-						UpdateSelectedEssentialViewModel(viewModel, null);
+						UpdateSelectedEssentialViewModel( viewModel, null );
 					else
-						Debug.WriteLine($"Could not Parse the string {pString} to a ViewModel!");
+						Debug.WriteLine( $"Could not Parse the string {pString} to a ViewModel!" );
 				}
-			});
+			} );
 		public ICommand CommandCreateObjects => _commandCreateObjects ??=
-			new RelayCommand(parameter => {
-				Debug.WriteLine("Tried to Generate Objects in the MainViewModel!");
-			});
+			new RelayCommand( parameter => {
+				Debug.WriteLine( "Tried to Generate Objects in the MainViewModel!" );
+			} );
 		#endregion
 
 		#region constructor
@@ -41,12 +41,10 @@ namespace LogicLayer.ViewModels {
 
 		#region public methods
 		private void UpdateSelectedMainViewModel( ViewModelBase newViewModel, object? passedObject ) {
-			Debug.WriteLine($"set the viewModel to {newViewModel}");
+			Debug.WriteLine( $"set the viewModel to {newViewModel}" );
 			SelectedVMMain = newViewModel;
 		}
-		private void UpdateSelectedEssentialViewModel( ViewModelBase newViewModel, object? passedObject ) {
-			SelectedVMEssential = newViewModel;
-		}
+		private void UpdateSelectedEssentialViewModel( ViewModelBase newViewModel, object? passedObject ) => SelectedVMEssential = newViewModel;
 		#endregion
 	}
 }

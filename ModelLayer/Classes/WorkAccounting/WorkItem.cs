@@ -12,9 +12,9 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
-		[XmlAttribute(nameof(Time))]
+		[XmlAttribute( nameof( Time ) )]
 		public TimeSpan Time { get; set; }
-		[XmlAttribute(nameof(Date))]
+		[XmlAttribute( nameof( Date ) )]
 		public DateTime Date { get => _Date; set => _Date = value.Date; }
 		#endregion
 

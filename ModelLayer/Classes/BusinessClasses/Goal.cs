@@ -14,26 +14,26 @@ namespace ModelLayer.Classes {
 	public class Goal : ObservableObject, IAccountableParent<Goal>, ICompleteable {
 
 		#region public properties
-		[XmlElement(nameof(UserText))]
+		[XmlElement( nameof( UserText ) )]
 		public UserText UserText { get; set; }
 
-		[XmlArray(nameof(Children))]
+		[XmlArray( nameof( Children ) )]
 		public Children<Goal> Children { get; } = new Children<Goal>();
-		[XmlArray(nameof(WorkHours))]
-		[AlsoNotifyFor(nameof(Time))]
+		[XmlArray( nameof( WorkHours ) )]
+		[AlsoNotifyFor( nameof( Time ) )]
 		public ObservableCollection<WorkItem> WorkHours { get; } = new ObservableCollection<WorkItem>();
 		[XmlIgnore]
 		public TimeSpan Time {
 			get {
-				var placeholder = TimeSpan.Zero;
-				new List<WorkItem>(WorkHours).ForEach(item => placeholder += item.Time);
+				TimeSpan placeholder = TimeSpan.Zero;
+				new List<WorkItem>( WorkHours ).ForEach( item => placeholder += item.Time );
 				return placeholder;
 			}
 		}
 
-		[XmlElement(nameof(Plan))]
+		[XmlElement( nameof( Plan ) )]
 		public DateSpan Plan { get; set; }
-		[XmlAttribute(nameof(State))]
+		[XmlAttribute( nameof( State ) )]
 		public StateEnum State { get; set; }
 		#endregion
 
@@ -45,39 +45,39 @@ namespace ModelLayer.Classes {
 		public Goal( UserText userText, DateSpan plan, StateEnum state = StateEnum.ToDo ) : this() {
 			UserText = userText;
 			Plan = plan;
-			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke(Plan);
+			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke( Plan );
 			State = state;
 		}
 		public Goal() {
 			Children.CollectionChanged += ( sender, e ) => {
 				if( e.Action == NotifyCollectionChangedAction.Add )
 					if( e.NewItems is ICollection<Goal> col )
-						new List<Goal>(col).ForEach(goal =>
-							goal.PlanChanged += Child_PlanChanged);
+						new List<Goal>( col ).ForEach( goal =>
+							   goal.PlanChanged += Child_PlanChanged );
 			};
 		}
 		~Goal() {
-			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke(Plan);
-			new List<Goal>(Children).ForEach(goal => goal.PlanChanged -= Child_PlanChanged);
+			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke( Plan );
+			new List<Goal>( Children ).ForEach( goal => goal.PlanChanged -= Child_PlanChanged );
 		}
 		#endregion
 
 		#region public methods
 		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
-			var placeholder = TimeSpan.Zero;
-			new List<Goal>(Children).ForEach(Child =>
-				placeholder += ( Child ).GetTotalTimeOnDate(date)
+			TimeSpan placeholder = TimeSpan.Zero;
+			new List<Goal>( Children ).ForEach( Child =>
+				   placeholder += (Child).GetTotalTimeOnDate( date )
 				);
-			placeholder += ( this as IAccountable ).GetTimeOnDate(date);
+			placeholder += (this as IAccountable).GetTimeOnDate( date );
 			return placeholder;
 		}
 		public ICollection<DateTime> GetTotalWorkedDates() {
 			var placeholder = new List<DateTime>();
-			new List<Goal>(Children).ForEach(Child =>
-				placeholder.AddUniqueRange(Child.GetTotalWorkedDates())
+			new List<Goal>( Children ).ForEach( Child =>
+				   placeholder.AddUniqueRange( Child.GetTotalWorkedDates() )
 				);
-			new List<WorkItem>(WorkHours).ForEach(workItem =>
-				placeholder.AddUnique(workItem.Date));
+			new List<WorkItem>( WorkHours ).ForEach( workItem =>
+				   placeholder.AddUnique( workItem.Date ) );
 			return placeholder;
 		}
 		#endregion

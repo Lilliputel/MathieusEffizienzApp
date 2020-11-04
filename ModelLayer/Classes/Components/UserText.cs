@@ -7,17 +7,11 @@ namespace ModelLayer.Classes {
 	[Serializable]
 	public class UserText : ObservableObject {
 
-		#region private fields
-		private string _Title = "New Category";
-		private string _Description = "This is a Category without description!";
-		private Color _Color;
-		#endregion
-
 		#region public properties
 		public string Title { get; set; }
-		[XmlAttribute(nameof(Description))]
-		public string Description { get; set; }
-		[XmlElement(nameof(Color))]
+		[XmlAttribute( nameof( Description ) )]
+		public string Description { get; set; } = "This is an object without description!";
+		[XmlElement( nameof( Color ) )]
 		public Color Color { get; set; }
 		#endregion
 
@@ -27,7 +21,6 @@ namespace ModelLayer.Classes {
 			Description = description ?? Description;
 			Color = color;
 		}
-
 		public UserText() { }
 		~UserText() { }
 		#endregion

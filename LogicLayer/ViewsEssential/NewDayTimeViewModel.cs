@@ -27,25 +27,26 @@ namespace LogicLayer.Views {
 		#region public commands
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			 new RelayCommandAsync(
-				 () => AddToWeekPlan(),
-				 obj => SelectedCategory is Category && StartTime != EndTime,
+				 parameter => AddToWeekPlan(),
+				 parameter => SelectedCategory is Category && StartTime != EndTime,
 				 ex => {
 					 if( ex is ArgumentException )
 						 Warning = $"{ex.Message}";
 					 else
-						 AlertManager.InputInkorrekt(ex.Message);
-				 });
+						 AlertManager.InputInkorrekt( ex.Message );
+				 } );
 
 		#endregion
 
 		#region constructors
-		public NewDayTimeViewModel( IAccountableParent<Category> categoryList )
-			=> CategoryList = categoryList;
+		public NewDayTimeViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+		}
 		#endregion
 
 		#region private helper methods
 		private Task AddToWeekPlan()
-			=> ObjectManager.WeekPlan.AddItemToDayAsync(DayOfWeek, new PlanItem(new DoubleTime(StartTime, EndTime), SelectedCategory));
+			=> ObjectManager.WeekPlan.AddItemToDayAsync( DayOfWeek, new PlanItem( new DoubleTime( StartTime, EndTime ), SelectedCategory! ) );
 		#endregion
 
 	}

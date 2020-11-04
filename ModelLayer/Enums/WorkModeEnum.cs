@@ -6,18 +6,18 @@ namespace ModelLayer.Enums {
 	/// <summary>
 	/// Ein Enum, in dem alle möglichen Arbeitsschritte erfasst sind.
 	/// </summary>
-	[TypeConverter(typeof(EnumDescriptionTypeConverter))]
+	[TypeConverter( typeof( EnumDescriptionTypeConverter ) )]
 	public enum WorkModeEnum {
 
-		[Description("Stop: keine Arbeit")]
+		[Description( "Stop: keine Arbeit" )]
 		Stop,
-		[Description("Work: am arbeiten")]
+		[Description( "Work: am arbeiten" )]
 		Work,
-		[Description("Break: am Pause machen")]
+		[Description( "Break: am Pause machen" )]
 		Break,
-		[Description("Delay Work: die Arbeit aufschieben")]
+		[Description( "Delay Work: die Arbeit aufschieben" )]
 		DelayWork,
-		[Description("Delay Break: die Pause aufschieben")]
+		[Description( "Delay Break: die Pause aufschieben" )]
 		DelayBreak
 
 	}

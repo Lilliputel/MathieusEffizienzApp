@@ -4,11 +4,11 @@ using System.Windows.Data;
 
 namespace EffizienzControls.Converters {
 
-	[ValueConversion(typeof(object[]), typeof(bool))]
+	[ValueConversion( typeof( object[] ), typeof( bool ) )]
 	public class ElementsToFalse : MarkedupMultiValueConverter<ElementsToFalse> {
 
 		public override object Convert( object[] values, Type targetTypes, object parameter, System.Globalization.CultureInfo culture ) {
-			foreach( var item in values ) {
+			foreach( object item in values ) {
 				if( item is string s && s == string.Empty )
 					return false;
 				if( item is bool b && b is false )

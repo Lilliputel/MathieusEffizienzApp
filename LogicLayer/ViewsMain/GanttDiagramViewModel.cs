@@ -10,8 +10,9 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public GanttDiagramViewModel( IAccountableParent<Category> categoryList )
-			=> CategoryList = categoryList;
+		public GanttDiagramViewModel( IAccountableParent<Category> categoryList ) {
+			CategoryList = categoryList;
+		}
 		#endregion
 
 		#region methods
