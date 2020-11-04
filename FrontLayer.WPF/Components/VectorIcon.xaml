@@ -4,10 +4,10 @@
 			 x:Name="Root">
 
 	<Viewbox>
-		<Canvas Width=  "{Binding PathWidth,  ElementName=Root}" 
-				Height= "{Binding PathHeight, ElementName=Root}">
-			<Path Data=   "{Binding Geometry,   ElementName=Root}" 
-				  Fill=   "{Binding Foreground, ElementName=Root}"/>
+		<Canvas Width="{Binding PathWidth,  ElementName=Root}"
+				Height="{Binding PathHeight, ElementName=Root}">
+			<Path Data="{Binding Geometry,   ElementName=Root}"
+				  Fill="{Binding Foreground, ElementName=Root}" />
 		</Canvas>
 	</Viewbox>
 

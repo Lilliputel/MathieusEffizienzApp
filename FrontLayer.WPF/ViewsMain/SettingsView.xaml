@@ -12,25 +12,20 @@
 					  Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged}"
 					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
 					  Margin="0,5"
-					  Background="{DynamicResource Back_2}"/>
+					  Background="{DynamicResource SecondaryBrush}"/>
 		<ToggleButton Command="{Binding CommandChangeCountDirection}"
 					  Content="Change countdirection!"
 					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
 					  Margin="0,5"
-					  Background="{DynamicResource Back_2}"/>
+					  Background="{DynamicResource SecondaryBrush}"/>
 		<ComboBox ItemsSource="{Binding Cultures}" x:Name="CultureComboBox"
 				  SelectedItem="{Binding SelectedCulture}"
 				  Margin="0,5">
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type global:CultureInfo}">
-					<TextBlock Text="{Binding DisplayName}"/>
+					<TextBlock Text="{Binding DisplayName}" />
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
-			<i:Interaction.Triggers>
-				<i:EventTrigger EventName="SelectionChanged">
-					<i:InvokeCommandAction Command="{Binding CommandChangedCulture}" CommandParameter="{Binding Path=SelectedItem, ElementName=CultureComboBox}"/>
-				</i:EventTrigger>
-			</i:Interaction.Triggers>
 		</ComboBox>
 	</StackPanel>
 	

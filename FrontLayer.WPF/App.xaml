@@ -12,22 +12,23 @@
 			<ResourceDictionary.MergedDictionaries>
 
 				<!-- This is the Theme-Dictionary and gets set in the Codebehind and a designTime Theme -->
-				<ResourceDictionary/>
-				<d:ResourceDictionary Source="/Themes/ThemeLight.xaml"/>
-				
-				<!-- ResourceDictionary for Controls -->
-				<ResourceDictionary Source="/Dictionaries/DictionaryBase.xaml"/>
-				<ResourceDictionary Source="/Dictionaries/DictionaryIcons.xaml"/>
-				<ResourceDictionary Source="/Dictionaries/DictionaryDataTemplates.xaml"/>
+				<ResourceDictionary />
 
-				<ResourceDictionary Source="/Dictionaries/ControlTemplates/Border.xaml"/>
+				<ResourceDictionary Source="/Dictionaries/DictionaryBase.xaml" />
+				<ResourceDictionary Source="/Dictionaries/DictionaryIcons.xaml" />
+				<ResourceDictionary Source="/Dictionaries/DictionaryDataTemplates.xaml" />
 				
+				<!--Necessary because i referenced the Keys in those Styles-->
+				<ResourceDictionary Source="/Dictionaries/necessary.xaml" />
+
+				<!-- ResourceDictionary for Controls -->
+				<!--
+				<ResourceDictionary Source="/Dictionaries/ControlTemplates/TextBlock.xaml" />
+				<ResourceDictionary Source="/Dictionaries/ControlTemplates/Border.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/Button.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/ToggleButton.xaml"/>
-
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/Thumb.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/RepeatButton.xaml" />
-
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/ComboBox.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/ContentControl.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/DatePicker.xaml"/>
@@ -35,11 +36,13 @@
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/ItemsControl.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/ScrollBar.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/TabControl.xaml"/>
-				<ResourceDictionary Source="/Dictionaries/ControlTemplates/TextBlock.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/TextBox.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/TreeView.xaml"/>
 				<ResourceDictionary Source="/Dictionaries/ControlTemplates/UserControl.xaml"/>
+				-->
+
 			</ResourceDictionary.MergedDictionaries>
+			
 		</ResourceDictionary>
 		
 	</Application.Resources>

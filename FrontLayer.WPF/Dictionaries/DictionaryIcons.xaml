@@ -2,11 +2,10 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:UserControls="clr-namespace:FrontLayer.WPF.Components">
 
-
 	<!--#region Common Icons -->
 
 	<Style x:Key="IconOptionen"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -20,7 +19,7 @@
 	<!--#region	NavBar Icons -->
 
 	<Style x:Key="IconDashboard"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -31,7 +30,7 @@
 	</Style>
 
 	<Style x:Key="IconKalender"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -42,7 +41,7 @@
 	</Style>
 
 	<Style x:Key="IconProjekte"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -53,7 +52,7 @@
 	</Style>
 
 	<Style x:Key="IconGantt"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -64,7 +63,7 @@
 	</Style>
 
 	<Style x:Key="IconStatistik"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -79,7 +78,7 @@
 	<!--#region MenuBar Icons -->
 
 	<Style x:Key="IconKategorie"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -90,7 +89,7 @@
 	</Style>
 
 	<Style x:Key="IconProjekt1"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -100,7 +99,7 @@
 		</Style.Setters>
 	</Style>
 	<Style x:Key="IconProjekt2"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -111,7 +110,7 @@
 	</Style>
 
 	<Style x:Key="IconAufgabe1"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -121,7 +120,7 @@
 		</Style.Setters>
 	</Style>
 	<Style x:Key="IconAufgabe2"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
@@ -131,7 +130,7 @@
 		</Style.Setters>
 	</Style>
 	<Style x:Key="IconAufgabe3"
-		   TargetType="UserControls:VectorIcon">
+		   TargetType="{x:Type UserControls:VectorIcon}">
 		<Style.Setters>
 			<Setter Property="Geometry">
 				<Setter.Value>
