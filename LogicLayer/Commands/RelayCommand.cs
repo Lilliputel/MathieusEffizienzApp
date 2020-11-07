@@ -12,8 +12,8 @@ namespace LogicLayer.Commands {
 
 		#region public events
 		public event EventHandler? CanExecuteChanged;
-		public void RaiseCanExecuteChanged( object? sender = null, EventArgs? e = null )
-			=> CanExecuteChanged?.Invoke( sender ?? this, e ?? EventArgs.Empty );
+		public void RaiseCanExecuteChanged( object sender, EventArgs? e = null )
+			=> CanExecuteChanged?.Invoke( sender, e ?? EventArgs.Empty );
 		#endregion
 
 		#region constructor

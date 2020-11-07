@@ -9,6 +9,7 @@
 		<AssemblyName>FrontLayer.WPF</AssemblyName>
 		<StartupObject>FrontLayer.WPF.App</StartupObject>
 		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x64;x86</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -177,11 +177,7 @@
 		<Grid Style="{StaticResource GridTriggers}">
 
 			<Border Background="{TemplateBinding Background}"
-					CornerRadius="{TemplateBinding CornerRadius}"
 					IsHitTestVisible="{TemplateBinding IsHitTestVisible}"
-					BorderBrush="{TemplateBinding BorderBrush}"
-					BorderThickness="{TemplateBinding BorderThickness}"
-					Padding="{TemplateBinding Padding}"
 					Style="{TemplateBinding BarStyle}"
 					Height="{TemplateBinding BarWidth}"
 					MinHeight="{TemplateBinding BarMinWidth}"

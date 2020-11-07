@@ -1,5 +1,4 @@
-﻿using LogicLayer.Extensions;
-using LogicLayer.ViewModels;
+﻿using LogicLayer.ViewModels;
 using LogicLayer.Views;
 using ModelLayer.Classes;
 
@@ -26,13 +25,8 @@ namespace LogicLayer.Manager {
 		public static NewDayTimeViewModel NewDayTime { get; } = new NewDayTimeViewModel( CategoryList );
 		#endregion
 
-		#region public events
-		public static event ViewModelChangedEventHandler? MainViewModelChanged;
-		public static event ViewModelChangedEventHandler? EssentialViewModelChanged;
-		#endregion
-
 		#region initializer
-		//TODO I should use the Events to set the Views with the passed objects
+		//TODO I should use a Method to Set the View with the Corresponding ViewModel, that accepts a passed Object
 		static ViewModelManager() {
 			Pomodoro = new PomodoroViewModel( new WorkItem() );
 		}
@@ -41,10 +35,10 @@ namespace LogicLayer.Manager {
 		#region public methods
 		public static ViewModelBase GetViewModel( string viewModelName )
 			=> (ViewModelBase) typeof( ViewModelManager ).GetProperty( viewModelName ).GetValue( null, null );
-		public static void OnMainViewModelChanged( ViewModelBase newViewModel, object? passedObject )
-			=> MainViewModelChanged?.Invoke( newViewModel, passedObject );
-		public static void OnEssentialViewModelChanged( ViewModelBase newViewModel, object? passedObject )
-			=> EssentialViewModelChanged?.Invoke( newViewModel, passedObject );
+		public static bool SetViewModel<T>( string viewModelName, T passedObject ) {
+			GetViewModel( viewModelName );
+			return false;
+		}
 		#endregion
 
 	}

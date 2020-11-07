@@ -48,25 +48,19 @@ namespace LogicLayer.Views {
 								Color.FromName( SelectedColorName ) ) ) );
 					AlertManager.ObjektErstellt( nameof( Category ), Title );
 				},
-				parameter => HasErrors is false );
+				parameter => NoErrors );
 		#endregion
 
 		#region constructor
-		public NewCategoryViewModel( IAccountableParent<Category> categoryList ) {
+		public NewCategoryViewModel( IAccountableParent<Category> categoryList ) : base() {
 			CategoryList = categoryList;
-			base.PropertyChanged += test;
-		}
-		//TODO this is temporary and should be fixed
-		private void test( object sender, PropertyChangedEventArgs e ) {
-			if( e.PropertyName is nameof( HasErrors ) )
-				((RelayCommand) SaveCategoryCommand).RaiseCanExecuteChanged();
-			if( e.PropertyName != nameof( SaveCategoryCommand ) )
-				RaisePropertyChanged( nameof( SaveCategoryCommand ) );
+			ErrorsChanged += OnErrorsChanged;
 		}
 		#endregion
 
 		#region methods
-
+		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
+			=> (SaveCategoryCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 
 	}

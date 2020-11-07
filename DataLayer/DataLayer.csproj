@@ -6,6 +6,7 @@
 		<OutputType>Library</OutputType>
 		<RootNamespace>DataLayer</RootNamespace>
 		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x64;x86</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

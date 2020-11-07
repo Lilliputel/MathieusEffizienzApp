@@ -4,6 +4,8 @@ using System.Windows.Controls;
 namespace EffizienzControls {
 	public class ProportionalBar : ContentControl {
 
+		//TODO the text does not get shown, if the bar is to small... maybe dp to show always & datatrigger with <Canvas> <ContentPresenter crop=false /> </canvas>
+
 		#region public properties
 		public double TotalSize {
 			get => (double) GetValue( TotalSizeProperty );
@@ -28,7 +30,7 @@ namespace EffizienzControls {
 		#endregion
 
 		//TODO i have to implement a way to set the value instead of the factors or a combination of both
-		#region Value Setting
+		#region Value Settings
 		public double MaxValue {
 			get => (double) GetValue( MaxValueProperty );
 			set => SetValue( MaxValueProperty, value );
@@ -55,7 +57,7 @@ namespace EffizienzControls {
 			DependencyProperty.Register( nameof( OffsetValue ), typeof( double ), typeof( ProportionalBar ), new PropertyMetadata( double.NaN ) );
 		#endregion
 
-		#region Bar Definition
+		#region Factor Settings
 		public double SizeFactor {
 			get => (double) GetValue( SizeFactorProperty );
 			set => SetValue( SizeFactorProperty, value );
@@ -87,15 +89,8 @@ namespace EffizienzControls {
 			get => (Style) GetValue( BarStyleProperty );
 			set => SetValue( BarStyleProperty, value );
 		}
-		//TODO somehow the style does not work, i should search online
 		public static readonly DependencyProperty BarStyleProperty =
 			DependencyProperty.Register( nameof( BarStyle ), typeof( Style ), typeof( ProportionalBar ), new PropertyMetadata( new Style( typeof( Border ) ) ) );
-		public CornerRadius CornerRadius {
-			get => (CornerRadius) GetValue( CornerRadiusProperty );
-			set => SetValue( CornerRadiusProperty, value );
-		}
-		public static readonly DependencyProperty CornerRadiusProperty =
-			DependencyProperty.Register( nameof( CornerRadius ), typeof( CornerRadius ), typeof( ProportionalBar ), new PropertyMetadata( new CornerRadius( 0 ) ) );
 		#endregion
 
 		#endregion

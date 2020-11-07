@@ -33,10 +33,7 @@ namespace LogicLayer.ViewModels {
 		#endregion
 
 		#region constructor
-		public ViewModelMain() {
-			ViewModelManager.MainViewModelChanged += UpdateSelectedMainViewModel;
-			ViewModelManager.EssentialViewModelChanged += UpdateSelectedEssentialViewModel;
-		}
+		public ViewModelMain() { }
 		#endregion
 
 		#region public methods
