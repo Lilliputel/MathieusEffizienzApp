@@ -18,9 +18,9 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		[Required( AllowEmptyStrings = false, ErrorMessage = "First name must not be empty!" )]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "The title has to be specified!" )]
 		public string? Title { get; set; }
-		[Required( AllowEmptyStrings = false, ErrorMessage = "Title must not be empty!" )]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "The description has to be specified!" )]
 		public string? Description { get; set; }
 		public List<string> ColorNameList {
 			get {
@@ -32,7 +32,7 @@ namespace LogicLayer.Views {
 				return allColors;
 			}
 		}
-		[Required( AllowEmptyStrings = false, ErrorMessage = "Color has to be selected!" )]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "The color has to be selected!" )]
 		public string? SelectedColorName { get; set; }
 		#endregion
 
@@ -43,10 +43,10 @@ namespace LogicLayer.Views {
 					CategoryList.Children.Add(
 						new Category(
 							new UserText(
-								Title,
+								Title!,
 								Description,
 								Color.FromName( SelectedColorName ) ) ) );
-					AlertManager.ObjektErstellt( nameof( Category ), Title );
+					AlertManager.ObjektErstellt( nameof( Category ), Title! );
 				},
 				parameter => NoErrors );
 		#endregion
@@ -58,7 +58,7 @@ namespace LogicLayer.Views {
 		}
 		#endregion
 
-		#region methods
+		#region private methods
 		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
 			=> (SaveCategoryCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion

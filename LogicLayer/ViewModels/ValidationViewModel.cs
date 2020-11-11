@@ -5,16 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace LogicLayer {
 
+	//TODO I should catch the exceptions, which can be thrown by reflection (In constructor and private Methods)
 	public class ValidationViewModel : ViewModelBase, INotifyDataErrorInfo {
 
-		//TODO Maybe i could optimise by Adding the validationattributes to a dictionary, instead of the GetValidationAttributes Method
 		#region private fields
-		//private bool _HasErrors;
 		private readonly Type _VMType;
 		private readonly List<Type> _ValidationAttributes = new List<Type>{
 				typeof(CompareAttribute),
@@ -27,7 +28,7 @@ namespace LogicLayer {
 				typeof(StringLengthAttribute),
 				typeof(CustomValidationAttribute)
 			};
-		private readonly List<string> _Properties = new List<string>();
+		private readonly Dictionary<string, List<ValidationAttribute>> _PropertyValidations = new Dictionary<string, List<ValidationAttribute>>();
 		private readonly Dictionary<string, List<string>> _PropertyErrors = new Dictionary<string, List<string>>();
 		#endregion
 
@@ -35,35 +36,28 @@ namespace LogicLayer {
 		public bool NoErrors
 			=> !HasErrors;
 		public bool HasErrors
-			=> _PropertyErrors.Values.Where( propList => propList.Count > 0 ).Any();
+			=> _PropertyErrors.Values.Any( errorList => errorList.Count > 0 );
 		#endregion
 
 		#region Events
 		public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
-		protected void RaiseErrorsChanged( string? propertyName )
-			=> ErrorsChanged?.Invoke( this, new DataErrorsChangedEventArgs( propertyName ) );
+		protected void RaiseErrorsChanged( string? propertyName ) {
+			ErrorsChanged?.Invoke( this, new DataErrorsChangedEventArgs( propertyName ) );
+			Debug.WriteLine( $"Raised ErrorsChanged with the Property {propertyName}" );
+		}
 		#endregion
 
 		#region constructor
 		public ValidationViewModel() {
 			_VMType = GetType();
-			_Properties.AddUniqueRange(
-				_VMType.GetProperties( BindingFlags.Public | BindingFlags.Instance )
-				.Where(
-					prop => _ValidationAttributes
-					.Where(
-						attributeType => prop.IsDefined( attributeType, true ) )
-					.Any() )
-				.Select( prop => prop.Name )
-				.ToList()
-				);
-
-			PropertyChanged += ( s, e ) => {
-				if( _Properties.Contains( e.PropertyName ) )
-					CollectErrors( e.PropertyName );
+			InitPropertyValidations();
+			//Hook into the PropertyChanged Event of validated Properties
+			PropertyChanged += ( sender, e ) => {
+				if( _PropertyValidations.ContainsKey( e.PropertyName ) )
+					CollectToPropertyErrors( e.PropertyName );
 			};
-
-			_Properties.ForEach( propertyName => CollectErrors( propertyName ) );
+			//Initialize all Errors
+			Parallel.ForEach( _PropertyValidations.Keys, propertyName => CollectToPropertyErrors( propertyName ) );
 		}
 		#endregion
 
@@ -73,17 +67,30 @@ namespace LogicLayer {
 		#endregion
 
 		#region private methods
-		private void CollectErrors( string? propertyName = "" ) {
+		private void InitPropertyValidations()
+			=> _PropertyValidations.AddRange(
+				_VMType.GetProperties( BindingFlags.Public | BindingFlags.Instance ) // All public nonstatic properties
+				.Where( prop => _ValidationAttributes.Any( attrType => prop.IsDefined( attrType, false ) ) ) // where atleast one attribute is defined
+				.Select( prop => new KeyValuePair<string, List<ValidationAttribute>>(
+					 prop.Name,
+					 new List<ValidationAttribute>(
+						 _ValidationAttributes.Select( attrType => (ValidationAttribute) prop.GetCustomAttribute( attrType, false ) ) // get all Attributes of the specified types in ValidationAttributes
+						 .Where( attr => attr is ValidationAttribute ) ) // filter out null values
+					 ) )
+				.ToList() );
+		private void CollectToPropertyErrors( string? propertyName ) {
 			if( string.IsNullOrEmpty( propertyName ) )
 				return;
+
+			int oldErrorsCount = _PropertyErrors.GetValueOrDefault( propertyName )?.Count ?? 0;
 			InitOrClearPropertyErrors( propertyName );
-			var errors = GetPropertyValidationErrors( propertyName );
-			if( errors.Count > 0 ) {
-				AddPropertyErrors( propertyName, errors );
-				RaiseErrorsChanged( propertyName );
+
+			if( GetValidationErrors( propertyName ) is List<string> errors ) {
+				if( errors.Count > 0 )
+					_PropertyErrors[propertyName].AddUniqueRange( errors );
+				if( errors.Count != oldErrorsCount )
+					RaiseErrorsChanged( propertyName );
 			}
-			if( NoErrors )
-				RaiseErrorsChanged( null );
 		}
 		private void InitOrClearPropertyErrors( string propertyName ) {
 			if( _PropertyErrors.ContainsKey( propertyName ) )
@@ -91,38 +98,16 @@ namespace LogicLayer {
 			else
 				_PropertyErrors.Add( propertyName, new List<string>() );
 		}
-		private void AddPropertyErrors( string propertyName, List<string> errors )
-			=> _PropertyErrors[propertyName].AddUniqueRange( errors );
-		private List<string> GetPropertyValidationErrors( string propertyName ) {
-			var placeholder = new List<string>();
-			foreach( Type attributeType in _ValidationAttributes ) {
-				var property = GetProperty( propertyName );
-				var validAttr = TryGetValidationAttribute( property, attributeType );
-				if( validAttr is null )
-					continue;
-
-				var result = ValidateProperty( property.GetValue( this ), validAttr );
-				if( string.IsNullOrEmpty( result ) )
-					continue;
-				else
-					placeholder.Add( result );
-			}
-			return placeholder;
-		}
-		private string? ValidateProperty( object value, ValidationAttribute validationAttribute ) {
-			if( validationAttribute.IsValid( value ) )
-				return null;
-			else
-				return validationAttribute.ErrorMessage;
-		}
-		//TODO I should catch the exceptions, which can be thrown by reflection
-		private PropertyInfo GetProperty( string propertyName )
-			=> _VMType.GetProperty( propertyName );
-		private ValidationAttribute? TryGetValidationAttribute( PropertyInfo property, Type attributeType ) {
-			MethodInfo? methodInfo = typeof( CustomAttributeExtensions ).GetMethod( nameof( CustomAttributeExtensions.GetCustomAttribute ), new Type[] { typeof( MemberInfo ), typeof( Type ) } );
-			return methodInfo.Invoke( null, new object[] { property, attributeType } ) as ValidationAttribute;
-		}
-
+		private List<string>? GetValidationErrors( string propertyName )
+			=> _PropertyValidations.GetValueOrDefault( propertyName ) // get the validationAttributes
+				.Select( vAttr => ValidateProperty( propertyName, vAttr ) ) // validate property with 
+				.Where( err => string.IsNullOrEmpty( err ) is false ) // filter out null values
+			.ToList()
+			as List<string>;
+		private string? ValidateProperty( string propName, ValidationAttribute validAttribute )
+			=> validAttribute.IsValid( GetPropertyValue( propName ) ) ? null : validAttribute.ErrorMessage;
+		private object GetPropertyValue( string propName )
+			=> _VMType.GetProperty( propName ).GetValue( this );
 		#endregion
 
 	}

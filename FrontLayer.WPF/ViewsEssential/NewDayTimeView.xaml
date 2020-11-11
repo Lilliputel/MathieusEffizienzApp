@@ -16,8 +16,7 @@
 
 		<!-- Gruppe Kategorie ComboBox -->
 		<TextBlock Text="Kategorie:"/>
-		<ComboBox x:Name="ComboBox_Category" 
-				  ItemsSource="{Binding CategoryList.Children}"
+		<ComboBox ItemsSource="{Binding CategoryList.Children}"
 				  SelectedItem="{Binding SelectedCategory, Mode=TwoWay}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">
@@ -37,27 +36,19 @@
 
 		<!-- Gruppe StartDatum DatePicker -->
 		<TextBlock Text="Startzeit:"/>
-		<TextBox x:Name="TimePicker_StartTime" Text="{Binding Path=StartTime, StringFormat={}{0:hh\\:mm}, Mode=TwoWay}"/>
+		<TextBox Text="{Binding Path=StartTime, StringFormat={}{0:hh\\:mm}, Mode=TwoWay}"/>
 		
 		<!-- Gruppe EndDatum DatePicker -->
 		<TextBlock Text="Endzeit:"/>
-		<TextBox x:Name="TimePicker_EndTime" Text="{Binding Path=EndTime, StringFormat={}{0:hh\\:mm}, Mode=TwoWay}"/>
+		<TextBox Text="{Binding Path=EndTime, StringFormat={}{0:hh\\:mm}, Mode=TwoWay}"/>
 
 		<!-- Gruppe Speichern Button -->
-		<Button Command="{Binding SaveGoalCommand}"
+		<Button Command="{Binding SaveDayTimeCommand}"
 				Content="Speichern!"
-				Margin="0,5">
-			<Button.IsEnabled>
-				<MultiBinding Converter="{converter:ElementsToFalse}">
-					<Binding ElementName="ComboBox_Category" Path="SelectedItem" Converter="{converter:NullToFalse}"/>
-					<Binding ElementName="TimePicker_StartTime" Path="Text"/>
-					<Binding ElementName="TimePicker_EndTime" Path="Text"/>
-				</MultiBinding>
-			</Button.IsEnabled>
-		</Button>
+				Margin="0,5" />
 
 		<!-- Gruppe StartDatum DatePicker -->
-		<TextBlock x:Name="TextBlock_Warning" Text="{Binding Warning}" Foreground="{DynamicResource ForeHigh_1}"/>
+		<TextBlock Text="{Binding Warning}" Foreground="{DynamicResource ForeHigh_1}"/>
 
 	</StackPanel>
 

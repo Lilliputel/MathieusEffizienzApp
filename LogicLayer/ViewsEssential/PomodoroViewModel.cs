@@ -1,12 +1,12 @@
 ﻿using LogicLayer.Commands;
-using LogicLayer.ViewModels;
 using ModelLayer.Classes;
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
 
-	public class PomodoroViewModel : ViewModelBase {
+	public class PomodoroViewModel : ValidationViewModel {
 
 		#region private fields
 
@@ -16,19 +16,21 @@ namespace LogicLayer.Views {
 
 		#endregion
 
-		#region commands
+		#region public properties
+		public PomodoroClock Clock { get; }
+		public WorkItem? WorkItem { get; private set; }
+		#endregion
 
+		#region public commands
 		public ICommand StartStopCommand => _StartStopCommand ??=
 			new RelayCommand(
-				parameter => {
-					Clock.StartStopClock();
-				}
+				parameter => Clock.StartStopClock(),
+				parameter => NoErrors
 			);
 		public ICommand DelayCommand => _DelayCommand ??=
 			new RelayCommand(
-				parameter => {
-					Clock.DelayWorkMode();
-				}
+				parameter => Clock.DelayWorkMode(),
+				parameter => NoErrors
 			);
 		public ICommand SaveTimeCommand => _SaveTimeCommand ??=
 			new RelayCommand(
@@ -36,18 +38,13 @@ namespace LogicLayer.Views {
 					if( WorkItem is WorkItem workItem )
 						workItem.Time += (Clock.GetTotalAndReset());
 				},
-				parameter => WorkItem is { }
+				parameter => NoErrors
 			);
-
-		#endregion
-
-		#region public properties
-		public PomodoroClock Clock { get; }
-		public WorkItem? WorkItem { get; private set; }
 		#endregion
 
 		#region constructor
 		public PomodoroViewModel() {
+			ErrorsChanged += OnErrorsChanged;
 			Clock = new PomodoroClock( TimeSpan.FromMinutes( 45 ), TimeSpan.FromMinutes( 12 ), TimeSpan.FromMinutes( 8 ) );
 		}
 		public PomodoroViewModel( WorkItem workItem ) : this() {
@@ -55,6 +52,13 @@ namespace LogicLayer.Views {
 		}
 		#endregion
 
+		#region private methods
+		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e ) {
+			(StartStopCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
+			(DelayCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
+			(SaveTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
+		}
+		#endregion
 
 	}
 }
