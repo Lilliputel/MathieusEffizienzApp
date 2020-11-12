@@ -24,8 +24,8 @@ namespace LogicLayer.Commands {
 
 		#region public events
 		public event EventHandler? CanExecuteChanged;
-		public void RaiseCanExecuteChanged( object? sender = null, EventArgs? e = null )
-			=> CanExecuteChanged?.Invoke( sender ?? this, e ?? EventArgs.Empty );
+		public void RaiseCanExecuteChanged( object sender, EventArgs? e = null )
+			=> CanExecuteChanged?.Invoke( sender, e ?? EventArgs.Empty );
 		#endregion
 
 		#region constructor
@@ -38,11 +38,11 @@ namespace LogicLayer.Commands {
 		}
 		#endregion
 
-		#region methods
+		#region public methods
 		public async Task ExecuteAsync( object parameter )
 			=> await _Execute( parameter );
 		public bool CanExecute( object parameter )
-			=> IsExecuting is false || _CanExecute is null || _CanExecute( parameter );
+			=> IsExecuting is false && (_CanExecute is null || _CanExecute( parameter ));
 		public async void Execute( object parameter ) {
 			IsExecuting = true;
 			try {

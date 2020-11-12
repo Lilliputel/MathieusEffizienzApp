@@ -9,11 +9,10 @@ namespace LogicLayer.Views {
 	public class PomodoroViewModel : ValidationViewModel {
 
 		#region private fields
-
 		private ICommand? _StartStopCommand;
 		private ICommand? _DelayCommand;
 		private ICommand? _SaveTimeCommand;
-
+		private ICommand? _UpdateTimesCommand;
 		#endregion
 
 		#region public properties
@@ -37,6 +36,12 @@ namespace LogicLayer.Views {
 				parameter => {
 					if( WorkItem is WorkItem workItem )
 						workItem.Time += (Clock.GetTotalAndReset());
+				},
+				parameter => NoErrors
+			);
+		public ICommand UpdateTimesCommand => _UpdateTimesCommand ??= //TODO refactoring of PomodoroClock
+			new RelayCommand(
+				parameter => {
 				},
 				parameter => NoErrors
 			);

@@ -57,17 +57,17 @@
 		<!-- Gruppe Titel -->
 		<TextBlock Text="Titel:"/>
 		<TextBox x:Name="TextBox_Title" 
-				 Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+				 Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<!-- Gruppe Beschreibung -->
 		<TextBlock Text="Beschreibung:"/>
-		<TextBox x:Name="TextBox_Description" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
+		<TextBox x:Name="TextBox_Description" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
 		<!-- Gruppe Farbe ComboBox -->
 		<TextBlock Text="Farbe:"/>
 		<ComboBox x:Name="ComboBox_Color"
 				  ItemsSource="{Binding ColorNameList, Mode=OneTime}"
-				  SelectedItem="{Binding SelectedColorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+				  SelectedItem="{Binding SelectedColorName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel Orientation="Horizontal">

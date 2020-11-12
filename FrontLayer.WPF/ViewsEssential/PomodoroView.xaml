@@ -61,6 +61,10 @@
 					 Text="{Binding DurationDelayCycle}"/>
 
 		</Grid>
+		<!-- Button zum aktualisieren der Zeiten -->
+		<Button Content="Aktualisieren!"
+				Margin="0,5"
+				Command="{Binding UpdateTimesCommand}" />
 
 		<!-- Gesamte Arbeitszeit -->
 		<TextBlock Text="Gesamte Arbeitszeit: "

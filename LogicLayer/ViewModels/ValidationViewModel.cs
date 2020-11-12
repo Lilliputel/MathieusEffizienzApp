@@ -8,7 +8,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace LogicLayer {
 
@@ -17,7 +16,7 @@ namespace LogicLayer {
 
 		#region private fields
 		private readonly Type _VMType;
-		private readonly List<Type> _ValidationAttributes = new List<Type>{
+		private readonly List<Type> _ValidAttrTypes = new List<Type>{
 				typeof(CompareAttribute),
 				typeof(DataTypeAttribute),
 				typeof(MaxLengthAttribute),
@@ -39,7 +38,7 @@ namespace LogicLayer {
 			=> _PropertyErrors.Values.Any( errorList => errorList.Count > 0 );
 		#endregion
 
-		#region Events
+		#region public events
 		public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 		protected void RaiseErrorsChanged( string? propertyName ) {
 			ErrorsChanged?.Invoke( this, new DataErrorsChangedEventArgs( propertyName ) );
@@ -57,7 +56,7 @@ namespace LogicLayer {
 					CollectToPropertyErrors( e.PropertyName );
 			};
 			//Initialize all Errors
-			Parallel.ForEach( _PropertyValidations.Keys, propertyName => CollectToPropertyErrors( propertyName ) );
+			_PropertyValidations.Keys.ToList().ForEach( propertyName => CollectToPropertyErrors( propertyName ) );
 		}
 		#endregion
 
@@ -70,11 +69,11 @@ namespace LogicLayer {
 		private void InitPropertyValidations()
 			=> _PropertyValidations.AddRange(
 				_VMType.GetProperties( BindingFlags.Public | BindingFlags.Instance ) // All public nonstatic properties
-				.Where( prop => _ValidationAttributes.Any( attrType => prop.IsDefined( attrType, false ) ) ) // where atleast one attribute is defined
+				.Where( prop => _ValidAttrTypes.Any( attrType => prop.IsDefined( attrType, false ) ) ) // where atleast one attribute is defined
 				.Select( prop => new KeyValuePair<string, List<ValidationAttribute>>(
 					 prop.Name,
 					 new List<ValidationAttribute>(
-						 _ValidationAttributes.Select( attrType => (ValidationAttribute) prop.GetCustomAttribute( attrType, false ) ) // get all Attributes of the specified types in ValidationAttributes
+						 _ValidAttrTypes.SelectMany( attrType => prop.GetCustomAttributes( attrType, false ).Cast<ValidationAttribute>() ) // get all Attributes of the specified types
 						 .Where( attr => attr is ValidationAttribute ) ) // filter out null values
 					 ) )
 				.ToList() );
@@ -105,9 +104,15 @@ namespace LogicLayer {
 			.ToList()
 			as List<string>;
 		private string? ValidateProperty( string propName, ValidationAttribute validAttribute )
-			=> validAttribute.IsValid( GetPropertyValue( propName ) ) ? null : validAttribute.ErrorMessage;
+			=> validAttribute is CustomValidationAttribute
+			? validAttribute.GetValidationResult( GetPropertyValue( propName ), new ValidationContext( this ) { DisplayName = propName, MemberName = GetPropertyType( propName ).Name } )?.ErrorMessage
+			: validAttribute.IsValid( GetPropertyValue( propName ) ) ? null : validAttribute.ErrorMessage;
 		private object GetPropertyValue( string propName )
-			=> _VMType.GetProperty( propName ).GetValue( this );
+			=> GetProperty( propName ).GetValue( this );
+		private Type GetPropertyType( string propName )
+			 => GetProperty( propName ).PropertyType;
+		private PropertyInfo GetProperty( string propName )
+			=> _VMType.GetProperty( propName );
 		#endregion
 
 	}

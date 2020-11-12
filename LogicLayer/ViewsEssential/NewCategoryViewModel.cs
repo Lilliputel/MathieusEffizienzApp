@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 
@@ -22,16 +23,9 @@ namespace LogicLayer.Views {
 		public string? Title { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The description has to be specified!" )]
 		public string? Description { get; set; }
-		public List<string> ColorNameList {
-			get {
-				var allColors = new List<string>();
-				PropertyInfo[] propertyInfos = typeof( Color ).GetProperties( BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public );
-				foreach( PropertyInfo propertyInfo in propertyInfos ) {
-					allColors.Add( propertyInfo.Name );
-				}
-				return allColors;
-			}
-		}
+		public List<string> ColorNameList
+			=> typeof( Color ).GetProperties( BindingFlags.Static | BindingFlags.DeclaredOnly | BindingFlags.Public ).Select( prop => prop.Name ).ToList();
+
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The color has to be selected!" )]
 		public string? SelectedColorName { get; set; }
 		#endregion
