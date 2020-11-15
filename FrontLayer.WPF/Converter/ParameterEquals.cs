@@ -1,5 +1,5 @@
 ﻿using EffizienzControls.Extensions;
-using LogicLayer.ViewModels;
+using ModelLayer.Enums;
 using System;
 using System.Globalization;
 using System.Windows.Data;

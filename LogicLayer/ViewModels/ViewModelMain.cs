@@ -1,4 +1,5 @@
 ﻿using LogicLayer.Commands;
+using ModelLayer.Enums;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;

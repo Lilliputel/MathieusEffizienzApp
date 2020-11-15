@@ -1,6 +1,7 @@
 ﻿using LogicLayer.ViewModels;
 using LogicLayer.Views;
 using ModelLayer.Classes;
+using ModelLayer.Enums;
 using System;
 
 namespace LogicLayer.Manager {

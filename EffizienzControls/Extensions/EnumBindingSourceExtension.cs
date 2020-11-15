@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Markup;
 
-namespace ModelLayer.Extensions {
+namespace EffizienzControls.Extensions {
 	public class EnumBindingSourceExtension : MarkupExtension {
 
 		private Type? _enumType;

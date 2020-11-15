@@ -1,4 +1,4 @@
-﻿namespace LogicLayer.ViewModels {
+﻿namespace ModelLayer.Enums {
 	public enum ViewModelEnum {
 
 		Dashboard,

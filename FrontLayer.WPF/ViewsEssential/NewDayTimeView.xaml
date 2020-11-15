@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="FrontLayer.WPF.Views.NewDayTimeView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:extensions="clr-namespace:ModelLayer.Extensions"
+			 xmlns:extensions="clr-namespace:EffizienzControls.Extensions;assembly=EffizienzControls"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
