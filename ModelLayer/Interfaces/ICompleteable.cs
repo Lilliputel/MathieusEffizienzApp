@@ -1,10 +1,10 @@
 ﻿using ModelLayer.Classes;
 using ModelLayer.Enums;
-using ModelLayer.Extensions;
+using System;
 
 namespace ModelLayer.Interfaces {
 	public interface ICompleteable {
-		event PlanEventHandler? PlanChanged;
+		event EventHandler<DateSpan>? PlanChanged;
 		DateSpan Plan { get; set; }
 		StateEnum State { get; set; }
 	}

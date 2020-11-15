@@ -33,7 +33,7 @@ namespace LogicLayer.Views {
 			} );
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
 			new RelayCommand( parameter => {
-				ViewModelManager.Pomodoro.Clock.UpdateCountDirection();
+				SettingsManager.ChangeCountDirection();
 			} );
 		#endregion
 

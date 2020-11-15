@@ -38,14 +38,14 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public events
-		public event PlanEventHandler? PlanChanged;
+		public event EventHandler<DateSpan>? PlanChanged;
 		#endregion
 
 		#region Constructors
 		public Goal( UserText userText, DateSpan plan, StateEnum state = StateEnum.ToDo ) : this() {
 			UserText = userText;
 			Plan = plan;
-			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke( Plan );
+			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke( this, Plan );
 			State = state;
 		}
 		public Goal() {
@@ -57,7 +57,7 @@ namespace ModelLayer.Classes {
 			};
 		}
 		~Goal() {
-			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke( Plan );
+			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke( this, Plan );
 			new List<Goal>( Children ).ForEach( goal => goal.PlanChanged -= Child_PlanChanged );
 		}
 		#endregion
@@ -83,7 +83,7 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region private helper methods
-		private void Child_PlanChanged( DateSpan plan ) {
+		private void Child_PlanChanged( object sender, DateSpan plan ) {
 			if( plan.Start < Plan.Start )
 				Plan.Start = plan.Start;
 			if( plan.End > Plan.End )

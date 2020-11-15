@@ -18,6 +18,9 @@ namespace LogicLayer.Views {
 		#region public properties
 		public PomodoroClock Clock { get; }
 		public WorkItem? WorkItem { get; private set; }
+		public TimeSpan DurationWorkCycle { get; set; }
+		public TimeSpan DurationBreakCycle { get; set; }
+		public TimeSpan DurationDelayCycle { get; set; }
 		#endregion
 
 		#region public commands
@@ -50,7 +53,10 @@ namespace LogicLayer.Views {
 		#region constructor
 		public PomodoroViewModel() {
 			ErrorsChanged += OnErrorsChanged;
-			Clock = new PomodoroClock( TimeSpan.FromMinutes( 45 ), TimeSpan.FromMinutes( 12 ), TimeSpan.FromMinutes( 8 ) );
+			DurationWorkCycle = TimeSpan.FromMinutes( 45 );
+			DurationBreakCycle = TimeSpan.FromMinutes( 12 );
+			DurationDelayCycle = TimeSpan.FromMinutes( 8 );
+			Clock = new PomodoroClock( DurationWorkCycle, DurationBreakCycle, DurationDelayCycle );
 		}
 		public PomodoroViewModel( WorkItem workItem ) : this() {
 			WorkItem = workItem;
