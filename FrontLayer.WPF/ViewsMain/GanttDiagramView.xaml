@@ -9,7 +9,7 @@
 			 xmlns:controls="clr-namespace:EffizienzControls;assembly=EffizienzControls"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 
-			 DataContext="{x:Static manager:ViewModelManager.GanttDiagram}"
+			 DataContext="{x:Static manager:ViewModelManager.Gantt}"
 			 x:Name="ControlRoot">
 
 

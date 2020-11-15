@@ -33,7 +33,7 @@
 		</Button>
 		<Button x:Name="Button_DayTime"
 				Command="{Binding CommandUpdateView}"
-				CommandParameter="ENewDayTime">
+				CommandParameter="ENewTime">
 			<Button.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconAufgabe3}" />

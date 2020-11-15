@@ -1,6 +1,8 @@
 ﻿using FrontLayer.WPF.Properties;
+using FrontLayer.WPF.Windows;
 using LogicLayer.Extensions;
 using LogicLayer.Manager;
+using LogicLayer.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -9,16 +11,13 @@ namespace FrontLayer.WPF {
 	public partial class App : Application {
 
 		#region private fields
-		private string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
-		private Uri _ThemeDarkUri;
-		private Uri _ThemeLightUri;
+		private static string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
+		private Uri _ThemeDarkUri = new Uri( _ThemeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute );
+		private Uri _ThemeLightUri = new Uri( _ThemeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute );
 		#endregion
 
 		#region constructor
-		public App() {
-			_ThemeDarkUri = new Uri( _ThemeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute );
-			_ThemeLightUri = new Uri( _ThemeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute );
-		}
+		public App() { }
 		#endregion
 
 		#region OnStartup
@@ -30,31 +29,25 @@ namespace FrontLayer.WPF {
 			SettingsManager.BoolSettingChanged += BoolSettingChanged;
 			SettingsManager.ObjectSettingChanged += ObjectSettingChanged;
 
-			// Set the default culture
 			SettingsManager.SetCulture( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
-			// Set the default theme
 			SettingsManager.SwitchTheme( Settings.Default.DarkMode );
-			// Set the default Countdirection
 			SettingsManager.ChangeCountDirection( Settings.Default.CountsUp );
 
-			// Load the saved Categories from The XML-File
 			ObjectManager.LoadCategories();
 
-			//Standard procedure
 			base.OnStartup( e );
+
+			new MainWindow() { DataContext = new ViewModelMain() }.Show();
 		}
 		#endregion
 
 		#region OnExit
 		protected override void OnExit( ExitEventArgs e ) {
-			//Save the settings
 			Settings.Default.Save();
 
-			// remove all the EventHandlers from the SettingsChanges
 			SettingsManager.BoolSettingChanged -= BoolSettingChanged;
 			SettingsManager.ObjectSettingChanged -= ObjectSettingChanged;
 
-			//Standard procedure
 			base.OnExit( e );
 		}
 		#endregion
@@ -81,7 +74,6 @@ namespace FrontLayer.WPF {
 				_ => MessageBoxImage.None
 			};
 			MessageBox.Show( message, title, MessageBoxButton.OK, image );
-
 		}
 		#endregion
 

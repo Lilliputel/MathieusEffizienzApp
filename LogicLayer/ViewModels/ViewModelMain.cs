@@ -1,5 +1,5 @@
 ﻿using LogicLayer.Commands;
-using LogicLayer.Manager;
+using System;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -12,12 +12,12 @@ namespace LogicLayer.ViewModels {
 		#endregion
 
 		#region public properties
-		public ViewModelBase? SelectedVMMain { get; private set; }
-		public ViewModelBase? SelectedVMEssential { get; private set; }
+		public ViewModelEnum? SelectedVMMain { get; private set; }
+		public ViewModelEnum? SelectedVMEssential { get; private set; }
 		public ICommand CommandUpdateView => _commandUpdateView ??=
 			new RelayCommand( parameter => {
 				if( parameter is string pString ) {
-					ViewModelBase? viewModel = ViewModelManager.GetViewModel( pString.Substring( 1 ) );
+					ViewModelEnum viewModel = Enum.Parse<ViewModelEnum>( pString.Substring( 1 ) );
 					if( pString[0] == 'M' )
 						UpdateSelectedMainViewModel( viewModel, null );
 					else if( pString[0] == 'E' )
@@ -37,11 +37,14 @@ namespace LogicLayer.ViewModels {
 		#endregion
 
 		#region public methods
-		private void UpdateSelectedMainViewModel( ViewModelBase newViewModel, object? passedObject ) {
-			Debug.WriteLine( $"set the viewModel to {newViewModel}" );
+		private void UpdateSelectedMainViewModel( ViewModelEnum newViewModel, object? passedObject ) {
+			Debug.WriteLine( $"set the main VM to {newViewModel}" );
 			SelectedVMMain = newViewModel;
 		}
-		private void UpdateSelectedEssentialViewModel( ViewModelBase newViewModel, object? passedObject ) => SelectedVMEssential = newViewModel;
+		private void UpdateSelectedEssentialViewModel( ViewModelEnum newViewModel, object? passedObject ) {
+			Debug.WriteLine( $"set the essential VM to {newViewModel}" );
+			SelectedVMEssential = newViewModel;
+		}
 		#endregion
 	}
 }

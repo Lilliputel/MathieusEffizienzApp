@@ -1,6 +1,7 @@
 ﻿using LogicLayer.ViewModels;
 using LogicLayer.Views;
 using ModelLayer.Classes;
+using System;
 
 namespace LogicLayer.Manager {
 
@@ -24,15 +25,15 @@ namespace LogicLayer.Manager {
 		#region public properties
 		public static DashboardViewModel Dashboard => _Dashboard ??= new DashboardViewModel( CategoryList );
 		public static PlanViewModel Plan => _Plan ??= new PlanViewModel( CategoryList, WeekPlan );
-		public static GoalOverviewViewModel GoalOverview => _GoalOverview ??= new GoalOverviewViewModel( CategoryList );
-		public static GanttDiagramViewModel GanttDiagram => _GanttDiagram ??= new GanttDiagramViewModel( CategoryList );
+		public static GoalOverviewViewModel Overview => _GoalOverview ??= new GoalOverviewViewModel( CategoryList );
+		public static GanttDiagramViewModel Gantt => _GanttDiagram ??= new GanttDiagramViewModel( CategoryList );
 		public static StatisticsViewModel Statistics => _Statistics ??= new StatisticsViewModel( CategoryList );
 		public static SettingsViewModel Settings => _Settings ??= new SettingsViewModel();
 
 		public static PomodoroViewModel Pomodoro { get; }
 		public static NewCategoryViewModel NewCategory => _NewCategory ??= new NewCategoryViewModel( CategoryList );
 		public static NewGoalViewModel NewGoal => _NewGoal ??= new NewGoalViewModel( CategoryList );
-		public static NewDayTimeViewModel NewDayTime => _NewDayTime ??= new NewDayTimeViewModel( CategoryList );
+		public static NewDayTimeViewModel NewTime => _NewDayTime ??= new NewDayTimeViewModel( CategoryList );
 		#endregion
 
 		#region initializer
@@ -43,10 +44,10 @@ namespace LogicLayer.Manager {
 		#endregion
 
 		#region public methods
-		public static ViewModelBase GetViewModel( string viewModelName )
-			=> (ViewModelBase) typeof( ViewModelManager ).GetProperty( viewModelName ).GetValue( null, null );
-		public static bool SetViewModel<T>( string viewModelName, T passedObject ) {
-			GetViewModel( viewModelName );
+		public static ViewModelBase GetViewModel( ViewModelEnum viewModel )
+			=> (ViewModelBase) typeof( ViewModelManager ).GetProperty( Enum.GetName( typeof( ViewModelEnum ), viewModel ) ).GetValue( null, null );
+		public static bool SetViewModel<T>( ViewModelEnum viewModel, T passedObject ) {
+			GetViewModel( viewModel );
 			return false;
 		}
 		#endregion

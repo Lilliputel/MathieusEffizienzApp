@@ -5,7 +5,7 @@
 			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 DataContext="{x:Static manager:ViewModelManager.GoalOverview}">
+			 DataContext="{x:Static manager:ViewModelManager.Overview}">
 
 	<UserControl.Resources>
 

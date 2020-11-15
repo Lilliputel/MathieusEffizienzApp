@@ -6,7 +6,7 @@
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 DataContext="{x:Static manager:ViewModelManager.NewDayTime}">
+			 DataContext="{x:Static manager:ViewModelManager.NewTime}">
 
 	<StackPanel>
 		<!-- ViewTitel -->
