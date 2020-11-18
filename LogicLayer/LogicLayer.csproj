@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.1</TargetFramework>
-		<LangVersion>8.0</LangVersion>
+		<TargetFramework>net5.0</TargetFramework>
+		<LangVersion>9.0</LangVersion>
 		<OutputType>Library</OutputType>
 		<RootNamespace>LogicLayer</RootNamespace>
 		<Nullable>enable</Nullable>
@@ -10,8 +10,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PropertyChanged.Fody" Version="3.2.9" PrivateAssets="All" />
-	  <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+	  <PackageReference Include="PropertyChanged.Fody" Version="3.3.1" PrivateAssets="All" />
+	  <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
