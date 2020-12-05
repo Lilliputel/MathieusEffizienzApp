@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace DataLayer.Interfaces {
+namespace DataLayer {
 
 	public interface IErrorHandler {
 

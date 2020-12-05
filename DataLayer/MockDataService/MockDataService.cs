@@ -1,11 +1,10 @@
-﻿using DataLayer.Interfaces;
-using ModelLayer.Classes;
+﻿using ModelLayer.Classes;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 
-namespace DataLayer.MockDataService {
+namespace DataLayer {
 	public class MockDataService : IDataService<ObservableCollection<Category>, Category> {
 
 		public ObservableCollection<Category> LoadData() {

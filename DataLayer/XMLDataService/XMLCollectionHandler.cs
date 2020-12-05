@@ -1,10 +1,9 @@
-﻿using DataLayer.Interfaces;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace DataLayer.XMLDataService {
+namespace DataLayer {
 
 	public class XMLCollectionHandler<T> : IDataService<ObservableCollection<T>, T>, IErrorHandler {
 

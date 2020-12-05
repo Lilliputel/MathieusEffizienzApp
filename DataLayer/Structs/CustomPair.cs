@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace DataLayer.Structs {
+namespace DataLayer {
 
-	public struct CustomPair<TKey, TValue> {
+	internal struct CustomPair<TKey, TValue> {
 
 		[XmlAttribute( "Key" )]
 		public TKey Key { get; set; }

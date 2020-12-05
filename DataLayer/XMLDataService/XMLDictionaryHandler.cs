@@ -1,12 +1,10 @@
-﻿using DataLayer.Interfaces;
-using DataLayer.Structs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace DataLayer.XMLDataService {
-	public class XMLDictionaryHandler<TKey, TValue> : IDataService<Dictionary<TKey, TValue>, KeyValuePair<TKey, TValue>>, IErrorHandler {
+namespace DataLayer {
+	public class XMLDictionaryHandler<TKey, TValue> : IDataService<Dictionary<TKey, TValue>, KeyValuePair<TKey, TValue>>, IErrorHandler where TKey : class where TValue : class {
 
 		#region private fields
 		private string _FilePath;
