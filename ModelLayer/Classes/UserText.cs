@@ -26,7 +26,7 @@ namespace ModelLayer.Classes {
 #if XML
 		[XmlElement( nameof( Color ) )] 
 #elif SQLite
-		[Column( TypeName = "TEXT" )]
+		[Column( TypeName = "TEXT" ), MaxLength( 128 )]
 #endif
 		[Required]
 		public Color Color { get; set; }

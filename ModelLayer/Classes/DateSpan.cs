@@ -4,6 +4,7 @@ using System;
 #if XML
 using System.Xml.Serialization; 
 #elif SQLite
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 #endif
 
@@ -16,6 +17,11 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
+#if SQLite
+		[Key]
+		public int Id { get; set; }
+#endif
+
 #if XML
 		[XmlAttribute( nameof( Start ) )] 
 #elif SQLite

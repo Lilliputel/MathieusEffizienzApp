@@ -20,13 +20,13 @@ namespace ModelLayer.Classes {
 
 		#region public properties
 #if SQLite
-		[ForeignKey( nameof( Category ) )]
-		[Required( AllowEmptyStrings = false )]
-		public string CategoryTitle { get; set; }
+		[Required, ForeignKey( nameof( Category ) )]
+		public int CategoryId { get; set; }
 #endif
 		public Category Category { get; set; }
 #if SQLite
 		[Column( TypeName = "TEXT" )]
+		[Key]
 #endif
 		[Required( AllowEmptyStrings = false )]
 		public DayOfWeek Day { get; set; }
@@ -69,9 +69,7 @@ namespace ModelLayer.Classes {
 			Day = day;
 			UpdateValues( start, end );
 		}
-#if XML
-		public DoubleTime() { } 
-#endif
+		public DoubleTime() { }
 		#endregion
 
 		#region public methods

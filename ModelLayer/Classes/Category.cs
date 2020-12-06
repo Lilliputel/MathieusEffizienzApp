@@ -15,12 +15,15 @@ namespace ModelLayer.Classes {
 	public class Category : ObservableObject, IAccountableParent<Goal>, IPlannedWork {
 
 		#region public properties
+		[Required, Key]
+		public int Id { get; set; }
 #if XML
 		[XmlElement( nameof( UserText ) )]
 #elif SQLite
-		[Key, ForeignKey( nameof( UserText ) )]
+
+		[ForeignKey( nameof( UserText ) )]
 		[Required( AllowEmptyStrings = false )]
-		public string UsertTextTitle { get; set; }
+		public string UserTextId { get; set; } = "";
 #endif
 		public UserText UserText { get; set; }
 #if XML

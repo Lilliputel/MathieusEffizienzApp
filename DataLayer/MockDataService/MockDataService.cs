@@ -23,7 +23,7 @@ namespace DataLayer {
 							Children = {
 								new Goal( new UserText($"Generated-Goal{counter}_1.1", null, randomColor), new DateSpan(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5))){
 									WorkHours = {
-										new WorkItem(DateTime.Today.AddDays(randomGen.Next(-10, 11)), TimeSpan.FromHours(randomGen.NextDouble() * 10))
+										new WorkItem(DateTime.Today.AddDays(randomGen.Next(-10, 11)), TimeSpan.FromHours(randomGen.NextDouble() * 10), TimeSpan.Zero, TimeSpan.Zero)
 									}
 								}
 

@@ -18,18 +18,28 @@ namespace ModelLayer.Classes {
 	public class Goal : ObservableObject, IAccountableParent<Goal>, ICompleteable {
 
 		#region public properties
+		[Required, Key]
+		public int Id { get; set; }
 #if XML
 		[XmlElement( nameof( UserText ) )] 
 #elif SQLite
-		[Key, ForeignKey( nameof( UserText ) )]
+		[ForeignKey( nameof( UserText ) )]
 		[Required( AllowEmptyStrings = false )]
-		public string UserTextTitle { get; set; }
+		public string UserTextId { get; set; }
 #endif
 		[Required]
 		public UserText UserText { get; set; }
 
 #if XML
 		[XmlArray( nameof( Children ) )] 
+#elif SQLite
+		[ForeignKey( nameof( ParentCategory ) )]
+		public int ParentCategoryId { get; set; }
+		public Category ParentCategory { get; set; }
+
+		[ForeignKey( nameof( ParentGoal ) )]
+		public int ParentGoalId { get; set; }
+		public Goal ParentGoal { get; set; }
 #endif
 		public ObservableCollection<Goal> Children { get; }
 			= new ObservableCollection<Goal>();
