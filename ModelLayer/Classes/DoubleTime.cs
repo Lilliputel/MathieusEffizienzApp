@@ -13,6 +13,9 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
+
+		public Category Category { get; set; }
+
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public double Start {
 			get => _Start;
@@ -28,9 +31,15 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region constructor
-		public DoubleTime( (double start, double end) doubles ) {
-			UpdateValues( doubles.start, doubles.end );
-		}
+		public DoubleTime( TimeSpan start, TimeSpan end, Category category )
+			: this( start, end )
+			=> Category = category;
+		public DoubleTime( (double start, double end) doubles, Category category )
+			 : this( doubles )
+			 => Category = category;
+		public DoubleTime( (double start, double end) doubles )
+			=> UpdateValues( doubles.start, doubles.end );
+
 		public DoubleTime( TimeSpan start, TimeSpan end ) {
 			double startmins = start.Minutes / 60;
 			double endmins = end.Minutes / 60;

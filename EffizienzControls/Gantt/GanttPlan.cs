@@ -1,4 +1,5 @@
 ﻿using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -80,7 +81,7 @@ namespace EffizienzControls {
 			foreach( Goal goal in goals ) {
 				start = goal.Plan.Start;
 				end = goal.Plan.End;
-				if( goal.Children.IsParent is true ) {
+				if( ((IParent<Goal>) goal).IsParent is true ) {
 					(DateTime? start, DateTime? end) subPlan = GetStartAndEnd( goal.Children );
 					if( subPlan.start <= start )
 						start = subPlan.start;

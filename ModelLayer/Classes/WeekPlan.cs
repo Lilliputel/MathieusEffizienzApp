@@ -30,10 +30,10 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region methods
-		public async Task AddItemToDayAsync( DayOfWeek day, PlanItem item ) {
+		public async Task AddItemToDayAsync( DayOfWeek day, DoubleTime item ) {
 			DayPlan dayPlan = GetDayPlan( day );
 			DoubleTime? result = null;
-			await Task.Run( () => result = dayPlan.GetDayOverlappingAsync( item.Time ).Result );
+			await Task.Run( () => result = dayPlan.GetDayOverlappingAsync( item ).Result );
 			if( result is { } )
 				throw new ArgumentException( result.ToString() );
 			else {
@@ -41,7 +41,7 @@ namespace ModelLayer.Classes {
 				RaisePropertyChanged( day.ToString() );
 			}
 		}
-		public void RemoveItemFromDay( DayOfWeek day, PlanItem item )
+		public void RemoveItemFromDay( DayOfWeek day, DoubleTime item )
 			=> GetDayPlan( day ).Remove( item );
 		public DayPlan GetDayPlan( DayOfWeek day )
 			=> (DayPlan) typeof( WeekPlan ).GetProperty( day.ToString() ).GetValue( this ); // using reflection to get the correct DayPlan

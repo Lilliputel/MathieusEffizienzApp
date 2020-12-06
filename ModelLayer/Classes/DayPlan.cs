@@ -2,16 +2,16 @@
 using System.Threading.Tasks;
 
 namespace ModelLayer.Classes {
-	public class DayPlan : ObservableCollection<PlanItem> {
+	public class DayPlan : ObservableCollection<DoubleTime> {
 
 		#region methods
 		public async Task<DoubleTime?> GetDayOverlappingAsync( DoubleTime newDayTime ) =>
 			await Task.Run( () => {
 				DoubleTime? result = null;
-				foreach( PlanItem oldItem in this ) {
+				foreach( DoubleTime oldItem in this ) {
 
-					double oldStart = oldItem.Time.Start;
-					double oldEnd = oldItem.Time.End;
+					double oldStart = oldItem.Start;
+					double oldEnd = oldItem.End;
 
 					bool case1 = newDayTime.Start < oldStart && newDayTime.End >= oldStart;
 					bool case2 = newDayTime.Start >= oldStart && newDayTime.End <= oldEnd;

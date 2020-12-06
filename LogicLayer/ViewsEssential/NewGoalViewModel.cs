@@ -2,8 +2,8 @@
 using LogicLayer.Manager;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
-using ModelLayer.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
@@ -16,7 +16,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public IAccountableParent<Category> CategoryList { get; }
+		public ICollection<Category> CategoryList { get; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The title has to be specified!" )]
 		public string? Title { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The description has to be specified!" )]
@@ -51,7 +51,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public NewGoalViewModel( IAccountableParent<Category> categoryList ) {
+		public NewGoalViewModel( ICollection<Category> categoryList ) {
 			CategoryList = categoryList;
 			ErrorsChanged += OnErrorsChanged;
 		}

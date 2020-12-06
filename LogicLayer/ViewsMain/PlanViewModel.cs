@@ -1,6 +1,6 @@
 ﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -12,12 +12,12 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public IAccountableParent<Category> CategoryList { get; }
+		public ICollection<Category> CategoryList { get; }
 		public WeekPlan WeekPlan { get; }
 		#endregion
 
 		#region constructor
-		public PlanViewModel( IAccountableParent<Category> categoryList, WeekPlan weekPlan ) {
+		public PlanViewModel( ICollection<Category> categoryList, WeekPlan weekPlan ) {
 			CategoryList = categoryList;
 			WeekPlan = weekPlan;
 			WeekPlan.PropertyChanged += Test;

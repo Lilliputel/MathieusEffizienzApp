@@ -3,13 +3,14 @@ using LogicLayer.Views;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace LogicLayer.Manager {
 
 	public static class ViewModelManager {
 
 		#region private fields
-		private static readonly CategoryList CategoryList = (CategoryList) ObjectManager.CategoryList;
+		private static readonly ICollection<Category> CategoryList = ObjectManager.CategoryList;
 		private static readonly WeekPlan WeekPlan = ObjectManager.WeekPlan;
 
 		private static DashboardViewModel _Dashboard;

@@ -1,26 +1,24 @@
-﻿using ModelLayer.Enums;
-using ModelLayer.Extensions;
+﻿using ModelLayer.Extensions;
 using ModelLayer.Interfaces;
 using ModelLayer.Utility;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
+
 	[Serializable]
-	public class Goal : ObservableObject, IAccountableParent<Goal>, ICompleteable {
+	public class Category : ObservableObject, IAccountableParent<Goal>, IPlannedWork {
 
 		#region public properties
 		[XmlElement( nameof( UserText ) )]
 		public UserText UserText { get; set; }
 
 		[XmlArray( nameof( Children ) )]
-		public Children<Goal> Children { get; } = new Children<Goal>();
-		[XmlArray( nameof( WorkHours ) )]
-		[AlsoNotifyFor( nameof( Time ) )]
+		public ObservableCollection<Goal> Children { get; } = new ObservableCollection<Goal>();
+		[XmlArray( nameof( WorkHours ) ), AlsoNotifyFor( nameof( Time ) )]
 		public ObservableCollection<WorkItem> WorkHours { get; } = new ObservableCollection<WorkItem>();
 		[XmlIgnore]
 		public TimeSpan Time {
@@ -31,35 +29,19 @@ namespace ModelLayer.Classes {
 			}
 		}
 
-		[XmlElement( nameof( Plan ) )]
-		public DateSpan Plan { get; set; }
-		[XmlAttribute( nameof( State ) )]
-		public StateEnum State { get; set; }
+		[XmlArray( nameof( WorkPlan ) )]
+		public ObservableCollection<(DayOfWeek Day, DoubleTime Time)> WorkPlan { get; } = new ObservableCollection<(DayOfWeek Day, DoubleTime Time)>();
+
+		[XmlAttribute( nameof( Archived ) )]
+		public bool Archived { get; set; } = false;
 		#endregion
 
-		#region public events
-		public event PlanEventHandler? PlanChanged;
-		#endregion
-
-		#region Constructors
-		public Goal( UserText userText, DateSpan plan, StateEnum state = StateEnum.ToDo ) : this() {
+		#region constructor
+		public Category( UserText userText, bool archived = false ) {
 			UserText = userText;
-			Plan = plan;
-			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke( Plan );
-			State = state;
+			Archived = archived;
 		}
-		public Goal() {
-			Children.CollectionChanged += ( sender, e ) => {
-				if( e.Action == NotifyCollectionChangedAction.Add )
-					if( e.NewItems is ICollection<Goal> col )
-						new List<Goal>( col ).ForEach( goal =>
-							   goal.PlanChanged += Child_PlanChanged );
-			};
-		}
-		~Goal() {
-			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke( Plan );
-			new List<Goal>( Children ).ForEach( goal => goal.PlanChanged -= Child_PlanChanged );
-		}
+		public Category() { }
 		#endregion
 
 		#region public methods
@@ -79,15 +61,6 @@ namespace ModelLayer.Classes {
 			new List<WorkItem>( WorkHours ).ForEach( workItem =>
 				   placeholder.AddUnique( workItem.Date ) );
 			return placeholder;
-		}
-		#endregion
-
-		#region private helper methods
-		private void Child_PlanChanged( DateSpan plan ) {
-			if( plan.Start < Plan.Start )
-				Plan.Start = plan.Start;
-			if( plan.End > Plan.End )
-				Plan.End = plan.End;
 		}
 		#endregion
 

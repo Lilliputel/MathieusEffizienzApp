@@ -8,7 +8,7 @@
 			 DataContext="{x:Static manager:ViewModelManager.Dashboard}">
 	
 	<!-- TabControl mit den Kategorien als Tab -->
-	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList.Children, UpdateSourceTrigger=PropertyChanged}">
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
 			<!-- Template für Kategorie -->

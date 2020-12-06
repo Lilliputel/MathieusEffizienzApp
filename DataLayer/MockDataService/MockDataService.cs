@@ -30,12 +30,9 @@ namespace DataLayer {
 							}
 						},
 						new Goal(new UserText($"Generated-Goal{counter}_2", null, randomColor), new DateSpan(DateTime.Today, DateTime.Today.AddDays(10)))
-					},
-					WorkPlan = {
-						((DayOfWeek)randomGen.Next(7),
-						new DoubleTime((0.0 + counter, 1.0 + counter)))
 					}
 				};
+				CodeCat.WorkPlan.Add( ((DayOfWeek) randomGen.Next( 7 ), new DoubleTime( (0.0 + counter, 1.0 + counter), CodeCat )) );
 
 				placeholder.Add( CodeCat );
 			}

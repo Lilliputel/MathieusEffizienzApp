@@ -35,7 +35,7 @@
 							   Grid.Row="1"
 							   HorizontalAlignment="Center" />
 
-					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.CategoryList.Children}"
+					<ItemsControl ItemsSource="{Binding ElementName=ControlRoot, Path=DataContext.CategoryList}"
 								  HorizontalAlignment="Center">
 
 						<ItemsControl.ItemTemplate>
