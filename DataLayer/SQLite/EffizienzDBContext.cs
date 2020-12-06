@@ -4,6 +4,7 @@ using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System;
 using System.Drawing;
+using System.IO;
 
 namespace DataLayer {
 	public class EffizienzDBContext : DbContext {
@@ -19,7 +20,8 @@ namespace DataLayer {
 
 		#region methods
 		protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder ) {
-			optionsBuilder.UseSqlite( "Data Source=SQLite\\Effizienz-Data.db" );
+			string rootDirectory = Directory.GetParent( Directory.GetCurrentDirectory() )?.FullName ?? "";
+			optionsBuilder.UseSqlite( "Data Source=" + Path.Combine( rootDirectory, "DataLayer", "SQLite", "Effizienz-Database.db" ) );
 			base.OnConfiguring( optionsBuilder );
 		}
 

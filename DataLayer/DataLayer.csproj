@@ -23,4 +23,10 @@
 		<ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="SQLite\Effizienz-Database.db">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>
