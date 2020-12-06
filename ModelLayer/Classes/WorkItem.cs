@@ -12,6 +12,9 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
+		public TimeSpan Start { get; set; }
+		public TimeSpan End { get; set; }
+
 		[XmlAttribute( nameof( Time ) )]
 		public TimeSpan Time { get; set; }
 		[XmlAttribute( nameof( Date ) )]

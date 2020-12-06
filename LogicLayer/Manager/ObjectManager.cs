@@ -36,11 +36,8 @@ namespace LogicLayer.Manager {
 		public static void LoadCategories() {
 			foreach( Category? category in _ObjectDataService.LoadData() ) {
 				CategoryList.Add( category );
-				foreach( (DayOfWeek Day, DoubleTime Time) daytime in category.WorkPlan ) {
-					Task.Run( () =>
-					 WeekPlan.AddItemToDayAsync( daytime.Day, daytime.Time )
-					);
-				}
+				foreach( DoubleTime time in category.WorkPlan )
+					Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
 			}
 		}
 		#endregion
@@ -69,31 +66,27 @@ namespace LogicLayer.Manager {
 			}
 		}
 		private static void UpdateWeekPlan( object? sender, NotifyCollectionChangedEventArgs e ) {
-			if( sender is Category category ) {
-				if( e.Action == NotifyCollectionChangedAction.Add ) {
-					if( e.NewStartingIndex >= 0 )
-						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DoubleTime time ) )
-								Task.Run( () => WeekPlan.AddItemToDayAsync( day, time ) );
-				}
-				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
-					if( e.OldStartingIndex >= 0 )
-						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DoubleTime time ) )
-								Task.Run( () => WeekPlan.RemoveItemFromDay( day, time ) );
-				}
-				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
-					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
-						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DoubleTime time ) )
-								Task.Run( () => WeekPlan.RemoveItemFromDay( day, time ) );
-						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DoubleTime time ) )
-								Task.Run( () => WeekPlan.AddItemToDayAsync( day, time ) );
-
-					}
+			if( sender is Category category is false )
+				return;
+			if( e.Action == NotifyCollectionChangedAction.Add ) {
+				if( e.NewItems is { } )
+					foreach( DoubleTime time in e.NewItems )
+						Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
+			}
+			else if( e.Action is NotifyCollectionChangedAction.Remove ) {
+				if( e.OldItems is { } )
+					foreach( DoubleTime time in e.OldItems )
+						Task.Run( () => WeekPlan.RemoveItemFromDay( time ) );
+			}
+			else if( e.Action is NotifyCollectionChangedAction.Replace ) {
+				if( e.OldItems is { } && e.NewItems is { } ) {
+					foreach( DoubleTime time in e.OldItems )
+						Task.Run( () => WeekPlan.RemoveItemFromDay( time ) );
+					foreach( DoubleTime time in e.NewItems )
+						Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
 				}
 			}
+
 		}
 		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
 			switch( e.GetException() ) {

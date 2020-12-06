@@ -1,5 +1,6 @@
 ﻿using ModelLayer.Classes;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,12 +9,12 @@ namespace EffizienzControls {
 	public class DayPlanView : Control {
 
 		#region properties
-		public DayPlan DayPlan {
-			get => (DayPlan) GetValue( DayPlanProperty );
+		public ObservableCollection<DoubleTime> DayPlan {
+			get => (ObservableCollection<DoubleTime>) GetValue( DayPlanProperty );
 			set => SetValue( DayPlanProperty, value );
 		}
 		public static readonly DependencyProperty DayPlanProperty =
-			DependencyProperty.Register( nameof( DayPlan ), typeof( DayPlan ), typeof( DayPlanView ), new PropertyMetadata( new DayPlan() ) );
+			DependencyProperty.Register( nameof( DayPlan ), typeof( ObservableCollection<DoubleTime> ), typeof( DayPlanView ), new PropertyMetadata( new ObservableCollection<DoubleTime>() ) );
 		public DayOfWeek Day {
 			get => (DayOfWeek) GetValue( DayProperty );
 			set => SetValue( DayProperty, value );

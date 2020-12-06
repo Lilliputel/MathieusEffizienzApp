@@ -15,6 +15,7 @@ namespace ModelLayer.Classes {
 		#region public properties
 
 		public Category Category { get; set; }
+		public DayOfWeek Day { get; set; }
 
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public double Start {
@@ -31,23 +32,18 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region constructor
-		public DoubleTime( TimeSpan start, TimeSpan end, Category category )
-			: this( start, end )
-			=> Category = category;
-		public DoubleTime( (double start, double end) doubles, Category category )
-			 : this( doubles )
-			 => Category = category;
-		public DoubleTime( (double start, double end) doubles )
-			=> UpdateValues( doubles.start, doubles.end );
-
-		public DoubleTime( TimeSpan start, TimeSpan end ) {
-			double startmins = start.Minutes / 60;
-			double endmins = end.Minutes / 60;
-			double realstart = start.Hours + startmins;
-			double realend = end.Hours + endmins;
+		public DoubleTime( DayOfWeek day, TimeSpan start, TimeSpan end, Category category ) {
+			Category = category;
+			Day = day;
+			double realstart = start.Hours + start.Minutes / 60;
+			double realend = end.Hours + end.Minutes / 60;
 			UpdateValues( realstart, realend );
 		}
-		public DoubleTime() { }
+		public DoubleTime( DayOfWeek day, double start, double end, Category category ) {
+			Category = category;
+			Day = day;
+			UpdateValues( start, end );
+		}
 		#endregion
 
 		#region public methods

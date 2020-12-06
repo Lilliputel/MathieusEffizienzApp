@@ -49,7 +49,7 @@ namespace LogicLayer.Views {
 
 		#region private methods
 		private Task AddToWeekPlan()
-			=> ObjectManager.WeekPlan.AddItemToDayAsync( DayOfWeek!.Value, new DoubleTime( StartTime, EndTime, SelectedCategory! ) );
+			=> ObjectManager.WeekPlan.AddItemToDayAsync( new DoubleTime( (DayOfWeek) DayOfWeek!, StartTime, EndTime, SelectedCategory! ) );
 		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
 			=> (SaveDayTimeCommand as RelayCommandAsync)?.RaiseCanExecuteChanged( sender );
 		#endregion

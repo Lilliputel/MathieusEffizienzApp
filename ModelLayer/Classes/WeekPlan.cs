@@ -8,13 +8,13 @@ namespace ModelLayer.Classes {
 	public class WeekPlan : ObservableObject {
 
 		#region public properties
-		public DayPlan Monday { get; } = new DayPlan();
-		public DayPlan Tuesday { get; } = new DayPlan();
-		public DayPlan Wednesday { get; } = new DayPlan();
-		public DayPlan Thursday { get; } = new DayPlan();
-		public DayPlan Friday { get; } = new DayPlan();
-		public DayPlan Saturday { get; } = new DayPlan();
-		public DayPlan Sunday { get; } = new DayPlan();
+		public ObservableCollection<DoubleTime> Monday { get; } = new ObservableCollection<DoubleTime>();
+		public ObservableCollection<DoubleTime> Tuesday { get; } = new ObservableCollection<DoubleTime>();
+		public ObservableCollection<DoubleTime> Wednesday { get; } = new ObservableCollection<DoubleTime>();
+		public ObservableCollection<DoubleTime> Thursday { get; } = new ObservableCollection<DoubleTime>();
+		public ObservableCollection<DoubleTime> Friday { get; } = new ObservableCollection<DoubleTime>();
+		public ObservableCollection<DoubleTime> Saturday { get; } = new ObservableCollection<DoubleTime>();
+		public ObservableCollection<DoubleTime> Sunday { get; } = new ObservableCollection<DoubleTime>();
 
 		[XmlIgnore]
 		public ObservableCollection<TimeSpan> HoursOfDay { get; }
@@ -30,21 +30,47 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region methods
-		public async Task AddItemToDayAsync( DayOfWeek day, DoubleTime item ) {
-			DayPlan dayPlan = GetDayPlan( day );
+		public async Task AddItemToDayAsync( DoubleTime newItem ) {
+			var day = newItem.Day;
+			ObservableCollection<DoubleTime>? dayPlan = GetDayPlan( day );
 			DoubleTime? result = null;
-			await Task.Run( () => result = dayPlan.GetDayOverlappingAsync( item ).Result );
-			if( result is { } )
-				throw new ArgumentException( result.ToString() );
-			else {
-				dayPlan.Add( item );
-				RaisePropertyChanged( day.ToString() );
-			}
+
+			await Task.Run( () => {
+				foreach( DoubleTime oldItem in dayPlan ) {
+
+					#region Conditionals
+					double oldStart = oldItem.Start;
+					double oldEnd = oldItem.End;
+					double newStart = newItem.Start;
+					double newEnd = newItem.End;
+					bool newEndsDuringOld = newStart <= oldStart && newEnd > oldStart && newEnd <= oldEnd;
+					bool newIsInsideOld = newStart > oldStart && newEnd < oldEnd;
+					bool newBeginsDuringOld = newStart >= oldStart && newStart < oldEnd && newEnd >= oldEnd;
+					bool newEqualsOld = newStart == oldStart && oldEnd == newEnd;
+					bool newSurroundsOld = newStart <= oldStart && newEnd >= oldEnd;
+					#endregion
+
+					if( newEqualsOld || newSurroundsOld )
+						result = oldItem;
+					else if( newEndsDuringOld )
+						result = new DoubleTime( day, oldStart, newEnd, oldItem.Category );
+					else if( newIsInsideOld )
+						result = new DoubleTime( day, newStart, newEnd, oldItem.Category );
+					else if( newBeginsDuringOld )
+						result = new DoubleTime( day, newStart, oldEnd, oldItem.Category );
+
+					if( result is { } )
+						throw new ArgumentException( result.ToString() );
+				}
+			} );
+
+			dayPlan?.Add( newItem );
+			RaisePropertyChanged( day.ToString() );
 		}
-		public void RemoveItemFromDay( DayOfWeek day, DoubleTime item )
-			=> GetDayPlan( day ).Remove( item );
-		public DayPlan GetDayPlan( DayOfWeek day )
-			=> (DayPlan) typeof( WeekPlan ).GetProperty( day.ToString() ).GetValue( this ); // using reflection to get the correct DayPlan
+		public void RemoveItemFromDay( DoubleTime item )
+			=> GetDayPlan( item.Day )?.Remove( item );
+		public ObservableCollection<DoubleTime>? GetDayPlan( DayOfWeek day )
+			=> typeof( WeekPlan ).GetProperty( day.ToString() )?.GetValue( this ) as ObservableCollection<DoubleTime>; // using reflection to get the correct DayPlan
 		#endregion
 
 	}

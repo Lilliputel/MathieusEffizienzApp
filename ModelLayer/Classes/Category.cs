@@ -30,7 +30,7 @@ namespace ModelLayer.Classes {
 		}
 
 		[XmlArray( nameof( WorkPlan ) )]
-		public ObservableCollection<(DayOfWeek Day, DoubleTime Time)> WorkPlan { get; } = new ObservableCollection<(DayOfWeek Day, DoubleTime Time)>();
+		public ObservableCollection<DoubleTime> WorkPlan { get; } = new ObservableCollection<DoubleTime>();
 
 		[XmlAttribute( nameof( Archived ) )]
 		public bool Archived { get; set; } = false;
