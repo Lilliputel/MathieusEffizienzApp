@@ -7,22 +7,43 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
+#if XML
+using System.Xml.Serialization; 
+#elif SQLite
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace ModelLayer.Classes {
-	[Serializable]
 	public class Goal : ObservableObject, IAccountableParent<Goal>, ICompleteable {
 
 		#region public properties
-		[XmlElement( nameof( UserText ) )]
+#if XML
+		[XmlElement( nameof( UserText ) )] 
+#elif SQLite
+		[Key, ForeignKey( nameof( UserText ) )]
+		[Required( AllowEmptyStrings = false )]
+		public string UserTextTitle { get; set; }
+#endif
+		[Required]
 		public UserText UserText { get; set; }
 
-		[XmlArray( nameof( Children ) )]
-		public ObservableCollection<Goal> Children { get; } = new ObservableCollection<Goal>();
-		[XmlArray( nameof( WorkHours ) )]
+#if XML
+		[XmlArray( nameof( Children ) )] 
+#endif
+		public ObservableCollection<Goal> Children { get; }
+			= new ObservableCollection<Goal>();
+#if XML
+		[XmlArray( nameof( WorkHours ) )] 
+#endif
 		[AlsoNotifyFor( nameof( Time ) )]
-		public ObservableCollection<WorkItem> WorkHours { get; } = new ObservableCollection<WorkItem>();
-		[XmlIgnore]
+		public ObservableCollection<WorkItem> WorkHours { get; }
+			= new ObservableCollection<WorkItem>();
+#if XML
+		[XmlIgnore] 
+#elif SQLite
+		[NotMapped]
+#endif
 		public TimeSpan Time {
 			get {
 				TimeSpan placeholder = TimeSpan.Zero;
@@ -31,9 +52,19 @@ namespace ModelLayer.Classes {
 			}
 		}
 
-		[XmlElement( nameof( Plan ) )]
+#if XML
+		[XmlElement( nameof( Plan ) )] 
+#elif SQLite
+		[ForeignKey( nameof( Plan ) )]
+		[Required]
+		public int PlanId { get; set; }
+#endif
 		public DateSpan Plan { get; set; }
-		[XmlAttribute( nameof( State ) )]
+#if XML
+		[XmlAttribute( nameof( State ) )] 
+#elif SQLite
+		[Column( TypeName = "TEXT" )]
+#endif
 		public StateEnum State { get; set; }
 		#endregion
 

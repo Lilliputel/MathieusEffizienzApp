@@ -13,15 +13,16 @@ namespace LogicLayer.Manager {
 		private static readonly ICollection<Category> CategoryList = ObjectManager.CategoryList;
 		private static readonly WeekPlan WeekPlan = ObjectManager.WeekPlan;
 
-		private static DashboardViewModel _Dashboard;
-		private static PlanViewModel _Plan;
-		private static GoalOverviewViewModel _GoalOverview;
-		private static GanttDiagramViewModel _GanttDiagram;
-		private static StatisticsViewModel _Statistics;
-		private static SettingsViewModel _Settings;
-		private static NewCategoryViewModel _NewCategory;
-		private static NewGoalViewModel _NewGoal;
-		private static NewDayTimeViewModel _NewDayTime;
+		private static DashboardViewModel? _Dashboard;
+		private static PlanViewModel? _Plan;
+		private static GoalOverviewViewModel? _GoalOverview;
+		private static GanttDiagramViewModel? _GanttDiagram;
+		private static StatisticsViewModel? _Statistics;
+		private static SettingsViewModel? _Settings;
+		private static NewCategoryViewModel? _NewCategory;
+		private static NewGoalViewModel? _NewGoal;
+		private static NewDayTimeViewModel? _NewDayTime;
+		private static PomodoroViewModel? _Pomodoro;
 		#endregion
 
 		#region public properties
@@ -31,8 +32,7 @@ namespace LogicLayer.Manager {
 		public static GanttDiagramViewModel Gantt => _GanttDiagram ??= new GanttDiagramViewModel( CategoryList );
 		public static StatisticsViewModel Statistics => _Statistics ??= new StatisticsViewModel( CategoryList );
 		public static SettingsViewModel Settings => _Settings ??= new SettingsViewModel();
-
-		public static PomodoroViewModel Pomodoro { get; }
+		public static PomodoroViewModel Pomodoro { get; } = _Pomodoro ??= new PomodoroViewModel();
 		public static NewCategoryViewModel NewCategory => _NewCategory ??= new NewCategoryViewModel( CategoryList );
 		public static NewGoalViewModel NewGoal => _NewGoal ??= new NewGoalViewModel( CategoryList );
 		public static NewDayTimeViewModel NewTime => _NewDayTime ??= new NewDayTimeViewModel( CategoryList );
@@ -40,14 +40,11 @@ namespace LogicLayer.Manager {
 
 		#region initializer
 		//TODO I should use a Method to Set the View with the Corresponding ViewModel, that accepts a passed Object
-		static ViewModelManager() {
-			Pomodoro = new PomodoroViewModel( new WorkItem() );
-		}
 		#endregion
 
 		#region public methods
-		public static ViewModelBase GetViewModel( ViewModelEnum viewModel )
-			=> (ViewModelBase) typeof( ViewModelManager ).GetProperty( Enum.GetName( typeof( ViewModelEnum ), viewModel ) ).GetValue( null, null );
+		public static ViewModelBase? GetViewModel( ViewModelEnum viewModel )
+			=> typeof( ViewModelManager ).GetProperty( Enum.GetName( typeof( ViewModelEnum ), viewModel ) )?.GetValue( null, null ) as ViewModelBase;
 		public static bool SetViewModel<T>( ViewModelEnum viewModel, T passedObject ) {
 			GetViewModel( viewModel );
 			return false;

@@ -22,11 +22,15 @@ namespace LogicLayer.Manager {
 		#region constructor
 		static ObjectManager() {
 			CategoryList.CollectionChanged += SubscribeWorkPlans;
-
+#if XML
+			string _FilePath = @"S:\TESTING\Effizienz\";
+			_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
+			( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;  
+#elif SQLite
+			_ObjectDataService = new SQLiteDataService();
+#else
 			_ObjectDataService = new MockDataService();
-			//string _FilePath = @"S:\TESTING\Effizienz\";
-			//_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
-			//( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;
+#endif
 		}
 		#endregion
 

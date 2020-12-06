@@ -1,10 +1,12 @@
 ﻿using ModelLayer.Interfaces;
 using ModelLayer.Utility;
 using System;
+#if XML
 using System.Xml.Serialization;
-
+#elif SQLite
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 namespace ModelLayer.Classes {
-	[Serializable]
 	public class WorkItem : ObservableObject, IHasTime {
 
 		#region private fields
@@ -14,10 +16,15 @@ namespace ModelLayer.Classes {
 		#region public properties
 		public TimeSpan Start { get; set; }
 		public TimeSpan End { get; set; }
-
+#if XML
 		[XmlAttribute( nameof( Time ) )]
+#endif
 		public TimeSpan Time { get; set; }
+#if XML
 		[XmlAttribute( nameof( Date ) )]
+#elif SQLite
+		[NotMapped]
+#endif
 		public DateTime Date { get => _Date; set => _Date = value.Date; }
 		#endregion
 
@@ -26,7 +33,9 @@ namespace ModelLayer.Classes {
 			Time = time;
 			Date = date;
 		}
+#if XML
 		public WorkItem() { }
+#endif
 		#endregion
 	}
 }

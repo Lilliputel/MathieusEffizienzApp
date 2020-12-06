@@ -185,29 +185,23 @@ namespace ModelLayer.Classes {
 			if( _CurrentWorkMode is WorkModeEnum.DelayBreak || _CurrentWorkMode is WorkModeEnum.Work )
 				TotalTime = TotalTime.Add( GetActualTime() );
 		}
-		private TimeSpan GetActualTime() {
-			if( CountDown is true )
-				return GetCountStart() - Time;
-			return Time;
-		}
-		private TimeSpan GetCountStart() => _CurrentWorkMode switch
-		{
+		private TimeSpan GetActualTime()
+			=> CountDown is true ? GetCountStart() - Time : Time;
+		private TimeSpan GetCountStart() => _CurrentWorkMode switch {
 			WorkModeEnum.Work => CountDown ? DurationWorkCycle : TimeSpan.Zero,
 			WorkModeEnum.Break => CountDown ? DurationBreakCycle : TimeSpan.Zero,
 			WorkModeEnum.DelayWork => CountDown ? DurationDelayCycle : TimeSpan.Zero,
 			WorkModeEnum.DelayBreak => CountDown ? DurationDelayCycle : TimeSpan.Zero,
 			_ => CountDown ? DurationWorkCycle : TimeSpan.Zero,
 		};
-		private TimeSpan GetCountGoal() => _CurrentWorkMode switch
-		{
+		private TimeSpan GetCountGoal() => _CurrentWorkMode switch {
 			WorkModeEnum.Work => CountDown ? TimeSpan.Zero : DurationWorkCycle,
 			WorkModeEnum.Break => CountDown ? TimeSpan.Zero : DurationBreakCycle,
 			WorkModeEnum.DelayWork => CountDown ? TimeSpan.Zero : DurationDelayCycle,
 			WorkModeEnum.DelayBreak => CountDown ? TimeSpan.Zero : DurationDelayCycle,
 			_ => CountDown ? TimeSpan.Zero : DurationWorkCycle,
 		};
-		private WorkModeEnum GetNextWorkMode() => _CurrentWorkMode switch
-		{
+		private WorkModeEnum GetNextWorkMode() => _CurrentWorkMode switch {
 			WorkModeEnum.Stop => WorkModeEnum.Work,
 			WorkModeEnum.Work => WorkModeEnum.Break,
 			WorkModeEnum.Break => WorkModeEnum.Work,

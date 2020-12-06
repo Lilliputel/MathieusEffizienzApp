@@ -1,6 +1,12 @@
 ﻿using ModelLayer.Utility;
 using PropertyChanged;
 using System;
+using System.ComponentModel.DataAnnotations;
+#if XML
+using System.Xml.Serialization;
+#elif SQLite
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace ModelLayer.Classes {
 	public class DoubleTime : ObservableObject {
@@ -13,20 +19,39 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
-
+#if SQLite
+		[ForeignKey( nameof( Category ) )]
+		[Required( AllowEmptyStrings = false )]
+		public string CategoryTitle { get; set; }
+#endif
 		public Category Category { get; set; }
+#if SQLite
+		[Column( TypeName = "TEXT" )]
+#endif
+		[Required( AllowEmptyStrings = false )]
 		public DayOfWeek Day { get; set; }
 
+#if SQLite
+		[Key]
+#endif
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public double Start {
 			get => _Start;
 			set => UpdateValues( value, _End );
 		}
+#if SQLite
+		[Key]
+#endif
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public double End {
 			get => _End;
 			set => UpdateValues( _Start, value );
 		}
+#if XML
+		[XmlIgnore]
+#elif SQLite
+		[NotMapped]
+#endif
 		public double Duration
 			=> End - Start;
 		#endregion
@@ -44,6 +69,9 @@ namespace ModelLayer.Classes {
 			Day = day;
 			UpdateValues( start, end );
 		}
+#if XML
+		public DoubleTime() { } 
+#endif
 		#endregion
 
 		#region public methods
@@ -76,5 +104,6 @@ namespace ModelLayer.Classes {
 		private double RoundToQuarter( double val )
 			=> Math.Round( val * 4, MidpointRounding.ToEven ) / 4;
 		#endregion
+
 	}
 }
