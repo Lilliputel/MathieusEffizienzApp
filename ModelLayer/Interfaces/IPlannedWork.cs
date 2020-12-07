@@ -1,8 +1,9 @@
 ﻿using ModelLayer.Classes;
+using System.Collections.ObjectModel;
 
 namespace ModelLayer.Interfaces {
 	public interface IPlannedWork {
-		WorkPlan WorkPlan { get; }
+		ObservableCollection<DoubleTime> WorkPlan { get; }
 
 	}
 }

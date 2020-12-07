@@ -1,6 +1,6 @@
 ﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
+using System.Collections.Generic;
 
 namespace LogicLayer.Views {
 	public class DashboardViewModel : ViewModelBase {
@@ -10,11 +10,11 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public IAccountableParent<Category> CategoryList { get; }
+		public ICollection<Category> CategoryList { get; }
 		#endregion
 
 		#region constructor
-		public DashboardViewModel( IAccountableParent<Category> categoryList ) {
+		public DashboardViewModel( ICollection<Category> categoryList ) {
 			CategoryList = categoryList;
 		}
 		#endregion

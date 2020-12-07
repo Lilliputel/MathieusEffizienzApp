@@ -1,6 +1,12 @@
 ﻿using ModelLayer.Utility;
 using PropertyChanged;
 using System;
+using System.ComponentModel.DataAnnotations;
+#if XML
+using System.Xml.Serialization;
+#elif SQLite
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace ModelLayer.Classes {
 	public class DoubleTime : ObservableObject {
@@ -13,30 +19,55 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
+#if SQLite
+		[Required, ForeignKey( nameof( Category ) )]
+		public int CategoryId { get; set; }
+#endif
+		public Category Category { get; set; }
+#if SQLite
+		[Column( TypeName = "TEXT" )]
+		[Key]
+#endif
+		[Required( AllowEmptyStrings = false )]
+		public DayOfWeek Day { get; set; }
+
+#if SQLite
+		[Key]
+#endif
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public double Start {
 			get => _Start;
 			set => UpdateValues( value, _End );
 		}
+#if SQLite
+		[Key]
+#endif
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public double End {
 			get => _End;
 			set => UpdateValues( _Start, value );
 		}
+#if XML
+		[XmlIgnore]
+#elif SQLite
+		[NotMapped]
+#endif
 		public double Duration
 			=> End - Start;
 		#endregion
 
 		#region constructor
-		public DoubleTime( (double start, double end) doubles ) {
-			UpdateValues( doubles.start, doubles.end );
-		}
-		public DoubleTime( TimeSpan start, TimeSpan end ) {
-			double startmins = start.Minutes / 60;
-			double endmins = end.Minutes / 60;
-			double realstart = start.Hours + startmins;
-			double realend = end.Hours + endmins;
+		public DoubleTime( DayOfWeek day, TimeSpan start, TimeSpan end, Category category ) {
+			Category = category;
+			Day = day;
+			double realstart = start.Hours + start.Minutes / 60;
+			double realend = end.Hours + end.Minutes / 60;
 			UpdateValues( realstart, realend );
+		}
+		public DoubleTime( DayOfWeek day, double start, double end, Category category ) {
+			Category = category;
+			Day = day;
+			UpdateValues( start, end );
 		}
 		public DoubleTime() { }
 		#endregion
@@ -71,5 +102,6 @@ namespace ModelLayer.Classes {
 		private double RoundToQuarter( double val )
 			=> Math.Round( val * 4, MidpointRounding.ToEven ) / 4;
 		#endregion
+
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using LogicLayer.Commands;
 using LogicLayer.Manager;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +13,7 @@ namespace LogicLayer.Views {
 	public class NewCategoryViewModel : ValidationViewModel {
 
 		#region private fields
-		private IAccountableParent<Category> CategoryList;
+		private ICollection<Category> _CategoryList;
 		private ICommand? _SaveCategoryCommand;
 		#endregion
 
@@ -34,7 +33,7 @@ namespace LogicLayer.Views {
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
 			new RelayCommand(
 				parameter => {
-					CategoryList.Children.Add(
+					_CategoryList.Add(
 						new Category(
 							new UserText(
 								Title!,
@@ -46,8 +45,8 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public NewCategoryViewModel( IAccountableParent<Category> categoryList ) : base() {
-			CategoryList = categoryList;
+		public NewCategoryViewModel( ICollection<Category> categoryList ) : base() {
+			_CategoryList = categoryList;
 			ErrorsChanged += OnErrorsChanged;
 		}
 		#endregion

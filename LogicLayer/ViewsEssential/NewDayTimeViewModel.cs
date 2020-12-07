@@ -2,8 +2,8 @@
 using LogicLayer.Manager;
 using LogicLayer.Validation;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -17,7 +17,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public IAccountableParent<Category> CategoryList { get; }
+		public ICollection<Category> CategoryList { get; }
 		[CustomValidation( typeof( ValidationRules ), nameof( ValidationRules.ValidateCategory ) )]
 		public Category? SelectedCategory { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The Day has to be defined!" )]
@@ -41,7 +41,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public NewDayTimeViewModel( IAccountableParent<Category> categoryList ) {
+		public NewDayTimeViewModel( ICollection<Category> categoryList ) {
 			CategoryList = categoryList;
 			ErrorsChanged += OnErrorsChanged;
 		}
@@ -49,7 +49,7 @@ namespace LogicLayer.Views {
 
 		#region private methods
 		private Task AddToWeekPlan()
-			=> ObjectManager.WeekPlan.AddItemToDayAsync( DayOfWeek!.Value, new PlanItem( new DoubleTime( StartTime, EndTime ), SelectedCategory! ) );
+			=> ObjectManager.WeekPlan.AddItemToDayAsync( new DoubleTime( (DayOfWeek) DayOfWeek!, StartTime, EndTime, SelectedCategory! ) );
 		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
 			=> (SaveDayTimeCommand as RelayCommandAsync)?.RaiseCanExecuteChanged( sender );
 		#endregion

@@ -15,12 +15,12 @@
 			</ItemsControl.ItemsPanel>
 
 			<ItemsControl.ItemTemplate>
-				<DataTemplate DataType="{x:Type classes:PlanItem}">
+				<DataTemplate DataType="{x:Type classes:DoubleTime}">
 
 					<local:ProportionalBar Background="{Binding Category.UserText.Color, Converter={converter:DrawingColorToSolidBrush}}"
 										   TotalSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=ActualHeight}"
-										   OffsetFactor="{Binding Time.Start, Converter={converter:DivisionWithParameter}, ConverterParameter=24}"
-										   SizeFactor="{Binding Time.Duration, Converter={converter:DivisionWithParameter}, ConverterParameter=24}"
+										   OffsetFactor="{Binding Start, Converter={converter:DivisionWithParameter}, ConverterParameter=24}"
+										   SizeFactor="{Binding Duration, Converter={converter:DivisionWithParameter}, ConverterParameter=24}"
 										   Dock="Top">
 						<TextBlock Text="{Binding Category.UserText.Title}"
 								   IsHitTestVisible="False" />

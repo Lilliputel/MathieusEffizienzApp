@@ -23,7 +23,7 @@
 
 		<!-- Gruppe Kategorie ComboBox -->
 		<TextBlock Text="Kategorie:" />
-		<ComboBox ItemsSource="{Binding CategoryList.Children, Mode=OneTime}"
+		<ComboBox ItemsSource="{Binding CategoryList, Mode=OneTime}"
 				  SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 			<ComboBox.ItemTemplate>
 				<DataTemplate DataType="{x:Type classes:Category}">

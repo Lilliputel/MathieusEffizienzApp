@@ -1,11 +1,14 @@
 ﻿using ModelLayer.Utility;
 using PropertyChanged;
 using System;
-using System.Xml.Serialization;
+#if XML
+using System.Xml.Serialization; 
+#elif SQLite
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace ModelLayer.Classes {
-
-	[Serializable]
 	public class DateSpan : ObservableObject {
 
 		#region private fields
@@ -14,19 +17,36 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
-		[XmlAttribute( nameof( Start ) )]
+#if SQLite
+		[Key]
+		public int Id { get; set; }
+#endif
+
+#if XML
+		[XmlAttribute( nameof( Start ) )] 
+#elif SQLite
+		[Column( TypeName = "TEXT" )]
+#endif
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public DateTime Start {
 			get => _Start;
 			set => UpdateValues( value.Date, _End );
 		}
-		[XmlAttribute( nameof( End ) )]
+#if XML
+		[XmlAttribute( nameof( End ) )] 
+#elif SQLite
+		[Column( TypeName = "TEXT" )]
+#endif
 		[AlsoNotifyFor( nameof( Duration ) )]
 		public DateTime End {
 			get => _End;
 			set => UpdateValues( _Start, value.Date );
 		}
-		[XmlIgnore]
+#if XML
+		[XmlIgnore] 
+#elif SQLite
+		[NotMapped]
+#endif
 		public TimeSpan Duration
 			=> End - Start;
 		#endregion
@@ -37,8 +57,9 @@ namespace ModelLayer.Classes {
 		public DateSpan( DateTime start, DateTime end ) {
 			UpdateValues( start.Date, end.Date );
 		}
-
-		public DateSpan() { }
+#if XML
+		public DateSpan() { } 
+#endif
 		#endregion
 
 		#region private helper methods

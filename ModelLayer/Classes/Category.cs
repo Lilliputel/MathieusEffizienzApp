@@ -1,26 +1,46 @@
 ﻿using ModelLayer.Extensions;
 using ModelLayer.Interfaces;
 using ModelLayer.Utility;
-using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+#if XML
 using System.Xml.Serialization;
+#elif SQLite
+using System.ComponentModel.DataAnnotations.Schema;
+#endif
 
 namespace ModelLayer.Classes {
-
-	[Serializable]
 	public class Category : ObservableObject, IAccountableParent<Goal>, IPlannedWork {
 
 		#region public properties
+		[Required, Key]
+		public int Id { get; set; }
+#if XML
 		[XmlElement( nameof( UserText ) )]
-		public UserText UserText { get; set; }
+#elif SQLite
 
+		[ForeignKey( nameof( UserText ) )]
+		[Required( AllowEmptyStrings = false )]
+		public string UserTextId { get; set; } = "";
+#endif
+		public UserText UserText { get; set; }
+#if XML
 		[XmlArray( nameof( Children ) )]
-		public Children<Goal> Children { get; } = new Children<Goal>();
+#endif
+		public ObservableCollection<Goal> Children { get; }
+			= new ObservableCollection<Goal>();
+#if XML
 		[XmlArray( nameof( WorkHours ) ), AlsoNotifyFor( nameof( Time ) )]
-		public ObservableCollection<WorkItem> WorkHours { get; } = new ObservableCollection<WorkItem>();
+#endif
+		public ObservableCollection<WorkItem> WorkHours { get; }
+			= new ObservableCollection<WorkItem>();
+#if XML
 		[XmlIgnore]
+#elif SQLite
+		[NotMapped]
+#endif
 		public TimeSpan Time {
 			get {
 				TimeSpan placeholder = TimeSpan.Zero;
@@ -29,10 +49,14 @@ namespace ModelLayer.Classes {
 			}
 		}
 
+#if XML
 		[XmlArray( nameof( WorkPlan ) )]
-		public WorkPlan WorkPlan { get; } = new WorkPlan();
-
+#endif
+		public ObservableCollection<DoubleTime> WorkPlan { get; }
+			= new ObservableCollection<DoubleTime>();
+#if XML
 		[XmlAttribute( nameof( Archived ) )]
+#endif
 		public bool Archived { get; set; } = false;
 		#endregion
 

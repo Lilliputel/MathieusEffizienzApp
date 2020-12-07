@@ -23,19 +23,16 @@ namespace DataLayer {
 							Children = {
 								new Goal( new UserText($"Generated-Goal{counter}_1.1", null, randomColor), new DateSpan(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5))){
 									WorkHours = {
-										new WorkItem(DateTime.Today.AddDays(randomGen.Next(-10, 11)), TimeSpan.FromHours(randomGen.NextDouble() * 10))
+										new WorkItem(DateTime.Today.AddDays(randomGen.Next(-10, 11)), TimeSpan.FromHours(randomGen.NextDouble() * 10), TimeSpan.Zero, TimeSpan.Zero)
 									}
 								}
 
 							}
 						},
 						new Goal(new UserText($"Generated-Goal{counter}_2", null, randomColor), new DateSpan(DateTime.Today, DateTime.Today.AddDays(10)))
-					},
-					WorkPlan = {
-						((DayOfWeek)randomGen.Next(7),
-						new DoubleTime((0.0 + counter, 1.0 + counter)))
 					}
 				};
+				CodeCat.WorkPlan.Add( new DoubleTime( (DayOfWeek) randomGen.Next( 7 ), 0.0 + counter, 1.0 + counter, CodeCat ) );
 
 				placeholder.Add( CodeCat );
 			}

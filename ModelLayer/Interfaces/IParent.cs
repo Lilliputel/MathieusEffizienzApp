@@ -1,7 +1,10 @@
-﻿using ModelLayer.Classes;
+﻿using System.Collections.ObjectModel;
 
 namespace ModelLayer.Interfaces {
 	public interface IParent<T> where T : class {
-		Children<T> Children { get; }
+
+		public bool IsParent
+			=> Children.Count > 0;
+		ObservableCollection<T> Children { get; }
 	}
 }

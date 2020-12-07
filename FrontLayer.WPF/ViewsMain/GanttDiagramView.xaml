@@ -13,7 +13,7 @@
 			 x:Name="ControlRoot">
 
 
-	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList.Children, UpdateSourceTrigger=PropertyChanged}">
+	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList, UpdateSourceTrigger=PropertyChanged}">
 		<TabControl.ContentTemplate>
 
 			<DataTemplate DataType="{x:Type classes:Category}">

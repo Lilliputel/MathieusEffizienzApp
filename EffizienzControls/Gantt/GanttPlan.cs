@@ -1,6 +1,8 @@
 ﻿using ModelLayer.Classes;
+using ModelLayer.Interfaces;
 using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,7 +20,7 @@ namespace EffizienzControls {
 			}
 		}
 		public static readonly DependencyProperty CategoryProperty =
-			DependencyProperty.Register( nameof( Category ), typeof( Category ), typeof( GanttPlan ), new PropertyMetadata( new Category() ) );
+			DependencyProperty.Register( nameof( Category ), typeof( Category ), typeof( GanttPlan ), new PropertyMetadata( new Category( new UserText( "Standard-GanttCategory", "This is the StandardValue, if nothing is bound!", Color.DarkOrange ), false ) ) );
 		public DateTime MainStart {
 			get => (DateTime) GetValue( MainStartProperty );
 			private set => SetValue( MainStartProperty, value );
@@ -80,7 +82,7 @@ namespace EffizienzControls {
 			foreach( Goal goal in goals ) {
 				start = goal.Plan.Start;
 				end = goal.Plan.End;
-				if( goal.Children.IsParent is true ) {
+				if( ((IParent<Goal>) goal).IsParent is true ) {
 					(DateTime? start, DateTime? end) subPlan = GetStartAndEnd( goal.Children );
 					if( subPlan.start <= start )
 						start = subPlan.start;

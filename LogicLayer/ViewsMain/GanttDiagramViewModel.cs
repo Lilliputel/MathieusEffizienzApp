@@ -1,16 +1,16 @@
 ﻿using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
+using System.Collections.Generic;
 
 namespace LogicLayer.Views {
 	public class GanttDiagramViewModel : ViewModelBase {
 
 		#region public properties
-		public IAccountableParent<Category> CategoryList { get; }
+		public ICollection<Category> CategoryList { get; }
 		#endregion
 
 		#region constructor
-		public GanttDiagramViewModel( IAccountableParent<Category> categoryList ) {
+		public GanttDiagramViewModel( ICollection<Category> categoryList ) {
 			CategoryList = categoryList;
 		}
 		#endregion

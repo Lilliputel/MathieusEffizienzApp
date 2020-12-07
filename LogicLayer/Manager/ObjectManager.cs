@@ -1,6 +1,5 @@
 ﻿using DataLayer;
 using ModelLayer.Classes;
-using ModelLayer.Interfaces;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -16,45 +15,40 @@ namespace LogicLayer.Manager {
 		#endregion
 
 		#region public properties
-		/// <summary>
-		/// Die Globale CategoryList, welche gespeichert wird und alle Categories enthalten sollte.
-		/// </summary>
-		public static IAccountableParent<Category> CategoryList { get; } = new CategoryList();
-		/// <summary>
-		/// Der Globale WeekPlan, welche nicht gespeichert wird und alle DayTimes mit den Kategorien und Farben enthalten sollte.
-		/// </summary>
+		public static ObservableCollection<Category> CategoryList { get; } = new ObservableCollection<Category>();
 		public static WeekPlan WeekPlan { get; } = new WeekPlan();
 		#endregion
 
 		#region constructor
 		static ObjectManager() {
-			CategoryList.Children.CollectionChanged += SubscribeWorkPlans;
-
+			CategoryList.CollectionChanged += SubscribeWorkPlans;
+#if XML
+			string _FilePath = @"S:\TESTING\Effizienz\";
+			_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
+			( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;  
+#elif SQLite
+			_ObjectDataService = new SQLiteDataService();
+#else
 			_ObjectDataService = new MockDataService();
-			//string _FilePath = @"S:\TESTING\Effizienz\";
-			//_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
-			//( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;
+#endif
 		}
 		#endregion
 
 		#region public methods
-		public static void SaveCategories() => _ObjectDataService.SaveData( CategoryList.Children );
+		public static void SaveCategories()
+			=> _ObjectDataService.SaveData( CategoryList );
 		public static void LoadCategories() {
 			foreach( Category? category in _ObjectDataService.LoadData() ) {
-				CategoryList.Children.Add( category );
-				foreach( (DayOfWeek Day, DoubleTime Time) daytime in category.WorkPlan ) {
-					Task.Run( () =>
-					 WeekPlan.AddItemToDayAsync( daytime.Day,
-					 new PlanItem( daytime.Time, category ) )
-					);
-				}
+				CategoryList.Add( category );
+				foreach( DoubleTime time in category.WorkPlan )
+					Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
 			}
 		}
 		#endregion
 
 		#region private helper methods
 		private static void SubscribeWorkPlans( object sender, NotifyCollectionChangedEventArgs e ) {
-			if( sender is CategoryList ) {
+			if( sender is ObservableCollection<Category> ) {
 				if( e.Action is NotifyCollectionChangedAction.Add ) {
 					if( e.NewStartingIndex >= 0 )
 						foreach( Category? item in e.NewItems! )
@@ -76,46 +70,27 @@ namespace LogicLayer.Manager {
 			}
 		}
 		private static void UpdateWeekPlan( object? sender, NotifyCollectionChangedEventArgs e ) {
-			if( sender is Category category ) {
-				if( e.Action == NotifyCollectionChangedAction.Add ) {
-					if( e.NewStartingIndex >= 0 )
-						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DoubleTime time ) ) {
-								Task.Run( () =>
-								 WeekPlan.AddItemToDayAsync( day,
-								 new PlanItem( time, category ) )
-								);
-							}
-				}
-				else if( e.Action is NotifyCollectionChangedAction.Remove ) {
-					if( e.OldStartingIndex >= 0 )
-						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DoubleTime time ) ) {
-								Task.Run( () =>
-								 WeekPlan.RemoveItemFromDay( day,
-								 new PlanItem( time, category ) )
-								);
-							}
-				}
-				else if( e.Action is NotifyCollectionChangedAction.Replace ) {
-					if( e.NewStartingIndex >= 0 && e.OldStartingIndex >= 0 ) {
-						foreach( (DayOfWeek, DoubleTime)? item in e.OldItems )
-							if( item is (DayOfWeek day, DoubleTime time ) ) {
-								Task.Run( () =>
-								 WeekPlan.RemoveItemFromDay( day,
-								 new PlanItem( time, category ) )
-								);
-							}
-						foreach( (DayOfWeek, DoubleTime)? item in e.NewItems )
-							if( item is (DayOfWeek day, DoubleTime time ) ) {
-								Task.Run( () =>
-								 WeekPlan.AddItemToDayAsync( day,
-								 new PlanItem( time, category ) )
-								);
-							}
-					}
+			if( sender is Category category is false )
+				return;
+			if( e.Action == NotifyCollectionChangedAction.Add ) {
+				if( e.NewItems is { } )
+					foreach( DoubleTime time in e.NewItems )
+						Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
+			}
+			else if( e.Action is NotifyCollectionChangedAction.Remove ) {
+				if( e.OldItems is { } )
+					foreach( DoubleTime time in e.OldItems )
+						Task.Run( () => WeekPlan.RemoveItemFromDay( time ) );
+			}
+			else if( e.Action is NotifyCollectionChangedAction.Replace ) {
+				if( e.OldItems is { } && e.NewItems is { } ) {
+					foreach( DoubleTime time in e.OldItems )
+						Task.Run( () => WeekPlan.RemoveItemFromDay( time ) );
+					foreach( DoubleTime time in e.NewItems )
+						Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
 				}
 			}
+
 		}
 		private static void ErrorOccured( object sender, ErrorEventArgs e ) {
 			switch( e.GetException() ) {
