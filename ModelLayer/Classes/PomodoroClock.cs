@@ -8,7 +8,6 @@ using System.Timers;
 namespace ModelLayer.Classes {
 	public class PomodoroClock : ObservableObject {
 
-		//TODO i could implement a method to update the counter, whenever the inputTime gets changed
 		#region private fields
 		private readonly Timer _Counter;
 		private TimeSpan _DestinationTime;

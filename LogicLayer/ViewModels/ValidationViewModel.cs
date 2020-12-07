@@ -11,7 +11,6 @@ using System.Reflection;
 
 namespace LogicLayer {
 
-	//TODO I should catch the exceptions, which can be thrown by reflection (In constructor and private Methods)
 	public class ValidationViewModel : ViewModelBase, INotifyDataErrorInfo {
 
 		#region private fields

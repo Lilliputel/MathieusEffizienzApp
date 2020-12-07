@@ -12,7 +12,7 @@ namespace EffizienzControls.TemplateSelectors {
 		public override DataTemplate SelectTemplate( object item, DependencyObject container ) {
 			DataTemplate testT = null;
 			if( item is ViewModelEnum viewModelEnum ) {
-				Type type = Assembly.GetEntryAssembly().GetTypes()
+				Type type = Assembly.GetEntryAssembly()!.GetTypes()
 					.Where( type => type.IsDefined( typeof( ViewAttribute ) ) )
 					.Where( type => (type.GetCustomAttribute( typeof( ViewAttribute ) ) is ViewAttribute attr) && attr.Type == viewModelEnum && attr.IsView is true )
 					.First();

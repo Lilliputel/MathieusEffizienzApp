@@ -5,8 +5,6 @@ using System.Windows.Input;
 namespace LogicLayer.Views {
 	public class DayPlanViewModel : ViewModelBase {
 
-		//TODO: no half hours can be set, maybe i should implement an intervall property to set the range(precision)
-
 		#region private fields
 		private ICommand? _LeftMouseDownCommand;
 		private ICommand? _MouseMoveCommand;

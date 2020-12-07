@@ -39,7 +39,7 @@ namespace LogicLayer.Views {
 				},
 				parameter => NoErrors
 			);
-		public ICommand UpdateTimesCommand => _UpdateTimesCommand ??= //TODO refactoring of PomodoroClock
+		public ICommand UpdateTimesCommand => _UpdateTimesCommand ??=
 			new RelayCommand(
 				parameter => {
 				},

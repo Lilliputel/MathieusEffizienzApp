@@ -38,10 +38,6 @@ namespace LogicLayer.Manager {
 		public static NewDayTimeViewModel NewTime => _NewDayTime ??= new NewDayTimeViewModel( CategoryList );
 		#endregion
 
-		#region initializer
-		//TODO I should use a Method to Set the View with the Corresponding ViewModel, that accepts a passed Object
-		#endregion
-
 		#region public methods
 		public static ViewModelBase? GetViewModel( ViewModelEnum viewModel )
 			=> typeof( ViewModelManager ).GetProperty( Enum.GetName( typeof( ViewModelEnum ), viewModel ) )?.GetValue( null, null ) as ViewModelBase;

@@ -4,8 +4,6 @@ using System.Windows.Controls;
 namespace EffizienzControls {
 	public class ProportionalBar : ContentControl {
 
-		//TODO the text does not get shown, if the bar is to small... maybe dp to show always & datatrigger with <Canvas> <ContentPresenter crop=false /> </canvas>
-
 		#region public properties
 		public double TotalSize {
 			get => (double) GetValue( TotalSizeProperty );
@@ -29,7 +27,6 @@ namespace EffizienzControls {
 			DependencyProperty.Register( nameof( ContentOrientation ), typeof( Orientation ), typeof( ProportionalBar ), new PropertyMetadata( Orientation.Horizontal ) );
 		#endregion
 
-		//TODO i have to implement a way to set the value instead of the factors or a combination of both
 		#region Value Settings
 		public double MaxValue {
 			get => (double) GetValue( MaxValueProperty );
