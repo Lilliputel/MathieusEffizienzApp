@@ -3,14 +3,16 @@ using System;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.SQLite.Migrations
 {
     [DbContext(typeof(EffizienzDBContext))]
-    partial class EffizienzDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201210212728_Add-Nullability-To-Goals")]
+    partial class AddNullabilityToGoals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,12 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 	<PropertyGroup>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
 		<LangVersion>9.0</LangVersion>
 		<OutputType>Library</OutputType>
 		<RootNamespace>LogicLayer</RootNamespace>
 		<Nullable>enable</Nullable>
 		<Platforms>AnyCPU;x64;x86</Platforms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DefineConstants>TRACE;SQLite</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>

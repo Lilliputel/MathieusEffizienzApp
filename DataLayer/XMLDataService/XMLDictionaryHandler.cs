@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 
 namespace DataLayer {
-	public class XMLDictionaryHandler<TKey, TValue> : IDataService<Dictionary<TKey, TValue>, KeyValuePair<TKey, TValue>>, IErrorHandler where TKey : class where TValue : class {
+	public class XMLDictionaryHandler<TKey, TValue> : IRepository<Dictionary<TKey, TValue>, KeyValuePair<TKey, TValue>>, IErrorHandler where TKey : class where TValue : class {
 
 		#region private fields
 		private string _FilePath;

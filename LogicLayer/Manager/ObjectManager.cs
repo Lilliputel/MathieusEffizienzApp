@@ -11,23 +11,24 @@ namespace LogicLayer.Manager {
 	public static class ObjectManager {
 
 		#region private fields
-		private static IDataService<ObservableCollection<Category>, Category> _ObjectDataService;
+		public static IRepository DataService { get; }
 		#endregion
 
 		#region public properties
-		public static ObservableCollection<Category> CategoryList { get; } = new ObservableCollection<Category>();
-		public static WeekPlan WeekPlan { get; } = new WeekPlan();
+		public static ObservableCollection<Category> CategoryList { get; private set; }
+			= new ObservableCollection<Category>();
+		public static WeekPlan WeekPlan { get; }
+			= new WeekPlan();
 		#endregion
 
 		#region constructor
 		static ObjectManager() {
-			CategoryList.CollectionChanged += SubscribeWorkPlans;
 #if XML
 			string _FilePath = @"S:\TESTING\Effizienz\";
 			_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
 			( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;  
 #elif SQLite
-			_ObjectDataService = new SQLiteDataService();
+			DataService = new SQLiteRepository();
 #else
 			_ObjectDataService = new MockDataService();
 #endif
@@ -35,14 +36,13 @@ namespace LogicLayer.Manager {
 		#endregion
 
 		#region public methods
-		public static void SaveCategories()
-			=> _ObjectDataService.SaveData( CategoryList );
 		public static void LoadCategories() {
-			foreach( Category? category in _ObjectDataService.LoadData() ) {
-				CategoryList.Add( category );
+			CategoryList = DataService.LoadAll();
+			foreach( Category? category in CategoryList ) {
 				foreach( DoubleTime time in category.WorkPlan )
 					Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
 			}
+			CategoryList.CollectionChanged += SubscribeWorkPlans;
 		}
 		#endregion
 

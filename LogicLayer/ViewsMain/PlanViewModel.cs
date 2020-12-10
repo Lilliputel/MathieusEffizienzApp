@@ -1,31 +1,31 @@
-﻿using LogicLayer.ViewModels;
+﻿using DataLayer;
+using LogicLayer.ViewModels;
 using ModelLayer.Classes;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Data;
 
 namespace LogicLayer.Views {
 	public class PlanViewModel : ViewModelBase {
 
 		#region private fields
-
+		private readonly IRepository _DataService;
 		#endregion
 
 		#region public properties
-		public ICollection<Category> CategoryList { get; }
+		public ICollectionView CategoryList { get; }
 		public WeekPlan WeekPlan { get; }
+			= new WeekPlan();
 		#endregion
 
 		#region constructor
-		public PlanViewModel( ICollection<Category> categoryList, WeekPlan weekPlan ) {
-			CategoryList = categoryList;
-			WeekPlan = weekPlan;
-			WeekPlan.PropertyChanged += Test;
+		public PlanViewModel( IRepository dataService ) {
+			_DataService = dataService;
+			CategoryList = new ListCollectionView( _DataService.LoadAll() );
+			var tasklist = _DataService.LoadAll().SelectMany( c => c.WorkPlan ).Select( dt => WeekPlan.AddItemToDayAsync( dt ) );
+			Parallel.ForEach( tasklist, t => t.Start() );
 		}
-		#endregion
-
-		#region private helper methods
-		private void Test( object sender, PropertyChangedEventArgs e ) => Debug.WriteLine( $"Executed PropertyChanged {e.PropertyName}" );
 		#endregion
 
 	}

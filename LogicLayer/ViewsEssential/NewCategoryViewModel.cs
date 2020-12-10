@@ -1,4 +1,5 @@
-﻿using LogicLayer.Commands;
+﻿using DataLayer;
+using LogicLayer.Commands;
 using LogicLayer.Manager;
 using ModelLayer.Classes;
 using System.Collections.Generic;
@@ -7,17 +8,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
 	public class NewCategoryViewModel : ValidationViewModel {
 
 		#region private fields
-		private ICollection<Category> _CategoryList;
+		private readonly IRepository _DataService;
 		private ICommand? _SaveCategoryCommand;
 		#endregion
 
 		#region public properties
+		public ICollectionView CategoryList { get; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The title has to be specified!" )]
 		public string? Title { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The description has to be specified!" )]
@@ -33,21 +36,23 @@ namespace LogicLayer.Views {
 		public ICommand SaveCategoryCommand => _SaveCategoryCommand ??=
 			new RelayCommand(
 				parameter => {
-					_CategoryList.Add(
+					_DataService.Insert(
 						new Category(
 							new UserText(
 								Title!,
 								Description,
-								Color.FromName( SelectedColorName ) ) ) );
+								Color.FromName( SelectedColorName! ) ) ) );
+					_DataService.Save();
 					AlertManager.ObjektErstellt( nameof( Category ), Title! );
 				},
 				parameter => NoErrors );
 		#endregion
 
 		#region constructor
-		public NewCategoryViewModel( ICollection<Category> categoryList ) : base() {
-			_CategoryList = categoryList;
+		public NewCategoryViewModel( IRepository dataService ) {
+			_DataService = dataService;
 			ErrorsChanged += OnErrorsChanged;
+			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
 

@@ -34,12 +34,12 @@ namespace ModelLayer.Classes {
 		[XmlArray( nameof( Children ) )] 
 #elif SQLite
 		[ForeignKey( nameof( ParentCategory ) )]
-		public int ParentCategoryId { get; set; }
-		public Category ParentCategory { get; set; }
+		public int? ParentCategoryId { get; set; }
+		public Category? ParentCategory { get; set; }
 
 		[ForeignKey( nameof( ParentGoal ) )]
-		public int ParentGoalId { get; set; }
-		public Goal ParentGoal { get; set; }
+		public int? ParentGoalId { get; set; }
+		public Goal? ParentGoal { get; set; }
 #endif
 		public ObservableCollection<Goal> Children { get; }
 			= new ObservableCollection<Goal>();

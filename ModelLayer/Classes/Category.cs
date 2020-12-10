@@ -23,7 +23,7 @@ namespace ModelLayer.Classes {
 
 		[ForeignKey( nameof( UserText ) )]
 		[Required( AllowEmptyStrings = false )]
-		public string UserTextId { get; set; } = "";
+		public string UserTextId { get; set; }
 #endif
 		public UserText UserText { get; set; }
 #if XML

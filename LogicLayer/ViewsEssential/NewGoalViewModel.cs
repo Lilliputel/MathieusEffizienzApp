@@ -1,22 +1,24 @@
-﻿using LogicLayer.Commands;
+﻿using DataLayer;
+using LogicLayer.Commands;
 using LogicLayer.Manager;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
 	public class NewGoalViewModel : ValidationViewModel {
 
 		#region private fields
+		private readonly IRepository _DataService;
 		private ICommand? _SaveGoalCommand;
 		#endregion
 
 		#region public properties
-		public ICollection<Category> CategoryList { get; }
+		public ICollectionView CategoryList { get; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The title has to be specified!" )]
 		public string? Title { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The description has to be specified!" )]
@@ -44,16 +46,18 @@ namespace LogicLayer.Views {
 						goal.Children.Add( neu );
 					else
 						SelectedCategory.Children.Add( neu );
+					_DataService.Insert( neu );
+					_DataService.Save();
 					AlertManager.ObjektErstellt( nameof( Goal ), Title );
 				},
-				parameter => (SelectedCategory is Category && Title is string && Description is string)
-			);
+				parameter => NoErrors );
 		#endregion
 
 		#region constructor
-		public NewGoalViewModel( ICollection<Category> categoryList ) {
-			CategoryList = categoryList;
+		public NewGoalViewModel( IRepository dataService ) {
+			_DataService = dataService;
 			ErrorsChanged += OnErrorsChanged;
+			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
 

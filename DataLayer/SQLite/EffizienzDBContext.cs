@@ -4,6 +4,7 @@ using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 
 namespace DataLayer {
@@ -15,24 +16,32 @@ namespace DataLayer {
 		public DbSet<UserText>? UserTexts { get; set; }
 		public DbSet<WorkItem>? WorkItems { get; set; }
 		public DbSet<DateSpan>? DateSpans { get; set; }
-		public DbSet<DoubleTime>? Times { get; set; }
+		public DbSet<DoubleTime>? DoubleTimes { get; set; }
 		#endregion
 
-		#region methods
+		#region overriden methods
 		protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder ) {
-			string rootDirectory = Directory.GetParent( Directory.GetCurrentDirectory() )?.FullName ?? "";
-			optionsBuilder.UseSqlite( "Data Source=" + Path.Combine( rootDirectory, "DataLayer", "SQLite", "Effizienz-Database.db" ) );
+			string rootDirectory = Directory.GetCurrentDirectory();
+			string connectionString = "Data Source=" + Path.Combine( rootDirectory, "SQLite", "Effizienz-Database.db" );
+			//string rootDirectory = Directory.GetParent( Directory.GetCurrentDirectory() )?.FullName ?? "";
+			//string connectionString = "Data Source=" + Path.Combine( rootDirectory, "DataLayer", "SQLite", "Effizienz-Database.db" );
+			optionsBuilder.UseSqlite( connectionString );
 			base.OnConfiguring( optionsBuilder );
 		}
 
 		protected override void OnModelCreating( ModelBuilder modelBuilder ) {
 			// KEYS
-			modelBuilder.Entity<DoubleTime>().HasKey( dt => new { dt.Day, dt.Start, dt.End } );
-			modelBuilder.Entity<WorkItem>().HasKey( wi => new { wi.Start, wi.End, wi.Date } );
+			modelBuilder.Entity<DoubleTime>()
+				.HasKey( dt => new { dt.Day, dt.Start, dt.End } );
+			modelBuilder.Entity<WorkItem>()
+				.HasKey( wi => new { wi.Start, wi.End, wi.Date } );
 			// CONVERSION
+			modelBuilder.Entity<DateSpan>()
+				.Property( ds => ds.Start )
+				.HasConversion( dt => dt.ToString( "dd.MM.yyyy" ), dt => DateTime.ParseExact( dt, "dd.MM.yyyy", CultureInfo.CurrentUICulture ) );
 			modelBuilder.Entity<UserText>()
 				.Property( ut => ut.Color )
-				.HasConversion( c => ColorTranslator.ToHtml( c ), c => ColorTranslator.FromHtml( c ) );
+				.HasConversion( c => ColorTranslator.ToOle( c ), c => ColorTranslator.FromOle( c ) );
 			modelBuilder.Entity<Category>()
 				.Property( c => c.Archived )
 				.HasConversion( new BoolToZeroOneConverter<int>() );
@@ -42,6 +51,8 @@ namespace DataLayer {
 			modelBuilder.Entity<Goal>()
 				.Property( g => g.State )
 				.HasConversion( d => Enum.GetName( d ), d => Enum.Parse<StateEnum>( d! ) );
+			// TITLES
+			modelBuilder.Entity<DoubleTime>( b => b.ToTable( "Times" ) );
 			base.OnModelCreating( modelBuilder );
 		}
 		#endregion

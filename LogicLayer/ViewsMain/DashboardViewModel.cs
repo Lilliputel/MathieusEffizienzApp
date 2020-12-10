@@ -1,21 +1,23 @@
-﻿using LogicLayer.ViewModels;
-using ModelLayer.Classes;
-using System.Collections.Generic;
+﻿using DataLayer;
+using LogicLayer.ViewModels;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace LogicLayer.Views {
 	public class DashboardViewModel : ViewModelBase {
 
 		#region private fields
-
+		private readonly IRepository _DataService;
 		#endregion
 
 		#region public properties
-		public ICollection<Category> CategoryList { get; }
+		public ICollectionView CategoryList { get; }
 		#endregion
 
 		#region constructor
-		public DashboardViewModel( ICollection<Category> categoryList ) {
-			CategoryList = categoryList;
+		public DashboardViewModel( IRepository dataService ) {
+			_DataService = dataService;
+			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
 
