@@ -23,8 +23,8 @@ namespace LogicLayer.Views {
 		public PlanViewModel( IRepository dataService ) {
 			_DataService = dataService;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
-			var tasklist = _DataService.LoadAll().SelectMany( c => c.WorkPlan ).Select( dt => WeekPlan.AddItemToDayAsync( dt ) );
-			Parallel.ForEach( tasklist, t => t.Start() );
+			//var tasklist = _DataService.LoadAll().SelectMany( c => c.WorkPlan ).Select( dt => WeekPlan.AddItemToDayAsync( dt ) );
+			//Parallel.ForEach( tasklist, t => t.Start() );
 		}
 		#endregion
 

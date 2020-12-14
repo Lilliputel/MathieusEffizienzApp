@@ -1,24 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
-		<LangVersion>9.0</LangVersion>
 		<OutputType>Library</OutputType>
 		<RootNamespace>LogicLayer</RootNamespace>
-		<Nullable>enable</Nullable>
-		<Platforms>AnyCPU;x64;x86</Platforms>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <DefineConstants>TRACE;SQLite</DefineConstants>
+		<OutputPath>$(OutputPath)LogicLayer\</OutputPath>
+		<Platforms>$(Platforms)</Platforms>
+		<LangVersion>$(LangVersion)</LangVersion>
+		<Nullable>$(Nullable)</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PropertyChanged.Fody" Version="3.3.1" PrivateAssets="All" />
-	  <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	  <PackageReference Include="PropertyChanged.Fody"/>
+	  <PackageReference Include="System.ComponentModel.Annotations" />
 	</ItemGroup>
-
+	
 	<ItemGroup>
 		<ProjectReference Include="..\DataLayer\DataLayer.csproj" />
 		<ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />

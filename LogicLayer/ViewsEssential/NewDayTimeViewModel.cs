@@ -1,7 +1,6 @@
 ﻿using DataLayer;
 using LogicLayer.Commands;
 using LogicLayer.Manager;
-using LogicLayer.Validation;
 using ModelLayer.Classes;
 using System;
 using System.ComponentModel;
@@ -20,7 +19,7 @@ namespace LogicLayer.Views {
 
 		#region public properties
 		public ICollectionView CategoryList { get; }
-		[CustomValidation( typeof( ValidationRules ), nameof( ValidationRules.ValidateCategory ) )]
+		[Required( AllowEmptyStrings = false, ErrorMessage = "A parent has to be selected!" )]
 		public Category? SelectedCategory { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The Day has to be defined!" )]
 		public DayOfWeek? DayOfWeek { get; set; }
@@ -53,7 +52,7 @@ namespace LogicLayer.Views {
 		private Task AddToWeekPlan( DoubleTime newDT )
 			=> ObjectManager.WeekPlan.AddItemToDayAsync( newDT );
 		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
-			=> (SaveDayTimeCommand as RelayCommandAsync)?.RaiseCanExecuteChanged( sender );
+			=> (SaveDayTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 
 	}

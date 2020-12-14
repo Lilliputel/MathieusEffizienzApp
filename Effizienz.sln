@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EffizienzControls", "Effizi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Shared", ".Shared", "{C509A438-B9AC-48D3-AB42-1D1BC03A2697}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 		.Shared\Mathieu.editorconfig = .Shared\Mathieu.editorconfig
 	EndProjectSection
 EndProject
@@ -55,8 +57,8 @@ Global
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|x64.Build.0 = Debug|Any CPU
+		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|x64.ActiveCfg = Debug|x64
+		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|x64.Build.0 = Debug|x64
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Debug|x86.Build.0 = Debug|Any CPU
 		{70865C11-C8A8-4325-A1E9-231187D9E4A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,8 +81,8 @@ Global
 		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|x64.Build.0 = Debug|Any CPU
+		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|x64.ActiveCfg = Debug|x64
+		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|x64.Build.0 = Debug|x64
 		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Debug|x86.Build.0 = Debug|Any CPU
 		{DCB30605-CAE0-43E5-A6CB-C742A2C773B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -103,8 +105,8 @@ Global
 		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|x64.Build.0 = Debug|Any CPU
+		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|x64.ActiveCfg = Debug|x64
+		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|x64.Build.0 = Debug|x64
 		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Debug|x86.Build.0 = Debug|Any CPU
 		{B657EA9F-DB07-4698-84B2-92BB97CA4EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -127,8 +129,8 @@ Global
 		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|x64.Build.0 = Debug|Any CPU
+		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|x64.ActiveCfg = Debug|x64
+		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|x64.Build.0 = Debug|x64
 		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{089DE341-0AB8-4843-833B-53251D92E459}.Debug|x86.Build.0 = Debug|Any CPU
 		{089DE341-0AB8-4843-833B-53251D92E459}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -251,8 +253,8 @@ Global
 		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|x64.Build.0 = Debug|Any CPU
+		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|x64.ActiveCfg = Debug|x64
+		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|x64.Build.0 = Debug|x64
 		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Debug|x86.Build.0 = Debug|Any CPU
 		{E0844A7A-64F7-4B09-983A-C6FF95E0BFE4}.Release|Any CPU.ActiveCfg = Release|Any CPU

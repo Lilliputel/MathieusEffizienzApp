@@ -10,11 +10,9 @@ using System.Threading.Tasks;
 namespace LogicLayer.Manager {
 	public static class ObjectManager {
 
-		#region private fields
-		public static IRepository DataService { get; }
-		#endregion
 
 		#region public properties
+		public static IRepository DataService { get; }
 		public static ObservableCollection<Category> CategoryList { get; private set; }
 			= new ObservableCollection<Category>();
 		public static WeekPlan WeekPlan { get; }
@@ -25,12 +23,12 @@ namespace LogicLayer.Manager {
 		static ObjectManager() {
 #if XML
 			string _FilePath = @"S:\TESTING\Effizienz\";
-			_ObjectDataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
-			( _ObjectDataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;  
+			DataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
+			( DataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;  
 #elif SQLite
 			DataService = new SQLiteRepository();
 #else
-			_ObjectDataService = new MockDataService();
+			DataService = new MockDataService();
 #endif
 		}
 		#endregion

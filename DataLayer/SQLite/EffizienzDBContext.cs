@@ -21,11 +21,12 @@ namespace DataLayer {
 
 		#region overriden methods
 		protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder ) {
-			string rootDirectory = Directory.GetCurrentDirectory();
-			string connectionString = "Data Source=" + Path.Combine( rootDirectory, "SQLite", "Effizienz-Database.db" );
-			//string rootDirectory = Directory.GetParent( Directory.GetCurrentDirectory() )?.FullName ?? "";
-			//string connectionString = "Data Source=" + Path.Combine( rootDirectory, "DataLayer", "SQLite", "Effizienz-Database.db" );
-			optionsBuilder.UseSqlite( connectionString );
+
+			var folder = Directory.GetCurrentDirectory();
+			string dbName = "Effizienz-Database.db";
+			string path = Path.Combine( folder, "SQLite", dbName );
+
+			optionsBuilder.UseSqlite( "Data Source=" + path );
 			base.OnConfiguring( optionsBuilder );
 		}
 
