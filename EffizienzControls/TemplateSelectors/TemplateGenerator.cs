@@ -4,15 +4,16 @@ using System.Windows.Controls;
 
 namespace EffizienzControls.TemplateSelectors {
 
+#pragma warning disable IDE1006 // Naming Styles
 	public static class TemplateGenerator {
 		private sealed class _TemplateGeneratorControl : ContentControl {
 			internal static readonly DependencyProperty FactoryProperty =
-				DependencyProperty.Register( "Factory", typeof( Func<object> ), typeof( _TemplateGeneratorControl ), new PropertyMetadata( null, _FactoryChanged ) );
-			private static void _FactoryChanged( DependencyObject instance, DependencyPropertyChangedEventArgs args )
+				DependencyProperty.Register( "Factory", typeof( Func<object> ), typeof( _TemplateGeneratorControl ), new PropertyMetadata( null, FactoryChanged ) );
+			private static void FactoryChanged( DependencyObject instance, DependencyPropertyChangedEventArgs args )
 				=> (instance as _TemplateGeneratorControl)!.Content = (args.NewValue as Func<object>)?.Invoke();
 		}
 
-		public static DataTemplate CreateDataTemplate( Func<object> factory ) {
+		public static DataTemplate? CreateDataTemplate( Func<object?> factory ) {
 			if( factory is null )
 				throw new ArgumentNullException( "factory" );
 
@@ -24,7 +25,7 @@ namespace EffizienzControls.TemplateSelectors {
 			};
 		}
 
-		public static ControlTemplate CreateControlTemplate( Type controlType, Func<object> factory ) {
+		public static ControlTemplate CreateControlTemplate( Type controlType, Func<object?> factory ) {
 			if( controlType is null )
 				throw new ArgumentNullException( "controlType" );
 			if( factory is null )
@@ -38,4 +39,5 @@ namespace EffizienzControls.TemplateSelectors {
 			};
 		}
 	}
+#pragma warning restore IDE1006 // Naming Styles
 }

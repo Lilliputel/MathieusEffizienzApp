@@ -2,6 +2,7 @@
 using LogicLayer.Commands;
 using LogicLayer.Manager;
 using ModelLayer.Classes;
+using PropertyChanged;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -57,7 +58,8 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region private methods
-		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
+		[SuppressPropertyChangedWarnings]
+		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e )
 			=> (SaveCategoryCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 

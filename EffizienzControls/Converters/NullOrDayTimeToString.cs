@@ -10,7 +10,7 @@ namespace EffizienzControls.Converters {
 	[ValueConversion( typeof( DoubleTime ), typeof( string ) )]
 	public class NullOrDayTimeToString : MarkedupValueConverter<NullOrDayTimeToString> {
 
-		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
+		public override object? Convert( object? value, Type targetType, object parameter, CultureInfo culture ) {
 			if( value is null )
 				return "The DayTime is not Overlapping!";
 			else if( value is DoubleTime dayTime )
@@ -20,7 +20,7 @@ namespace EffizienzControls.Converters {
 				return value;
 			}
 		}
-		public override object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
+		public override object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture )
 			=> throw new NotImplementedException();
 
 	}

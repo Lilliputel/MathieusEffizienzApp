@@ -16,27 +16,16 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
 	
-	
-	<!-- Repository-Type -->
-	<PropertyGroup>
-		<DefineConstants>SQLite</DefineConstants>
-	</PropertyGroup>
-	
 	<!-- Tracing and Debug -->
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
 		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<!-- Repository-Type -->
+		<DefineConstants>SQLite</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)'=='Release'">
 		<DefineConstants>TRACE</DefineConstants>
+		<!-- Repository-Type -->
+		<DefineConstants>SQLite</DefineConstants>
 	</PropertyGroup>
-	
-	<!--SQLite
-	<ItemGroup>
-		<SQLiteFiles Include="$(OutputPath)SQLite\Effizienz-Database.db"/>
-	</ItemGroup>
-	<PropertyGroup>
-		<DestinationFolder>$(OutputPath)DataLayer\SQLite\</DestinationFolder>
-	</PropertyGroup>
-	-->
 	
 </Project>	

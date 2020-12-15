@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 
 namespace DataLayer {
 	public class MockDataService : IRepository {
@@ -12,7 +13,11 @@ namespace DataLayer {
 			=> GenerateData();
 		public T GetById<T>( int id ) where T : class {
 			Debug.WriteLine( $"Tried to load item with id {nameof( id )}[{id}] in the MockDataService" );
-			return default( T );
+#pragma warning disable CS8603 // Possible null reference return.
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+			return (T)(GenerateData().FirstOrDefault( x => x.Id == id ) as object);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning restore CS8603 // Possible null reference return.
 		}
 		public bool Update<T>( T item ) where T : class {
 			Debug.WriteLine( $"Tried to update {nameof( item )}[{item}] in the MockDataService" );
@@ -30,7 +35,7 @@ namespace DataLayer {
 					(byte)randomGen.Next( 255 ),
 					(byte)randomGen.Next( 255 ) );
 
-				var CodeCat = new Category( new UserText( $"Generated-Category{counter}", null, randomColor ) ) {
+				var codeCat = new Category( new UserText( $"Generated-Category{counter}", null, randomColor ) ) {
 					Children = {
 
 						new Goal(new UserText($"Generated-Goal{counter}_1", null, randomColor), new DateSpan(DateTime.Today.AddDays(1), DateTime.Today.AddDays(8))) {
@@ -46,9 +51,9 @@ namespace DataLayer {
 						new Goal(new UserText($"Generated-Goal{counter}_2", null, randomColor), new DateSpan(DateTime.Today, DateTime.Today.AddDays(10)))
 					}
 				};
-				CodeCat.WorkPlan.Add( new DoubleTime( (DayOfWeek)randomGen.Next( 7 ), 0.0 + counter, 1.0 + counter, CodeCat ) );
+				codeCat.WorkPlan.Add( new DoubleTime( (DayOfWeek)randomGen.Next( 7 ), 0.0 + counter, 1.0 + counter, codeCat ) );
 
-				placeholder.Add( CodeCat );
+				placeholder.Add( codeCat );
 			}
 			return placeholder;
 		}

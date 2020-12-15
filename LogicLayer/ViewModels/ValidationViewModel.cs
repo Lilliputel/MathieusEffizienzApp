@@ -51,17 +51,19 @@ namespace LogicLayer {
 			InitPropertyValidations();
 			//Hook into the PropertyChanged Event of validated Properties
 			PropertyChanged += ( sender, e ) => {
-				if( _PropertyValidations.ContainsKey( e.PropertyName ) )
-					CollectToPropertyErrors( e.PropertyName );
+				if( _PropertyValidations.ContainsKey( e?.PropertyName ?? "" ) )
+					CollectToPropertyErrors( e?.PropertyName );
 			};
 			//Initialize all Errors
-			_PropertyValidations.Keys.ToList().ForEach( propertyName => CollectToPropertyErrors( propertyName ) );
+			_PropertyValidations
+				.Keys.ToList().ForEach( propertyName
+				=> CollectToPropertyErrors( propertyName ) );
 		}
 		#endregion
 
 		#region public methods
-		public IEnumerable? GetErrors( string propertyName )
-			=> _PropertyErrors.GetValueOrDefault( propertyName, new List<string>() );
+		public IEnumerable GetErrors( string? propertyName )
+			=> _PropertyErrors.GetValueOrDefault( propertyName ?? "" ) ?? new List<string>();
 		#endregion
 
 		#region private methods
@@ -97,21 +99,18 @@ namespace LogicLayer {
 				_PropertyErrors.Add( propertyName, new List<string>() );
 		}
 		private List<string>? GetValidationErrors( string propertyName )
-			=> _PropertyValidations.GetValueOrDefault( propertyName ) // get the validationAttributes
+			=> _PropertyValidations[propertyName] // get the validationAttributes
 				.Select( vAttr => ValidateProperty( propertyName, vAttr ) ) // validate property with 
 				.Where( err => string.IsNullOrEmpty( err ) is false ) // filter out null values
-			.ToList()
-			as List<string>;
+			.ToList() as List<string>;
 		private string? ValidateProperty( string propName, ValidationAttribute validAttribute )
 			=> validAttribute is CustomValidationAttribute
-			? validAttribute.GetValidationResult( GetPropertyValue( propName ), new ValidationContext( this ) { DisplayName = propName, MemberName = GetPropertyType( propName ).Name } )?.ErrorMessage
+			? validAttribute.GetValidationResult( GetPropertyValue( propName ), new ValidationContext( this ) { DisplayName = propName, MemberName = GetPropertyType( propName )?.Name ?? "" } )?.ErrorMessage
 			: validAttribute.IsValid( GetPropertyValue( propName ) ) ? null : validAttribute.ErrorMessage;
-		private object GetPropertyValue( string propName )
-			=> GetProperty( propName ).GetValue( this );
-		private Type GetPropertyType( string propName )
-			 => GetProperty( propName ).PropertyType;
-		private PropertyInfo GetProperty( string propName )
-			=> _VMType.GetProperty( propName );
+		private object? GetPropertyValue( string propName )
+			=> _VMType.GetProperty( propName )?.GetValue( this );
+		private Type? GetPropertyType( string propName )
+			 => _VMType.GetProperty( propName )?.PropertyType;
 		#endregion
 
 	}

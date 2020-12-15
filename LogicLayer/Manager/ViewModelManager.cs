@@ -9,7 +9,7 @@ namespace LogicLayer.Manager {
 	public static class ViewModelManager {
 
 		#region private fields
-		private static readonly IRepository DataService = ObjectManager.DataService;
+		private static readonly IRepository _DataService = ObjectManager.DataService;
 
 		private static DashboardViewModel? _Dashboard;
 		private static PlanViewModel? _Plan;
@@ -25,32 +25,34 @@ namespace LogicLayer.Manager {
 
 		#region public properties
 		public static DashboardViewModel Dashboard
-			=> _Dashboard ??= new DashboardViewModel( DataService );
+			=> _Dashboard ??= new DashboardViewModel( _DataService );
 		public static PlanViewModel Plan
-			=> _Plan ??= new PlanViewModel( DataService );
+			=> _Plan ??= new PlanViewModel( _DataService );
 		public static GoalOverviewViewModel Overview
-			=> _GoalOverview ??= new GoalOverviewViewModel( DataService );
+			=> _GoalOverview ??= new GoalOverviewViewModel( _DataService );
 		public static GanttDiagramViewModel Gantt
-			=> _GanttDiagram ??= new GanttDiagramViewModel( DataService );
+			=> _GanttDiagram ??= new GanttDiagramViewModel( _DataService );
 		public static StatisticsViewModel Statistics
-			=> _Statistics ??= new StatisticsViewModel( DataService );
+			=> _Statistics ??= new StatisticsViewModel( _DataService );
 		public static SettingsViewModel Settings
 			=> _Settings ??= new SettingsViewModel();
 		public static PomodoroViewModel Pomodoro
 			=> _Pomodoro ??= new PomodoroViewModel();
 		public static NewCategoryViewModel NewCategory
-			=> _NewCategory ??= new NewCategoryViewModel( DataService );
+			=> _NewCategory ??= new NewCategoryViewModel( _DataService );
 		public static NewGoalViewModel NewGoal
-			=> _NewGoal ??= new NewGoalViewModel( DataService );
+			=> _NewGoal ??= new NewGoalViewModel( _DataService );
 		public static NewDayTimeViewModel NewTime
-			=> _NewDayTime ??= new NewDayTimeViewModel( DataService );
+			=> _NewDayTime ??= new NewDayTimeViewModel( _DataService );
 		#endregion
 
 		#region public methods
-		public static ViewModelBase? GetViewModel( ViewModelEnum viewModel )
-			=> typeof( ViewModelManager )
-			.GetProperty( Enum.GetName( typeof( ViewModelEnum ), viewModel ) )?
-			.GetValue( null, null ) as ViewModelBase;
+		public static ViewModelBase? GetViewModel( ViewModelEnum viewModel ) {
+			var name = Enum.GetName( typeof( ViewModelEnum ), viewModel );
+			if( string.IsNullOrWhiteSpace( name ) )
+				throw new ArgumentException( $"{nameof( GetViewModel )} must get a valid {nameof( ViewModelEnum )}" );
+			return typeof( ViewModelManager ).GetProperty( name )?.GetValue( null, null ) as ViewModelBase;
+		}
 		public static bool SetViewModel<T>( ViewModelEnum viewModel, T passedObject ) {
 			GetViewModel( viewModel );
 			return false;

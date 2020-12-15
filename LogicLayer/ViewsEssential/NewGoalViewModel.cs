@@ -3,6 +3,7 @@ using LogicLayer.Commands;
 using LogicLayer.Manager;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -39,7 +40,7 @@ namespace LogicLayer.Views {
 			new RelayCommand(
 				parameter => {
 					var neu = new Goal(
-						new UserText( Title, Description, SelectedCategory!.UserText.Color ),
+						new UserText( Title!, Description, SelectedCategory!.UserText.Color ),
 						new DateSpan( StartDate, EndDate ),
 						State );
 					if( SelectedGoal is Goal goal )
@@ -48,7 +49,7 @@ namespace LogicLayer.Views {
 						SelectedCategory.Children.Add( neu );
 					_DataService.Insert( neu );
 					_DataService.Save();
-					AlertManager.ObjektErstellt( nameof( Goal ), Title );
+					AlertManager.ObjektErstellt( nameof( Goal ), Title! );
 				},
 				parameter => NoErrors );
 		#endregion
@@ -62,7 +63,8 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region private methods
-		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
+		[SuppressPropertyChangedWarnings]
+		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e )
 			=> (SaveGoalCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 

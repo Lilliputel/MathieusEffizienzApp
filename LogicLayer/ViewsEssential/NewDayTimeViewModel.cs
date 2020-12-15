@@ -2,6 +2,7 @@
 using LogicLayer.Commands;
 using LogicLayer.Manager;
 using ModelLayer.Classes;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -51,7 +52,8 @@ namespace LogicLayer.Views {
 		#region private methods
 		private Task AddToWeekPlan( DoubleTime newDT )
 			=> ObjectManager.WeekPlan.AddItemToDayAsync( newDT );
-		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e )
+		[SuppressPropertyChangedWarnings]
+		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e )
 			=> (SaveDayTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 

@@ -7,11 +7,11 @@ namespace EffizienzControls.Converters {
 
 	public class DebugBinding : MarkedupValueConverter<DebugBinding> {
 
-		public override object Convert( object value, Type targetType, object parameter, CultureInfo culture ) {
+		public override object? Convert( object? value, Type targetType, object parameter, CultureInfo culture ) {
 			Debugger.Break();
 			return value;
 		}
-		public override object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) {
+		public override object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture ) {
 			Debugger.Break();
 			return value;
 		}
