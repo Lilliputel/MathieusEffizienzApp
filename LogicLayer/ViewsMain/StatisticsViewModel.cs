@@ -1,43 +1,32 @@
-﻿using LogicLayer.ViewModels;
-using ModelLayer.Classes;
-using ModelLayer.Interfaces;
+﻿using DataLayer;
+using LogicLayer.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 
 namespace LogicLayer.Views {
 	public class StatisticsViewModel : ViewModelBase {
 
 		#region private fields
-		private TimeSpan maxTime;
+		private readonly IRepository _DataService;
 		#endregion
 
 		#region public properties
-		public TimeSpan MaximalWorkedTime {
-			get {
-				foreach( DateTime date in Dates )
-					foreach( Category? category in CategoryList ) {
-						TimeSpan maxCatTime = (category as IAccountableParent<Goal>).GetTotalTimeOnDate( date );
-						if( maxCatTime > maxTime )
-							maxTime = maxCatTime;
-					}
-				return maxTime;
-			}
-		}
+		public TimeSpan MaximalWorkedTime
+			=> TimeSpan.FromMilliseconds( (double)Dates.Max( d => _DataService.LoadAll().Max(
+				   cat => (decimal)cat.GetTotalTimeOnDate( d ).TotalMilliseconds ) ) );
 		public ObservableCollection<DateTime> Dates
-			=> new ObservableCollection<DateTime>( CategoryList.SelectMany( cat => cat.GetTotalWorkedDates() ) );
-		public ICollection<Category> CategoryList { get; }
+			=> new ObservableCollection<DateTime>( _DataService.LoadAll().SelectMany( cat => cat.GetTotalWorkedDates() ).Distinct() );
+		public ICollectionView CategoryList { get; }
 		#endregion
 
 		#region constructors
-		public StatisticsViewModel( ICollection<Category> categoryList ) {
-			CategoryList = categoryList;
+		public StatisticsViewModel( IRepository dataService ) {
+			_DataService = dataService;
+			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
-		#endregion
-
-		#region methods
-
 		#endregion
 
 	}

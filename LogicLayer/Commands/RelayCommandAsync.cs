@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace LogicLayer.Commands {
-	public class RelayCommandAsync : ICommand {
+	public class RelayCommandAsync : IRelayCommand {
 
 		#region private fields
 		private bool _IsExecuting;
-		private readonly Func<object, Task> _Execute;
-		private readonly Predicate<object>? _CanExecute;
+		private readonly Func<object?, Task> _Execute;
+		private readonly Predicate<object?>? _CanExecute;
 		private readonly Action<Exception>? _OnException;
 		#endregion
 
@@ -24,12 +23,12 @@ namespace LogicLayer.Commands {
 
 		#region public events
 		public event EventHandler? CanExecuteChanged;
-		public void RaiseCanExecuteChanged( object sender, EventArgs? e = null )
+		public void RaiseCanExecuteChanged( object? sender, EventArgs? e = null )
 			=> CanExecuteChanged?.Invoke( sender, e ?? EventArgs.Empty );
 		#endregion
 
 		#region constructor
-		public RelayCommandAsync( Func<object, Task> execute, Predicate<object>? canExecute = null, Action<Exception>? onException = null ) {
+		public RelayCommandAsync( Func<object?, Task> execute, Predicate<object?>? canExecute = null, Action<Exception>? onException = null ) {
 			if( execute is null )
 				throw new NullReferenceException( "Execute has to be set!" );
 			_Execute = execute;
@@ -39,11 +38,11 @@ namespace LogicLayer.Commands {
 		#endregion
 
 		#region public methods
-		public async Task ExecuteAsync( object parameter )
+		public async Task ExecuteAsync( object? parameter )
 			=> await _Execute( parameter );
-		public bool CanExecute( object parameter )
+		public bool CanExecute( object? parameter )
 			=> IsExecuting is false && (_CanExecute is null || _CanExecute( parameter ));
-		public async void Execute( object parameter ) {
+		public async void Execute( object? parameter ) {
 			IsExecuting = true;
 			try {
 				await ExecuteAsync( parameter );

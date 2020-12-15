@@ -59,11 +59,10 @@ namespace FrontLayer.WPF {
 		}
 		private void ObjectSettingChanged( ObjectSettingsEnum setting, object value ) {
 			if( setting == ObjectSettingsEnum.Culture )
-				SetDefaultCulture( (CultureInfo) value );
+				SetDefaultCulture( (CultureInfo)value );
 		}
 		private void ShowMessageBoxOnAlert( string message, string buttonText, string? title, AlertSymbolEnum? symbol ) {
-			MessageBoxImage image = symbol switch
-			{
+			MessageBoxImage image = symbol switch {
 				AlertSymbolEnum.Information => MessageBoxImage.Information,
 				AlertSymbolEnum.Message => MessageBoxImage.Information,
 				AlertSymbolEnum.Check => MessageBoxImage.Information,

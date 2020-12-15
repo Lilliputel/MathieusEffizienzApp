@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace DataLayer {
 
-	public class XMLCollectionHandler<T> : IDataService<ObservableCollection<T>, T>, IErrorHandler {
+	public class XMLCollectionHandler<T> : IRepository<ObservableCollection<T>, T>, IErrorHandler {
 
 		#region private fields
 

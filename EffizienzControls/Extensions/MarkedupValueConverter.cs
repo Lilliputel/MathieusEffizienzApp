@@ -22,8 +22,8 @@ namespace EffizienzControls.Extensions {
 
 		#region converter-Methods
 
-		public abstract object Convert( object value, Type targetType, object parameter, CultureInfo culture );
-		public abstract object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture );
+		public abstract object? Convert( object? value, Type targetType, object parameter, CultureInfo culture );
+		public abstract object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture );
 
 		#endregion
 

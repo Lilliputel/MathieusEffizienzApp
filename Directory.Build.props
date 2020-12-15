@@ -1,0 +1,31 @@
+<Project>
+	
+	<!-- Common Properties -->
+	<PropertyGroup>
+		<!--<AssemblyName>Effizienz-Desktop</AssemblyName>-->
+		<LangVersion>9.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<Platforms>x64;x86</Platforms>
+		<Platform Condition="'$(Platform)' == ''">x64</Platform>
+		<Configuration Condition="'$(Configuraion)' == ''">Debug</Configuration>
+	</PropertyGroup>
+	
+	<!-- Output -->
+	<PropertyGroup>
+		<OutputPath>S:\Builds\Effizienz\</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+	</PropertyGroup>
+	
+	<!-- Tracing and Debug -->
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>DEBUG;TRACE</DefineConstants>
+		<!-- Repository-Type -->
+		<DefineConstants>SQLite</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DefineConstants>TRACE</DefineConstants>
+		<!-- Repository-Type -->
+		<DefineConstants>SQLite</DefineConstants>
+	</PropertyGroup>
+	
+</Project>	

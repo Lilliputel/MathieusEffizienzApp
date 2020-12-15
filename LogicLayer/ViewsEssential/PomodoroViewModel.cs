@@ -1,5 +1,6 @@
 ﻿using LogicLayer.Commands;
 using ModelLayer.Classes;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -58,7 +59,8 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region private methods
-		private void OnErrorsChanged( object sender, DataErrorsChangedEventArgs e ) {
+		[SuppressPropertyChangedWarnings]
+		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e ) {
 			(StartStopCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 			(DelayCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 			(SaveTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );

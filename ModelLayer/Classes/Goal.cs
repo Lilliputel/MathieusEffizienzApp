@@ -34,12 +34,12 @@ namespace ModelLayer.Classes {
 		[XmlArray( nameof( Children ) )] 
 #elif SQLite
 		[ForeignKey( nameof( ParentCategory ) )]
-		public int ParentCategoryId { get; set; }
-		public Category ParentCategory { get; set; }
+		public int? ParentCategoryId { get; set; }
+		public Category? ParentCategory { get; set; }
 
 		[ForeignKey( nameof( ParentGoal ) )]
-		public int ParentGoalId { get; set; }
-		public Goal ParentGoal { get; set; }
+		public int? ParentGoalId { get; set; }
+		public Goal? ParentGoal { get; set; }
 #endif
 		public ObservableCollection<Goal> Children { get; }
 			= new ObservableCollection<Goal>();
@@ -89,6 +89,7 @@ namespace ModelLayer.Classes {
 			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke( Plan );
 			State = state;
 		}
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		public Goal() {
 			Children.CollectionChanged += ( sender, e ) => {
 				if( e.Action == NotifyCollectionChangedAction.Add )
@@ -97,6 +98,7 @@ namespace ModelLayer.Classes {
 							   goal.PlanChanged += Child_PlanChanged );
 			};
 		}
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		~Goal() {
 			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke( Plan );
 			new List<Goal>( Children ).ForEach( goal => goal.PlanChanged -= Child_PlanChanged );
@@ -106,16 +108,16 @@ namespace ModelLayer.Classes {
 		#region public methods
 		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
 			TimeSpan placeholder = TimeSpan.Zero;
-			new List<Goal>( Children ).ForEach( Child =>
-				   placeholder += (Child).GetTotalTimeOnDate( date )
+			new List<Goal>( Children ).ForEach( child =>
+				   placeholder += child.GetTotalTimeOnDate( date )
 				);
 			placeholder += (this as IAccountable).GetTimeOnDate( date );
 			return placeholder;
 		}
 		public ICollection<DateTime> GetTotalWorkedDates() {
 			var placeholder = new List<DateTime>();
-			new List<Goal>( Children ).ForEach( Child =>
-				   placeholder.AddUniqueRange( Child.GetTotalWorkedDates() )
+			new List<Goal>( Children ).ForEach( child =>
+				   placeholder.AddUniqueRange( child.GetTotalWorkedDates() )
 				);
 			new List<WorkItem>( WorkHours ).ForEach( workItem =>
 				   placeholder.AddUnique( workItem.Date ) );

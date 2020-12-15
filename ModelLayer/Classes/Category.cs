@@ -23,7 +23,7 @@ namespace ModelLayer.Classes {
 
 		[ForeignKey( nameof( UserText ) )]
 		[Required( AllowEmptyStrings = false )]
-		public string UserTextId { get; set; } = "";
+		public string UserTextId { get; set; }
 #endif
 		public UserText UserText { get; set; }
 #if XML
@@ -61,26 +61,28 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region constructor
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		public Category( UserText userText, bool archived = false ) {
 			UserText = userText;
 			Archived = archived;
 		}
 		public Category() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		#endregion
 
 		#region public methods
 		public TimeSpan GetTotalTimeOnDate( DateTime date ) {
 			TimeSpan placeholder = TimeSpan.Zero;
-			new List<Goal>( Children ).ForEach( Child =>
-				   placeholder += (Child).GetTotalTimeOnDate( date )
+			new List<Goal>( Children ).ForEach( child =>
+				   placeholder += child.GetTotalTimeOnDate( date )
 				);
 			placeholder += (this as IAccountable).GetTimeOnDate( date );
 			return placeholder;
 		}
 		public ICollection<DateTime> GetTotalWorkedDates() {
 			var placeholder = new List<DateTime>();
-			new List<Goal>( Children ).ForEach( Child =>
-				   placeholder.AddUniqueRange( Child.GetTotalWorkedDates() )
+			new List<Goal>( Children ).ForEach( child =>
+				   placeholder.AddUniqueRange( child.GetTotalWorkedDates() )
 				);
 			new List<WorkItem>( WorkHours ).ForEach( workItem =>
 				   placeholder.AddUnique( workItem.Date ) );

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace DataLayer {
-	public interface IDataService<T, U> where T : ICollection<U> {
+	public interface IRepository<T, U> where T : ICollection<U> {
 
 		#region methods
 		T LoadData();
