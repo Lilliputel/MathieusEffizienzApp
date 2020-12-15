@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Linq;
 
 namespace DataLayer {
-	public class MockDataService : IRepository {
+	public class MockRepository : IRepository {
 
 		#region IRepository
 		public ObservableCollection<Category> LoadAll()
 			=> GenerateData();
 		public T GetById<T>( int id ) where T : class {
-			Debug.WriteLine( $"Tried to load item with id {nameof( id )}[{id}] in the MockDataService" );
+			Debug.WriteLine( $"Tried to load item with id {nameof( id )}[{id}] in the MockRepository" );
 #pragma warning disable CS8603 // Possible null reference return.
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
 			return (T)(GenerateData().FirstOrDefault( x => x.Id == id ) as object);
@@ -20,7 +20,7 @@ namespace DataLayer {
 #pragma warning restore CS8603 // Possible null reference return.
 		}
 		public bool Update<T>( T item ) where T : class {
-			Debug.WriteLine( $"Tried to update {nameof( item )}[{item}] in the MockDataService" );
+			Debug.WriteLine( $"Tried to update {nameof( item )}[{item}] in the MockRepository" );
 			return false;
 		}
 		#endregion
@@ -61,16 +61,16 @@ namespace DataLayer {
 		public bool Insert<T>( T item ) where T : class
 			=> throw new NotImplementedException();
 		public bool Delete<T>( int id ) where T : class {
-			Debug.WriteLine( $"Tried to delete {nameof( id )}[{id}] in the MockDataService" );
+			Debug.WriteLine( $"Tried to delete {nameof( id )}[{id}] in the MockRepository" );
 			return false;
 		}
 		public bool Save() {
-			Debug.WriteLine( $"Tried to save in the MockDataService" );
+			Debug.WriteLine( $"Tried to save in the MockRepository" );
 			return false;
 		}
 
 		public bool Delete<T>( T item ) where T : class {
-			Debug.WriteLine( $"Tried to delete {nameof( item )}[{item}] in the MockDataService" );
+			Debug.WriteLine( $"Tried to delete {nameof( item )}[{item}] in the MockRepository" );
 			return false;
 		}
 		#endregion

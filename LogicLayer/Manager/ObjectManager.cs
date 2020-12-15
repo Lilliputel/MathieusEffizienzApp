@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace LogicLayer.Manager {
 	public static class ObjectManager {
 
-
 		#region public properties
 		public static IRepository DataService { get; }
 		public static ObservableCollection<Category> CategoryList { get; private set; }
@@ -21,12 +20,11 @@ namespace LogicLayer.Manager {
 		static ObjectManager() {
 #if XML
 			string _FilePath = @"S:\TESTING\Effizienz\";
-			DataService = new XMLCollectionHandler<Category>(nameof(CategoryList), _FilePath);
-			( DataService as XMLCollectionHandler<Category> )!.ErrorOccured += ErrorOccured;  
+			DataService = new XMLRepository(nameof(CategoryList), _FilePath);
 #elif SQLite
 			DataService = new SQLiteRepository();
 #else
-			DataService = new MockDataService();
+			DataService = new MockRepository();
 #endif
 			CategoryList.CollectionChanged += SubscribeWeekPlans;
 		}
@@ -61,5 +59,6 @@ namespace LogicLayer.Manager {
 					Task.Run( () => WeekPlan.AddItemToDayAsync( time ) );
 		}
 		#endregion
+
 	}
 }
