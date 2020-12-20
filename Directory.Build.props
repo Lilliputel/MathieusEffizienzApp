@@ -1,5 +1,7 @@
 <Project>
 	
+	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+	
 	<!-- Common Properties -->
 	<PropertyGroup>
 		<!--<AssemblyName>Effizienz-Desktop</AssemblyName>-->
@@ -11,10 +13,14 @@
 	</PropertyGroup>
 	
 	<!-- Output -->
+	<PropertyGroup Condition="'$(OutputPath)'==''">
+		<OutputPath>S:\Builds\</OutputPath>
+	</PropertyGroup>
 	<PropertyGroup>
-		<OutputPath>S:\Builds\Effizienz\</OutputPath>
+		<OutputPath>$(OutputPath)Effizienz\</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 	</PropertyGroup>
+	
 	
 	<!-- Tracing and Debug -->
 	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
