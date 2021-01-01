@@ -1,11 +1,7 @@
 ﻿<UserControl x:Class="FrontLayer.WPF.Views.DashboardView"
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 
-			 xmlns:components="clr-namespace:FrontLayer.WPF.Components"
-			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 DataContext="{x:Static manager:ViewModelManager.Dashboard}">
+			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer">
 	
 	<!-- TabControl mit den Kategorien als Tab -->
 	<TabControl Style="{StaticResource CategoryTabs}" ItemsSource="{Binding CategoryList, UpdateSourceTrigger=PropertyChanged}">

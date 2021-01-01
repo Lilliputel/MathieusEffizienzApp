@@ -1,5 +1,5 @@
-﻿using LogicLayer.Commands;
-using LogicLayer.ViewModels;
+﻿using LogicLayer.BaseViewModels;
+using LogicLayer.Commands;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {

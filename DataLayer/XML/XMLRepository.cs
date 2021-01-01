@@ -7,6 +7,8 @@ using System.Xml.Serialization;
 
 namespace DataLayer {
 
+#warning heavy rework needed
+
 	public class XMLRepository : IRepository, IErrorHandler {
 
 		#region private fields
@@ -50,8 +52,12 @@ namespace DataLayer {
 		public ObservableCollection<Category> LoadAll()
 			=> _Categories;
 		public bool Insert<T>( T item ) where T : class {
-			_Categories.Add( item as Category );
-			return _Categories.Contains( item as Category );
+			if( item is Category cat ) {
+				_Categories.Add( cat );
+				return _Categories.Contains( cat );
+			}
+			else
+				return false;
 		}
 		public T GetById<T>( int id ) where T : class
 			=> (T)(_Categories.FirstOrDefault( c => c.Id == id ) as object);

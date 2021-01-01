@@ -8,32 +8,32 @@
 	<StackPanel Orientation="Horizontal">
 
 		<Button x:Name="Button_Neu_Kategorie"
-				Command="{Binding CommandUpdateView}"
-				CommandParameter="ENewCategory">
+				Command="{Binding CommandUpdateEssView}"
+				CommandParameter="NewCategory">
 			<Button.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconKategorie}" />
 			</Button.Content>
 		</Button>
 		<Button x:Name="Button_Neu_Aufgabe"
-				Command="{Binding CommandUpdateView}"
-				CommandParameter="ENewGoal">
+				Command="{Binding CommandUpdateEssView}"
+				CommandParameter="NewGoal">
 			<Button.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconAufgabe2}" />
 			</Button.Content>
 		</Button>
 		<Button x:Name="Button_Pomodoro"
-				Command="{Binding CommandUpdateView}"
-				CommandParameter="EPomodoro">
+				Command="{Binding CommandUpdateEssView}"
+				CommandParameter="Pomodoro">
 			<Button.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconProjekt1}" />
 			</Button.Content>
 		</Button>
 		<Button x:Name="Button_DayTime"
-				Command="{Binding CommandUpdateView}"
-				CommandParameter="ENewTime">
+				Command="{Binding CommandUpdateEssView}"
+				CommandParameter="NewDayTime">
 			<Button.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconAufgabe3}" />

@@ -1,5 +1,5 @@
 ﻿using DataLayer;
-using LogicLayer.ViewModels;
+using LogicLayer.BaseViewModels;
 using System.ComponentModel;
 using System.Windows.Data;
 

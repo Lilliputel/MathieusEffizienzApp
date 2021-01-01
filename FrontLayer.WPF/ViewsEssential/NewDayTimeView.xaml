@@ -4,9 +4,7 @@
 			 xmlns:extensions="clr-namespace:EffizienzControls.Extensions;assembly=EffizienzControls"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
-			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 DataContext="{x:Static manager:ViewModelManager.NewTime}">
+			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls">
 
 	<StackPanel>
 		<!-- ViewTitel -->

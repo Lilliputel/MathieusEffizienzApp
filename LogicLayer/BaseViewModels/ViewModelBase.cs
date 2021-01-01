@@ -1,5 +1,5 @@
 ﻿using ModelLayer.Utility;
 
-namespace LogicLayer.ViewModels {
+namespace LogicLayer.BaseViewModels {
 	public class ViewModelBase : ObservableObject { }
 }

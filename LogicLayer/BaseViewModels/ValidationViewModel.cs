@@ -1,5 +1,4 @@
-﻿using LogicLayer.ViewModels;
-using ModelLayer.Extensions;
+﻿using ModelLayer.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace LogicLayer {
+namespace LogicLayer.BaseViewModels {
 
 	public class ValidationViewModel : ViewModelBase, INotifyDataErrorInfo {
 

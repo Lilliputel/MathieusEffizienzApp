@@ -1,6 +1,7 @@
 ﻿using DataLayer;
+using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
-using LogicLayer.Manager;
+using LogicLayer.Services;
 using ModelLayer.Classes;
 using PropertyChanged;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace LogicLayer.Views {
 								Description,
 								Color.FromName( SelectedColorName! ) ) ) );
 					_DataService.Save();
-					AlertManager.ObjektErstellt( nameof( Category ), Title! );
+					NotificationService.ObjektErstellt( nameof( Category ), Title! );
 				},
 				parameter => NoErrors );
 		#endregion

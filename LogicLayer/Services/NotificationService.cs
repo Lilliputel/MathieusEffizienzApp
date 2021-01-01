@@ -1,8 +1,8 @@
 ﻿using LogicLayer.Extensions;
 
-namespace LogicLayer.Manager {
+namespace LogicLayer.Services {
 
-	public static class AlertManager {
+	public static class NotificationService {
 
 		#region public events
 		public static event AlertEventHanlder? AlertOccured;

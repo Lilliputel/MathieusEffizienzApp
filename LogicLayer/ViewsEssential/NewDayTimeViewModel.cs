@@ -1,12 +1,12 @@
 ﻿using DataLayer;
+using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
-using LogicLayer.Manager;
+using LogicLayer.Services;
 using ModelLayer.Classes;
 using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -30,13 +30,14 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public commands
+#warning this does not update the PlanView
 		public ICommand SaveDayTimeCommand => _SaveDayTimeCommand ??=
 			 new RelayCommand(
 				 parameter => {
 					 var newDT = new DoubleTime( (DayOfWeek)DayOfWeek!, StartTime, EndTime, SelectedCategory! );
-					 AddToWeekPlan( newDT );
 					 _DataService.Insert( newDT );
 					 _DataService.Save();
+					 NotificationService.ObjektErstellt( nameof( Category ), newDT.ToString() );
 				 },
 				 parameter => NoErrors );
 		#endregion
@@ -50,8 +51,6 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region private methods
-		private Task AddToWeekPlan( DoubleTime newDT )
-			=> ObjectManager.WeekPlan.AddItemToDayAsync( newDT );
 		[SuppressPropertyChangedWarnings]
 		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e )
 			=> (SaveDayTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );

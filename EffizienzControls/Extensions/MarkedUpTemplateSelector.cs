@@ -4,10 +4,10 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 
 namespace EffizienzControls.Extensions {
-#pragma warning disable IDE1006 // Naming Styles
 	public abstract class MarkedUpTemplateSelector : MarkupExtension {
 
 		#region private selector class
+#pragma warning disable IDE1006 // Naming Styles
 		private sealed class _PrivateSelector : DataTemplateSelector {
 			private readonly Func<object, DependencyObject, DataTemplate?> _Func;
 			public _PrivateSelector( Func<object, DependencyObject, DataTemplate?> selectTemplate )
@@ -15,6 +15,7 @@ namespace EffizienzControls.Extensions {
 			public override DataTemplate? SelectTemplate( object item, DependencyObject container )
 				=> _Func( item, container );
 		}
+#pragma warning restore IDE1006 // Naming Styles
 		#endregion
 
 		#region markupextension-Methods
@@ -23,8 +24,7 @@ namespace EffizienzControls.Extensions {
 		#endregion
 
 		#region SelectorMethod
-		public abstract DataTemplate? SelectTemplate( object item, DependencyObject container );
+		public abstract DataTemplate? SelectTemplate( object? item, DependencyObject container );
 		#endregion
-#pragma warning restore IDE1006 // Naming Styles
 	}
 }

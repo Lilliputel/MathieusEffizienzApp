@@ -1,4 +1,5 @@
-﻿using LogicLayer.Commands;
+﻿using LogicLayer.BaseViewModels;
+using LogicLayer.Commands;
 using ModelLayer.Classes;
 using PropertyChanged;
 using System;

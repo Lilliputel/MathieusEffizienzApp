@@ -1,4 +1,6 @@
-﻿using LogicLayer.Commands;
+﻿using LogicLayer.BaseViewModels;
+using LogicLayer.Commands;
+using LogicLayer.Stores;
 using ModelLayer.Enums;
 using System;
 using System.Diagnostics;
@@ -8,44 +10,54 @@ namespace LogicLayer.ViewModels {
 	public class ViewModelMain : ViewModelBase {
 
 		#region private fields
-		private ICommand? _commandUpdateView;
-		private ICommand? _commandCreateObjects;
+		private readonly ViewModelStore _ViewModels;
+		private ICommand? _UpdateMainView;
+		private ICommand? _UpdateEssView;
+		private ICommand? _CreateObjects;
 		#endregion
 
 		#region public properties
-		public ViewModelEnum? SelectedVMMain { get; private set; }
-		public ViewModelEnum? SelectedVMEssential { get; private set; }
-		public ICommand CommandUpdateView => _commandUpdateView ??=
+		public ViewModelBase? SelectedVMMain { get; private set; }
+		public ViewModelBase? SelectedVMEssential { get; private set; }
+		public ICommand CommandUpdateMainView => _UpdateMainView ??=
 			new RelayCommand( parameter => {
-				if( parameter is string pString ) {
-					ViewModelEnum viewModel = Enum.Parse<ViewModelEnum>( pString.Substring( 1 ) );
-					if( pString[0] == 'M' )
-						UpdateSelectedMainViewModel( viewModel, null );
-					else if( pString[0] == 'E' )
-						UpdateSelectedEssentialViewModel( viewModel, null );
-					else
-						Debug.WriteLine( $"Could not Parse the string {pString} to a ViewModel!" );
+				try {
+					UpdateSelectedMainViewModel( Enum.Parse<ViewModelEnum>( parameter as string ?? "" ), null );
+				}
+				catch( ArgumentException ) {
+					Debug.WriteLine( $"Could not Parse the string {parameter} to a ViewModel!" );
 				}
 			} );
-		public ICommand CommandCreateObjects => _commandCreateObjects ??=
-			new RelayCommand( parameter => {
-				Debug.WriteLine( "Tried to Generate Objects in the MainViewModel!" );
-			} );
+		public ICommand CommandUpdateEssView => _UpdateEssView ??=
+			 new RelayCommand( parameter => {
+				 try {
+					 UpdateSelectedEssentialViewModel( Enum.Parse<ViewModelEnum>( parameter as string ?? "" ), null );
+				 }
+				 catch( ArgumentException ) {
+					 Debug.WriteLine( $"Could not Parse the string {parameter} to a ViewModel!" );
+				 }
+			 } );
+		public ICommand CommandCreateObjects => _CreateObjects ??=
+			new RelayCommand( parameter => Debug.WriteLine( "Tried to Generate Objects in the MainViewModel!" ) );
 		#endregion
 
 		#region constructor
-		public ViewModelMain() { }
+		public ViewModelMain( ViewModelStore viewModels )
+			=> _ViewModels = viewModels;
 		#endregion
 
 		#region public methods
-		private void UpdateSelectedMainViewModel( ViewModelEnum newViewModel, object? passedObject ) {
-			Debug.WriteLine( $"set the main VM to {newViewModel}" );
-			SelectedVMMain = newViewModel;
+		private void UpdateSelectedMainViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
+			Debug.WriteLine( $"set the main VM to {newVMType}" );
+			passedObject ??= null;
+			SelectedVMMain = _ViewModels.GetViewModel( newVMType );
 		}
-		private void UpdateSelectedEssentialViewModel( ViewModelEnum newViewModel, object? passedObject ) {
-			Debug.WriteLine( $"set the essential VM to {newViewModel}" );
-			SelectedVMEssential = newViewModel;
+		private void UpdateSelectedEssentialViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
+			Debug.WriteLine( $"set the essential VM to {newVMType}" );
+			passedObject ??= null;
+			SelectedVMEssential = _ViewModels.GetViewModel( newVMType );
 		}
 		#endregion
+
 	}
 }

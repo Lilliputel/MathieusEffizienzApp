@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace EffizienzControls.TemplateSelectors {
+namespace FrontLayer.WPF.TemplateSelectors {
 
 #pragma warning disable IDE1006 // Naming Styles
 	public static class TemplateGenerator {

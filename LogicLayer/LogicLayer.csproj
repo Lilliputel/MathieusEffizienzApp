@@ -12,7 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="PropertyChanged.Fody"/>
+	  <PackageReference Include="PropertyChanged.Fody" />
 	  <PackageReference Include="System.ComponentModel.Annotations" />
 	</ItemGroup>
 	

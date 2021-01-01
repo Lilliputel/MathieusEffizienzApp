@@ -14,8 +14,7 @@
 
 				<ResourceDictionary Source="/Dictionaries/DictionaryBase.xaml" />
 				<ResourceDictionary Source="/Dictionaries/DictionaryIcons.xaml" />
-				<ResourceDictionary Source="/Dictionaries/DictionaryDataTemplates.xaml" />
-				
+
 				<!--Necessary because i referenced the Keys in those Styles-->
 				<ResourceDictionary Source="/Dictionaries/necessary.xaml" />
 

@@ -3,15 +3,15 @@
 
 		Dashboard,
 		Plan,
-		Overview,
-		Gantt,
+		GoalOverview,
+		GanttDiagram,
 		Statistics,
 		Settings,
 
 		Pomodoro,
 		NewCategory,
 		NewGoal,
-		NewTime
+		NewDayTime,
 
 	}
 }

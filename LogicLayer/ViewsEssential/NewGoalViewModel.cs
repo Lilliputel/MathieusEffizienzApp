@@ -1,6 +1,7 @@
 ﻿using DataLayer;
+using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
-using LogicLayer.Manager;
+using LogicLayer.Services;
 using ModelLayer.Classes;
 using ModelLayer.Enums;
 using PropertyChanged;
@@ -49,7 +50,7 @@ namespace LogicLayer.Views {
 						SelectedCategory.Children.Add( neu );
 					_DataService.Insert( neu );
 					_DataService.Save();
-					AlertManager.ObjektErstellt( nameof( Goal ), Title! );
+					NotificationService.ObjektErstellt( nameof( Goal ), Title! );
 				},
 				parameter => NoErrors );
 		#endregion

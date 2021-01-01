@@ -1,15 +1,19 @@
-﻿using LogicLayer.Commands;
+﻿using LogicLayer.BaseViewModels;
+using LogicLayer.Commands;
 using LogicLayer.Extensions;
-using LogicLayer.Manager;
-using LogicLayer.ViewModels;
+using LogicLayer.Stores;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
+
+#warning refactoring nötig?
 	public class SettingsViewModel : ViewModelBase {
 
 		#region private fields
+		private readonly SettingsStore _SettingsStore;
+		private readonly ViewModelStore _ViewModels;
 		private ICommand? _CommandChangeTheme;
 		private ICommand? _CommandChangeCountDirection;
 		#endregion
@@ -17,10 +21,10 @@ namespace LogicLayer.Views {
 		#region public properties
 		public string ThemeButton { get; private set; }
 		public CultureInfo SelectedCulture {
-			get => SettingsManager.CurrentCulture;
+			get => _SettingsStore.CurrentCulture;
 			set {
-				if( value != SettingsManager.CurrentCulture )
-					SettingsManager.SetCulture( value );
+				if( value != _SettingsStore.CurrentCulture )
+					_SettingsStore.SetCulture( value );
 			}
 		}
 		public CultureInfo[] Cultures { get; private set; }
@@ -28,21 +32,19 @@ namespace LogicLayer.Views {
 
 		#region public commands
 		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
-			new RelayCommand( parameter => {
-				SettingsManager.SwitchTheme();
-			} );
+			new RelayCommand( parameter => _SettingsStore.SwitchTheme() );
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
-			new RelayCommand( parameter => {
-				ViewModelManager.Pomodoro.Clock.UpdateCountDirection();
-			} );
+			new RelayCommand( parameter => _ViewModels.Pomodoro.Clock.UpdateCountDirection() );
 		#endregion
 
 		#region constructor
-		public SettingsViewModel() {
-			SettingsManager.BoolSettingChanged += UpdateBoolSettings;
-			SettingsManager.ObjectSettingChanged += UpdateObjectSettings;
+		public SettingsViewModel( ViewModelStore viewModelStore, SettingsStore settingsStore ) {
+			_ViewModels = viewModelStore;
+			_SettingsStore = settingsStore;
+			_SettingsStore.BoolSettingChanged += UpdateBoolSettings;
+			_SettingsStore.ObjectSettingChanged += UpdateObjectSettings;
 
-			ThemeButton = SettingsManager.DarkMode ? "Light!" : "Dark!";
+			ThemeButton = _SettingsStore.DarkMode ? "Light!" : "Dark!";
 			Cultures = CultureInfo.GetCultures( CultureTypes.SpecificCultures );
 		}
 		#endregion
@@ -57,5 +59,6 @@ namespace LogicLayer.Views {
 				Debug.WriteLine( $"Updated the Culture with {value}" );
 		}
 		#endregion
+
 	}
 }

@@ -1,4 +1,4 @@
-﻿using LogicLayer.ViewModels;
+﻿using LogicLayer.BaseViewModels;
 
 namespace LogicLayer.Extensions {
 

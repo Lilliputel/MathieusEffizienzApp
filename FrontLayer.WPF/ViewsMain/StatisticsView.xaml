@@ -5,8 +5,6 @@
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			 xmlns:manager="clr-namespace:LogicLayer.Manager;assembly=LogicLayer"
-			 DataContext="{x:Static manager:ViewModelManager.Statistics}"
 			 x:Name="ControlRoot">
 
 	<ItemsControl ItemsSource="{Binding Dates}">
