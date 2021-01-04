@@ -18,17 +18,11 @@ namespace LogicLayer.Stores {
 
 		#region public methods
 		public void ChangeDakrMode( bool? isDarkMode = null ) {
-			if( isDarkMode is bool isDarkModeNew )
-				DarkMode = isDarkModeNew;
-			else
-				DarkMode = !DarkMode;
+			DarkMode = isDarkMode is bool isDarkModeNew ? isDarkModeNew : !DarkMode;
 			DarkModeChanged?.Invoke( DarkMode );
 		}
 		public void ChangeCountDirection( bool? countsUp = null ) {
-			if( countsUp is bool up )
-				CountdirectionUp = up;
-			else
-				CountdirectionUp = !CountdirectionUp;
+			CountdirectionUp = countsUp is bool up ? up : !CountdirectionUp;
 			CountDirectionChanged?.Invoke( CountdirectionUp );
 		}
 		public void SetCultureInfo( CultureInfo culture ) {
