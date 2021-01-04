@@ -7,8 +7,6 @@ using System.Xml.Serialization;
 
 namespace DataLayer {
 
-#warning heavy rework needed
-
 	public class XMLRepository : IRepository, IErrorHandler {
 
 		#region private fields

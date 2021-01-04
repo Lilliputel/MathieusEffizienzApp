@@ -13,12 +13,12 @@ namespace FrontLayer.WPF {
 	public partial class App : Application {
 
 		#region private fields
-		private static string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
-		private Uri _ThemeDarkUri = new Uri( _ThemeDirectory + "ThemeDark.xaml", UriKind.RelativeOrAbsolute );
-		private Uri _ThemeLightUri = new Uri( _ThemeDirectory + "ThemeLight.xaml", UriKind.RelativeOrAbsolute );
 		private readonly IRepository _DataService;
 		private readonly SettingsStore _Settings;
 		private readonly ViewModelStore _ViewModels;
+		private const string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
+		private const string _ThemeDark = "ThemeDark.xaml";
+		private const string _ThemeLight = "ThemeLight.xaml";
 		#endregion
 
 		#region constructor
@@ -30,27 +30,25 @@ namespace FrontLayer.WPF {
 #else
 			_DataService = new MockRepository();
 #endif
-			_Settings = new SettingsStore();
+			_Settings = new SettingsStore {
+				DarkModeChanged = value => SetDarkMode( value ),
+				CountDirectionChanged = value => _ViewModels?.Pomodoro.Clock.UpdateCountDirection(),
+				CultureInfoChanged = value => SetDefaultCulture( value )
+			};
 			_ViewModels = new ViewModelStore( _DataService, _Settings );
 		}
 		#endregion
 
 		#region OnStartup
 		protected override void OnStartup( StartupEventArgs e ) {
-
-#warning maybe the way with the eventhandler is a little sloppy
-
 			// Add an Eventhandler to Display MessageBoxes on Alerts
 			NotificationService.AlertOccured += ShowMessageBoxOnAlert;
-			// Add all the EventHandlers to handle SettingChanges
-			_Settings.BoolSettingChanged += BoolSettingChanged;
-			_Settings.ObjectSettingChanged += ObjectSettingChanged;
-			_Settings.SetCulture( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
-			_Settings.SwitchTheme( Settings.Default.DarkMode );
+
+			_Settings.SetCultureInfo( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
+			_Settings.ChangeDakrMode( Settings.Default.DarkMode );
 			_Settings.ChangeCountDirection( Settings.Default.CountsUp );
 
 			base.OnStartup( e );
-
 			new MainWindow() { DataContext = new ViewModelMain( _ViewModels ) }.Show();
 		}
 		#endregion
@@ -59,22 +57,11 @@ namespace FrontLayer.WPF {
 		protected override void OnExit( ExitEventArgs e ) {
 			Settings.Default.Save();
 
-			_Settings.BoolSettingChanged -= BoolSettingChanged;
-			_Settings.ObjectSettingChanged -= ObjectSettingChanged;
-
 			base.OnExit( e );
 		}
 		#endregion
 
 		#region private eventhandler
-		private void BoolSettingChanged( BoolSettingsEnum setting, bool value ) {
-			if( setting == BoolSettingsEnum.DarkMode )
-				SetDarkMode( value );
-		}
-		private void ObjectSettingChanged( ObjectSettingsEnum setting, object value ) {
-			if( setting == ObjectSettingsEnum.Culture )
-				SetDefaultCulture( (CultureInfo)value );
-		}
 		private void ShowMessageBoxOnAlert( string message, string buttonText, string? title, AlertSymbolEnum? symbol ) {
 			MessageBoxImage image = symbol switch {
 				AlertSymbolEnum.Information => MessageBoxImage.Information,
@@ -96,7 +83,7 @@ namespace FrontLayer.WPF {
 			Resources.MergedDictionaries[0].Clear();
 			Resources.MergedDictionaries[0].MergedDictionaries.Add(
 				new ResourceDictionary() {
-					Source = value ? _ThemeDarkUri : _ThemeLightUri
+					Source = new Uri( _ThemeDirectory + (value ? _ThemeDark : _ThemeLight), UriKind.Relative )
 				} );
 		}
 		private void SetDefaultCulture( CultureInfo defaultCulture ) {

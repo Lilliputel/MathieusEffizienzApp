@@ -1,62 +1,51 @@
 ﻿using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
-using LogicLayer.Extensions;
 using LogicLayer.Stores;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
-
-#warning refactoring nötig?
 	public class SettingsViewModel : ViewModelBase {
 
 		#region private fields
 		private readonly SettingsStore _SettingsStore;
-		private readonly ViewModelStore _ViewModels;
 		private ICommand? _CommandChangeTheme;
 		private ICommand? _CommandChangeCountDirection;
 		#endregion
 
 		#region public properties
-		public string ThemeButton { get; private set; }
+		public string ThemeButton
+			=> _SettingsStore.DarkMode ? "Light!" : "Dark!";
 		public CultureInfo SelectedCulture {
 			get => _SettingsStore.CurrentCulture;
 			set {
-				if( value != _SettingsStore.CurrentCulture )
-					_SettingsStore.SetCulture( value );
+				if( value != _SettingsStore.CurrentCulture ) {
+					_SettingsStore.SetCultureInfo( value );
+					Trace.WriteLine( $"SettingsVM set the Culture to {_SettingsStore.CurrentCulture}!" );
+				}
 			}
 		}
-		public CultureInfo[] Cultures { get; private set; }
+		public CultureInfo[] Cultures { get; }
 		#endregion
 
 		#region public commands
 		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
-			new RelayCommand( parameter => _SettingsStore.SwitchTheme() );
+			new RelayCommand( parameter => {
+				_SettingsStore.ChangeDakrMode();
+				Trace.WriteLine( $"SettingsVM set the Darkmode to {_SettingsStore.DarkMode}!" );
+			} );
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
-			new RelayCommand( parameter => _ViewModels.Pomodoro.Clock.UpdateCountDirection() );
+			new RelayCommand( parameter => {
+				_SettingsStore.ChangeCountDirection();
+				Trace.WriteLine( $"SettingsVM set the CountDirection to {_SettingsStore.CountdirectionUp}!" );
+			} );
 		#endregion
 
 		#region constructor
-		public SettingsViewModel( ViewModelStore viewModelStore, SettingsStore settingsStore ) {
-			_ViewModels = viewModelStore;
+		public SettingsViewModel( SettingsStore settingsStore ) {
 			_SettingsStore = settingsStore;
-			_SettingsStore.BoolSettingChanged += UpdateBoolSettings;
-			_SettingsStore.ObjectSettingChanged += UpdateObjectSettings;
-
-			ThemeButton = _SettingsStore.DarkMode ? "Light!" : "Dark!";
 			Cultures = CultureInfo.GetCultures( CultureTypes.SpecificCultures );
-		}
-		#endregion
-
-		#region private helper methods
-		private void UpdateBoolSettings( BoolSettingsEnum setting, bool value ) {
-			if( setting == BoolSettingsEnum.DarkMode )
-				ThemeButton = value ? "Light!" : "Dark!";
-		}
-		private void UpdateObjectSettings( ObjectSettingsEnum setting, object value ) {
-			if( setting == ObjectSettingsEnum.Culture )
-				Debug.WriteLine( $"Updated the Culture with {value}" );
 		}
 		#endregion
 

@@ -1,4 +1,4 @@
-﻿using LogicLayer.Extensions;
+﻿using System;
 using System.Globalization;
 
 namespace LogicLayer.Stores {
@@ -6,41 +6,35 @@ namespace LogicLayer.Stores {
 
 		#region public properties
 		public bool DarkMode { get; private set; }
-		public bool PomodoroCountUp { get; private set; }
+		public bool CountdirectionUp { get; private set; }
 		public CultureInfo CurrentCulture { get; private set; } = CultureInfo.CreateSpecificCulture( "en-US" );
 		#endregion
 
-		#region public events
-		public event BoolSettingChangedEventHandler? BoolSettingChanged;
-		public event ObjectSettingChangedEventHandler? ObjectSettingChanged;
+		#region propertychanged-Actions
+		public Action<bool>? DarkModeChanged { get; init; }
+		public Action<bool>? CountDirectionChanged { get; init; }
+		public Action<CultureInfo>? CultureInfoChanged { get; init; }
 		#endregion
 
 		#region public methods
-		public void SwitchTheme( bool? isDarkMode = null ) {
+		public void ChangeDakrMode( bool? isDarkMode = null ) {
 			if( isDarkMode is bool isDarkModeNew )
 				DarkMode = isDarkModeNew;
 			else
 				DarkMode = !DarkMode;
-			OnBoolChanged( BoolSettingsEnum.DarkMode, DarkMode );
+			DarkModeChanged?.Invoke( DarkMode );
 		}
 		public void ChangeCountDirection( bool? countsUp = null ) {
 			if( countsUp is bool up )
-				PomodoroCountUp = up;
+				CountdirectionUp = up;
 			else
-				PomodoroCountUp = !PomodoroCountUp;
-			OnBoolChanged( BoolSettingsEnum.CountDirection, PomodoroCountUp );
+				CountdirectionUp = !CountdirectionUp;
+			CountDirectionChanged?.Invoke( CountdirectionUp );
 		}
-		public void SetCulture( CultureInfo culture ) {
+		public void SetCultureInfo( CultureInfo culture ) {
 			CurrentCulture = culture;
-			OnObjectChanged( ObjectSettingsEnum.Culture, culture );
+			CultureInfoChanged?.Invoke( CurrentCulture );
 		}
-		#endregion
-
-		#region private helper methods
-		private void OnBoolChanged( BoolSettingsEnum setting, bool value )
-			=> BoolSettingChanged?.Invoke( setting, value );
-		private void OnObjectChanged( ObjectSettingsEnum setting, object value )
-			=> ObjectSettingChanged?.Invoke( setting, value );
 		#endregion
 
 	}

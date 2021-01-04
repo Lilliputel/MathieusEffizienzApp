@@ -29,9 +29,9 @@ namespace LogicLayer.Views {
 		public Category? SelectedCategory { get; set; }
 		public Goal? SelectedGoal { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The startdate has to be defined!" )]
-		public DateTime StartDate { get; set; }
+		public DateTime StartDate { get; set; } = DateTime.Today;
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The enddate has to be defined!" )]
-		public DateTime EndDate { get; set; }
+		public DateTime EndDate { get; set; } = DateTime.Today.AddDays( 1 );
 		[Required( AllowEmptyStrings = false, ErrorMessage = "A state has to be selected!" )]
 		public StateEnum State { get; set; }
 		#endregion
