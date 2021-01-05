@@ -11,7 +11,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
-	public class NewDayTimeViewModel : ValidationViewModel {
+	public class NewDayTimeViewModel : ContentValidationViewModel<DoubleTime> {
 
 		#region private fields
 		private readonly IRepository _DataService;
@@ -48,6 +48,11 @@ namespace LogicLayer.Views {
 			ErrorsChanged += OnErrorsChanged;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
+		#endregion
+
+		#region public methods
+		public override bool Clear() => throw new NotImplementedException();
+		public override bool Fill( DoubleTime item ) => throw new NotImplementedException();
 		#endregion
 
 		#region private methods

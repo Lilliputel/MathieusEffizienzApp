@@ -1,9 +1,7 @@
 ﻿using ModelLayer.Interfaces;
 using ModelLayer.Utility;
 using System;
-#if XML
-using System.Xml.Serialization;
-#elif SQLite
+#if SQLite
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 #endif
@@ -15,29 +13,21 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public properties
-#if XML
-		[XmlAttribute( nameof( Start ) )]
-#elif SQLite
+#if SQLite
 		[Key]
 		[Column( TypeName = "TEXT" )]
 #endif
 		public TimeSpan Start { get; set; }
-#if XML
-		[XmlAttribute( nameof( End ) )]
-#elif SQLite
+#if SQLite
 		[Key]
 		[Column( TypeName = "TEXT" )]
 #endif
 		public TimeSpan End { get; set; }
-#if XML
-		[XmlAttribute( nameof( Time ) )]
-#elif SQLite
+#if SQLite
 		[Column( TypeName = "TEXT" )]
 #endif
 		public TimeSpan Time { get; set; }
-#if XML
-		[XmlAttribute( nameof( Date ) )]
-#elif SQLite
+#if SQLite
 		[Key]
 		[Column( TypeName = "TEXT" )]
 #endif
@@ -61,9 +51,6 @@ namespace ModelLayer.Classes {
 			Start = start;
 			End = end;
 		}
-#if XML
-		public WorkItem() { }
-#endif
 		#endregion
 	}
 }

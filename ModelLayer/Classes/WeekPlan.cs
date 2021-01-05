@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace ModelLayer.Classes {
 	public class WeekPlan : ObservableObject {
@@ -15,8 +14,6 @@ namespace ModelLayer.Classes {
 		public ObservableCollection<DoubleTime> Friday { get; } = new ObservableCollection<DoubleTime>();
 		public ObservableCollection<DoubleTime> Saturday { get; } = new ObservableCollection<DoubleTime>();
 		public ObservableCollection<DoubleTime> Sunday { get; } = new ObservableCollection<DoubleTime>();
-
-		[XmlIgnore]
 		public ObservableCollection<TimeSpan> HoursOfDay { get; }
 		#endregion
 

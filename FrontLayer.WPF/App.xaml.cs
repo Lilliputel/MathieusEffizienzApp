@@ -23,9 +23,7 @@ namespace FrontLayer.WPF {
 
 		#region constructor
 		public App() {
-#if XML
-			_DataService = new XMLRepository("CategoryList", @"S:\TESTING\Effizienz\");
-#elif SQLite
+#if SQLite
 			_DataService = new SQLiteRepository();
 #else
 			_DataService = new MockRepository();

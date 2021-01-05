@@ -12,7 +12,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
-	public class NewGoalViewModel : ValidationViewModel {
+	public class NewGoalViewModel : ContentValidationViewModel<Goal> {
 
 		#region private fields
 		private readonly IRepository _DataService;
@@ -61,6 +61,11 @@ namespace LogicLayer.Views {
 			ErrorsChanged += OnErrorsChanged;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
+		#endregion
+
+		#region public methods
+		public override bool Clear() => throw new NotImplementedException();
+		public override bool Fill( Goal item ) => throw new NotImplementedException();
 		#endregion
 
 		#region private methods

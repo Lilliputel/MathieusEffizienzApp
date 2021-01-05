@@ -2,9 +2,7 @@
 using PropertyChanged;
 using System;
 using System.ComponentModel.DataAnnotations;
-#if XML
-using System.Xml.Serialization;
-#elif SQLite
+#if SQLite
 using System.ComponentModel.DataAnnotations.Schema;
 #endif
 
@@ -47,9 +45,7 @@ namespace ModelLayer.Classes {
 			get => _End;
 			set => UpdateValues( _Start, value );
 		}
-#if XML
-		[XmlIgnore]
-#elif SQLite
+#if SQLite
 		[NotMapped]
 #endif
 		public double Duration
@@ -69,9 +65,6 @@ namespace ModelLayer.Classes {
 			Day = day;
 			UpdateValues( start, end );
 		}
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-		public DoubleTime() { }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		#endregion
 
 		#region public methods

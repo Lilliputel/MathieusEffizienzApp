@@ -4,6 +4,8 @@ namespace LogicLayer.Services {
 
 	public static class NotificationService {
 
+#warning Refactor this!
+
 		#region public events
 		public static event AlertEventHanlder? AlertOccured;
 		private static void RaiseAlertOccured( string message, string buttonText, string? title, AlertSymbolEnum? symbol )
@@ -23,24 +25,6 @@ namespace LogicLayer.Services {
 					"Anpassen!",
 					"Fehler!",
 					AlertSymbolEnum.Error );
-		public static void ListeGeladen( string listenName )
-			=> RaiseAlertOccured(
-					$"Die Liste {listenName} wurde geladen!",
-					"OK",
-					"Laden erfolgreich!",
-					AlertSymbolEnum.OK );
-		public static void ListeGespeichert( string listenName )
-			=> RaiseAlertOccured(
-					$"Die Liste {listenName} wurde gespeichert!",
-					"OK",
-					"Speichern erfolgreich!",
-					AlertSymbolEnum.OK );
-		public static void FileNotFound( string dateiName, string dateiPfad )
-			=> RaiseAlertOccured(
-				$"Datei {dateiName} nicht gefunden! \n{dateiPfad + dateiName + ".xml"}",
-				"OK",
-				"File Not Found!",
-				AlertSymbolEnum.Error );
 		#endregion
 
 	}

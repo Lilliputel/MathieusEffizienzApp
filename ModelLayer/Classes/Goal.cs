@@ -8,9 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
-#if XML
-using System.Xml.Serialization; 
-#elif SQLite
+#if SQLite
 using System.ComponentModel.DataAnnotations.Schema;
 #endif
 
@@ -20,9 +18,7 @@ namespace ModelLayer.Classes {
 		#region public properties
 		[Required, Key]
 		public int Id { get; set; }
-#if XML
-		[XmlElement( nameof( UserText ) )] 
-#elif SQLite
+#if SQLite
 		[ForeignKey( nameof( UserText ) )]
 		[Required( AllowEmptyStrings = false )]
 		public string UserTextId { get; set; }
@@ -30,9 +26,7 @@ namespace ModelLayer.Classes {
 		[Required]
 		public UserText UserText { get; set; }
 
-#if XML
-		[XmlArray( nameof( Children ) )] 
-#elif SQLite
+#if SQLite
 		[ForeignKey( nameof( ParentCategory ) )]
 		public int? ParentCategoryId { get; set; }
 		public Category? ParentCategory { get; set; }
@@ -43,15 +37,11 @@ namespace ModelLayer.Classes {
 #endif
 		public ObservableCollection<Goal> Children { get; }
 			= new ObservableCollection<Goal>();
-#if XML
-		[XmlArray( nameof( WorkHours ) )] 
-#endif
+
 		[AlsoNotifyFor( nameof( Time ) )]
 		public ObservableCollection<WorkItem> WorkHours { get; }
 			= new ObservableCollection<WorkItem>();
-#if XML
-		[XmlIgnore] 
-#elif SQLite
+#if SQLite
 		[NotMapped]
 #endif
 		public TimeSpan Time {
@@ -62,17 +52,13 @@ namespace ModelLayer.Classes {
 			}
 		}
 
-#if XML
-		[XmlElement( nameof( Plan ) )] 
-#elif SQLite
+#if SQLite
 		[ForeignKey( nameof( Plan ) )]
 		[Required]
 		public int PlanId { get; set; }
 #endif
 		public DateSpan Plan { get; set; }
-#if XML
-		[XmlAttribute( nameof( State ) )] 
-#elif SQLite
+#if SQLite
 		[Column( TypeName = "TEXT" )]
 #endif
 		public StateEnum State { get; set; }

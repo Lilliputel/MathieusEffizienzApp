@@ -14,7 +14,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
-	public class NewCategoryViewModel : ValidationViewModel {
+	public class NewCategoryViewModel : ContentValidationViewModel<Category> {
 
 		#region private fields
 		private readonly IRepository _DataService;
@@ -56,6 +56,11 @@ namespace LogicLayer.Views {
 			ErrorsChanged += OnErrorsChanged;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
+		#endregion
+
+		#region public methods
+		public override bool Clear() => throw new System.NotImplementedException();
+		public override bool Fill( Category item ) => throw new System.NotImplementedException();
 		#endregion
 
 		#region private methods
