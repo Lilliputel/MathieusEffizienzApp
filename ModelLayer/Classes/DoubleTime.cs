@@ -56,8 +56,8 @@ namespace ModelLayer.Classes {
 		public DoubleTime( DayOfWeek day, TimeSpan start, TimeSpan end, Category category ) {
 			Category = category;
 			Day = day;
-			double realstart = start.Hours + start.Minutes / 60;
-			double realend = end.Hours + end.Minutes / 60;
+			double realstart = start.Hours + (start.Minutes / 60);
+			double realend = end.Hours + (end.Minutes / 60);
 			UpdateValues( realstart, realend );
 		}
 		public DoubleTime( DayOfWeek day, double start, double end, Category category ) {
@@ -65,6 +65,11 @@ namespace ModelLayer.Classes {
 			Day = day;
 			UpdateValues( start, end );
 		}
+#if SQLite
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+		public DoubleTime() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#endif
 		#endregion
 
 		#region public methods
@@ -75,11 +80,11 @@ namespace ModelLayer.Classes {
 			return (start1, end1, duration1);
 		}
 		public override string ToString()
-			=> $"{new TimeSpan( (int)Math.Floor( Start ), (int)GetMinutes( Start ), 0 ).ToString( @"hh\:mm" )} - {new TimeSpan( (int)Math.Floor( End ), (int)GetMinutes( End ), 0 ).ToString( @"hh\:mm" )}";
+			=> $"{new TimeSpan( (int)Math.Floor( Start ), (int)GetMinutes( Start ), 0 ):hh\\:mm} - {new TimeSpan( (int)Math.Floor( End ), (int)GetMinutes( End ), 0 ):hh\\:mm}";
 		#endregion
 
 		#region private helper methods
-		private double GetMinutes( double number )
+		private static double GetMinutes( double number )
 			=> (number - Math.Floor( number )) * 60;
 		private void UpdateValues( double start, double end ) {
 			double roundedStart = RoundToQuarter( start );
@@ -94,7 +99,7 @@ namespace ModelLayer.Classes {
 				_End = roundedStart;
 			}
 		}
-		private double RoundToQuarter( double val )
+		private static double RoundToQuarter( double val )
 			=> Math.Round( val * 4, MidpointRounding.ToEven ) / 4;
 		#endregion
 

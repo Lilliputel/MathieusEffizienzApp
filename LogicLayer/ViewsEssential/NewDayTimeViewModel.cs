@@ -1,7 +1,7 @@
 ﻿using DataLayer;
 using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
-using LogicLayer.Services;
+using LogicLayer.Stores;
 using ModelLayer.Classes;
 using PropertyChanged;
 using System;
@@ -14,7 +14,9 @@ namespace LogicLayer.Views {
 	public class NewDayTimeViewModel : ContentValidationViewModel<DoubleTime> {
 
 		#region private fields
+		private bool _Editing = false;
 		private readonly IRepository _DataService;
+		private readonly AlertStore _AlertService;
 		private ICommand? _SaveDayTimeCommand;
 		#endregion
 
@@ -35,24 +37,54 @@ namespace LogicLayer.Views {
 			 new RelayCommand(
 				 parameter => {
 					 var newDT = new DoubleTime( (DayOfWeek)DayOfWeek!, StartTime, EndTime, SelectedCategory! );
-					 _DataService.Insert( newDT );
+					 _ = _Editing ? _DataService.Update( newDT ) : _DataService.Insert( newDT );
 					 _DataService.Save();
-					 NotificationService.ObjektErstellt( nameof( Category ), newDT.ToString() );
+					 Clear();
+					 _AlertService.ObjektErstellt( nameof( Category ), newDT.ToString() );
 				 },
 				 parameter => NoErrors );
 		#endregion
 
 		#region constructor
-		public NewDayTimeViewModel( IRepository dataService ) {
+		public NewDayTimeViewModel( IRepository dataService, AlertStore alertService ) {
 			_DataService = dataService;
+			_AlertService = alertService;
 			ErrorsChanged += OnErrorsChanged;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
 
 		#region public methods
-		public override bool Clear() => throw new NotImplementedException();
-		public override bool Fill( DoubleTime item ) => throw new NotImplementedException();
+		public override bool Clear() {
+			_Editing = false;
+			try {
+				SelectedCategory = null;
+				DayOfWeek = System.DayOfWeek.Monday;
+				StartTime = TimeSpan.FromHours( DateTime.Now.Hour );
+				EndTime = TimeSpan.FromHours( DateTime.Now.Hour + 1 );
+				Warning = null;
+				return true;
+			}
+			catch( Exception e ) {
+				Warning = e.Message;
+				return false;
+			}
+		}
+		public override bool Fill( DoubleTime item ) {
+			_Editing = true;
+			try {
+				SelectedCategory = item.Category;
+				DayOfWeek = item.Day;
+				StartTime = item.GetTimeSpans().start;
+				EndTime = item.GetTimeSpans().end;
+				return true;
+			}
+			catch( Exception e ) {
+				Clear();
+				Warning = e.Message;
+				return false;
+			}
+		}
 		#endregion
 
 		#region private methods

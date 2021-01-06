@@ -22,7 +22,7 @@ namespace DataLayer {
 		#region overriden methods
 		protected override void OnConfiguring( DbContextOptionsBuilder optionsBuilder ) {
 
-			var folder = Directory.GetCurrentDirectory();
+			string? folder = Directory.GetCurrentDirectory();
 			string dbName = "Effizienz-Database.db";
 			string path = Path.Combine( folder, "SQLite", dbName );
 

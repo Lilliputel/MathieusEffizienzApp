@@ -10,6 +10,7 @@ namespace LogicLayer.Stores {
 		#region private fields
 		private readonly IRepository _DataService;
 		private readonly SettingsStore _SettingsStore;
+		private readonly AlertStore _AlertService;
 
 		private DashboardViewModel? _Dashboard;
 		private PlanViewModel? _Plan;
@@ -35,30 +36,31 @@ namespace LogicLayer.Stores {
 		public StatisticsViewModel Statistics
 			=> _Statistics ??= new StatisticsViewModel( _DataService );
 		public SettingsViewModel Settings
-			=> _Settings ??= new SettingsViewModel( this, _SettingsStore );
+			=> _Settings ??= new SettingsViewModel( _SettingsStore );
 		public PomodoroViewModel Pomodoro
 			=> _Pomodoro ??= new PomodoroViewModel();
 		public NewCategoryViewModel NewCategory
-			=> _NewCategory ??= new NewCategoryViewModel( _DataService );
+			=> _NewCategory ??= new NewCategoryViewModel( _DataService, _AlertService );
 		public NewGoalViewModel NewGoal
-			=> _NewGoal ??= new NewGoalViewModel( _DataService );
+			=> _NewGoal ??= new NewGoalViewModel( _DataService, _AlertService );
 		public NewDayTimeViewModel NewDayTime
-			=> _NewDayTime ??= new NewDayTimeViewModel( _DataService );
+			=> _NewDayTime ??= new NewDayTimeViewModel( _DataService, _AlertService );
 		#endregion
 
 		#region constructor
-		public ViewModelStore( IRepository dataService, SettingsStore settingsStore ) {
+		public ViewModelStore( IRepository dataService, SettingsStore settingsStore, AlertStore alertStore ) {
 			_DataService = dataService;
 			_SettingsStore = settingsStore;
+			_AlertService = alertStore;
 		}
 		#endregion
 
 		#region public methods
 		public ViewModelBase? GetViewModel( ViewModelEnum viewModel ) {
-			var name = Enum.GetName( typeof( ViewModelEnum ), viewModel );
-			if( string.IsNullOrWhiteSpace( name ) )
-				throw new ArgumentException( $"{nameof( GetViewModel )} must get a valid {nameof( ViewModelEnum )}" );
-			return typeof( ViewModelStore ).GetProperty( name )?.GetValue( this, null ) as ViewModelBase;
+			string? name = Enum.GetName( typeof( ViewModelEnum ), viewModel );
+			return string.IsNullOrWhiteSpace( name )
+				? throw new ArgumentException( $"{nameof( GetViewModel )} must get a valid {nameof( ViewModelEnum )}" )
+				: typeof( ViewModelStore ).GetProperty( name )?.GetValue( this, null ) as ViewModelBase;
 		}
 		#endregion
 

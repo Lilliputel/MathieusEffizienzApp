@@ -19,7 +19,7 @@ namespace ModelLayer.Classes {
 
 		[ForeignKey( nameof( UserText ) )]
 		[Required( AllowEmptyStrings = false )]
-		public string UserTextId { get; set; }
+		public string? UserTextId { get; set; }
 #endif
 		public UserText UserText { get; set; }
 		public ObservableCollection<Goal> Children { get; }
@@ -46,6 +46,11 @@ namespace ModelLayer.Classes {
 			UserText = userText;
 			Archived = archived;
 		}
+#if SQLite
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+		public Category() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#endif
 		#endregion
 
 		#region public methods

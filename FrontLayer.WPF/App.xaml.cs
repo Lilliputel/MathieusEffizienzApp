@@ -2,7 +2,6 @@
 using FrontLayer.WPF.Properties;
 using FrontLayer.WPF.Windows;
 using LogicLayer.Extensions;
-using LogicLayer.Services;
 using LogicLayer.Stores;
 using LogicLayer.ViewModels;
 using System;
@@ -15,6 +14,7 @@ namespace FrontLayer.WPF {
 		#region private fields
 		private readonly IRepository _DataService;
 		private readonly SettingsStore _Settings;
+		private readonly AlertStore _AlertService;
 		private readonly ViewModelStore _ViewModels;
 		private const string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
 		private const string _ThemeDark = "ThemeDark.xaml";
@@ -33,14 +33,13 @@ namespace FrontLayer.WPF {
 				CountDirectionChanged = value => _ViewModels?.Pomodoro.Clock.UpdateCountDirection(),
 				CultureInfoChanged = value => SetDefaultCulture( value )
 			};
-			_ViewModels = new ViewModelStore( _DataService, _Settings );
+			_AlertService = new AlertStore( ShowMessageBoxOnAlert );
+			_ViewModels = new ViewModelStore( _DataService, _Settings, _AlertService );
 		}
 		#endregion
 
 		#region OnStartup
 		protected override void OnStartup( StartupEventArgs e ) {
-			// Add an Eventhandler to Display MessageBoxes on Alerts
-			NotificationService.AlertOccured += ShowMessageBoxOnAlert;
 
 			_Settings.SetCultureInfo( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
 			_Settings.ChangeDakrMode( Settings.Default.DarkMode );
@@ -60,7 +59,7 @@ namespace FrontLayer.WPF {
 		#endregion
 
 		#region private eventhandler
-		private void ShowMessageBoxOnAlert( string message, string buttonText, string? title, AlertSymbolEnum? symbol ) {
+		private void ShowMessageBoxOnAlert( string message, string title, AlertSymbolEnum symbol ) {
 			MessageBoxImage image = symbol switch {
 				AlertSymbolEnum.Information => MessageBoxImage.Information,
 				AlertSymbolEnum.Message => MessageBoxImage.Information,

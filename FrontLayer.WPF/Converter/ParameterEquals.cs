@@ -12,8 +12,7 @@ namespace FrontLayer.WPF.Converter {
 		public override object? Convert( object? value, Type targetType, object parameter, CultureInfo culture )
 			=> value is ViewModelBase viewModel && viewModel.GetType()?.Name is string vmName
 				&& parameter is string str && string.IsNullOrWhiteSpace( str ) is false
-				? vmName.Remove( vmName.Length - "ViewModel".Length ) == str
-				: false;
+				&& vmName.Remove( vmName.Length - "ViewModel".Length ) == str;
 
 
 		public override object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture )

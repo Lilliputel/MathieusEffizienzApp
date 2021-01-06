@@ -1,6 +1,7 @@
 ﻿using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
 using LogicLayer.Stores;
+using ModelLayer.Classes;
 using ModelLayer.Enums;
 using System;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ namespace LogicLayer.ViewModels {
 		public ICommand CommandUpdateMainView => _UpdateMainView ??=
 			new RelayCommand( parameter => {
 				try {
-					UpdateSelectedMainViewModel( Enum.Parse<ViewModelEnum>( parameter as string ?? "" ), null );
+					UpdateSelectedMainViewModel( Enum.Parse<ViewModelEnum>( parameter as string ?? "" ) );
 				}
 				catch( ArgumentException ) {
 					Debug.WriteLine( $"Could not Parse the string {parameter} to a ViewModel!" );
@@ -47,15 +48,20 @@ namespace LogicLayer.ViewModels {
 		#endregion
 
 		#region public methods
-		private void UpdateSelectedMainViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
+		private void UpdateSelectedMainViewModel( ViewModelEnum newVMType ) {
 			Debug.WriteLine( $"set the main VM to {newVMType}" );
-			passedObject ??= null;
 			SelectedVMMain = _ViewModels.GetViewModel( newVMType );
 		}
-		private void UpdateSelectedEssentialViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
+		public void UpdateSelectedEssentialViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
 			Debug.WriteLine( $"set the essential VM to {newVMType}" );
-			passedObject ??= null;
-			SelectedVMEssential = _ViewModels.GetViewModel( newVMType );
+			ViewModelBase? vm = _ViewModels.GetViewModel( newVMType );
+			if( newVMType == ViewModelEnum.NewCategory && passedObject is Category c )
+				(vm as IContent<Category>)?.Fill( c );
+			else if( newVMType == ViewModelEnum.NewGoal && passedObject is Goal g )
+				(vm as IContent<Goal>)?.Fill( g );
+			else if( newVMType == ViewModelEnum.NewDayTime && passedObject is DoubleTime dt )
+				(vm as IContent<DoubleTime>)?.Fill( dt );
+			SelectedVMEssential = vm;
 		}
 		#endregion
 

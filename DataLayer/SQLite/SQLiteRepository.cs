@@ -34,7 +34,7 @@ namespace DataLayer {
 			if( _Context.Entry( item ).State == EntityState.Detached )
 				_Context.Attach( item );
 			_Context.Entry( item ).State = EntityState.Modified;
-			return (_Context.Find<T>( item ) != null);
+			return _Context.Find<T>( item ) != null;
 		}
 		public bool Delete<T>( T item ) where T : class {
 			if( _Context.Entry( item ).State == EntityState.Detached )

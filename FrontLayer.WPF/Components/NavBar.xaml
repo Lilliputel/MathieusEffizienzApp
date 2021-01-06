@@ -25,7 +25,7 @@
 		</ToggleButton>
 		<ToggleButton Command="{Binding CommandUpdateMainView}"
 					  CommandParameter="GoalOverview"
-					  IsChecked="{Binding SelectedVMMain, Mode=OneWay, Converter={converter:ParameterEquals}, ConverterParameter=Overview}">
+					  IsChecked="{Binding SelectedVMMain, Mode=OneWay, Converter={converter:ParameterEquals}, ConverterParameter=GoalOverview}">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconProjekte}" />
@@ -33,7 +33,7 @@
 		</ToggleButton>
 		<ToggleButton Command="{Binding CommandUpdateMainView}"
 					  CommandParameter="GanttDiagram"
-					  IsChecked="{Binding SelectedVMMain, Mode=OneWay, Converter={converter:ParameterEquals}, ConverterParameter=Gantt}">
+					  IsChecked="{Binding SelectedVMMain, Mode=OneWay, Converter={converter:ParameterEquals}, ConverterParameter=GanttDiagram}">
 			<ToggleButton.Content>
 				<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 										 Style="{StaticResource IconGantt}" />
