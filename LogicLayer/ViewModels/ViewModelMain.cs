@@ -48,10 +48,6 @@ namespace LogicLayer.ViewModels {
 		#endregion
 
 		#region public methods
-		private void UpdateSelectedMainViewModel( ViewModelEnum newVMType ) {
-			Debug.WriteLine( $"set the main VM to {newVMType}" );
-			SelectedVMMain = _ViewModels.GetViewModel( newVMType );
-		}
 		public void UpdateSelectedEssentialViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
 			Debug.WriteLine( $"set the essential VM to {newVMType}" );
 			ViewModelBase? vm = _ViewModels.GetViewModel( newVMType );
@@ -62,6 +58,13 @@ namespace LogicLayer.ViewModels {
 			else if( newVMType == ViewModelEnum.NewDayTime && passedObject is DoubleTime dt )
 				(vm as IContent<DoubleTime>)?.Fill( dt );
 			SelectedVMEssential = vm;
+		}
+		#endregion
+
+		#region private helper methods
+		private void UpdateSelectedMainViewModel( ViewModelEnum newVMType ) {
+			Debug.WriteLine( $"set the main VM to {newVMType}" );
+			SelectedVMMain = _ViewModels.GetViewModel( newVMType );
 		}
 		#endregion
 

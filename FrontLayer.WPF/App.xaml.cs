@@ -16,9 +16,9 @@ namespace FrontLayer.WPF {
 		private readonly SettingsStore _Settings;
 		private readonly AlertStore _AlertService;
 		private readonly ViewModelStore _ViewModels;
-		private const string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
-		private const string _ThemeDark = "ThemeDark.xaml";
-		private const string _ThemeLight = "ThemeLight.xaml";
+		private static readonly string _ThemeDirectory = "/FrontLayer.WPF;component/Themes/";
+		private static readonly string _ThemeDark = "ThemeDark.xaml";
+		private static readonly string _ThemeLight = "ThemeLight.xaml";
 		#endregion
 
 		#region constructor
