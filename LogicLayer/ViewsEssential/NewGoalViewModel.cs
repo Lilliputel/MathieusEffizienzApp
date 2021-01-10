@@ -18,7 +18,13 @@ namespace LogicLayer.Views {
 		private bool _Editing = false;
 		private readonly IRepository _DataService;
 		private readonly AlertStore _AlertService;
+
 		private ICommand? _SaveGoalCommand;
+		private ICommand? _ChangedCategoryCommand;
+		private ICommand? _ChangedGoalCommand;
+
+		private Goal? _SelectedGoalPrev;
+		private Category? _SelectedCategoryPrev;
 		#endregion
 
 		#region public properties
@@ -39,6 +45,18 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public commands
+		public ICommand ChangedGoalCommand => _ChangedGoalCommand
+			??= new RelayCommand( parameter => {
+				if( parameter is Goal pGoal && pGoal == _SelectedGoalPrev )
+					SelectedGoal = null;
+				_SelectedGoalPrev = SelectedGoal;
+			} );
+		public ICommand ChangedCategoryCommand => _ChangedCategoryCommand
+			??= new RelayCommand( parameter => {
+				if( parameter is Category pCategory && pCategory == _SelectedCategoryPrev )
+					SelectedCategory = null;
+				_SelectedCategoryPrev = SelectedCategory;
+			} );
 		public ICommand SaveGoalCommand => _SaveGoalCommand ??=
 			new RelayCommand(
 				parameter => {

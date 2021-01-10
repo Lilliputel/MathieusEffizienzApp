@@ -17,7 +17,11 @@ namespace LogicLayer.Views {
 		private bool _Editing = false;
 		private readonly IRepository _DataService;
 		private readonly AlertStore _AlertService;
+
 		private ICommand? _SaveDayTimeCommand;
+		private ICommand? _ChangedCategoryCommand;
+
+		private Category? _SelectedCategoryPrev;
 		#endregion
 
 		#region public properties
@@ -32,6 +36,12 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public commands
+		public ICommand ChangedCategoryCommand => _ChangedCategoryCommand
+			??= new RelayCommand( parameter => {
+				if( parameter is Category pCategory && pCategory == _SelectedCategoryPrev )
+					SelectedCategory = null;
+				_SelectedCategoryPrev = SelectedCategory;
+			} );
 #warning this does not update the PlanView
 		public ICommand SaveDayTimeCommand => _SaveDayTimeCommand ??=
 			 new RelayCommand(
