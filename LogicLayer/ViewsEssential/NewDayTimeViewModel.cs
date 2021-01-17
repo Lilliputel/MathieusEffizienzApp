@@ -3,7 +3,6 @@ using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
 using LogicLayer.Stores;
 using ModelLayer.Classes;
-using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -59,7 +58,6 @@ namespace LogicLayer.Views {
 		public NewDayTimeViewModel( IRepository dataService, AlertStore alertService ) {
 			_DataService = dataService;
 			_AlertService = alertService;
-			ErrorsChanged += OnErrorsChanged;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
@@ -95,12 +93,6 @@ namespace LogicLayer.Views {
 				return false;
 			}
 		}
-		#endregion
-
-		#region private methods
-		[SuppressPropertyChangedWarnings]
-		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e )
-			=> (SaveDayTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 
 	}

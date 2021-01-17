@@ -1,4 +1,5 @@
-﻿using ModelLayer.Extensions;
+﻿using LogicLayer.Commands;
+using ModelLayer.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace LogicLayer.BaseViewModels {
 
 		#region private fields
 		private readonly Type _VMType;
-		private readonly List<Type> _ValidAttrTypes = new List<Type>{
+		private readonly IEnumerable<Type> _AttributeTypes = new List<Type>{
 				typeof(CompareAttribute),
 				typeof(DataTypeAttribute),
 				typeof(MaxLengthAttribute),
@@ -25,7 +26,9 @@ namespace LogicLayer.BaseViewModels {
 				typeof(StringLengthAttribute),
 				typeof(CustomValidationAttribute)
 			};
-		private readonly Dictionary<string, List<ValidationAttribute>> _PropertyValidations = new Dictionary<string, List<ValidationAttribute>>();
+		private readonly IEnumerable<PropertyInfo> _Properties;
+		private readonly List<IRelayCommand>? _RelayCommands;
+		private readonly Dictionary<string, IEnumerable<ValidationAttribute>> _PropertyValidations;
 		private readonly Dictionary<string, List<string>> _PropertyErrors = new Dictionary<string, List<string>>();
 		#endregion
 
@@ -47,16 +50,23 @@ namespace LogicLayer.BaseViewModels {
 		#region constructor
 		public ValidationViewModel() {
 			_VMType = GetType();
-			InitPropertyValidations();
+			_Properties = _VMType.GetProperties( BindingFlags.Public | BindingFlags.Instance );
+			_RelayCommands = _Properties.Select( prop => prop.GetValue( this ) ).Where( val => val is IRelayCommand )?.Cast<IRelayCommand>().ToList();
+			_PropertyValidations = new Dictionary<string, IEnumerable<ValidationAttribute>>(
+					_Properties.Where( prop => _AttributeTypes.Any( attrType => prop.IsDefined( attrType, false ) ) ) // where atleast one attribute is defined
+					.Select( prop => new KeyValuePair<string, IEnumerable<ValidationAttribute>>(
+						prop.Name,
+						_AttributeTypes.SelectMany( attrType => prop.GetCustomAttributes( attrType, false ).Cast<ValidationAttribute>() ) // get all Attributes of the specified types
+						.Where( attr => attr is ValidationAttribute ) ) // filter out null values
+					) );
+
 			//Hook into the PropertyChanged Event of validated Properties
 			PropertyChanged += ( sender, e ) => {
-				if( _PropertyValidations.ContainsKey( e?.PropertyName ?? "" ) )
-					CollectToPropertyErrors( e?.PropertyName );
+				if( e?.PropertyName is string propName && _PropertyValidations.ContainsKey( propName ) )
+					CollectToPropertyErrors( propName );
 			};
 			//Initialize all Errors
-			_PropertyValidations
-				.Keys.ToList().ForEach( propertyName
-				=> CollectToPropertyErrors( propertyName ) );
+			_PropertyValidations.Keys.ToList().ForEach( propertyName => CollectToPropertyErrors( propertyName ) );
 		}
 		#endregion
 
@@ -66,50 +76,39 @@ namespace LogicLayer.BaseViewModels {
 		#endregion
 
 		#region private methods
-		private void InitPropertyValidations()
-			=> _PropertyValidations.AddRange(
-				_VMType.GetProperties( BindingFlags.Public | BindingFlags.Instance ) // All public nonstatic properties
-				.Where( prop => _ValidAttrTypes.Any( attrType => prop.IsDefined( attrType, false ) ) ) // where atleast one attribute is defined
-				.Select( prop => new KeyValuePair<string, List<ValidationAttribute>>(
-					 prop.Name,
-					 new List<ValidationAttribute>(
-						 _ValidAttrTypes.SelectMany( attrType => prop.GetCustomAttributes( attrType, false ).Cast<ValidationAttribute>() ) // get all Attributes of the specified types
-						 .Where( attr => attr is ValidationAttribute ) ) // filter out null values
-					 ) )
-				.ToList() );
 		private void CollectToPropertyErrors( string? propertyName ) {
 			if( string.IsNullOrEmpty( propertyName ) )
 				return;
 
-			int oldErrorsCount = _PropertyErrors.GetValueOrDefault( propertyName )?.Count ?? 0;
-			InitOrClearPropertyErrors( propertyName );
+			int oldErrorsCount = 0;
+
+			if( _PropertyErrors.ContainsKey( propertyName ) ) {
+				oldErrorsCount = _PropertyErrors[propertyName].Count;
+				_PropertyErrors[propertyName].Clear();
+			}
+			else
+				_PropertyErrors.Add( propertyName, new List<string>() );
 
 			if( GetValidationErrors( propertyName ) is List<string> errors ) {
 				if( errors.Count > 0 )
 					_PropertyErrors[propertyName].AddUniqueRange( errors );
-				if( errors.Count != oldErrorsCount )
+				if( errors.Count != oldErrorsCount ) {
 					RaiseErrorsChanged( propertyName );
+					_RelayCommands?.ForEach( cmd => cmd.RaiseCanExecuteChanged( this ) );
+				}
 			}
-		}
-		private void InitOrClearPropertyErrors( string propertyName ) {
-			if( _PropertyErrors.ContainsKey( propertyName ) )
-				_PropertyErrors[propertyName].Clear();
-			else
-				_PropertyErrors.Add( propertyName, new List<string>() );
 		}
 		private List<string>? GetValidationErrors( string propertyName )
 			=> _PropertyValidations[propertyName] // get the validationAttributes
 				.Select( vAttr => ValidateProperty( propertyName, vAttr ) ) // validate property with 
-				.Where( err => string.IsNullOrEmpty( err ) is false ) // filter out null values
-			.ToList() as List<string>;
+				.Where( err => string.IsNullOrWhiteSpace( err ) is false ) // filter out null values
+				.ToList() as List<string>;
 		private string? ValidateProperty( string propName, ValidationAttribute validAttribute )
 			=> validAttribute is CustomValidationAttribute
-			? validAttribute.GetValidationResult( GetPropertyValue( propName ), new ValidationContext( this ) { DisplayName = propName, MemberName = GetPropertyType( propName )?.Name ?? "" } )?.ErrorMessage
+			? validAttribute.GetValidationResult( GetPropertyValue( propName ), new ValidationContext( this ) { DisplayName = propName, MemberName = _VMType.GetProperty( propName )?.PropertyType?.Name ?? "" } )?.ErrorMessage
 			: validAttribute.IsValid( GetPropertyValue( propName ) ) ? null : validAttribute.ErrorMessage;
 		private object? GetPropertyValue( string propName )
 			=> _VMType.GetProperty( propName )?.GetValue( this );
-		private Type? GetPropertyType( string propName )
-			 => _VMType.GetProperty( propName )?.PropertyType;
 		#endregion
 
 	}

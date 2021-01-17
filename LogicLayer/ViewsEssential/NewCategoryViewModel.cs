@@ -3,7 +3,6 @@ using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
 using LogicLayer.Stores;
 using ModelLayer.Classes;
-using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,7 +60,6 @@ namespace LogicLayer.Views {
 		public NewCategoryViewModel( IRepository dataService, AlertStore alertService ) {
 			_DataService = dataService;
 			_AlertService = alertService;
-			ErrorsChanged += OnErrorsChanged;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
@@ -92,12 +90,6 @@ namespace LogicLayer.Views {
 				return false;
 			}
 		}
-		#endregion
-
-		#region private methods
-		[SuppressPropertyChangedWarnings]
-		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e )
-			=> (SaveCategoryCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
 		#endregion
 
 	}

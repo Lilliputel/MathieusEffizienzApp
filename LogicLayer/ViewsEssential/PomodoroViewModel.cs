@@ -1,9 +1,7 @@
 ﻿using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
 using ModelLayer.Classes;
-using PropertyChanged;
 using System;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace LogicLayer.Views {
@@ -50,22 +48,10 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public PomodoroViewModel() {
-			ErrorsChanged += OnErrorsChanged;
-			Clock = new PomodoroClock( TimeSpan.FromMinutes( 45 ), TimeSpan.FromMinutes( 12 ), TimeSpan.FromMinutes( 8 ) );
-		}
-		public PomodoroViewModel( WorkItem workItem ) : this() {
-			WorkItem = workItem;
-		}
-		#endregion
-
-		#region private methods
-		[SuppressPropertyChangedWarnings]
-		private void OnErrorsChanged( object? sender, DataErrorsChangedEventArgs e ) {
-			(StartStopCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
-			(DelayCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
-			(SaveTimeCommand as RelayCommand)?.RaiseCanExecuteChanged( sender );
-		}
+		public PomodoroViewModel()
+			=> Clock = new PomodoroClock( TimeSpan.FromMinutes( 45 ), TimeSpan.FromMinutes( 12 ), TimeSpan.FromMinutes( 8 ) );
+		public PomodoroViewModel( WorkItem workItem ) : this()
+			=> WorkItem = workItem;
 		#endregion
 
 	}
