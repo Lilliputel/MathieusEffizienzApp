@@ -5,16 +5,16 @@
 			 xmlns:global="clr-namespace:System.Globalization;assembly=mscorlib">
 
 	<StackPanel>
-		<ToggleButton Command="{Binding CommandChangeTheme}"
-					  Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged}"
-					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-					  Margin="0,5"
-					  Background="{DynamicResource SecondaryBrush}"/>
-		<ToggleButton Command="{Binding CommandChangeCountDirection}"
-					  Content="Change countdirection!"
-					  HorizontalAlignment="Stretch" VerticalAlignment="Center"
-					  Margin="0,5"
-					  Background="{DynamicResource SecondaryBrush}"/>
+		<Button Command="{Binding CommandChangeTheme}"
+				Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged}"
+				HorizontalAlignment="Stretch" VerticalAlignment="Center"
+				Margin="0,5"
+				Background="{DynamicResource SecondaryBrush}"/>
+		<Button Command="{Binding CommandChangeCountDirection}"
+				Content="Change countdirection!"
+				HorizontalAlignment="Stretch" VerticalAlignment="Center"
+				Margin="0,5"
+				Background="{DynamicResource SecondaryBrush}"/>
 		<ComboBox ItemsSource="{Binding Cultures}" x:Name="CultureComboBox"
 				  SelectedItem="{Binding SelectedCulture}"
 				  Margin="0,5">

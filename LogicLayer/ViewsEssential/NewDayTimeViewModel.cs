@@ -41,15 +41,20 @@ namespace LogicLayer.Views {
 					SelectedCategory = null;
 				_SelectedCategoryPrev = SelectedCategory;
 			} );
-#warning this does not update the PlanView
 		public ICommand SaveDayTimeCommand => _SaveDayTimeCommand ??=
 			 new RelayCommand(
 				 parameter => {
-					 var newDT = new DoubleTime( (DayOfWeek)DayOfWeek!, StartTime, EndTime, SelectedCategory! );
-					 _ = _Editing ? _DataService.Update( newDT ) : _DataService.Insert( newDT );
-					 _DataService.Save();
-					 Clear();
-					 _AlertService.ObjektErstellt( nameof( Category ), newDT.ToString() );
+					 try {
+						 Warning = null;
+						 var newDT = new DoubleTime( (DayOfWeek)DayOfWeek!, StartTime, EndTime, SelectedCategory! );
+						 _ = _Editing ? _DataService.Update( newDT ) : _DataService.Insert( newDT );
+						 _DataService.Save();
+						 Clear();
+						 _AlertService.ObjektErstellt( nameof( Category ), newDT.ToString() );
+					 }
+					 catch( ArgumentException e ) {
+						 Warning = e.Message;
+					 }
 				 },
 				 parameter => NoErrors );
 		#endregion
