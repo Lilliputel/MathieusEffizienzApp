@@ -65,29 +65,21 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public methods
-		public override bool Clear() {
+		public override void Clear() {
 			_Editing = false;
-			try {
-				Title = null;
-				Description = null;
-				SelectedColorName = null;
-				return true;
-			}
-			catch( Exception ) {
-				return false;
-			}
+			Title = null;
+			Description = null;
+			SelectedColorName = null;
 		}
-		public override bool Fill( Category item ) {
+		public override void Fill( Category item ) {
 			_Editing = true;
 			try {
 				Title = item.UserText.Title;
 				Description = item.UserText.Description;
 				SelectedColorName = item.UserText.Color.Name;
-				return true;
 			}
 			catch( Exception ) {
 				Clear();
-				return false;
 			}
 		}
 		#endregion

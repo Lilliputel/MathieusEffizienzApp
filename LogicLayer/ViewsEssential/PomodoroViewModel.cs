@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace LogicLayer.Views {
 
-	public class PomodoroViewModel : ValidationViewModel {
+	public class PomodoroViewModel : ContentValidationViewModel<WorkItem> {
 
 		#region private fields
 		private ICommand? _StartStopCommand;
@@ -50,8 +50,13 @@ namespace LogicLayer.Views {
 		#region constructor
 		public PomodoroViewModel()
 			=> Clock = new PomodoroClock( TimeSpan.FromMinutes( 45 ), TimeSpan.FromMinutes( 12 ), TimeSpan.FromMinutes( 8 ) );
-		public PomodoroViewModel( WorkItem workItem ) : this()
-			=> WorkItem = workItem;
+		#endregion
+
+		#region public methods
+		public override void Clear()
+			=> WorkItem = null;
+		public override void Fill( WorkItem item )
+			=> WorkItem = item;
 		#endregion
 
 	}

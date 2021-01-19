@@ -68,7 +68,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public methods
-		public override bool Clear() {
+		public override void Clear() {
 			_Editing = false;
 			try {
 				SelectedCategory = null;
@@ -76,26 +76,22 @@ namespace LogicLayer.Views {
 				StartTime = TimeSpan.FromHours( DateTime.Now.Hour );
 				EndTime = TimeSpan.FromHours( DateTime.Now.Hour + 1 );
 				Warning = null;
-				return true;
 			}
 			catch( Exception e ) {
 				Warning = e.Message;
-				return false;
 			}
 		}
-		public override bool Fill( DoubleTime item ) {
+		public override void Fill( DoubleTime item ) {
 			_Editing = true;
 			try {
 				SelectedCategory = item.Category;
 				DayOfWeek = item.Day;
 				StartTime = item.GetTimeSpans().start;
 				EndTime = item.GetTimeSpans().end;
-				return true;
 			}
 			catch( Exception e ) {
 				Clear();
 				Warning = e.Message;
-				return false;
 			}
 		}
 		#endregion

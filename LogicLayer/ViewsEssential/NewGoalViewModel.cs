@@ -88,37 +88,25 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public methods
-		public override bool Clear() {
+		public override void Clear() {
 			_Editing = false;
-			try {
-				Title = null;
-				Description = null;
-				SelectedCategory = null;
-				SelectedGoal = null;
-				StartDate = DateTime.Today;
-				EndDate = DateTime.Today.AddDays( 1 );
-				State = StateEnum.ToDo;
-				return true;
-			}
-			catch( Exception ) {
-				return false;
-			}
+			Title = null;
+			Description = null;
+			SelectedCategory = null;
+			SelectedGoal = null;
+			StartDate = DateTime.Today;
+			EndDate = DateTime.Today.AddDays( 1 );
+			State = StateEnum.ToDo;
 		}
-		public override bool Fill( Goal item ) {
+		public override void Fill( Goal item ) {
 			_Editing = true;
-			try {
-				Title = item.UserText.Title;
-				Description = item.UserText.Description;
-				SelectedCategory = item.ParentCategory;
-				SelectedGoal = item.ParentGoal;
-				StartDate = item.Plan.Start;
-				EndDate = item.Plan.End;
-				State = item.State;
-				return true;
-			}
-			catch( Exception ) {
-				return false;
-			}
+			Title = item.UserText.Title;
+			Description = item.UserText.Description;
+			SelectedCategory = item.ParentCategory;
+			SelectedGoal = item.ParentGoal;
+			StartDate = item.Plan.Start;
+			EndDate = item.Plan.End;
+			State = item.State;
 		}
 		#endregion
 
