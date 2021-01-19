@@ -42,7 +42,7 @@ namespace FrontLayer.WPF {
 		protected override void OnStartup( StartupEventArgs e ) {
 
 			_Settings.SetCultureInfo( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
-			_Settings.ChangeDakrMode( Settings.Default.DarkMode );
+			_Settings.ChangeDarkMode( Settings.Default.DarkMode );
 			_Settings.ChangeCountDirection( Settings.Default.CountsUp );
 
 			base.OnStartup( e );

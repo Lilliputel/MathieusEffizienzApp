@@ -32,7 +32,8 @@ namespace LogicLayer.Views {
 		#region public commands
 		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
 			new RelayCommand( parameter => {
-				_SettingsStore.ChangeDakrMode();
+				_SettingsStore.ChangeDarkMode();
+				RaisePropertyChanged( nameof( ThemeButton ) );
 				Trace.WriteLine( $"SettingsVM set the Darkmode to {_SettingsStore.DarkMode}!" );
 			} );
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=

@@ -17,12 +17,12 @@ namespace LogicLayer.Stores {
 		#endregion
 
 		#region public methods
-		public void ChangeDakrMode( bool? isDarkMode = null ) {
+		public void ChangeDarkMode( bool? isDarkMode = null ) {
 			DarkMode = isDarkMode is bool isDarkModeNew ? isDarkModeNew : !DarkMode;
 			DarkModeChanged?.Invoke( DarkMode );
 		}
 		public void ChangeCountDirection( bool? countsUp = null ) {
-			CountdirectionUp = countsUp is bool up ? up : !CountdirectionUp;
+			CountdirectionUp = countsUp is bool countsUpNew ? countsUpNew : !CountdirectionUp;
 			CountDirectionChanged?.Invoke( CountdirectionUp );
 		}
 		public void SetCultureInfo( CultureInfo culture ) {
