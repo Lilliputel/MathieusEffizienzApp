@@ -1,8 +1,8 @@
 ﻿using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
+using LogicLayer.Extensions;
 using LogicLayer.Stores;
 using ModelLayer.Classes;
-using ModelLayer.Enums;
 using System;
 using System.Diagnostics;
 using System.Windows.Input;
@@ -14,7 +14,6 @@ namespace LogicLayer.ViewModels {
 		private readonly ViewModelStore _ViewModels;
 		private ICommand? _UpdateMainView;
 		private ICommand? _UpdateEssView;
-		private ICommand? _CreateObjects;
 		#endregion
 
 		#region public properties
@@ -38,8 +37,6 @@ namespace LogicLayer.ViewModels {
 					 Debug.WriteLine( $"Could not Parse the string {parameter} to a ViewModel!" );
 				 }
 			 } );
-		public ICommand CommandCreateObjects => _CreateObjects ??=
-			new RelayCommand( parameter => Debug.WriteLine( "Tried to Generate Objects in the MainViewModel!" ) );
 		#endregion
 
 		#region constructor

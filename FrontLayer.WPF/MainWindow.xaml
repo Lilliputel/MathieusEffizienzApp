@@ -4,8 +4,6 @@
 		xmlns:converter="clr-namespace:FrontLayer.WPF.Converter"
 		xmlns:UserControls="clr-namespace:FrontLayer.WPF.Components"
 		xmlns:DTSelector="clr-namespace:FrontLayer.WPF.TemplateSelectors"
-		xmlns:extensions="clr-namespace:EffizienzControls.Extensions;assembly=EffizienzControls"
-		xmlns:enum="clr-namespace:ModelLayer.Enums;assembly=ModelLayer"
 		Title="Prototype_Effizienz"
 		WindowStartupLocation="CenterScreen"
 		SizeToContent="WidthAndHeight"
@@ -24,12 +22,12 @@
 		<!--#region	NavBar -->
 		<StackPanel Width="60">
 			<StackPanel.Resources>
-				<Style TargetType="{x:Type ToggleButton}">
+				<Style TargetType="{x:Type ToggleButton}" x:Key="Navigation">
 					<Setter Property="CommandParameter"
 							Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag}" />
 					<Setter Property="IsChecked">
 						<Setter.Value>
-							<MultiBinding Converter="{converter:CompareViewModel}">
+							<MultiBinding Converter="{converter:CompareViewModel}" Mode="OneWay">
 								<Binding Path="SelectedVMMain"
 										 Mode="OneWay" />
 								<Binding RelativeSource="{RelativeSource Self}"
@@ -42,40 +40,48 @@
 			</StackPanel.Resources>
 
 			<ToggleButton Tag="Dashboard"
-						  Command="{Binding CommandUpdateMainView}">
+						  Command="{Binding CommandUpdateMainView}"
+						  Style="{StaticResource Navigation}">
 				<ToggleButton.Content>
 					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 											 Style="{StaticResource IconDashboard}" />
 				</ToggleButton.Content>
 			</ToggleButton>
 			<ToggleButton Tag="Plan"
-						  Command="{Binding CommandUpdateMainView}">
+						  Command="{Binding CommandUpdateMainView}"
+						  Style="{StaticResource Navigation}">
 				<ToggleButton.Content>
 					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 											 Style="{StaticResource IconKalender}" />
 				</ToggleButton.Content>
 			</ToggleButton>
 			<ToggleButton Tag="GoalOverview"
-						  Command="{Binding CommandUpdateMainView}">
+						  Command="{Binding CommandUpdateMainView}"
+						  Style="{StaticResource Navigation}">
 				<ToggleButton.Content>
 					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 											 Style="{StaticResource IconProjekte}" />
 				</ToggleButton.Content>
 			</ToggleButton>
 			<ToggleButton Tag="GanttDiagram"
-						  Command="{Binding CommandUpdateMainView}">
+						  Command="{Binding CommandUpdateMainView}"
+						  Style="{StaticResource Navigation}">
 				<ToggleButton.Content>
 					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 											 Style="{StaticResource IconGantt}" />
 				</ToggleButton.Content>
 			</ToggleButton>
-			<ToggleButton Tag="Statistics" Command="{Binding CommandUpdateMainView}">
+			<ToggleButton Tag="Statistics"
+						  Command="{Binding CommandUpdateMainView}"
+						  Style="{StaticResource Navigation}">
 				<ToggleButton.Content>
 					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 											 Style="{StaticResource IconStatistik}" />
 				</ToggleButton.Content>
 			</ToggleButton>
-			<ToggleButton Tag="Settings" Command="{Binding CommandUpdateMainView}">
+			<ToggleButton Tag="Settings"
+						  Command="{Binding CommandUpdateMainView}"
+						  Style="{StaticResource Navigation}">
 				<ToggleButton.Content>
 					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
 											 Style="{StaticResource IconOptionen}" />

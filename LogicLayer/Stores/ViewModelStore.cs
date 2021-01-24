@@ -1,7 +1,7 @@
 ﻿using DataLayer;
 using LogicLayer.BaseViewModels;
+using LogicLayer.Extensions;
 using LogicLayer.Views;
-using ModelLayer.Enums;
 using System;
 
 namespace LogicLayer.Stores {
