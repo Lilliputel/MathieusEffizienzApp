@@ -10,13 +10,13 @@ namespace EffizienzControls.Converters {
 	public class CategoryToTime : MarkedupMultiValueConverter<CategoryToTime> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
-
-			#region input
-			var category = (Category)values[0];
-			var date = (DateTime)values[1];
-			#endregion
-
-			return (category).GetTotalTimeOnDate( date );
+			if( values[0] is Category cat )
+				if( values[1] is DateTime dt )
+					return cat.GetTotalTimeOnDate( dt );
+				else
+					throw new ArgumentException( "The second value must be a DateTime", nameof( values ) );
+			else
+				throw new ArgumentException( "The first value must be a Category!", nameof( values ) );
 		}
 
 	}

@@ -8,7 +8,7 @@ namespace EffizienzControls.Extensions {
 	public abstract class MarkedupMultiValueConverter<T> : MarkupExtension, IMultiValueConverter where T : class, new() {
 
 		#region private fields
-		private static T _Converter = new T();
+		private static readonly T _Converter = new T();
 		#endregion
 
 		#region markupextension-Methods

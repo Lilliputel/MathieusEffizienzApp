@@ -9,7 +9,7 @@ namespace EffizienzControls.Extensions {
 
 		#region private fields
 
-		private static T _Converter = new T();
+		private static readonly T _Converter = new T();
 
 		#endregion
 

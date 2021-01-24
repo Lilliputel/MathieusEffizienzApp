@@ -11,22 +11,18 @@ namespace EffizienzControls.Converters {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
-			#region input
-			var category = (Category)values[0];
-			var date = (DateTime)values[1];
-			var maxTime = (TimeSpan)values[2];
-
-			double factor = 0.0;
-			#endregion
-
-			#region conversion
-			TimeSpan workedTime = (category).GetTotalTimeOnDate( date );
-
-			if( maxTime > TimeSpan.Zero )
-				factor = workedTime / maxTime;
-			#endregion
-
-			return factor;
+			if( values[0] is Category cat )
+				if( values[1] is DateTime dt )
+					if( values[2] is TimeSpan maxTime )
+						return maxTime > TimeSpan.Zero
+							? cat.GetTotalTimeOnDate( dt ) / maxTime
+							: 0.0;
+					else
+						throw new ArgumentException( "The third value must be a TimeSpan", nameof( values ) );
+				else
+					throw new ArgumentException( "The second value must be a DateTime", nameof( values ) );
+			else
+				throw new ArgumentException( "The first value must be a Category!", nameof( values ) );
 		}
 
 	}
