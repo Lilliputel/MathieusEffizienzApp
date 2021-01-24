@@ -1,6 +1,7 @@
 ﻿<Window x:Class="FrontLayer.WPF.Windows.MainWindow"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="clr-namespace:LogicLayer.Views;assembly=LogicLayer"
 		xmlns:converter="clr-namespace:FrontLayer.WPF.Converter"
 		xmlns:UserControls="clr-namespace:FrontLayer.WPF.Components"
 		xmlns:DTSelector="clr-namespace:FrontLayer.WPF.TemplateSelectors"
@@ -21,72 +22,19 @@
 
 		<!--#region	NavBar -->
 		<StackPanel Width="60">
-			<StackPanel.Resources>
-				<Style TargetType="{x:Type ToggleButton}" x:Key="Navigation">
-					<Setter Property="CommandParameter"
-							Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Tag}" />
-					<Setter Property="IsChecked">
-						<Setter.Value>
-							<MultiBinding Converter="{converter:CompareViewModel}" Mode="OneWay">
-								<Binding Path="SelectedVMMain"
-										 Mode="OneWay" />
-								<Binding RelativeSource="{RelativeSource Self}"
-										 Path="Tag"
-										 Mode="OneWay" />
-							</MultiBinding>
-						</Setter.Value>
-					</Setter>
-				</Style>
-			</StackPanel.Resources>
 
-			<ToggleButton Tag="Dashboard"
-						  Command="{Binding CommandUpdateMainView}"
-						  Style="{StaticResource Navigation}">
-				<ToggleButton.Content>
-					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
-											 Style="{StaticResource IconDashboard}" />
-				</ToggleButton.Content>
-			</ToggleButton>
-			<ToggleButton Tag="Plan"
-						  Command="{Binding CommandUpdateMainView}"
-						  Style="{StaticResource Navigation}">
-				<ToggleButton.Content>
-					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
-											 Style="{StaticResource IconKalender}" />
-				</ToggleButton.Content>
-			</ToggleButton>
-			<ToggleButton Tag="GoalOverview"
-						  Command="{Binding CommandUpdateMainView}"
-						  Style="{StaticResource Navigation}">
-				<ToggleButton.Content>
-					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
-											 Style="{StaticResource IconProjekte}" />
-				</ToggleButton.Content>
-			</ToggleButton>
-			<ToggleButton Tag="GanttDiagram"
-						  Command="{Binding CommandUpdateMainView}"
-						  Style="{StaticResource Navigation}">
-				<ToggleButton.Content>
-					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
-											 Style="{StaticResource IconGantt}" />
-				</ToggleButton.Content>
-			</ToggleButton>
-			<ToggleButton Tag="Statistics"
-						  Command="{Binding CommandUpdateMainView}"
-						  Style="{StaticResource Navigation}">
-				<ToggleButton.Content>
-					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
-											 Style="{StaticResource IconStatistik}" />
-				</ToggleButton.Content>
-			</ToggleButton>
-			<ToggleButton Tag="Settings"
-						  Command="{Binding CommandUpdateMainView}"
-						  Style="{StaticResource Navigation}">
-				<ToggleButton.Content>
-					<UserControls:VectorIcon Foreground="{DynamicResource PrimaryBrush}"
-											 Style="{StaticResource IconOptionen}" />
-				</ToggleButton.Content>
-			</ToggleButton>
+			<UserControls:MainViewButton ViewModel="{x:Type vm:DashboardViewModel}"
+										 IconStyle="{StaticResource IconDashboard}"/>
+			<UserControls:MainViewButton ViewModel="{x:Type vm:PlanViewModel}"
+										 IconStyle="{StaticResource IconKalender}"/>
+			<UserControls:MainViewButton ViewModel="{x:Type vm:GoalOverviewViewModel}"
+										 IconStyle="{StaticResource IconProjekte}"/>
+			<UserControls:MainViewButton ViewModel="{x:Type vm:GanttDiagramViewModel}"
+										 IconStyle="{StaticResource IconGantt}" />
+			<UserControls:MainViewButton ViewModel="{x:Type vm:StatisticsViewModel}"
+										 IconStyle="{StaticResource IconStatistik}" />
+			<UserControls:MainViewButton ViewModel="{x:Type vm:SettingsViewModel}"
+										 IconStyle="{StaticResource IconOptionen}" />
 
 			<ToggleButton Height="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Width}"
 						  IsChecked="{Binding ElementName=Popup, Path=IsOpen}">
@@ -99,18 +47,14 @@
 							   StaysOpen="False"
 							   Placement="Right">
 							<StackPanel>
-								<Button Command="{Binding CommandUpdateEssView}"
-										CommandParameter="NewCategory"
-										Content="Neue Kategorie!" />
-								<Button Command="{Binding CommandUpdateEssView}"
-										CommandParameter="NewGoal"
-										Content="Neue Aufgabe!" />
-								<Button Command="{Binding CommandUpdateEssView}"
-										CommandParameter="Pomodoro"
-										Content="Zeit erfassen!" />
-								<Button Command="{Binding CommandUpdateEssView}"
-										CommandParameter="NewDayTime"
-										Content="Neue Arbeitszeit!" />
+								<UserControls:EssentialViewButton ViewModel="{x:Type vm:NewCategoryViewModel}"
+																  Content="Neue Kategorie!" />
+								<UserControls:EssentialViewButton ViewModel="{x:Type vm:NewGoalViewModel}"
+																  Content="Neue Aufgabe!" />
+								<UserControls:EssentialViewButton ViewModel="{x:Type vm:PomodoroViewModel}"
+																  Content="Zeit erfassen!" />
+								<UserControls:EssentialViewButton ViewModel="{x:Type vm:NewDayTimeViewModel}"
+																  Content="Neue Arbeitszeit!" />
 							</StackPanel>
 						</Popup>
 					</StackPanel>

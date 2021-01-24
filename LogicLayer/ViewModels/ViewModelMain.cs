@@ -1,7 +1,7 @@
 ﻿using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
-using LogicLayer.Extensions;
 using LogicLayer.Stores;
+using LogicLayer.Views;
 using ModelLayer.Classes;
 using System;
 using System.Diagnostics;
@@ -22,19 +22,19 @@ namespace LogicLayer.ViewModels {
 		public ICommand CommandUpdateMainView => _UpdateMainView ??=
 			new RelayCommand( parameter => {
 				try {
-					UpdateSelectedMainViewModel( Enum.Parse<ViewModelEnum>( parameter as string ?? "" ) );
+					UpdateSelectedMainViewModel( parameter as Type );
 				}
-				catch( ArgumentException ) {
-					Debug.WriteLine( $"Could not Parse the string {parameter} to a ViewModel!" );
+				catch( Exception ) {
+					Debug.WriteLine( $"Could not set {parameter} as a Main-ViewModel!" );
 				}
 			} );
 		public ICommand CommandUpdateEssView => _UpdateEssView ??=
 			 new RelayCommand( parameter => {
 				 try {
-					 UpdateSelectedEssentialViewModel( Enum.Parse<ViewModelEnum>( parameter as string ?? "" ), null );
+					 UpdateSelectedEssentialViewModel( parameter as Type, null );
 				 }
-				 catch( ArgumentException ) {
-					 Debug.WriteLine( $"Could not Parse the string {parameter} to a ViewModel!" );
+				 catch( Exception ) {
+					 Debug.WriteLine( $"Could not set {parameter} as a Essential-ViewModel!" );
 				 }
 			 } );
 		#endregion
@@ -45,23 +45,22 @@ namespace LogicLayer.ViewModels {
 		#endregion
 
 		#region public methods
-		public void UpdateSelectedEssentialViewModel( ViewModelEnum newVMType, object? passedObject = null ) {
-			Debug.WriteLine( $"set the essential VM to {newVMType}" );
-			ViewModelBase? vm = _ViewModels.GetViewModel( newVMType );
-			if( newVMType == ViewModelEnum.NewCategory && passedObject is Category c )
-				(vm as IContent<Category>)?.Fill( c );
-			else if( newVMType == ViewModelEnum.NewGoal && passedObject is Goal g )
-				(vm as IContent<Goal>)?.Fill( g );
-			else if( newVMType == ViewModelEnum.NewDayTime && passedObject is DoubleTime dt )
-				(vm as IContent<DoubleTime>)?.Fill( dt );
-			SelectedVMEssential = vm;
+		public void UpdateSelectedEssentialViewModel( Type? vmType, object? passedObject = null ) {
+			Debug.WriteLine( $"set the essential VM to {vmType?.Name}" );
+			SelectedVMEssential = _ViewModels.GetViewModel( vmType );
+			if( vmType == typeof( NewCategoryViewModel ) && passedObject is Category c )
+				(SelectedVMEssential as IContent<Category>)?.Fill( c );
+			else if( vmType == typeof( NewGoalViewModel ) && passedObject is Goal g )
+				(SelectedVMEssential as IContent<Goal>)?.Fill( g );
+			else if( vmType == typeof( NewDayTimeViewModel ) && passedObject is DoubleTime dt )
+				(SelectedVMEssential as IContent<DoubleTime>)?.Fill( dt );
 		}
 		#endregion
 
 		#region private helper methods
-		private void UpdateSelectedMainViewModel( ViewModelEnum newVMType ) {
-			Debug.WriteLine( $"set the main VM to {newVMType}" );
-			SelectedVMMain = _ViewModels.GetViewModel( newVMType );
+		private void UpdateSelectedMainViewModel( Type? vmType ) {
+			Debug.WriteLine( $"set the main VM to {vmType?.Name}" );
+			SelectedVMMain = _ViewModels.GetViewModel( vmType );
 		}
 		#endregion
 

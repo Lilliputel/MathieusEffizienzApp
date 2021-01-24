@@ -1,0 +1,19 @@
+﻿<ToggleButton x:Class="FrontLayer.WPF.Components.EssentialViewButton"
+			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			  
+			  xmlns:converter="clr-namespace:FrontLayer.WPF.Converter"
+			  Command="{Binding CommandUpdateEssView}"
+			  CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ViewModel}">
+
+	<ToggleButton.IsChecked>
+		<MultiBinding Converter="{converter:CompareViewModel}"
+					  Mode="OneWay">
+			<Binding Path="SelectedVMEssential"
+					 Mode="OneWay" />
+			<Binding RelativeSource="{RelativeSource Mode=Self}"
+					 Path="ViewModel.Name" />
+		</MultiBinding>
+	</ToggleButton.IsChecked>
+
+</ToggleButton>

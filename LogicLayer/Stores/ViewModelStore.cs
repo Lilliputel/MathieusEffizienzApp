@@ -1,8 +1,8 @@
 ﻿using DataLayer;
 using LogicLayer.BaseViewModels;
-using LogicLayer.Extensions;
 using LogicLayer.Views;
 using System;
+using System.Linq;
 
 namespace LogicLayer.Stores {
 	public class ViewModelStore {
@@ -25,6 +25,7 @@ namespace LogicLayer.Stores {
 		#endregion
 
 		#region public properties
+
 		public DashboardViewModel Dashboard
 			=> _Dashboard ??= new DashboardViewModel( _DataService );
 		public PlanViewModel Plan
@@ -56,12 +57,8 @@ namespace LogicLayer.Stores {
 		#endregion
 
 		#region public methods
-		public ViewModelBase? GetViewModel( ViewModelEnum viewModel ) {
-			string? name = Enum.GetName( typeof( ViewModelEnum ), viewModel );
-			return string.IsNullOrWhiteSpace( name )
-				? throw new ArgumentException( $"{nameof( GetViewModel )} must get a valid {nameof( ViewModelEnum )}" )
-				: typeof( ViewModelStore ).GetProperty( name )?.GetValue( this, null ) as ViewModelBase;
-		}
+		public ViewModelBase? GetViewModel( Type? viewModel )
+			=> typeof( ViewModelStore ).GetProperties().First( prop => prop.PropertyType == viewModel )?.GetValue( this, null ) as ViewModelBase;
 		#endregion
 
 	}
