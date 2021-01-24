@@ -11,9 +11,9 @@ namespace EffizienzControls.Converters {
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
-			var projektStart = (DateTime) values[0];
-			var projektEnde = (DateTime) values[1];
-			var datum = (DateTime) values[2];
+			var projektStart = (DateTime)values[0];
+			var projektEnde = (DateTime)values[1];
+			var datum = (DateTime)values[2];
 			double faktor = 0.0;
 			#endregion
 
@@ -30,9 +30,6 @@ namespace EffizienzControls.Converters {
 
 			return faktor;
 		}
-
-		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
-			=> throw new NotImplementedException();
 
 	}
 

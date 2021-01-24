@@ -18,8 +18,6 @@ namespace EffizienzControls.Converters {
 			}
 			return true;
 		}
-		public override object[] ConvertBack( object values, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture )
-			=> throw new ArgumentException();
 
 	}
 }

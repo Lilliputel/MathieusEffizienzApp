@@ -12,13 +12,12 @@ namespace EffizienzControls.Converters {
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
-			var category = (Category) values[0];
-			var date = (DateTime) values[1];
+			var category = (Category)values[0];
+			var date = (DateTime)values[1];
 			#endregion
 
 			return (category).GetTotalTimeOnDate( date );
 		}
-		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
-			=> throw new NotImplementedException();
+
 	}
 }

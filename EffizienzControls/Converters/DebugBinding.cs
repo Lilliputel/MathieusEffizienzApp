@@ -15,5 +15,6 @@ namespace EffizienzControls.Converters {
 			Debugger.Break();
 			return value;
 		}
+
 	}
 }

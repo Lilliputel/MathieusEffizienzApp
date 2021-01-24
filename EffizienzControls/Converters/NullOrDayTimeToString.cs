@@ -20,8 +20,5 @@ namespace EffizienzControls.Converters {
 				return value;
 			}
 		}
-		public override object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture )
-			=> throw new NotImplementedException();
-
 	}
 }

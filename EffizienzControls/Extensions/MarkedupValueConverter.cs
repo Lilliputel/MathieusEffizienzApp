@@ -23,7 +23,8 @@ namespace EffizienzControls.Extensions {
 		#region converter-Methods
 
 		public abstract object? Convert( object? value, Type targetType, object parameter, CultureInfo culture );
-		public abstract object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture );
+		public virtual object? ConvertBack( object? value, Type targetType, object parameter, CultureInfo culture )
+			=> throw new NotImplementedException( $"Convert Back was not overridden in the Markedup ValueConverter of {typeof( T ).Name}" );
 
 		#endregion
 

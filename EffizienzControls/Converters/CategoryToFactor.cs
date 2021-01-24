@@ -12,9 +12,9 @@ namespace EffizienzControls.Converters {
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
-			var category = (Category) values[0];
-			var date = (DateTime) values[1];
-			var maxTime = (TimeSpan) values[2];
+			var category = (Category)values[0];
+			var date = (DateTime)values[1];
+			var maxTime = (TimeSpan)values[2];
 
 			double factor = 0.0;
 			#endregion
@@ -28,7 +28,6 @@ namespace EffizienzControls.Converters {
 
 			return factor;
 		}
-		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
-			=> throw new NotImplementedException();
+
 	}
 }

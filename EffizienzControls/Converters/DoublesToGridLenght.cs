@@ -12,8 +12,8 @@ namespace EffizienzControls.Converters {
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
 
 			#region input
-			double subtrahend = (double) values[0];
-			double minuend = (double) values[1];
+			double subtrahend = (double)values[0];
+			double minuend = (double)values[1];
 			#endregion
 
 			#region converstion
@@ -23,7 +23,6 @@ namespace EffizienzControls.Converters {
 			return new GridLength( returnValue );
 
 		}
-		public override object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
-			=> throw new NotImplementedException();
+
 	}
 }
