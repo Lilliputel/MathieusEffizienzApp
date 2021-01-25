@@ -46,8 +46,8 @@ namespace LogicLayer.Views {
 		#region public commands
 		public ICommand ChangedGoalCommand => _ChangedGoalCommand
 			??= new RelayCommand( parameter => {
-				if( parameter is Goal pGoal && pGoal == _SelectedGoalPrev )
-					SelectedGoal = null;
+				if( parameter is Goal pGoal )
+					SelectedGoal = (pGoal == _SelectedGoalPrev) ? null : pGoal;
 				_SelectedGoalPrev = SelectedGoal;
 			} );
 		public ICommand ChangedCategoryCommand => _ChangedCategoryCommand

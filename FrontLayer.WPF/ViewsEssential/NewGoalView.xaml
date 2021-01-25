@@ -5,7 +5,8 @@
 			 xmlns:extensions="clr-namespace:EffizienzControls.Extensions;assembly=EffizienzControls"
 			 xmlns:enums="clr-namespace:ModelLayer.Enums;assembly=ModelLayer"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
-			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls">
+			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
+			 xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
 	<StackPanel>
 		<!-- ViewTitel -->
@@ -44,26 +45,62 @@
 
 		<!-- Gruppe Child ComboBox -->
 		<TextBlock Text="Übergeordnete Aufgabe:" />
-		<ComboBox ItemsSource="{Binding SelectedCategory.Children, Mode=OneTime}"
-				  SelectedItem="{Binding SelectedGoal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-			<i:Interaction.Triggers>
-				<i:EventTrigger EventName="DropDownClosed">
-					<i:InvokeCommandAction Command="{Binding ChangedGoalCommand}"
-										   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ComboBox}}, Path=SelectedItem}" />
-				</i:EventTrigger>
-			</i:Interaction.Triggers>
-			<ComboBox.ItemTemplate>
-				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
-										  ItemsSource="{Binding Children}">
-					<TextBlock Text="{Binding UserText.Title}" />
-					<HierarchicalDataTemplate.ItemTemplate>
-						<DataTemplate DataType="{x:Type classes:Goal}">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="auto" />
+			</Grid.ColumnDefinitions>
+			<TextBlock x:Name="text"
+					   Text="{Binding SelectedGoal.UserText.Title}"/>
+			<Button Content="Drop"
+					Grid.Column="2"
+					x:Name="btn">
+				<Button.Triggers>
+					<EventTrigger RoutedEvent="Button.Click">
+						<BeginStoryboard>
+							<Storyboard>
+								<BooleanAnimationUsingKeyFrames Storyboard.TargetName="pop"
+																Storyboard.TargetProperty="IsOpen">
+									<DiscreteBooleanKeyFrame KeyTime="0:0:0"
+															 Value="True" />
+								</BooleanAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+					</EventTrigger>
+				</Button.Triggers>
+			</Button>
+			<Popup x:Name="pop"
+				   PlacementTarget="{Binding ElementName=text}">
+				<TreeView ItemsSource="{Binding SelectedCategory.Children, Mode=OneWay}">
+					<TreeView.Triggers>
+						<EventTrigger RoutedEvent="TreeView.SelectedItemChanged">
+							<BeginStoryboard>
+								<Storyboard>
+									<BooleanAnimationUsingKeyFrames Storyboard.TargetName="pop"
+																	Storyboard.TargetProperty="IsOpen">
+										<DiscreteBooleanKeyFrame KeyTime="0:0:0"
+																 Value="False" />
+									</BooleanAnimationUsingKeyFrames>
+								</Storyboard>
+							</BeginStoryboard>
+						</EventTrigger>
+					</TreeView.Triggers>
+					<i:Interaction.Triggers>
+						<i:EventTrigger EventName="SelectedItemChanged">
+							<i:InvokeCommandAction Command="{Binding ChangedGoalCommand}"
+												   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}, Path=SelectedItem}" />
+						</i:EventTrigger>
+					</i:Interaction.Triggers>
+					<TreeView.ItemTemplate>
+						<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
+												  ItemsSource="{Binding Children}">
 							<TextBlock Text="{Binding UserText.Title}" />
-						</DataTemplate>
-					</HierarchicalDataTemplate.ItemTemplate>
-				</HierarchicalDataTemplate>
-			</ComboBox.ItemTemplate>
-		</ComboBox>
+						</HierarchicalDataTemplate>
+					</TreeView.ItemTemplate>
+				</TreeView>
+			</Popup>
+		</Grid>
 
 		<!-- Gruppe Status ComboBox -->
 		<TextBlock Text="Status:" />
