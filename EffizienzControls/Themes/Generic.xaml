@@ -13,5 +13,7 @@
 
 		<ResourceDictionary Source="EffizienzControls;component/Primitives/ProportionalBar.xaml" />
 
+		<ResourceDictionary Source="EffizienzControls;component/TreeViewBox/TreeViewBox.xaml" />
+		
 	</ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

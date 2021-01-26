@@ -6,7 +6,7 @@
 			 xmlns:enums="clr-namespace:ModelLayer.Enums;assembly=ModelLayer"
 			 xmlns:classes="clr-namespace:ModelLayer.Classes;assembly=ModelLayer"
 			 xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
-			 xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+			 xmlns:controls="clr-namespace:EffizienzControls;assembly=EffizienzControls">
 
 	<StackPanel>
 		<!-- ViewTitel -->
@@ -559,6 +559,15 @@
 				</HierarchicalDataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
+
+		<controls:TreeViewBox ItemsSource="{Binding SelectedCategory.Children}">
+			<controls:TreeViewBox.ItemTemplate>
+				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
+										  ItemsSource="{Binding Children}">
+					<TextBlock Text="{Binding UserText.Title}" />
+				</HierarchicalDataTemplate>
+			</controls:TreeViewBox.ItemTemplate>
+		</controls:TreeViewBox>
 
 		<!-- Gruppe Status ComboBox -->
 		<TextBlock Text="Status:" />
