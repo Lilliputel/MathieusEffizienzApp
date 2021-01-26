@@ -45,62 +45,520 @@
 
 		<!-- Gruppe Child ComboBox -->
 		<TextBlock Text="Übergeordnete Aufgabe:" />
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="auto" />
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="auto" />
-			</Grid.ColumnDefinitions>
-			<TextBlock x:Name="text"
-					   Text="{Binding SelectedGoal.UserText.Title}"/>
-			<Button Content="Drop"
-					Grid.Column="2"
-					x:Name="btn">
-				<Button.Triggers>
-					<EventTrigger RoutedEvent="Button.Click">
-						<BeginStoryboard>
-							<Storyboard>
-								<BooleanAnimationUsingKeyFrames Storyboard.TargetName="pop"
-																Storyboard.TargetProperty="IsOpen">
-									<DiscreteBooleanKeyFrame KeyTime="0:0:0"
-															 Value="True" />
-								</BooleanAnimationUsingKeyFrames>
-							</Storyboard>
-						</BeginStoryboard>
-					</EventTrigger>
-				</Button.Triggers>
-			</Button>
-			<Popup x:Name="pop"
-				   PlacementTarget="{Binding ElementName=text}">
-				<TreeView ItemsSource="{Binding SelectedCategory.Children, Mode=OneWay}">
-					<TreeView.Triggers>
-						<EventTrigger RoutedEvent="TreeView.SelectedItemChanged">
-							<BeginStoryboard>
-								<Storyboard>
-									<BooleanAnimationUsingKeyFrames Storyboard.TargetName="pop"
-																	Storyboard.TargetProperty="IsOpen">
-										<DiscreteBooleanKeyFrame KeyTime="0:0:0"
-																 Value="False" />
-									</BooleanAnimationUsingKeyFrames>
-								</Storyboard>
-							</BeginStoryboard>
-						</EventTrigger>
-					</TreeView.Triggers>
-					<i:Interaction.Triggers>
-						<i:EventTrigger EventName="SelectedItemChanged">
-							<i:InvokeCommandAction Command="{Binding ChangedGoalCommand}"
-												   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}, Path=SelectedItem}" />
-						</i:EventTrigger>
-					</i:Interaction.Triggers>
-					<TreeView.ItemTemplate>
-						<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
-												  ItemsSource="{Binding Children}">
-							<TextBlock Text="{Binding UserText.Title}" />
-						</HierarchicalDataTemplate>
-					</TreeView.ItemTemplate>
-				</TreeView>
-			</Popup>
-		</Grid>
+		<ComboBox ItemsSource="{Binding SelectedCategory.Children}">
+			<ComboBox.Style>
+				<Style TargetType="{x:Type ComboBox}">
+
+					<Style.Resources>
+						<Style x:Key="FocusVisual">
+							<Setter Property="Control.Template">
+								<Setter.Value>
+									<ControlTemplate>
+										<Rectangle Margin="2"
+												   StrokeDashArray="1 2"
+												   SnapsToDevicePixels="true"
+												   StrokeThickness="1"
+												   Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+						<SolidColorBrush x:Key="TextBox.Static.Background"
+										 Color="#FFFFFFFF" />
+						<LinearGradientBrush x:Key="ComboBox.Static.Background"
+											 EndPoint="0,1"
+											 StartPoint="0,0">
+							<GradientStop Color="#FFF0F0F0"
+										  Offset="0.0" />
+							<GradientStop Color="#FFE5E5E5"
+										  Offset="1.0" />
+						</LinearGradientBrush>
+						<SolidColorBrush x:Key="ComboBox.Static.Border"
+										 Color="#FFACACAC" />
+						<SolidColorBrush x:Key="ComboBox.Static.Glyph"
+										 Color="#FF606060" />
+						<LinearGradientBrush x:Key="ComboBox.MouseOver.Background"
+											 EndPoint="0,1"
+											 StartPoint="0,0">
+							<GradientStop Color="#FFECF4FC"
+										  Offset="0.0" />
+							<GradientStop Color="#FFDCECFC"
+										  Offset="1.0" />
+						</LinearGradientBrush>
+						<SolidColorBrush x:Key="ComboBox.MouseOver.Border"
+										 Color="#FF7EB4EA" />
+						<SolidColorBrush x:Key="ComboBox.MouseOver.Glyph"
+										 Color="#FF000000" />
+						<LinearGradientBrush x:Key="ComboBox.Pressed.Background"
+											 EndPoint="0,1"
+											 StartPoint="0,0">
+							<GradientStop Color="#FFDAECFC"
+										  Offset="0.0" />
+							<GradientStop Color="#FFC4E0FC"
+										  Offset="1.0" />
+						</LinearGradientBrush>
+						<SolidColorBrush x:Key="ComboBox.Pressed.Border"
+										 Color="#FF569DE5" />
+						<SolidColorBrush x:Key="ComboBox.Pressed.Glyph"
+										 Color="#FF000000" />
+						<SolidColorBrush x:Key="ComboBox.Disabled.Background"
+										 Color="#FFF0F0F0" />
+						<SolidColorBrush x:Key="ComboBox.Disabled.Border"
+										 Color="#FFD9D9D9" />
+						<SolidColorBrush x:Key="ComboBox.Disabled.Glyph"
+										 Color="#FFBFBFBF" />
+					</Style.Resources>
+
+					<Setter Property="FocusVisualStyle"
+							Value="{StaticResource FocusVisual}" />
+					<Setter Property="Background"
+							Value="{StaticResource ComboBox.Static.Background}" />
+					<Setter Property="BorderBrush"
+							Value="{StaticResource ComboBox.Static.Border}" />
+					<Setter Property="Foreground"
+							Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+					<Setter Property="BorderThickness"
+							Value="1" />
+					<Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+							Value="Auto" />
+					<Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+							Value="Auto" />
+					<Setter Property="Padding"
+							Value="6,3,5,3" />
+					<Setter Property="ScrollViewer.CanContentScroll"
+							Value="true" />
+					<Setter Property="ScrollViewer.PanningMode"
+							Value="Both" />
+					<Setter Property="Stylus.IsFlicksEnabled"
+							Value="False" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="{x:Type ComboBox}">
+								<Grid x:Name="templateRoot"
+									  SnapsToDevicePixels="true">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"
+														  Width="0" />
+									</Grid.ColumnDefinitions>
+
+									<Popup x:Name="PART_Popup"
+										   AllowsTransparency="true"
+										   Grid.ColumnSpan="2"
+										   IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, UpdateSourceTrigger=PropertyChanged}"
+										   Margin="1"
+										   Placement="Bottom"
+										   HorizontalAlignment="Stretch"
+										   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+										<Border x:Name="dropDownBorder"
+												Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+												BorderThickness="1"
+												BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
+												MaxHeight="{TemplateBinding MaxDropDownHeight}">
+											<ScrollViewer x:Name="DropDownScrollViewer">
+												<Grid x:Name="grid"
+													  RenderOptions.ClearTypeHint="Enabled">
+													<Canvas x:Name="canvas"
+															HorizontalAlignment="Left"
+															Height="0"
+															VerticalAlignment="Top"
+															Width="0">
+														<Rectangle x:Name="opaqueRect"
+																   Fill="{Binding Background, ElementName=dropDownBorder}"
+																   Height="{Binding ActualHeight, ElementName=dropDownBorder}"
+																   Width="{Binding ActualWidth, ElementName=dropDownBorder}" />
+													</Canvas>
+
+													<TreeView x:Name="ItemsPresenter"
+															  ItemsSource="{TemplateBinding ItemsSource}"
+															  ItemTemplate="{TemplateBinding ItemTemplate}"
+															  KeyboardNavigation.DirectionalNavigation="Contained"
+															  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+															  HorizontalAlignment="Stretch">
+
+														<i:Interaction.Triggers>
+															<i:EventTrigger EventName="SelectedItemChanged">
+																<i:InvokeCommandAction Command="{Binding ChangedGoalCommand}"
+																					   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}, Path=SelectedItem}" />
+															</i:EventTrigger>
+														</i:Interaction.Triggers>
+														<TreeView.ItemContainerStyle>
+															<Style TargetType="{x:Type TreeViewItem}">
+																<Style.Resources>
+																	<Style x:Key="TreeViewItemFocusVisual">
+																		<Setter Property="Control.Template">
+																			<Setter.Value>
+																				<ControlTemplate>
+																					<Rectangle />
+																				</ControlTemplate>
+																			</Setter.Value>
+																		</Setter>
+																	</Style>
+
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Fill"
+																					 Color="#FF595959" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Checked.Stroke"
+																					 Color="#FF262626" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Stroke"
+																					 Color="#FF27C7F7" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Fill"
+																					 Color="#FFCCEEFB" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke"
+																					 Color="#FF1CC4F7" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill"
+																					 Color="#FF82DFFB" />
+																	<PathGeometry x:Key="TreeArrow"
+																				  Figures="M0,0 L0,6 L6,0 z" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Fill"
+																					 Color="#FFFFFFFF" />
+																	<SolidColorBrush x:Key="TreeViewItem.TreeArrow.Static.Stroke"
+																					 Color="#FF818181" />
+
+																	<Style x:Key="ExpandCollapseToggleStyle"
+																		   TargetType="{x:Type ToggleButton}">
+																		<Setter Property="Focusable"
+																				Value="False" />
+																		<Setter Property="Width"
+																				Value="16" />
+																		<Setter Property="Height"
+																				Value="16" />
+																		<Setter Property="Template">
+																			<Setter.Value>
+																				<ControlTemplate TargetType="{x:Type ToggleButton}">
+																					<Border Background="Transparent"
+																							Height="16"
+																							Padding="5,5,5,5"
+																							Width="16">
+																						<Path x:Name="ExpandPath"
+																							  Data="{StaticResource TreeArrow}"
+																							  Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}"
+																							  Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
+																							<Path.RenderTransform>
+																								<RotateTransform Angle="135"
+																												 CenterY="3"
+																												 CenterX="3" />
+																							</Path.RenderTransform>
+																						</Path>
+																					</Border>
+																					<ControlTemplate.Triggers>
+																						<Trigger Property="IsChecked"
+																								 Value="True">
+																							<Setter Property="RenderTransform"
+																									TargetName="ExpandPath">
+																								<Setter.Value>
+																									<RotateTransform Angle="180"
+																													 CenterY="3"
+																													 CenterX="3" />
+																								</Setter.Value>
+																							</Setter>
+																							<Setter Property="Fill"
+																									TargetName="ExpandPath"
+																									Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
+																							<Setter Property="Stroke"
+																									TargetName="ExpandPath"
+																									Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
+																						</Trigger>
+																						<Trigger Property="IsMouseOver"
+																								 Value="True">
+																							<Setter Property="Stroke"
+																									TargetName="ExpandPath"
+																									Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Stroke}" />
+																							<Setter Property="Fill"
+																									TargetName="ExpandPath"
+																									Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Fill}" />
+																						</Trigger>
+																						<MultiTrigger>
+																							<MultiTrigger.Conditions>
+																								<Condition Property="IsMouseOver"
+																										   Value="True" />
+																								<Condition Property="IsChecked"
+																										   Value="True" />
+																							</MultiTrigger.Conditions>
+																							<Setter Property="Stroke"
+																									TargetName="ExpandPath"
+																									Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Stroke}" />
+																							<Setter Property="Fill"
+																									TargetName="ExpandPath"
+																									Value="{StaticResource TreeViewItem.TreeArrow.MouseOver.Checked.Fill}" />
+																						</MultiTrigger>
+																					</ControlTemplate.Triggers>
+																				</ControlTemplate>
+																			</Setter.Value>
+																		</Setter>
+																	</Style>
+
+																</Style.Resources>
+																<Setter Property="Background"
+																		Value="Transparent" />
+																<Setter Property="HorizontalContentAlignment"
+																		Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+																<Setter Property="VerticalContentAlignment"
+																		Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+																<Setter Property="Padding"
+																		Value="1,0,0,0" />
+																<Setter Property="Foreground"
+																		Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+																<Setter Property="FocusVisualStyle"
+																		Value="{StaticResource TreeViewItemFocusVisual}" />
+
+																<Setter Property="Template">
+																	<Setter.Value>
+																		<ControlTemplate TargetType="{x:Type TreeViewItem}">
+																			<Grid>
+																				<Grid.ColumnDefinitions>
+																					<ColumnDefinition MinWidth="19"
+																									  Width="Auto" />
+																					<ColumnDefinition Width="*" />
+																				</Grid.ColumnDefinitions>
+																				<Grid.RowDefinitions>
+																					<RowDefinition Height="Auto" />
+																					<RowDefinition />
+																				</Grid.RowDefinitions>
+																				<ToggleButton x:Name="Expander"
+																							  ClickMode="Press"
+																							  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+																							  Style="{StaticResource ExpandCollapseToggleStyle}" />
+																				<Border x:Name="Bd"
+																						Grid.Column="1"
+																						BorderBrush="{TemplateBinding BorderBrush}"
+																						BorderThickness="{TemplateBinding BorderThickness}"
+																						Background="{TemplateBinding Background}"
+																						Padding="{TemplateBinding Padding}"
+																						SnapsToDevicePixels="true">
+																					<ContentPresenter x:Name="PART_Header"
+																									  ContentSource="Header"
+																									  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+																									  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+																				</Border>
+																				<ItemsPresenter x:Name="ItemsHost"
+																								Grid.Row="1"
+																								Grid.Column="1" />
+																			</Grid>
+																			<ControlTemplate.Triggers>
+																				<Trigger Property="IsExpanded"
+																						 Value="false">
+																					<Setter Property="Visibility"
+																							TargetName="ItemsHost"
+																							Value="Collapsed" />
+																				</Trigger>
+																				<Trigger Property="HasItems"
+																						 Value="false">
+																					<Setter Property="Visibility"
+																							TargetName="Expander"
+																							Value="Hidden" />
+																				</Trigger>
+																				<Trigger Property="IsSelected"
+																						 Value="true">
+																					<Setter Property="Background"
+																							TargetName="Bd"
+																							Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+																					<Setter Property="Foreground"
+																							Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+																				</Trigger>
+																				<MultiTrigger>
+																					<MultiTrigger.Conditions>
+																						<Condition Property="IsSelected"
+																								   Value="true" />
+																						<Condition Property="IsSelectionActive"
+																								   Value="false" />
+																					</MultiTrigger.Conditions>
+																					<Setter Property="Background"
+																							TargetName="Bd"
+																							Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+																					<Setter Property="Foreground"
+																							Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
+																				</MultiTrigger>
+																				<Trigger Property="IsEnabled"
+																						 Value="false">
+																					<Setter Property="Foreground"
+																							Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+																				</Trigger>
+																			</ControlTemplate.Triggers>
+																		</ControlTemplate>
+																	</Setter.Value>
+																</Setter>
+																<Style.Triggers>
+																	<Trigger Property="VirtualizingPanel.IsVirtualizing"
+																			 Value="true">
+																		<Setter Property="ItemsPanel">
+																			<Setter.Value>
+																				<ItemsPanelTemplate>
+																					<VirtualizingStackPanel />
+																				</ItemsPanelTemplate>
+																			</Setter.Value>
+																		</Setter>
+																	</Trigger>
+																</Style.Triggers>
+															</Style>
+														</TreeView.ItemContainerStyle>
+														<TreeView.Triggers>
+															<EventTrigger RoutedEvent="TreeView.SelectedItemChanged">
+																<BeginStoryboard>
+																	<Storyboard>
+																		<BooleanAnimationUsingKeyFrames Storyboard.Target="{Binding ElementName=PART_Popup}"
+																										Storyboard.TargetProperty="IsOpen">
+																			<DiscreteBooleanKeyFrame KeyTime="0:0:0"
+																									 Value="False" />
+																		</BooleanAnimationUsingKeyFrames>
+																	</Storyboard>
+																</BeginStoryboard>
+															</EventTrigger>
+														</TreeView.Triggers>
+													</TreeView>
+												</Grid>
+											</ScrollViewer>
+										</Border>
+									</Popup>
+
+									<Button x:Name="toggleButton"
+											Background="{TemplateBinding Background}"
+											BorderThickness="{TemplateBinding BorderThickness}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											Grid.ColumnSpan="2">
+										<Button.Triggers>
+											<EventTrigger RoutedEvent="Button.Click">
+												<BeginStoryboard>
+													<Storyboard>
+														<BooleanAnimationUsingKeyFrames Storyboard.TargetName="PART_Popup"
+																						Storyboard.TargetProperty="IsOpen">
+															<DiscreteBooleanKeyFrame KeyTime="0:0:0"
+																					 Value="{Binding ElementName=PART_Popup, Path=IsOpen, Converter={converter:InvertBool}}" />
+														</BooleanAnimationUsingKeyFrames>
+													</Storyboard>
+												</BeginStoryboard>
+											</EventTrigger>
+										</Button.Triggers>
+										<Button.Style>
+											<Style TargetType="{x:Type Button}">
+												<Setter Property="OverridesDefaultStyle"
+														Value="true" />
+												<Setter Property="IsTabStop"
+														Value="false" />
+												<Setter Property="Focusable"
+														Value="false" />
+												<Setter Property="ClickMode"
+														Value="Press" />
+												<Setter Property="Template">
+													<Setter.Value>
+														<ControlTemplate TargetType="{x:Type Button}">
+															<Border x:Name="templateRoot"
+																	Background="{StaticResource ComboBox.Static.Background}"
+																	BorderThickness="{TemplateBinding BorderThickness}"
+																	BorderBrush="{StaticResource ComboBox.Static.Border}"
+																	SnapsToDevicePixels="true">
+																<Border x:Name="splitBorder"
+																		BorderThickness="1"
+																		BorderBrush="Transparent"
+																		HorizontalAlignment="Right"
+																		Margin="0"
+																		SnapsToDevicePixels="true"
+																		Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+																	<Path x:Name="arrow"
+																		  Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z"
+																		  Fill="{StaticResource ComboBox.Static.Glyph}"
+																		  HorizontalAlignment="Center"
+																		  Margin="0"
+																		  VerticalAlignment="Center" />
+																</Border>
+															</Border>
+															<ControlTemplate.Triggers>
+																<Trigger Property="IsMouseOver"
+																		 Value="true">
+																	<Setter Property="Fill"
+																			TargetName="arrow"
+																			Value="{StaticResource ComboBox.MouseOver.Glyph}" />
+																	<Setter Property="Background"
+																			TargetName="templateRoot"
+																			Value="{StaticResource ComboBox.MouseOver.Background}" />
+																	<Setter Property="BorderBrush"
+																			TargetName="templateRoot"
+																			Value="{StaticResource ComboBox.MouseOver.Border}" />
+																</Trigger>
+																<Trigger Property="IsPressed"
+																		 Value="true">
+																	<Setter Property="Fill"
+																			TargetName="arrow"
+																			Value="{StaticResource ComboBox.Pressed.Glyph}" />
+																	<Setter Property="Background"
+																			TargetName="templateRoot"
+																			Value="{StaticResource ComboBox.Pressed.Background}" />
+																	<Setter Property="BorderBrush"
+																			TargetName="templateRoot"
+																			Value="{StaticResource ComboBox.Pressed.Border}" />
+																</Trigger>
+																<Trigger Property="IsEnabled"
+																		 Value="false">
+																	<Setter Property="Fill"
+																			TargetName="arrow"
+																			Value="{StaticResource ComboBox.Disabled.Glyph}" />
+																	<Setter Property="Background"
+																			TargetName="templateRoot"
+																			Value="{StaticResource ComboBox.Disabled.Background}" />
+																	<Setter Property="BorderBrush"
+																			TargetName="templateRoot"
+																			Value="{StaticResource ComboBox.Disabled.Border}" />
+																</Trigger>
+															</ControlTemplate.Triggers>
+														</ControlTemplate>
+													</Setter.Value>
+												</Setter>
+											</Style>
+										</Button.Style>
+									</Button>
+
+									<ContentPresenter x:Name="contentPresenter"
+													  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+													  Content="{Binding SelectedGoal.UserText.Title}"
+													  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+													  ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+													  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+													  IsHitTestVisible="false"
+													  Margin="{TemplateBinding Padding}"
+													  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+													  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+
+								</Grid>
+								<ControlTemplate.Triggers>
+									<Trigger Property="HasItems"
+											 Value="false">
+										<Setter Property="Height"
+												TargetName="dropDownBorder"
+												Value="95" />
+									</Trigger>
+									<MultiTrigger>
+										<MultiTrigger.Conditions>
+											<Condition Property="IsGrouping"
+													   Value="true" />
+											<Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping"
+													   Value="false" />
+										</MultiTrigger.Conditions>
+										<Setter Property="ScrollViewer.CanContentScroll"
+												Value="false" />
+									</MultiTrigger>
+									<Trigger Property="ScrollViewer.CanContentScroll"
+											 SourceName="DropDownScrollViewer"
+											 Value="false">
+										<Setter Property="Canvas.Top"
+												TargetName="opaqueRect"
+												Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}" />
+										<Setter Property="Canvas.Left"
+												TargetName="opaqueRect"
+												Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}" />
+									</Trigger>
+								</ControlTemplate.Triggers>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</ComboBox.Style>
+
+			<ComboBox.ItemTemplate>
+				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
+										  ItemsSource="{Binding Children}">
+					<TextBlock Text="{Binding UserText.Title}" />
+				</HierarchicalDataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
 
 		<!-- Gruppe Status ComboBox -->
 		<TextBlock Text="Status:" />
