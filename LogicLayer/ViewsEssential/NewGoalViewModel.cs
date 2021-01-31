@@ -27,8 +27,6 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public object? TESTITEM { get; 
-			set; }
 		public ICollectionView CategoryList { get; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The title has to be specified!" )]
 		public string? Title { get; set; }
