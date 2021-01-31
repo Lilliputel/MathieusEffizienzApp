@@ -27,6 +27,8 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
+		public object? TESTITEM { get; 
+			set; }
 		public ICollectionView CategoryList { get; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The title has to be specified!" )]
 		public string? Title { get; set; }
@@ -93,7 +95,9 @@ namespace LogicLayer.Views {
 			Title = null;
 			Description = null;
 			SelectedCategory = null;
+			_SelectedCategoryPrev = null;
 			SelectedGoal = null;
+			_SelectedGoalPrev = null;
 			StartDate = DateTime.Today;
 			EndDate = DateTime.Today.AddDays( 1 );
 			State = StateEnum.ToDo;
