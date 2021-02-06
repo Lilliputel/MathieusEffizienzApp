@@ -46,7 +46,7 @@
 		<!-- Gruppe Child ComboBox -->
 		<TextBlock Text="Übergeordnete Aufgabe:" />
 		<controls:TreeViewBox ItemsSource="{Binding SelectedCategory.Children}"
-							  SelectedItem="{Binding TESTITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+							  SelectedItem="{Binding SelectedGoal, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
 			<controls:TreeViewBox.ItemTemplate>
 				<HierarchicalDataTemplate DataType="{x:Type classes:Goal}"
 										  ItemsSource="{Binding Children}">
