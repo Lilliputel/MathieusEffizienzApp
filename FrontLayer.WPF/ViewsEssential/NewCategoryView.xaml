@@ -10,7 +10,9 @@
 			<Setter Property="Validation.ErrorTemplate">
 				<Setter.Value>
 					<ControlTemplate>
-						<AdornedElementPlaceholder />
+						<Border BorderBrush="Red">
+							<AdornedElementPlaceholder />
+						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
@@ -38,8 +40,22 @@
 				</Setter.Value>
 			</Setter>
 			<Style.Triggers>
-				<Trigger Property="Validation.HasError" Value="true">
-					<Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}" />
+				<Trigger Property="Validation.HasError"
+						 Value="true">
+					<Setter Property="ToolTip">
+						<Setter.Value>
+							<ToolTip DataContext="{Binding RelativeSource={RelativeSource Mode=Self}, Path=PlacementTarget}">
+								<ItemsControl ItemsSource="{Binding (Validation.Errors)}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<TextBlock Foreground="Red"
+													   Text="{Binding ErrorContent}" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</ToolTip>
+						</Setter.Value>
+					</Setter>
 				</Trigger>
 			</Style.Triggers>
 		</Style>
