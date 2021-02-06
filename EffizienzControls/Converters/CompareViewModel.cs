@@ -1,14 +1,13 @@
 ﻿using EffizienzControls.Extensions;
-using LogicLayer.BaseViewModels;
 using System;
 using System.Globalization;
 
-namespace FrontLayer.WPF.Converter {
+namespace EffizienzControls.Converters {
 
 	public class CompareViewModel : MarkedupMultiValueConverter<CompareViewModel> {
 
 		public override object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) {
-			if( (values[0] is ViewModelBase viewModel && viewModel.GetType()?.Name is string vmName) )
+			if( (values[0]?.GetType()?.Name is string vmName) )
 				if( values[1] is string str && string.IsNullOrWhiteSpace( str ) is false )
 					return vmName == str;
 				else

@@ -2,7 +2,6 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:vm="clr-namespace:LogicLayer.Views;assembly=LogicLayer"
-		xmlns:converter="clr-namespace:FrontLayer.WPF.Converter"
 		xmlns:UserControls="clr-namespace:FrontLayer.WPF.Components"
 		xmlns:DTSelector="clr-namespace:FrontLayer.WPF.TemplateSelectors"
 		Title="Prototype_Effizienz"

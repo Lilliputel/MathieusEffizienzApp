@@ -2,10 +2,11 @@
 			  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			  
-			  xmlns:converter="clr-namespace:FrontLayer.WPF.Converter"
+			  xmlns:converter="clr-namespace:EffizienzControls.Converters;assembly=EffizienzControls"
 			  xmlns:UserControls="clr-namespace:FrontLayer.WPF.Components"
 			  Command="{Binding CommandUpdateMainView}"
-			  CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ViewModel}">
+			  CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ViewModel}"
+			  IsEnabled="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked, Converter={converter:InvertBool}}">
 	
 	<ToggleButton.IsChecked>
 		<MultiBinding Converter="{converter:CompareViewModel}"
