@@ -4,7 +4,8 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<OutputType>Library</OutputType>
 		<RootNamespace>DataLayer</RootNamespace>
-		<OutputPath>$(OutputPath)DataLayer\</OutputPath>
+		<OutputPath>$(OutputPath)$(ProjectName)\</OutputPath>
+		<IntermediateOutputPath>$(IntermediateOutputPath)$(ProjectName)\</IntermediateOutputPath>
 		<Platforms>$(Platforms)</Platforms>
 		<LangVersion>$(LangVersion)</LangVersion>
 		<Nullable>$(Nullable)</Nullable>
