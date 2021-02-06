@@ -10,10 +10,15 @@ using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 #if SQLite
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 #endif
 
 namespace ModelLayer.Classes {
 	public class Goal : ObservableObject, IAccountableParent<Goal>, ICompleteable {
+
+		#region private fields
+		private DateSpan _Plan;
+		#endregion
 
 		#region public properties
 		[Required, Key]
@@ -44,20 +49,25 @@ namespace ModelLayer.Classes {
 #if SQLite
 		[NotMapped]
 #endif
-		public TimeSpan Time {
-			get {
-				TimeSpan placeholder = TimeSpan.Zero;
-				new List<WorkItem>( WorkHours ).ForEach( item => placeholder += item.Time );
-				return placeholder;
-			}
-		}
+		public TimeSpan Time
+			=> WorkHours.Aggregate( TimeSpan.Zero, ( sum, item ) => sum += item.Time );
 
 #if SQLite
 		[ForeignKey( nameof( Plan ) )]
 		[Required]
 		public int PlanId { get; set; }
 #endif
-		public DateSpan Plan { get; set; }
+		public DateSpan Plan {
+			get => _Plan;
+			set {
+				if( value == _Plan )
+					return;
+				if( _Plan is DateSpan )
+					_Plan.PropertyChanged -= RaisePlanChanged;
+				_Plan = value;
+				_Plan.PropertyChanged += RaisePlanChanged;
+			}
+		}
 #if SQLite
 		[Column( TypeName = "TEXT" )]
 #endif
@@ -65,29 +75,39 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public events
-		public event PlanEventHandler? PlanChanged;
+		public event EventHandler<DateSpan>? PlanChanged;
+		public event EventHandler? WorkHoursChanged;
 		#endregion
 
 		#region Constructors
 		public Goal( UserText userText, DateSpan plan, StateEnum state = StateEnum.ToDo ) : this() {
 			UserText = userText;
 			Plan = plan;
-			Plan.PropertyChanged += ( sender, e ) => PlanChanged?.Invoke( Plan );
 			State = state;
 		}
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-		public Goal() {
+		private Goal() {
+			WorkHours.CollectionChanged += ( sender, e ) => RaiseWorkHoursChanged( this, EventArgs.Empty );
 			Children.CollectionChanged += ( sender, e ) => {
-				if( e.Action == NotifyCollectionChangedAction.Add )
+				if( e.Action == NotifyCollectionChangedAction.Add || e.Action == NotifyCollectionChangedAction.Replace ) {
 					if( e.NewItems is ICollection<Goal> col )
-						new List<Goal>( col ).ForEach( goal =>
-							   goal.PlanChanged += Child_PlanChanged );
+						new List<Goal>( col ).ForEach( goal => {
+							goal.PlanChanged += OnChildPlanChanged;
+							goal.WorkHoursChanged += OnChildTimeChanged;
+						} );
+				}
+				if( e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Replace ) {
+					if( e.OldItems is ICollection<Goal> col )
+						new List<Goal>( col ).ForEach( goal => {
+							goal.PlanChanged -= OnChildPlanChanged;
+							goal.WorkHoursChanged -= OnChildTimeChanged;
+						} );
+				}
 			};
 		}
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 		~Goal() {
-			Plan.PropertyChanged -= ( sender, e ) => PlanChanged?.Invoke( Plan );
-			new List<Goal>( Children ).ForEach( goal => goal.PlanChanged -= Child_PlanChanged );
+			new List<Goal>( Children ).ForEach( goal => goal.PlanChanged -= OnChildPlanChanged );
 		}
 		#endregion
 
@@ -112,12 +132,18 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region private helper methods
-		private void Child_PlanChanged( DateSpan plan ) {
+		private void RaisePlanChanged( object? sender, EventArgs e )
+			=> PlanChanged?.Invoke( this, Plan );
+		private void OnChildPlanChanged( object? sender, DateSpan plan ) {
 			if( plan.Start < Plan.Start )
 				Plan.Start = plan.Start;
 			if( plan.End > Plan.End )
 				Plan.End = plan.End;
 		}
+		private void RaiseWorkHoursChanged( object? sender, EventArgs e )
+			=> WorkHoursChanged?.Invoke( sender, e );
+		private void OnChildTimeChanged( object? sender, EventArgs e )
+			=> RaiseWorkHoursChanged( sender, e );
 		#endregion
 
 	}

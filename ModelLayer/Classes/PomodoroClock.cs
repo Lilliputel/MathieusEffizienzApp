@@ -1,5 +1,4 @@
 ﻿using ModelLayer.Enums;
-using ModelLayer.Extensions;
 using ModelLayer.Utility;
 using System;
 using System.Diagnostics;
@@ -27,10 +26,10 @@ namespace ModelLayer.Classes {
 		#endregion
 
 		#region public Events
-		public event PomodoroEventHandler? Elapsed;
+		public event EventHandler<(WorkModeEnum, TimeSpan)>? Elapsed;
 		protected virtual void RaiseElapsed() {
 
-			Elapsed?.Invoke( _CurrentWorkMode, GetActualTime() );
+			Elapsed?.Invoke( this, (_CurrentWorkMode, GetActualTime()) );
 
 			AddTimeIfWork();
 			ResetCounter();

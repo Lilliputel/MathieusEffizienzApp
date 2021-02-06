@@ -43,9 +43,8 @@ namespace ModelLayer.Classes {
 		#region constructor
 		public DateSpan( string start, string end, IFormatProvider formatProvider )
 			: this( DateTime.ParseExact( start, @"dd.MM.yy", formatProvider ), DateTime.ParseExact( end, @"dd.MM.yy", formatProvider ) ) { }
-		public DateSpan( DateTime start, DateTime end ) {
-			UpdateValues( start.Date, end.Date );
-		}
+		public DateSpan( DateTime start, DateTime end )
+			=> UpdateValues( start.Date, end.Date );
 		#endregion
 
 		#region private helper methods
