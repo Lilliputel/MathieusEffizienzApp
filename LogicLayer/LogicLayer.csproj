@@ -16,10 +16,10 @@
 	  <PackageReference Include="PropertyChanged.Fody" />
 	  <PackageReference Include="System.ComponentModel.Annotations" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<ProjectReference Include="..\DataLayer\DataLayer.csproj" />
-		<ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
-	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+	  <ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
+	</ItemGroup>
+	
 </Project>
