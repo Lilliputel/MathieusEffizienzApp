@@ -37,7 +37,7 @@ namespace FrontLayer.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("de-CH")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ch-de")]
         public string CurrentCulture {
             get {
                 return ((string)(this["CurrentCulture"]));
@@ -50,12 +50,24 @@ namespace FrontLayer.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool CountsUp {
+        public bool CountingUp {
             get {
-                return ((bool)(this["CountsUp"]));
+                return ((bool)(this["CountingUp"]));
             }
             set {
-                this["CountsUp"] = value;
+                this["CountingUp"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.25")]
+        public double PlanIntervallFraction {
+            get {
+                return ((double)(this["PlanIntervallFraction"]));
+            }
+            set {
+                this["PlanIntervallFraction"] = value;
             }
         }
     }

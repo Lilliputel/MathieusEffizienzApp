@@ -4,31 +4,56 @@ using System.Globalization;
 namespace LogicLayer.Stores {
 	public class SettingsStore {
 
-		#region public properties
-		public bool DarkMode { get; private set; }
-		public bool CountdirectionUp { get; private set; }
-		public CultureInfo CurrentCulture { get; private set; } = CultureInfo.CreateSpecificCulture( "en-US" );
+		#region CountingUp
+		private bool _CountingUp;
+		public bool CountingUp {
+			get => _CountingUp;
+			set {
+				_CountingUp = value;
+				CountingUpChanged?.Invoke( _CountingUp );
+			}
+		}
+		public Action<bool>? CountingUpChanged { get; init; }
+		public void SwitchCountingUp()
+			=> CountingUp = CountingUp is false;
 		#endregion
 
-		#region propertychanged-Actions
+		#region CurrentCulture
+		private CultureInfo _CurrentCulture = CultureInfo.CreateSpecificCulture( "ch-de" );
+		public CultureInfo CurrentCulture {
+			get => _CurrentCulture;
+			set {
+				_CurrentCulture = value;
+				CurrentCultureChanged?.Invoke( _CurrentCulture );
+			}
+		}
+		public Action<CultureInfo>? CurrentCultureChanged { get; init; }
+		#endregion
+
+		#region DarkMode
+		private bool _DarkMode;
+		public bool DarkMode {
+			get => _DarkMode;
+			set {
+				_DarkMode = value;
+				DarkModeChanged?.Invoke( _DarkMode );
+			}
+		}
 		public Action<bool>? DarkModeChanged { get; init; }
-		public Action<bool>? CountDirectionChanged { get; init; }
-		public Action<CultureInfo>? CultureInfoChanged { get; init; }
+		public void SwitchDarkMode()
+			=> DarkMode = DarkMode is false;
 		#endregion
 
-		#region public methods
-		public void ChangeDarkMode( bool? isDarkMode = null ) {
-			DarkMode = isDarkMode is bool isDarkModeNew ? isDarkModeNew : !DarkMode;
-			DarkModeChanged?.Invoke( DarkMode );
+		#region PlanIntervallFraction
+		private double _PlanIntervallFraction;
+		public double PlanIntervallFraction {
+			get => _PlanIntervallFraction;
+			set {
+				_PlanIntervallFraction = value;
+				PlanIntervallFractionChanged?.Invoke( _PlanIntervallFraction );
+			}
 		}
-		public void ChangeCountDirection( bool? countsUp = null ) {
-			CountdirectionUp = countsUp is bool countsUpNew ? countsUpNew : !CountdirectionUp;
-			CountDirectionChanged?.Invoke( CountdirectionUp );
-		}
-		public void SetCultureInfo( CultureInfo culture ) {
-			CurrentCulture = culture;
-			CultureInfoChanged?.Invoke( CurrentCulture );
-		}
+		public Action<double>? PlanIntervallFractionChanged { get; init; }
 		#endregion
 
 	}

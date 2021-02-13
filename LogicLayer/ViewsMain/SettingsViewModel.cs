@@ -21,7 +21,7 @@ namespace LogicLayer.Views {
 			get => _SettingsStore.CurrentCulture;
 			set {
 				if( value != _SettingsStore.CurrentCulture ) {
-					_SettingsStore.SetCultureInfo( value );
+					_SettingsStore.CurrentCulture = value;
 					Trace.WriteLine( $"SettingsVM set the Culture to {_SettingsStore.CurrentCulture}!" );
 				}
 			}
@@ -32,14 +32,14 @@ namespace LogicLayer.Views {
 		#region public commands
 		public ICommand CommandChangeTheme => _CommandChangeTheme ??=
 			new RelayCommand( parameter => {
-				_SettingsStore.ChangeDarkMode();
+				_SettingsStore.SwitchDarkMode();
 				RaisePropertyChanged( nameof( ThemeButton ) );
 				Trace.WriteLine( $"SettingsVM set the Darkmode to {_SettingsStore.DarkMode}!" );
 			} );
 		public ICommand CommandChangeCountDirection => _CommandChangeCountDirection ??=
 			new RelayCommand( parameter => {
-				_SettingsStore.ChangeCountDirection();
-				Trace.WriteLine( $"SettingsVM set the CountDirection to {_SettingsStore.CountdirectionUp}!" );
+				_SettingsStore.SwitchCountingUp();
+				Trace.WriteLine( $"SettingsVM set the CountDirection to {_SettingsStore.CountingUp}!" );
 			} );
 		#endregion
 

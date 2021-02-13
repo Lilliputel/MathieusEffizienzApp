@@ -29,9 +29,11 @@ namespace FrontLayer.WPF {
 			_DataService = new MockRepository();
 #endif
 			_Settings = new SettingsStore {
+				CountingUpChanged = value => SetCountDirection( value ),
+				CurrentCultureChanged = value => SetCurrentCulture( value ),
 				DarkModeChanged = value => SetDarkMode( value ),
-				CountDirectionChanged = value => _ViewModels?.Pomodoro.Clock.UpdateCountDirection(),
-				CultureInfoChanged = value => SetDefaultCulture( value )
+				PlanIntervallFractionChanged = value => SetPlanIntervall( value ),
+
 			};
 			_AlertService = new AlertStore( ShowMessageBoxOnAlert );
 			_ViewModels = new ViewModelStore( _DataService, _Settings, _AlertService );
@@ -41,9 +43,10 @@ namespace FrontLayer.WPF {
 		#region OnStartup
 		protected override void OnStartup( StartupEventArgs e ) {
 
-			_Settings.SetCultureInfo( CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture ) );
-			_Settings.ChangeDarkMode( Settings.Default.DarkMode );
-			_Settings.ChangeCountDirection( Settings.Default.CountsUp );
+			_Settings.CountingUp = Settings.Default.CountingUp;
+			_Settings.CurrentCulture = CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture );
+			_Settings.DarkMode = Settings.Default.DarkMode;
+			_Settings.PlanIntervallFraction = Settings.Default.PlanIntervallFraction;
 
 			base.OnStartup( e );
 			new MainWindow() { DataContext = new ViewModelMain( _ViewModels ) }.Show();
@@ -75,6 +78,13 @@ namespace FrontLayer.WPF {
 		#endregion
 
 		#region private helper methods
+		private void SetCountDirection( bool value )
+			=> _ViewModels?.Pomodoro.Clock.UpdateCountDirection( value is false );
+		private void SetCurrentCulture( CultureInfo defaultCulture ) {
+			CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+			CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+			Settings.Default.CurrentCulture = defaultCulture.ToString();
+		}
 		private void SetDarkMode( bool value ) {
 			Settings.Default.DarkMode = value;
 			Resources.MergedDictionaries[0].Clear();
@@ -83,10 +93,10 @@ namespace FrontLayer.WPF {
 					Source = new Uri( _ThemeDirectory + (value ? _ThemeDark : _ThemeLight), UriKind.Relative )
 				} );
 		}
-		private void SetDefaultCulture( CultureInfo defaultCulture ) {
-			CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
-			CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
-			Settings.Default.CurrentCulture = defaultCulture.ToString();
+		private void SetPlanIntervall( double value ) {
+			var x = value;
+			value = 0.0;
+			return;
 		}
 		#endregion
 

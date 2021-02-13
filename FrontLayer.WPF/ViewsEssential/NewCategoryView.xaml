@@ -10,7 +10,7 @@
 			<Setter Property="Validation.ErrorTemplate">
 				<Setter.Value>
 					<ControlTemplate>
-						<Border BorderBrush="Red">
+						<Border BorderBrush="Red" BorderThickness="1">
 							<AdornedElementPlaceholder />
 						</Border>
 					</ControlTemplate>
