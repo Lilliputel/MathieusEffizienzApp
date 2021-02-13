@@ -37,7 +37,7 @@ namespace FrontLayer.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ch-de")]
+        [global::System.Configuration.DefaultSettingValueAttribute("de-CH")]
         public string CurrentCulture {
             get {
                 return ((string)(this["CurrentCulture"]));

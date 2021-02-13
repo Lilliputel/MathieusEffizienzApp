@@ -7,6 +7,7 @@ using LogicLayer.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace FrontLayer.WPF {
 	public partial class App : Application {
@@ -83,6 +84,7 @@ namespace FrontLayer.WPF {
 		private void SetCurrentCulture( CultureInfo defaultCulture ) {
 			CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
 			CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
+			FrameworkElement.LanguageProperty.OverrideMetadata( typeof( FrameworkElement ), new FrameworkPropertyMetadata( XmlLanguage.GetLanguage( CultureInfo.CurrentCulture.IetfLanguageTag ) ) );
 			Settings.Default.CurrentCulture = defaultCulture.ToString();
 		}
 		private void SetDarkMode( bool value ) {

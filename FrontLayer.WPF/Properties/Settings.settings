@@ -6,7 +6,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="CurrentCulture" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ch-de</Value>
+      <Value Profile="(Default)">de-CH</Value>
     </Setting>
     <Setting Name="CountingUp" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
