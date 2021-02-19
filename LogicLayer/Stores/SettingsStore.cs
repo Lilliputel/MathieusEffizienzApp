@@ -45,15 +45,15 @@ namespace LogicLayer.Stores {
 		#endregion
 
 		#region PlanIntervallMinutes
-		private int _PlanIntervallMins;
-		public int PlanIntervallMinutes {
-			get => _PlanIntervallMins;
+		private TimeSpan _PlanIntervall;
+		public TimeSpan PlanIntervall {
+			get => _PlanIntervall;
 			set {
-				_PlanIntervallMins = value;
-				PlanIntervallMinutesChanged?.Invoke( _PlanIntervallMins );
+				_PlanIntervall = value;
+				PlanIntervallMinutesChanged?.Invoke( _PlanIntervall );
 			}
 		}
-		public Action<int>? PlanIntervallMinutesChanged { get; init; }
+		public Action<TimeSpan>? PlanIntervallMinutesChanged { get; init; }
 		#endregion
 
 	}

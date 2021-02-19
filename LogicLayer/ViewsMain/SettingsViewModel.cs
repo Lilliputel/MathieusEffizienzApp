@@ -1,6 +1,7 @@
 ﻿using LogicLayer.BaseViewModels;
 using LogicLayer.Commands;
 using LogicLayer.Stores;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Input;
@@ -16,7 +17,7 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region public properties
-		public int PlanIntervallMinutes { get; set; }
+		public TimeSpan PlanIntervall { get; set; }
 		public string ThemeButton
 			=> _SettingsStore.DarkMode ? "Light!" : "Dark!";
 		public CultureInfo SelectedCulture {
@@ -45,15 +46,15 @@ namespace LogicLayer.Views {
 			} );
 		public ICommand CommandChangePlanIntervall => _CommandChangePlanIntervall
 			??= new RelayCommand( parameter => {
-				_SettingsStore.PlanIntervallMinutes = PlanIntervallMinutes;
-				Trace.WriteLine( $"SettingsVM set the PlanIntervall to {PlanIntervallMinutes}min.!" );
+				_SettingsStore.PlanIntervall = PlanIntervall;
+				Trace.WriteLine( $"SettingsVM set the PlanIntervall to {PlanIntervall}!" );
 			} );
 		#endregion
 
 		#region constructor
 		public SettingsViewModel( SettingsStore settingsStore ) {
 			_SettingsStore = settingsStore;
-			PlanIntervallMinutes = _SettingsStore.PlanIntervallMinutes;
+			PlanIntervall = _SettingsStore.PlanIntervall;
 			Cultures = CultureInfo.GetCultures( CultureTypes.SpecificCultures );
 		}
 		#endregion

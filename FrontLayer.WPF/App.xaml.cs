@@ -47,7 +47,7 @@ namespace FrontLayer.WPF {
 			_Settings.CountingUp = Settings.Default.CountingUp;
 			_Settings.CurrentCulture = CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture );
 			_Settings.DarkMode = Settings.Default.DarkMode;
-			_Settings.PlanIntervallMinutes = Settings.Default.PlanIntervallFraction;
+			_Settings.PlanIntervall = Settings.Default.PlanIntervallFraction;
 
 			base.OnStartup( e );
 			new MainWindow() { DataContext = new ViewModelMain( _ViewModels ) }.Show();
@@ -95,9 +95,7 @@ namespace FrontLayer.WPF {
 					Source = new Uri( _ThemeDirectory + (value ? _ThemeDark : _ThemeLight), UriKind.Relative )
 				} );
 		}
-		private void SetPlanIntervall( double value ) {
-			var x = value;
-			value = 0.0;
+		private void SetPlanIntervall( TimeSpan value ) {
 			return;
 		}
 		#endregion

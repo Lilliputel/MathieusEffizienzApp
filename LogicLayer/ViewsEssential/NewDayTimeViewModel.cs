@@ -109,14 +109,14 @@ namespace LogicLayer.Views {
 
 		#region private helpermethods
 		private void SetTimeSpanNormalized( ref TimeSpan field, TimeSpan value ) {
-			var remainder = value.TotalMinutes % _SettingsStore.PlanIntervallMinutes;
+			var remainder = value.TotalMinutes % _SettingsStore.PlanIntervall.TotalMinutes;
 			if( remainder == 0 ) {
 				field = value;
 				return;
 			}
 			var minutes = value.TotalMinutes - remainder;
-			if( remainder > _SettingsStore.PlanIntervallMinutes / 2 )
-				minutes += _SettingsStore.PlanIntervallMinutes;
+			if( remainder > _SettingsStore.PlanIntervall.TotalMinutes / 2 )
+				minutes += _SettingsStore.PlanIntervall.TotalMinutes;
 			field = TimeSpan.FromMinutes( minutes );
 		}
 		#endregion

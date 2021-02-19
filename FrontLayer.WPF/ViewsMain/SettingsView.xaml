@@ -34,9 +34,9 @@
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<TextBox Text="{Binding PlanIntervallMinutes, UpdateSourceTrigger=PropertyChanged}"
+			<TextBox Text="{Binding PlanIntervall, UpdateSourceTrigger=PropertyChanged}"
 					 Grid.Column="0" />
-			<TextBlock Text="[min.]"
+			<TextBlock Text="[hh:mm:ss]"
 					   Grid.Column="1" />
 			<Button Content="Update!"
 					Command="{Binding CommandChangePlanIntervall}"
