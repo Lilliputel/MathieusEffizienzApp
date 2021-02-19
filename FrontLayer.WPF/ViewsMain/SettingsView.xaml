@@ -8,15 +8,18 @@
 	<StackPanel>
 		<Button Command="{Binding CommandChangeTheme}"
 				Content="{Binding ThemeButton, UpdateSourceTrigger=PropertyChanged, FallbackValue=Theme}"
-				HorizontalAlignment="Stretch" VerticalAlignment="Center"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
 				Margin="0,5"
-				Background="{DynamicResource SecondaryBrush}"/>
+				Background="{DynamicResource SecondaryBrush}" />
 		<Button Command="{Binding CommandChangeCountDirection}"
 				Content="Change countdirection!"
-				HorizontalAlignment="Stretch" VerticalAlignment="Center"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Center"
 				Margin="0,5"
-				Background="{DynamicResource SecondaryBrush}"/>
-		<ComboBox ItemsSource="{Binding Cultures}" x:Name="CultureComboBox"
+				Background="{DynamicResource SecondaryBrush}" />
+		<ComboBox ItemsSource="{Binding Cultures}"
+				  x:Name="CultureComboBox"
 				  SelectedItem="{Binding SelectedCulture}"
 				  Margin="0,5">
 			<ComboBox.ItemTemplate>
@@ -25,6 +28,20 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<TextBox Text="{Binding PlanIntervallMinutes, UpdateSourceTrigger=PropertyChanged}"
+					 Grid.Column="0" />
+			<TextBlock Text="[min.]"
+					   Grid.Column="1" />
+			<Button Content="Update!"
+					Command="{Binding CommandChangePlanIntervall}"
+					Grid.Column="2" />
+		</Grid>
 	</StackPanel>
-	
+
 </UserControl>

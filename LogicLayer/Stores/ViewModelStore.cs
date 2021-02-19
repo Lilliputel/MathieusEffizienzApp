@@ -45,7 +45,7 @@ namespace LogicLayer.Stores {
 		public NewGoalViewModel NewGoal
 			=> _NewGoal ??= new NewGoalViewModel( _DataService, _AlertService );
 		public NewDayTimeViewModel NewDayTime
-			=> _NewDayTime ??= new NewDayTimeViewModel( _DataService, _AlertService );
+			=> _NewDayTime ??= new NewDayTimeViewModel( _DataService, _AlertService, _SettingsStore );
 		#endregion
 
 		#region constructor

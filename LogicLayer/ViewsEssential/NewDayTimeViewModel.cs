@@ -16,6 +16,10 @@ namespace LogicLayer.Views {
 		private bool _Editing = false;
 		private readonly IRepository _DataService;
 		private readonly AlertStore _AlertService;
+		private readonly SettingsStore _SettingsStore;
+
+		private TimeSpan _StartTime;
+		private TimeSpan _EndTime;
 
 		private ICommand? _SaveDayTimeCommand;
 		private ICommand? _ChangedCategoryCommand;
@@ -29,8 +33,14 @@ namespace LogicLayer.Views {
 		public Category? SelectedCategory { get; set; }
 		[Required( AllowEmptyStrings = false, ErrorMessage = "The Day has to be defined!" )]
 		public DayOfWeek? DayOfWeek { get; set; }
-		public TimeSpan StartTime { get; set; }
-		public TimeSpan EndTime { get; set; }
+		public TimeSpan StartTime {
+			get => _StartTime;
+			set => SetTimeSpanNormalized( ref _StartTime, value );
+		}
+		public TimeSpan EndTime {
+			get => _EndTime;
+			set => SetTimeSpanNormalized( ref _EndTime, value );
+		}
 		public string? Warning { get; set; }
 		#endregion
 
@@ -60,9 +70,10 @@ namespace LogicLayer.Views {
 		#endregion
 
 		#region constructor
-		public NewDayTimeViewModel( IRepository dataService, AlertStore alertService ) {
+		public NewDayTimeViewModel( IRepository dataService, AlertStore alertService, SettingsStore settingsStore ) {
 			_DataService = dataService;
 			_AlertService = alertService;
+			_SettingsStore = settingsStore;
 			CategoryList = new ListCollectionView( _DataService.LoadAll() );
 		}
 		#endregion
@@ -93,6 +104,20 @@ namespace LogicLayer.Views {
 				Clear();
 				Warning = e.Message;
 			}
+		}
+		#endregion
+
+		#region private helpermethods
+		private void SetTimeSpanNormalized( ref TimeSpan field, TimeSpan value ) {
+			var remainder = value.TotalMinutes % _SettingsStore.PlanIntervallMinutes;
+			if( remainder == 0 ) {
+				field = value;
+				return;
+			}
+			var minutes = value.TotalMinutes - remainder;
+			if( remainder > _SettingsStore.PlanIntervallMinutes / 2 )
+				minutes += _SettingsStore.PlanIntervallMinutes;
+			field = TimeSpan.FromMinutes( minutes );
 		}
 		#endregion
 

@@ -44,16 +44,16 @@ namespace LogicLayer.Stores {
 			=> DarkMode = DarkMode is false;
 		#endregion
 
-		#region PlanIntervallFraction
-		private double _PlanIntervallFraction;
-		public double PlanIntervallFraction {
-			get => _PlanIntervallFraction;
+		#region PlanIntervallMinutes
+		private int _PlanIntervallMins;
+		public int PlanIntervallMinutes {
+			get => _PlanIntervallMins;
 			set {
-				_PlanIntervallFraction = value;
-				PlanIntervallFractionChanged?.Invoke( _PlanIntervallFraction );
+				_PlanIntervallMins = value;
+				PlanIntervallMinutesChanged?.Invoke( _PlanIntervallMins );
 			}
 		}
-		public Action<double>? PlanIntervallFractionChanged { get; init; }
+		public Action<int>? PlanIntervallMinutesChanged { get; init; }
 		#endregion
 
 	}

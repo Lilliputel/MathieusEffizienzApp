@@ -33,7 +33,7 @@ namespace FrontLayer.WPF {
 				CountingUpChanged = value => SetCountDirection( value ),
 				CurrentCultureChanged = value => SetCurrentCulture( value ),
 				DarkModeChanged = value => SetDarkMode( value ),
-				PlanIntervallFractionChanged = value => SetPlanIntervall( value ),
+				PlanIntervallMinutesChanged = value => SetPlanIntervall( value ),
 
 			};
 			_AlertService = new AlertStore( ShowMessageBoxOnAlert );
@@ -47,7 +47,7 @@ namespace FrontLayer.WPF {
 			_Settings.CountingUp = Settings.Default.CountingUp;
 			_Settings.CurrentCulture = CultureInfo.CreateSpecificCulture( Settings.Default.CurrentCulture );
 			_Settings.DarkMode = Settings.Default.DarkMode;
-			_Settings.PlanIntervallFraction = Settings.Default.PlanIntervallFraction;
+			_Settings.PlanIntervallMinutes = Settings.Default.PlanIntervallFraction;
 
 			base.OnStartup( e );
 			new MainWindow() { DataContext = new ViewModelMain( _ViewModels ) }.Show();

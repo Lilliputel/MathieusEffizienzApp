@@ -12,9 +12,11 @@ namespace LogicLayer.Views {
 		private readonly SettingsStore _SettingsStore;
 		private ICommand? _CommandChangeTheme;
 		private ICommand? _CommandChangeCountDirection;
+		private ICommand? _CommandChangePlanIntervall;
 		#endregion
 
 		#region public properties
+		public int PlanIntervallMinutes { get; set; }
 		public string ThemeButton
 			=> _SettingsStore.DarkMode ? "Light!" : "Dark!";
 		public CultureInfo SelectedCulture {
@@ -41,11 +43,17 @@ namespace LogicLayer.Views {
 				_SettingsStore.SwitchCountingUp();
 				Trace.WriteLine( $"SettingsVM set the CountDirection to {_SettingsStore.CountingUp}!" );
 			} );
+		public ICommand CommandChangePlanIntervall => _CommandChangePlanIntervall
+			??= new RelayCommand( parameter => {
+				_SettingsStore.PlanIntervallMinutes = PlanIntervallMinutes;
+				Trace.WriteLine( $"SettingsVM set the PlanIntervall to {PlanIntervallMinutes}min.!" );
+			} );
 		#endregion
 
 		#region constructor
 		public SettingsViewModel( SettingsStore settingsStore ) {
 			_SettingsStore = settingsStore;
+			PlanIntervallMinutes = _SettingsStore.PlanIntervallMinutes;
 			Cultures = CultureInfo.GetCultures( CultureTypes.SpecificCultures );
 		}
 		#endregion

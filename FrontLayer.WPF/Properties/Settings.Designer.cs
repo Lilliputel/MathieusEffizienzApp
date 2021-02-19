@@ -61,10 +61,10 @@ namespace FrontLayer.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.25")]
-        public double PlanIntervallFraction {
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int PlanIntervallFraction {
             get {
-                return ((double)(this["PlanIntervallFraction"]));
+                return ((int)(this["PlanIntervallFraction"]));
             }
             set {
                 this["PlanIntervallFraction"] = value;
